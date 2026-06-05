@@ -212,12 +212,12 @@ body.is-fill #yt {
 .balance__zone {
   font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
   color: var(--fg); min-height: 14px;
-  font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.8);
+  font-weight: 800; text-shadow: 0 0 3px #000, 0 0 5px #000, 0 1px 2px rgba(0,0,0,0.8);
 }
 .balance__row { display: flex; align-items: center; gap: 8px; width: 100%; }
 .balance__end {
   font-size: 10px; letter-spacing: .08em; color: rgba(255,255,255,.85); flex-shrink: 0; text-transform: uppercase;
-  font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.8);
+  font-weight: 800; text-shadow: 0 0 3px #000, 0 0 5px #000, 0 1px 2px rgba(0,0,0,0.8);
 }
 .balance__end--conscious { color: var(--conscious); }
 .balance__end--turnt { color: var(--turnt); }
@@ -481,14 +481,14 @@ body.is-fill #yt {
 }
 
 @media (max-width: 540px) {
-  /* ブランド: 左上に小さく固定（中央寄せやめる） */
+  /* ブランド: 左上に固定、サイズを少し拡大し上マージン微調整 */
   .brand {
-    top: calc(12px + env(safe-area-inset-top));
+    top: calc(10px + env(safe-area-inset-top));
     left: calc(16px + env(safe-area-inset-left));
     right: auto; transform: none;
     align-items: flex-start; text-align: left; gap: 6px;
   }
-  .brand__logo .logo-img--brand { height: 26px; }
+  .brand__logo .logo-img--brand { height: 30px; }
   .brand__tag { display: none; }
 
   /* フィルター: 超コンパクト化 */
@@ -514,11 +514,11 @@ body.is-fill #yt {
   .stage__nav svg { width: 18px; height: 18px; }
   .stage__nav.is-play { transform: translate(-50%, -50%); }
 
-  /* 右上ボタン: コンパクト */
-  .top-right { gap: 4px; top: calc(12px + env(safe-area-inset-top)); right: calc(16px + env(safe-area-inset-right)); }
-  .icon-btn { width: 32px; height: 32px; }
+  /* 右上ボタン: コンパクト化し、上マージンを微調整 */
+  .top-right { gap: 4px; top: calc(11px + env(safe-area-inset-top)); right: calc(16px + env(safe-area-inset-right)); }
+  .icon-btn { width: 28px; height: 28px; }
   .icon-btn--text { font-size: 11px; }
-  .lang-toggle { height: 32px; padding: 0 10px; font-size: 11px; }
+  .lang-toggle { height: 28px; padding: 0 10px; font-size: 11px; }
 
   /* dock: 下部をコンパクトに */
   .dock { gap: 8px; }
@@ -539,11 +539,11 @@ body.is-fill #yt {
 @media (orientation: landscape) and (max-height: 540px) {
   :root { --gap: 10px; }
   .brand {
-    top: calc(8px + env(safe-area-inset-top));
+    top: calc(7px + env(safe-area-inset-top));
     left: calc(12px + env(safe-area-inset-left)); right: auto; transform: none;
     align-items: flex-start; text-align: left; gap: 6px;
   }
-  .brand__logo .logo-img--brand { height: 24px; }
+  .brand__logo .logo-img--brand { height: 28px; }
   .brand__tag { display: none; }
   .regions { margin-top: 6px; gap: 4px; }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
@@ -558,9 +558,9 @@ body.is-fill #yt {
   .balance__zone { font-size: 11px; }
   .stage__nav { width: 38px; height: 38px; }
   .stage__nav svg { width: 20px; height: 20px; }
-  .icon-btn { width: 32px; height: 32px; }
+  .icon-btn { width: 26px; height: 26px; }
   .icon-btn--text { font-size: 11px; }
-  .lang-toggle { height: 32px; padding: 0 10px; font-size: 11px; }
+  .lang-toggle { height: 26px; padding: 0 10px; font-size: 11px; }
   .dock { bottom: calc(8px + env(safe-area-inset-bottom)); gap: 6px; }
   .meta { min-height: 0; }
   .meta__title { font-size: 15px; }
