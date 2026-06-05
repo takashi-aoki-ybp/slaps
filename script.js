@@ -550,7 +550,7 @@ async function onUrlInput() {
     const id = parseYouTubeId($('#ytUrl').value.trim());
     const preview = $('#preview');
     if (!id) { preview.hidden = true; $('#submitDo').disabled = true; return; }
-    $('#previewThumb').src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    $('#previewThumb').src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
     $('#previewTitle').textContent = 'Loading...';
     preview.hidden = false;
     $('#submitDo').disabled = false;
@@ -679,7 +679,7 @@ function toggleFav() {
   } else {
     favs.unshift({
       youtube_id: song.youtube_id, name: song.name, description: song.description || '',
-      user_name: song.user_name || '', thumbnail: song.thumbnail || `https://i.ytimg.com/vi/${song.youtube_id}/0.jpg`,
+      user_name: song.user_name || '', thumbnail: song.thumbnail || `https://img.youtube.com/vi/${song.youtube_id}/mqdefault.jpg`,
       region: song.region || null, era: song.era || null, conscious_turnt: CT(song),
     });
     showFavToast();
