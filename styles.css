@@ -73,9 +73,9 @@ body.is-pinned .player { pointer-events: auto; cursor: pointer; }
 /* ===== YouTube映像（フルブリード） ===== */
 .video-bg {
   position: fixed; z-index: 0; background: #000; overflow: hidden;
-  top: 0; bottom: 0;
-  left: calc(-1 * env(safe-area-inset-left, 0px));
-  right: calc(-1 * env(safe-area-inset-right, 0px));
+  top: -5px; bottom: -5px;
+  left: calc(-5px - env(safe-area-inset-left, 0px));
+  right: calc(-5px - env(safe-area-inset-right, 0px));
   transition: transform .35s cubic-bezier(.4, 0, .2, 1), opacity .35s ease;
 }
 .video-bg.slide-out-left  { transform: translateX(-12%); opacity: 0; }
@@ -89,10 +89,20 @@ body.is-pinned .player { pointer-events: auto; cursor: pointer; }
   border: 0; pointer-events: none;
   transition: width .5s ease, height .5s ease, min-width .5s ease, min-height .5s ease;
 }
-/* Fill mode: 4:3動画でも画面を覆うように1.4倍に拡大 */
+/* Fill mode: 4:3動画でも画面を覆うように拡大 */
 body.is-fill #yt {
   width: 140vw; height: 78.75vw;
   min-height: 140vh; min-width: 248.89vh;
+}
+/* ランドスケープ×4:3動画対策: さらに大きく */
+@media (orientation: landscape) {
+  #yt {
+    min-width: 200vh;
+  }
+  body.is-fill #yt {
+    width: 200vw; height: 112.5vw;
+    min-height: 200vh; min-width: 355.56vh;
+  }
 }
 .icon-btn.is-fill { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.4); }
 .icon-btn.is-fill .fill-icon { stroke: var(--conscious); }
