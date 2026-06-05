@@ -28,7 +28,7 @@ export function resetProgress() { $('#progressBar').style.width = '0%'; }
 let toastTimer = null;
 export function showToast(msg) {
   const el = $('#toast');
-  el.textContent = msg;
+  el.innerHTML = msg;
   el.classList.add('is-show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('is-show'), 3500);
@@ -262,8 +262,16 @@ export async function doSubmit() {
     lastSubmitTime = Date.now();
     closeModal();
     showToast(db.live ? window.i18n.t('toastAdded') : window.i18n.t('toastAddedLocal'));
-  } catch {
-    showToast(window.i18n.t('toastAddFail'));
+  } catch (error) {
+    if (error && error.message && error.message !== 'Submit failed') {
+      if (error.message.includes('already exists')) {
+        showToast(window.i18n.t('toastDuplicate'));
+      } else {
+        showToast(error.message);
+      }
+    } else {
+      showToast(window.i18n.t('toastAddFail'));
+    }
   } finally {
     btn.disabled = false;
   }

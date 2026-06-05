@@ -22,34 +22,40 @@ export default async function middleware(request) {
 
   // 動画IDがあり、かつクローラーからのアクセスの時のみOGPをインジェクト
   if (videoId && BOT_UA_REGEX.test(userAgent)) {
-    // Supabaseの環境変数を確認
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    const kvUrl = process.env.KV_REST_API_URL;
+    const kvToken = process.env.KV_REST_API_TOKEN;
 
     let songName = "";
     let thumbnail = `/api/og-image?v=${videoId}`;
 
-    if (supabaseUrl && supabaseKey) {
+    if (kvUrl && kvToken) {
       try {
-        // Supabase REST API を直接叩いて高速取得
-        const res = await fetch(
-          `${supabaseUrl}/rest/v1/songs?youtube_id=eq.${videoId}&select=name`,
-          {
-            headers: {
-              'apikey': supabaseKey,
-              'Authorization': `Bearer ${supabaseKey}`
+        const res = await fetch(kvUrl, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${kvToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(['LRANGE', 'slaps:songs', 0, -1])
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const rawList = data.result;
+          if (rawList && Array.isArray(rawList)) {
+            const song = rawList
+              .map(item => { try { return JSON.parse(item); } catch { return null; } })
+              .find(s => s && s.youtube_id === videoId);
+            if (song) {
+              songName = song.name;
             }
           }
-        );
-        const data = await res.json();
-        if (data && data.length > 0) {
-          songName = data[0].name;
         }
       } catch (e) {
-        // Supabase取得失敗時
+        // Silent catch
       }
-    } else {
-      // ローカル json へのフォールバック（Edge内でのfetch）
+    }
+
+    if (!songName) {
       try {
         const jsonUrl = new URL('./data/songs.json', request.url);
         const res = await fetch(jsonUrl);
@@ -59,7 +65,7 @@ export default async function middleware(request) {
           songName = song.name;
         }
       } catch (e) {
-        // フォールバック失敗時
+        // Fallback failed
       }
     }
 

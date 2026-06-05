@@ -29,6 +29,7 @@ export const db = {
   },
 
   async submit(song) {
+    let errRes = null;
     try {
       const res = await fetch('/api/submit', {
         method: 'POST',
@@ -36,12 +37,15 @@ export const db = {
         body: JSON.stringify(song)
       });
       if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Submit failed');
+        errRes = await res.json().catch(() => null);
+        throw new Error((errRes && errRes.error) || 'Submit failed');
       }
       const data = await res.json();
       return data.song || song;
     } catch (e) {
+      if (errRes) {
+        throw new Error((errRes && errRes.error) || 'Submit failed');
+      }
       console.warn('API submit failed, falling back to localStorage:', e);
       lsPush('slaps_submissions', song);
       return song;
