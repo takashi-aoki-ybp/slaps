@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SLAPS</title>
+  <meta name="description" content="Nothing but slaps. — HIPHOPに特化したオンラインジュークボックス。アルゴリズムに頼らず、人が選んだHIPHOPに偶然出会う。">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+
+  <!-- OGP -->
+  <meta property="og:title" content="SLAPS">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SLAPS">
+  <meta property="og:description" content="Nothing but slaps. — HIPHOPジュークボックス">
+  <!-- TODO: デプロイ時に絶対URLに変更すること e.g. https://slaps.example.com/ -->
+  <meta property="og:url" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SLAPS">
+  <meta name="twitter:description" content="Nothing but slaps.">
+  <!-- TODO: デプロイ時に絶対URLに変更すること e.g. https://slaps.example.com/assets/ogp.png -->
+  <meta property="og:image" content="./assets/ogp.png">
+  <meta name="twitter:image" content="./assets/ogp.png">
+
+  <!-- TODO: デプロイ時に絶対URLに変更すること -->
+  <link rel="canonical" href="">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SLAPS",
+    "description": "Nothing but slaps. — HIPHOPに特化したオンラインジュークボックス。アルゴリズムに頼らず、人が選んだHIPHOPに偶然出会う。",
+    "inLanguage": "en"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <!-- ===== イントロ ===== -->
+  <div class="intro" id="intro">
+    <h1 class="intro__logo">SLAPS</h1>
+    <p class="intro__tag">Nothing but slaps.</p>
+    <div class="intro__note">
+      <span class="intro__sub" id="introSub">アルゴリズムじゃ出会えない一曲を。</span>
+      <span class="intro__note-label">BETA</span>
+    </div>
+  </div>
+
+  <!-- ===== YouTube映像（フルブリード） ===== -->
+  <div class="video-bg"><div id="yt"></div></div>
+
+  <!-- ===== UIレイヤー ===== -->
+  <main class="player" id="player">
+    <div class="scrim scrim--top"></div>
+    <div class="scrim scrim--bottom"></div>
+
+    <!-- 右上：Pin + About -->
+    <div class="top-right chrome">
+      <button class="lang-toggle" id="langBtn" aria-label="Language"><span class="lang-opt" data-lang="ja">JP</span><span class="lang-sep">/</span><span class="lang-opt is-active" data-lang="en">EN</span></button>
+      <button class="icon-btn" id="fillBtn" aria-label="映像を拡大" aria-pressed="false" title="映像を画面いっぱいに拡大">
+        <svg class="fill-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+      <button class="icon-btn" id="pinBtn" aria-label="UIを常時表示" aria-pressed="false" title="UIを常時表示">
+        <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <a class="icon-btn" id="infoLink" href="#about" aria-label="About / このサイトについて">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </a>
+    </div>
+
+    <!-- 左上：ブランド＋フィルター -->
+    <header class="brand chrome">
+      <p class="brand__logo">SLAPS</p>
+      <p class="brand__tag">Nothing but slaps.</p>
+
+      <!-- 地域フィルター -->
+      <div class="regions" id="regions">
+        <button class="region__btn is-active" data-region="all">🌐 ALL</button>
+        <button class="region__btn" data-region="us">🇺🇸</button>
+        <button class="region__btn" data-region="jp">🇯🇵</button>
+        <button class="region__btn" data-region="uk">🇬🇧</button>
+        <button class="region__btn" data-region="fr">🇫🇷</button>
+        <button class="region__btn" data-region="kr">🇰🇷</button>
+        <button class="region__btn" data-region="other">🌍 OTHER</button>
+      </div>
+
+      <!-- 年代フィルター -->
+      <div class="eras" id="eras">
+        <button class="era__btn is-active" data-era="all">ALL</button>
+        <button class="era__btn" data-era="90s">90s</button>
+        <button class="era__btn" data-era="00s">00s</button>
+        <button class="era__btn" data-era="10s">10s</button>
+        <button class="era__btn" data-era="20s">20s+</button>
+      </div>
+
+      <!-- CONSCIOUS↔TURNT -->
+      <div class="balance" id="balance">
+        <span class="balance__zone" id="balanceZone">ALL</span>
+        <div class="balance__row">
+          <span class="balance__end balance__end--conscious">CONSCIOUS</span>
+          <input type="range" class="balance__range" id="balanceRange"
+                 min="0" max="5" step="0.5" value="2.5" aria-label="CONSCIOUS↔TURNT バランス">
+          <span class="balance__end balance__end--turnt">TURNT</span>
+        </div>
+        <div class="order" id="order" role="group" aria-label="Playback order">
+          <button class="order__btn is-active" data-order="shuffle">SHUFFLE</button>
+          <button class="order__btn" data-order="newest">LATEST</button>
+        </div>
+        <span class="track-count" id="trackCount" aria-live="polite"></span>
+      </div>
+    </header>
+
+    <!-- prev / play / next -->
+    <button class="stage__nav is-prev chrome" id="prevBtn" aria-label="前の曲">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="stage__nav is-next chrome" id="nextBtn" aria-label="次の曲">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <button class="stage__nav is-play chrome" id="playBtn" aria-label="再生 / 一時停止">
+      <svg class="ic-pause" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      <svg class="ic-play" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><polygon points="8 5 19 12 8 19"/></svg>
+    </button>
+
+    <!-- ピンON時のクリック一時停止フィードバック -->
+    <div class="tap-indicator" id="tapIndicator" hidden>
+      <svg class="tap-indicator__pause" viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      <svg class="tap-indicator__play" viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><polygon points="8 4 20 12 8 20"/></svg>
+    </div>
+
+    <!-- 下部：曲情報＋アクション -->
+    <div class="dock chrome">
+      <section class="meta" id="meta">
+        <h2 class="meta__title" id="metaTitle"></h2>
+        <p class="meta__desc" id="metaDesc"></p>
+        <div class="meta__foot">
+          <span class="meta__user" id="metaUser"></span>
+          <span class="meta__region" id="metaRegion"></span>
+        </div>
+      </section>
+      <div class="actions">
+        <div class="actions__row">
+          <button class="pill pill--primary" id="submitOpen">＋ Add Track</button>
+          <button class="pill" id="favBtn" aria-pressed="false">♡ Save</button>
+        </div>
+        <div class="actions__links">
+          <button class="report-link" id="favOpen">♡ Saved (<span id="favCount">0</span>)</button>
+          <button class="report-link" id="reportBtn">⚐ Report</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ミュート解除 -->
+  <button class="unmute" id="unmute" hidden>
+    <span class="unmute__icon">▶</span> START
+  </button>
+
+  <!-- お気に入りトースト -->
+  <div class="fav-toast" id="favToast" hidden>
+    <span class="fav-toast__msg">♥ Saved to this device only.<br>Not sent to server. Cleared if you clear browser data.</span>
+    <label class="fav-toast__check">
+      <input type="checkbox" id="favToastDismiss"> Don't show again
+    </label>
+  </div>
+
+  <!-- ===== 投稿モーダル ===== -->
+  <div class="modal" id="submitModal" hidden>
+    <div class="modal__panel">
+      <button class="modal__close" id="submitClose" aria-label="閉じる">×</button>
+      <h2 class="modal__h">Add Track</h2>
+      <p class="modal__lead">Paste a YouTube URL — that's all you need.<br>Details below are optional, but help others discover the track.</p>
+
+      <label class="field">
+        <span>YouTube URL <span class="field__req">*required</span></span>
+        <input type="url" id="ytUrl" placeholder="https://www.youtube.com/watch?v=...">
+      </label>
+
+      <div class="preview" id="preview" hidden>
+        <img id="previewThumb" alt="">
+        <p id="previewTitle"></p>
+      </div>
+
+      <div class="field">
+        <span>Vibe <span class="field__opt">optional</span></span>
+        <div class="balance balance--form" id="ytBalance">
+          <span class="balance__end balance__end--conscious">CONSCIOUS</span>
+          <input type="range" class="balance__range" id="ytConsTurnt" min="0" max="5" step="0.5" value="2.5" aria-label="CONSCIOUS↔TURNT">
+          <span class="balance__end balance__end--turnt">TURNT</span>
+          <span class="balance__formval" id="ytConsTurntVal">未設定</span>
+        </div>
+      </div>
+      <div class="field">
+        <span>Region <span class="field__opt">optional</span></span>
+        <select id="ytRegion">
+          <option value="" selected>-- Not set --</option>
+          <option value="us">🇺🇸 US</option>
+          <option value="jp">🇯🇵 JP</option>
+          <option value="uk">🇬🇧 UK</option>
+          <option value="fr">🇫🇷 FR</option>
+          <option value="kr">🇰🇷 KR</option>
+          <option value="other">🌍 Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <span>Era <span class="field__opt">optional</span></span>
+        <select id="ytEra">
+          <option value="" selected>-- Not set --</option>
+          <option value="90s">90s (1990-1999)</option>
+          <option value="00s">00s (2000-2009)</option>
+          <option value="10s">10s (2010-2019)</option>
+          <option value="20s">20s+ (2020-)</option>
+        </select>
+      </div>
+      <label class="field">
+        <span>Your Name <span class="field__opt">optional</span></span>
+        <input type="text" id="ytName" placeholder="Name / Nickname">
+      </label>
+      <label class="field">
+        <span>Comment <span class="field__opt">optional</span></span>
+        <textarea id="ytComment" rows="2" placeholder="What slaps about this track?"></textarea>
+      </label>
+
+      <button class="modal__submit" id="submitDo" disabled>Add to Jukebox</button>
+      <p class="modal__note">※ Added tracks are immediately public.</p>
+    </div>
+  </div>
+
+  <!-- ===== 報告モーダル ===== -->
+  <div class="modal" id="reportModal" hidden>
+    <div class="modal__panel">
+      <button class="modal__close" id="reportClose" aria-label="閉じる">×</button>
+      <h2 class="modal__h">Report Track</h2>
+      <p class="modal__lead" id="reportTarget"></p>
+      <label class="field">
+        <span>Reason</span>
+        <select id="reportReason">
+          <option>Inappropriate content</option>
+          <option>Video unavailable / deleted</option>
+          <option>Not HIPHOP</option>
+          <option>Duplicate</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Details (optional)</span>
+        <textarea id="reportNote" rows="2" placeholder="Tell us more"></textarea>
+      </label>
+      <button class="modal__submit" id="reportDo">Report</button>
+    </div>
+  </div>
+
+  <!-- ===== お気に入りモーダル ===== -->
+  <div class="modal" id="favModal" hidden>
+    <div class="modal__panel">
+      <button class="modal__close" id="favClose" aria-label="閉じる">×</button>
+      <h2 class="modal__h">Saved Tracks</h2>
+      <p class="modal__lead">Saved to this device only. Not sent to any server.</p>
+      <button class="modal__submit" id="favPlayAll" hidden>▶ Play Saved Only</button>
+      <div class="fav-list" id="favList"></div>
+      <p class="modal__note" id="favEmpty">No saved tracks yet. Hit ♡ Save on a track you like.</p>
+    </div>
+  </div>
+
+  <!-- ===== About オーバーレイ ===== -->
+  <div class="about-ov" id="aboutOverlay" hidden>
+    <button class="about-ov__close" id="aboutClose" aria-label="閉じる">×</button>
+    <div class="about-ov__inner">
+      <p class="about-ov__logo">SLAPS</p>
+      <p class="tag">Nothing but slaps.</p>
+
+      <h1 lang="ja">知らないヤバい曲に、偶然ぶつかる場所。</h1>
+      <p class="lead" lang="ja">
+        HIPHOPが好きで、でもアルゴリズムが勧めてくる曲はもう聞き飽きた。
+        サブスクのプレイリストは同じような曲ばっかり。もっとヤバい曲が世界中にあるはずなのに、
+        なかなか出会えない——そう思ったことないですか？
+      </p>
+      <p class="lead">
+        <strong>SLAPS</strong>はそんな不満から生まれた、HIPHOPに特化したオンラインジュークボックス。
+        アクセスしたら、誰かが「これヤバい」と思って手で選んだ曲がランダムで流れるだけ。
+      </p>
+
+      <h2>NO ALGORITHM. JUST SLAPS.</h2>
+      <p>
+        レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。
+        どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。
+      </p>
+
+      <h2>CONSCIOUS ↔ TURNT</h2>
+      <p>
+        HIPHOPの中でも気分は色々。内省的でリリカルな気分の時もあれば、
+        とにかくアガりたい時もある。だからジャンルじゃなく、
+        <strong><span class="conscious">CONSCIOUS</span>（内省）↔ <span class="turnt">TURNT</span>（アゲ）</strong>
+        という感覚軸だけ置いた。真ん中で全部、左で深い曲、右でブチ上がる曲。
+      </p>
+
+      <h2>使い方</h2>
+      <ul>
+        <li>開いた瞬間にランダム再生（最初はミュート。タップで音が出る）</li>
+        <li>左右のボタン／キー／スワイプで曲送り</li>
+        <li><span class="conscious">CONSCIOUS</span>↔<span class="turnt">TURNT</span> のバーで気分を絞る</li>
+        <li>🌐 で国を絞る（US / JP / UK / FR / KR …）</li>
+        <li>📌 でUIを固定（MVに集中したい時はOFF）</li>
+        <li>気に入ったら ♡ で保存（この端末だけに残る）</li>
+        <li>好きな曲はYouTubeのURLを貼るだけで誰でも追加OK</li>
+      </ul>
+
+      <hr>
+
+      <div class="en">
+        <h2>About (English)</h2>
+        <p>
+          <strong>SLAPS</strong> is a HIPHOP-only online jukebox. No recommendations, no history-based optimization —
+          just tracks picked by real people, played at random. One feel axis:
+          <span class="conscious">CONSCIOUS</span> ↔ <span class="turnt">TURNT</span>.
+          Filter by region, save favorites locally, add your own track by pasting a YouTube URL.
+          No rules. If it slaps, it belongs here.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== プログレスバー ===== -->
+  <div class="progress" id="progress"><div class="progress__bar" id="progressBar"></div></div>
+
+  <!-- ===== トースト通知 ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts: Supabase→設定→本体→YT API の順 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="./i18n.js"></script>
+  <script src="./config.js"></script>
+  <script src="./script.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+</body>
+</html>
