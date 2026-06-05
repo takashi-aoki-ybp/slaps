@@ -1,4 +1,10 @@
-import { next } from '@vercel/edge';
+function next() {
+  return new Response(null, {
+    headers: {
+      'x-middleware-next': '1'
+    }
+  });
+}
 
 // クローラー判定用の正規表現
 const BOT_UA_REGEX = /bot|crawl|spider|facebook|twitter|slack|discord|whatsapp|telegram/i;
