@@ -16,6 +16,7 @@ async function loadData() {
 
 // 起動処理
 document.addEventListener('DOMContentLoaded', () => {
+  window.__state = state;
   window.i18n.applyAll();
   setupUIListeners();
   loadData();

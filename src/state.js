@@ -2,6 +2,41 @@ export const REGION_LABELS = {
   us: '🇺🇸 US', jp: '🇯🇵 JP', uk: '🇬🇧 UK', fr: '🇫🇷 FR', kr: '🇰🇷 KR', other: '🌍', all: '🌐 ALL',
 };
 
+const PLAYED_KEY = 'slaps_played';
+const loadPlayed = () => {
+  try {
+    const arr = JSON.parse(localStorage.getItem(PLAYED_KEY) || '[]');
+    return new Set(arr);
+  } catch {
+    return new Set();
+  }
+};
+
+export function savePlayed() {
+  try {
+    localStorage.setItem(PLAYED_KEY, JSON.stringify([...state.played]));
+  } catch {
+    // quota exceeded — silently drop
+  }
+}
+
+const RECENT_KEY = 'slaps_recent';
+const loadRecent = () => {
+  try {
+    return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+  } catch {
+    return [];
+  }
+};
+
+export function saveRecent() {
+  try {
+    localStorage.setItem(RECENT_KEY, JSON.stringify(state.recent));
+  } catch {
+    // quota exceeded — silently drop
+  }
+}
+
 export const state = {
   all: [],
   balance: 2.5,       // CONSCIOUS(0) ↔ TURNT(5)
@@ -19,7 +54,8 @@ export const state = {
   pinned: false,       // UI固定
   fill: true,         // 映像拡大（4:3対応）— デフォルトON
   broken: new Set(),
-  played: new Set(),   // デッキシャッフル: 再生済みID
+  played: loadPlayed(),   // デッキシャッフル: 再生済みID
+  recent: loadRecent(),   // 直近再生曲のガード（最大10曲の配列）
 };
 
 export const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));
@@ -69,13 +105,41 @@ export function shuffle(arr) {
   }
 }
 
-// デッキシャッフル: 未再生曲を優先
+// デッキシャッフル: 未再生曲を優先し、かつ直近N曲（recent）を最後方に配置
 export function deckShuffle(arr) {
-  const unplayed = arr.filter((s) => !state.played.has(s.youtube_id));
-  if (unplayed.length === 0) { state.played.clear(); shuffle(arr); return; }
-  const played = arr.filter((s) => state.played.has(s.youtube_id));
-  shuffle(unplayed); shuffle(played);
-  arr.length = 0; arr.push(...unplayed, ...played);
+  let recentSet = new Set(state.recent);
+  
+  // 未再生で、かつ直近N曲に含まれない曲
+  const unplayedNotRecent = arr.filter((s) => !state.played.has(s.youtube_id) && !recentSet.has(s.youtube_id));
+  
+  // もし unplayedNotRecent が空の場合、再生完了（または recent ばかり）とみなし、このプール内の曲を履歴から部分クリアする
+  if (unplayedNotRecent.length === 0 && arr.length > 0) {
+    // プール内の曲のみを played と recent から削除
+    for (const song of arr) {
+      state.played.delete(song.youtube_id);
+    }
+    state.recent = state.recent.filter((id) => !arr.some((s) => s.youtube_id === id));
+    savePlayed();
+    saveRecent();
+    // Update local recentSet to reflect deletion
+    recentSet = new Set(state.recent);
+  }
+
+  // 状態分けしてシャッフル
+  // A: 未再生かつ直近でない曲
+  const poolA = arr.filter((s) => !state.played.has(s.youtube_id) && !recentSet.has(s.youtube_id));
+  // B: 直近再生された曲
+  const poolB = arr.filter((s) => recentSet.has(s.youtube_id));
+  // C: すでに再生済みで、かつ直近でない曲
+  const poolC = arr.filter((s) => state.played.has(s.youtube_id) && !recentSet.has(s.youtube_id));
+
+  shuffle(poolA);
+  shuffle(poolB);
+  shuffle(poolC);
+
+  arr.length = 0;
+  // 並び順：[未再生かつ直近でない] -> [再生済みかつ直近でない] -> [直近再生曲（最後方）]
+  arr.push(...poolA, ...poolC, ...poolB);
 }
 
 export function songTime(s) {
