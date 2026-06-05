@@ -33,11 +33,15 @@ const db = (() => {
   const cfg = window.SLAPS_CONFIG || {};
   const live = !!(cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && window.supabase);
   const sb = live ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY) : null;
-  if (live) console.log('[DB] Supabase connected.');
-  else console.log('[DB] Mock mode (local JSON + localStorage). Set keys in config.js for live DB.');
 
-  const lsGet = (k) => JSON.parse(localStorage.getItem(k) || '[]');
-  const lsPush = (k, v) => { const a = lsGet(k); a.unshift(v); localStorage.setItem(k, JSON.stringify(a)); };
+  const lsGet = (k) => { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch { return []; } };
+  const lsPush = (k, v) => {
+    const a = lsGet(k);
+    a.unshift(v);
+    const MAX_LS_ITEMS = 500;
+    while (a.length > MAX_LS_ITEMS) a.pop();
+    try { localStorage.setItem(k, JSON.stringify(a)); } catch { /* quota exceeded — silently drop */ }
+  };
 
   return {
     live,
@@ -51,7 +55,7 @@ const db = (() => {
           .limit(5000);
         const timeout = new Promise((res) => setTimeout(() => res({ data: null, error: { message: 'timeout' } }), 6000));
         const { data, error } = await Promise.race([query, timeout]);
-        if (error) console.error('[DB] loadSongs failed, falling back to JSON:', error.message);
+        if (error) { /* loadSongs failed, falling back to JSON */ }
         else return data;
       }
       const songs = await fetch('./data/songs.json').then((r) => r.json());
@@ -96,12 +100,12 @@ const db = (() => {
     async markBroken(id, code) {
       if (live) {
         const { error } = await sb.rpc('mark_broken', { p_youtube_id: id, p_code: code });
-        if (error) console.error('[DB] mark_broken failed:', error.message);
+        if (error) { /* mark_broken failed */ }
         return;
       }
       const arr = lsGet('slaps_broken');
       arr.push({ youtube_id: id, code, at: new Date().toISOString() });
-      localStorage.setItem('slaps_broken', JSON.stringify(arr));
+      try { localStorage.setItem('slaps_broken', JSON.stringify(arr)); } catch { /* quota exceeded */ }
     },
   };
 })();
@@ -168,7 +172,7 @@ function showFilterFeedback() {
   filterFeedbackTimer = setTimeout(() => {
     const n = playableCount();
     if (n === 0) {
-      showToast(i18n.t('noMatch'));
+      showToast(i18n.t('noMatch') + ' — ' + i18n.t('tryBroaderFilters'));
     } else if (state.region !== 'all' || state.era !== 'all') {
       showToast(i18n.t('filterApplied'));
     }
@@ -177,7 +181,7 @@ function showFilterFeedback() {
 
 // ---- CONSCIOUS↔TURNT バランス ----
 const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));
-function zoneLabel(v) { if (v <= 1.5) return 'CONSCIOUS'; if (v >= 3.5) return 'TURNT'; return 'ALL'; }
+function zoneLabel(v) { if (v <= 2) return 'CONSCIOUS'; if (v >= 4) return 'TURNT'; return 'ALL'; }
 
 function eligibleByBalance(p) {
   const live = getFilteredPool();
@@ -365,9 +369,14 @@ function startProgress() {
   stopProgress();
   (function tick() {
     if (!state.player || !state.ready) return;
-    const dur = state.player.getDuration() || 1;
-    const cur = state.player.getCurrentTime() || 0;
-    $('#progressBar').style.width = `${(cur / dur) * 100}%`;
+    try {
+      const dur = state.player.getDuration() || 1;
+      const cur = state.player.getCurrentTime() || 0;
+      $('#progressBar').style.width = `${(cur / dur) * 100}%`;
+    } catch {
+      stopProgress();
+      return;
+    }
     progressRAF = requestAnimationFrame(tick);
   })();
 }
@@ -411,7 +420,12 @@ function step(dir) {
   }
 }
 
+let isTransitioning = false;
 function slideTransition(dir) {
+  if (isTransitioning) return;
+  isTransitioning = true;
+  let loadCalled = false;
+
   const vb = document.querySelector('.video-bg');
   const outClass = dir > 0 ? 'slide-out-left' : 'slide-out-right';
   const inClass  = dir > 0 ? 'slide-in-left'  : 'slide-in-right';
@@ -422,7 +436,7 @@ function slideTransition(dir) {
   const onSlideOutEnd = () => {
     vb.removeEventListener('transitionend', onSlideOutEnd);
     // Load new video while offscreen
-    loadCurrent();
+    if (!loadCalled) { loadCalled = true; loadCurrent(); }
     // Phase 2: Jump to entry position (no transition)
     vb.classList.remove(outClass);
     vb.classList.add(inClass);
@@ -430,12 +444,17 @@ function slideTransition(dir) {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         vb.classList.remove(inClass);
+        isTransitioning = false;
       });
     });
   };
   vb.addEventListener('transitionend', onSlideOutEnd, { once: true });
   // Fallback if transitionend doesn't fire
-  setTimeout(() => { vb.classList.remove(outClass, inClass); }, 500);
+  setTimeout(() => {
+    vb.classList.remove(outClass, inClass);
+    if (!loadCalled) { loadCalled = true; loadCurrent(); }
+    isTransitioning = false;
+  }, 500);
 }
 
 function next() { step(1); }
@@ -524,22 +543,26 @@ function parseYouTubeId(url) {
   return m ? m[1] : null;
 }
 
+let urlInputDebounce = null;
 async function onUrlInput() {
-  const id = parseYouTubeId($('#ytUrl').value.trim());
-  const preview = $('#preview');
-  if (!id) { preview.hidden = true; $('#submitDo').disabled = true; return; }
-  $('#previewThumb').src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-  $('#previewTitle').textContent = 'Loading...';
-  preview.hidden = false;
-  $('#submitDo').disabled = false;
-  try {
-    const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
-    const data = await res.json();
-    $('#previewTitle').textContent = data.title || '(Title fetch failed)';
-    $('#previewTitle').dataset.title = data.title || '';
-  } catch {
-    $('#previewTitle').textContent = '(Title fetch failed)';
-  }
+  clearTimeout(urlInputDebounce);
+  urlInputDebounce = setTimeout(async () => {
+    const id = parseYouTubeId($('#ytUrl').value.trim());
+    const preview = $('#preview');
+    if (!id) { preview.hidden = true; $('#submitDo').disabled = true; return; }
+    $('#previewThumb').src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    $('#previewTitle').textContent = 'Loading...';
+    preview.hidden = false;
+    $('#submitDo').disabled = false;
+    try {
+      const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`);
+      const data = await res.json();
+      $('#previewTitle').textContent = data.title || '(Title fetch failed)';
+      $('#previewTitle').dataset.title = data.title || '';
+    } catch {
+      $('#previewTitle').textContent = '(Title fetch failed)';
+    }
+  }, 300);
 }
 
 let ytCtTouched = false;
@@ -550,7 +573,12 @@ ytCt.addEventListener('input', () => {
   $('#ytConsTurntVal').textContent = `${v.toFixed(1)} ${zoneLabel(v)}`;
 });
 
+let lastSubmitTime = 0;
 async function doSubmit() {
+  if (Date.now() - lastSubmitTime < 30000) {
+    showToast(i18n.t('toastWait'));
+    return;
+  }
   const id = parseYouTubeId($('#ytUrl').value.trim());
   if (!id) return;
   // 重複チェック
@@ -558,11 +586,14 @@ async function doSubmit() {
     showToast(i18n.t('toastDuplicate'));
     return;
   }
+  const rawName = ($('#previewTitle').dataset.title || 'Untitled').trim().slice(0, 100);
+  const rawDesc = $('#ytComment').value.trim().slice(0, 500);
+  const rawUser = ($('#ytName').value.trim() || i18n.t('anon')).slice(0, 50);
   const song = {
     youtube_id: id,
-    name: $('#previewTitle').dataset.title || 'Untitled',
-    description: $('#ytComment').value.trim(),
-    user_name: $('#ytName').value.trim() || i18n.t('anon'),
+    name: rawName,
+    description: rawDesc,
+    user_name: rawUser,
     thumbnail: `https://i.ytimg.com/vi/${id}/0.jpg`,
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
@@ -577,10 +608,10 @@ async function doSubmit() {
     if (!entry.created_at && !entry.publish_at) entry.created_at = new Date().toISOString();
     if (!state.all.some((s) => s.youtube_id === entry.youtube_id)) state.all.unshift(entry);
     updateTrackCount();
+    lastSubmitTime = Date.now();
     closeModal();
     showToast(db.live ? i18n.t('toastAdded') : i18n.t('toastAddedLocal'));
-  } catch (e) {
-    console.error('[SUBMIT] Failed:', e);
+  } catch {
     showToast(i18n.t('toastAddFail'));
   } finally {
     btn.disabled = false;
@@ -605,7 +636,12 @@ function openReport() {
   $('#reportModal').hidden = false;
 }
 function closeReport() { $('#reportModal').hidden = true; }
+let lastReportTime = 0;
 async function doReport() {
+  if (Date.now() - lastReportTime < 30000) {
+    showToast(i18n.t('toastWait'));
+    return;
+  }
   const song = current();
   if (!song) return;
   const report = {
@@ -618,9 +654,10 @@ async function doReport() {
   btn.disabled = true;
   try {
     await db.report(report);
+    lastReportTime = Date.now();
     closeReport();
     showToast(i18n.t('toastReported'));
-  } catch (e) {
+  } catch {
     showToast(i18n.t('toastReportFail'));
   } finally {
     btn.disabled = false;
@@ -630,7 +667,7 @@ async function doReport() {
 // ===== お気に入り =====
 const FAV_KEY = 'slaps_favorites';
 function favGet() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
-function favSave(arr) { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); }
+function favSave(arr) { try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); } catch { /* quota exceeded */ } }
 function isFav(id) { return favGet().some((f) => f.youtube_id === id); }
 
 function toggleFav() {
@@ -655,7 +692,7 @@ function toggleFav() {
 const FAV_NOTICE_OFF = 'slaps_fav_notice_off';
 let favToastTimer = null;
 function showFavToast() {
-  if (localStorage.getItem(FAV_NOTICE_OFF)) return;
+  try { if (localStorage.getItem(FAV_NOTICE_OFF)) return; } catch { return; }
   const t = $('#favToast');
   t.hidden = false;
   requestAnimationFrame(() => t.classList.add('is-show'));
@@ -669,8 +706,8 @@ function hideFavToast() {
 }
 $('#favToast').addEventListener('click', (e) => { if (e.target === $('#favToast')) hideFavToast(); });
 $('#favToastDismiss').addEventListener('change', (e) => {
-  if (e.target.checked) { localStorage.setItem(FAV_NOTICE_OFF, '1'); hideFavToast(); }
-  else localStorage.removeItem(FAV_NOTICE_OFF);
+  if (e.target.checked) { try { localStorage.setItem(FAV_NOTICE_OFF, '1'); } catch { /* ignore */ } hideFavToast(); }
+  else { try { localStorage.removeItem(FAV_NOTICE_OFF); } catch { /* ignore */ } }
 });
 
 function renderFavBtn() {
@@ -683,7 +720,7 @@ function renderFavBtn() {
 }
 function updateFavCount() { $('#favCount').textContent = favGet().length; }
 
-function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
 function openFavs() {
   const favs = favGet();
@@ -691,8 +728,8 @@ function openFavs() {
   $('#favEmpty').hidden = favs.length > 0;
   $('#favPlayAll').hidden = favs.length === 0;
   list.innerHTML = favs.map((f) => `
-    <div class="fav-item" data-yt="${f.youtube_id}">
-      <img class="fav-item__thumb" loading="lazy" src="${f.thumbnail}" alt="">
+    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}">
+      <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
       <div class="fav-item__body">
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
         <span class="fav-item__sub">${escapeHtml(f.user_name || i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
@@ -824,6 +861,9 @@ document.addEventListener('keydown', (e) => {
     if (!$('#favModal').hidden) { closeFavs(); return; }
     return;
   }
+  // モーダル/About表示中はArrow/Spaceを無視
+  const modalOpen = !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden;
+  if (modalOpen) return;
   if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
   else if (e.key === ' ' || e.code === 'Space') {
@@ -836,19 +876,28 @@ document.addEventListener('keydown', (e) => {
 
 // スワイプ（document レベルでキャプチャ — player の pointer-events:none を回避）
 let touchStart = null;
+let touchStartTarget = null;
 document.addEventListener('touchstart', (e) => {
   // モーダル / About 表示中は無視
   if (!$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden) return;
+  touchStartTarget = e.target;
   touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
 }, { passive: true });
 document.addEventListener('touchend', (e) => {
   if (!touchStart) return;
+  // フィルタースライダー上のスワイプは無視
+  if (touchStartTarget && touchStartTarget.closest('.chrome__filter, input[type=range]')) {
+    touchStart = null;
+    touchStartTarget = null;
+    return;
+  }
   const dx = e.changedTouches[0].clientX - touchStart.x;
   const dy = e.changedTouches[0].clientY - touchStart.y;
   if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
     dx < 0 ? next() : prev();
   }
   touchStart = null;
+  touchStartTarget = null;
 }, { passive: true });
 
 // ===== トースト通知 =====
@@ -880,8 +929,8 @@ function trapFocus(modal) {
 // ===== ⓘボタン パルスガイド =====
 const INFO_GUIDE_KEY = 'slaps_info_shown';
 function showInfoGuide() {
-  if (localStorage.getItem(INFO_GUIDE_KEY)) return;
-  localStorage.setItem(INFO_GUIDE_KEY, '1');
+  try { if (localStorage.getItem(INFO_GUIDE_KEY)) return; } catch { return; }
+  try { localStorage.setItem(INFO_GUIDE_KEY, '1'); } catch { /* ignore */ }
   setTimeout(() => {
     const btn = $('#infoLink');
     if (!btn) return;

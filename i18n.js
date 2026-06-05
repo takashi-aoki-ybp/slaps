@@ -55,6 +55,8 @@ const I18N = {
     toastSkip: 'Skipping unavailable track…',
     toastNetwork: 'Connection issues. Please check your network.',
     toastYtFail: 'YouTube connection failed. Please check your network or try again.',
+    toastWait: 'Please wait a moment before trying again.',
+    tryBroaderFilters: ' Try broadening your filters.',
     // about
     aboutH1: 'Stumble upon tracks you never knew existed.',
     aboutP1: "You love HIPHOP, but you're tired of what the algorithm keeps pushing. Playlists on streaming services all sound the same. There must be better tracks out there in the world — you just can't find them.",
@@ -138,6 +140,8 @@ const I18N = {
     toastSkip: '再生できない曲をスキップしています…',
     toastNetwork: '接続に問題があります。ネットワークを確認してください。',
     toastYtFail: 'YouTube接続に失敗しました。ネットワークを確認するか、もう一度お試しください。',
+    toastWait: '少しお待ちください。',
+    tryBroaderFilters: ' フィルターを広げてみてください。',
     aboutH1: '知らなかった曲に、偶然ぶつかる場所。',
     aboutP1: 'アルゴリズムが勧めてくる曲はもう聴き飽きた。サブスクのプレイリストは同じような曲ばっかり。もっと良い曲が世界中にあるはずなのに、なかなか出会えない。',
     aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。アクセスしたら、誰かが「これヤバい」と思い、選んだ曲がランダムで流れだす。',
@@ -184,6 +188,8 @@ const i18n = (() => {
   }
 
   function applyAll() {
+    // H-10: lang属性をブート時にも同期
+    document.documentElement.lang = getLang();
     // UI buttons
     const submitOpen = $('#submitOpen');
     if (submitOpen) submitOpen.textContent = t('addTrack');

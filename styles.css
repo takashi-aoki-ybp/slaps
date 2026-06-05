@@ -460,13 +460,13 @@ body.is-fill #yt {
     align-items: flex-start; text-align: left; gap: 6px;
   }
   .brand__logo .logo-img--brand { height: 22px; }
-  .brand__tag { font-size: 4.5px; letter-spacing: .06em; }
+  .brand__tag { display: none; }
 
   /* フィルター: 超コンパクト化 */
   .regions { margin-top: 6px; gap: 3px; max-width: 72vw; }
-  .region__btn { font-size: 10px; padding: 3px 7px; }
+  .region__btn { font-size: 10px; padding: 6px 8px; min-height: 32px; }
   .eras { margin-top: 4px; gap: 3px; max-width: 72vw; }
-  .era__btn { font-size: 9px; padding: 2px 7px; }
+  .era__btn { font-size: 9px; padding: 5px 8px; min-height: 32px; }
 
   /* バランススライダー: 横幅縮小 */
   .balance { margin-top: 6px; width: min(180px, 50vw); gap: 3px; align-items: flex-start; }
@@ -585,4 +585,13 @@ body.is-fill #yt {
 @keyframes pulseRing {
   0%   { transform: scale(1); opacity: .7; }
   100% { transform: scale(3); opacity: 0; }
+}
+
+/* ===== アクセシビリティ: モーション軽減 ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <title>SLAPS</title>
@@ -30,13 +30,14 @@
     "@type": "WebSite",
     "name": "SLAPS",
     "description": "Nothing but slaps. — HIPHOPに特化したオンラインジュークボックス。アルゴリズムに頼らず、人が選んだHIPHOPに偶然出会う。",
-    "inLanguage": "en"
+    "inLanguage": ["ja", "en"]
   }
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -60,11 +61,11 @@
 
     <!-- 右上：Pin + About -->
     <div class="top-right chrome">
-      <button class="lang-toggle" id="langBtn" aria-label="Language"><span class="lang-opt" data-lang="ja">JP</span><span class="lang-sep">/</span><span class="lang-opt is-active" data-lang="en">EN</span></button>
-      <button class="icon-btn" id="fillBtn" aria-label="映像を拡大" aria-pressed="false" title="映像を画面いっぱいに拡大">
+      <button type="button" class="lang-toggle" id="langBtn" aria-label="Language"><span class="lang-opt" data-lang="ja">JP</span><span class="lang-sep">/</span><span class="lang-opt is-active" data-lang="en">EN</span></button>
+      <button type="button" class="icon-btn" id="fillBtn" aria-label="映像を拡大" aria-pressed="false" title="映像を画面いっぱいに拡大">
         <svg class="fill-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
-      <button class="icon-btn" id="pinBtn" aria-label="UIを常時表示" aria-pressed="false" title="UIを常時表示">
+      <button type="button" class="icon-btn" id="pinBtn" aria-label="UIを常時表示" aria-pressed="false" title="UIを常時表示">
         <svg class="pin-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
       <a class="icon-btn" id="infoLink" href="#about" aria-label="About / このサイトについて">
@@ -79,22 +80,22 @@
 
       <!-- 地域フィルター -->
       <div class="regions" id="regions">
-        <button class="region__btn is-active" data-region="all">🌐 ALL</button>
-        <button class="region__btn" data-region="us">🇺🇸</button>
-        <button class="region__btn" data-region="jp">🇯🇵</button>
-        <button class="region__btn" data-region="uk">🇬🇧</button>
-        <button class="region__btn" data-region="fr">🇫🇷</button>
-        <button class="region__btn" data-region="kr">🇰🇷</button>
-        <button class="region__btn" data-region="other">🌍 OTHER</button>
+        <button type="button" class="region__btn is-active" data-region="all">🌐 ALL</button>
+        <button type="button" class="region__btn" data-region="us">🇺🇸</button>
+        <button type="button" class="region__btn" data-region="jp">🇯🇵</button>
+        <button type="button" class="region__btn" data-region="uk">🇬🇧</button>
+        <button type="button" class="region__btn" data-region="fr">🇫🇷</button>
+        <button type="button" class="region__btn" data-region="kr">🇰🇷</button>
+        <button type="button" class="region__btn" data-region="other">🌍 OTHER</button>
       </div>
 
       <!-- 年代フィルター -->
       <div class="eras" id="eras">
-        <button class="era__btn is-active" data-era="all">ALL</button>
-        <button class="era__btn" data-era="90s">90s</button>
-        <button class="era__btn" data-era="00s">00s</button>
-        <button class="era__btn" data-era="10s">10s</button>
-        <button class="era__btn" data-era="20s">20s+</button>
+        <button type="button" class="era__btn is-active" data-era="all">ALL</button>
+        <button type="button" class="era__btn" data-era="90s">90s</button>
+        <button type="button" class="era__btn" data-era="00s">00s</button>
+        <button type="button" class="era__btn" data-era="10s">10s</button>
+        <button type="button" class="era__btn" data-era="20s">20s+</button>
       </div>
 
       <!-- CONSCIOUS↔TURNT -->
@@ -107,21 +108,21 @@
           <span class="balance__end balance__end--turnt">TURNT</span>
         </div>
         <div class="order" id="order" role="group" aria-label="Playback order">
-          <button class="order__btn is-active" data-order="shuffle">SHUFFLE</button>
-          <button class="order__btn" data-order="newest">LATEST</button>
+          <button type="button" class="order__btn is-active" data-order="shuffle">SHUFFLE</button>
+          <button type="button" class="order__btn" data-order="newest">LATEST</button>
         </div>
         <span class="track-count" id="trackCount" aria-live="polite"></span>
       </div>
     </header>
 
     <!-- prev / play / next -->
-    <button class="stage__nav is-prev chrome" id="prevBtn" aria-label="前の曲">
+    <button type="button" class="stage__nav is-prev chrome" id="prevBtn" aria-label="前の曲">
       <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-    <button class="stage__nav is-next chrome" id="nextBtn" aria-label="次の曲">
+    <button type="button" class="stage__nav is-next chrome" id="nextBtn" aria-label="次の曲">
       <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
-    <button class="stage__nav is-play chrome" id="playBtn" aria-label="再生 / 一時停止">
+    <button type="button" class="stage__nav is-play chrome" id="playBtn" aria-label="再生 / 一時停止">
       <svg class="ic-pause" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
       <svg class="ic-play" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><polygon points="8 5 19 12 8 19"/></svg>
     </button>
@@ -134,7 +135,7 @@
 
     <!-- 下部：曲情報＋アクション -->
     <div class="dock chrome">
-      <section class="meta" id="meta">
+      <section class="meta" id="meta" aria-live="polite">
         <h2 class="meta__title" id="metaTitle"></h2>
         <p class="meta__desc" id="metaDesc"></p>
         <div class="meta__foot">
@@ -144,19 +145,19 @@
       </section>
       <div class="actions">
         <div class="actions__row">
-          <button class="pill pill--primary" id="submitOpen">＋ Add Track</button>
-          <button class="pill" id="favBtn" aria-pressed="false">♡ Save</button>
+          <button type="button" class="pill pill--primary" id="submitOpen">＋ Add Track</button>
+          <button type="button" class="pill" id="favBtn" aria-pressed="false">♡ Save</button>
         </div>
         <div class="actions__links">
-          <button class="report-link" id="favOpen">♡ Saved (<span id="favCount">0</span>)</button>
-          <button class="report-link" id="reportBtn">⚐ Report</button>
+          <button type="button" class="report-link" id="favOpen">♡ Saved (<span id="favCount">0</span>)</button>
+          <button type="button" class="report-link" id="reportBtn">⚐ Report</button>
         </div>
       </div>
     </div>
   </main>
 
   <!-- ミュート解除 -->
-  <button class="unmute" id="unmute" hidden>
+  <button type="button" class="unmute" id="unmute" hidden>
     <span class="unmute__icon">▶</span> START
   </button>
 
@@ -171,7 +172,7 @@
   <!-- ===== 投稿モーダル ===== -->
   <div class="modal" id="submitModal" hidden>
     <div class="modal__panel">
-      <button class="modal__close" id="submitClose" aria-label="閉じる">×</button>
+      <button type="button" class="modal__close" id="submitClose" aria-label="閉じる">×</button>
       <h2 class="modal__h">Add Track</h2>
       <p class="modal__lead">Paste a YouTube URL — that's all you need.<br>Details below are optional, but help others discover the track.</p>
 
@@ -225,7 +226,7 @@
         <textarea id="ytComment" rows="2" placeholder="What slaps about this track?"></textarea>
       </label>
 
-      <button class="modal__submit" id="submitDo" disabled>Add to Jukebox</button>
+      <button type="button" class="modal__submit" id="submitDo" disabled>Add to Jukebox</button>
       <p class="modal__note">※ Added tracks are immediately public.</p>
     </div>
   </div>
@@ -233,7 +234,7 @@
   <!-- ===== 報告モーダル ===== -->
   <div class="modal" id="reportModal" hidden>
     <div class="modal__panel">
-      <button class="modal__close" id="reportClose" aria-label="閉じる">×</button>
+      <button type="button" class="modal__close" id="reportClose" aria-label="閉じる">×</button>
       <h2 class="modal__h">Report Track</h2>
       <p class="modal__lead" id="reportTarget"></p>
       <label class="field">
@@ -250,17 +251,17 @@
         <span>Details (optional)</span>
         <textarea id="reportNote" rows="2" placeholder="Tell us more"></textarea>
       </label>
-      <button class="modal__submit" id="reportDo">Report</button>
+      <button type="button" class="modal__submit" id="reportDo">Report</button>
     </div>
   </div>
 
   <!-- ===== お気に入りモーダル ===== -->
   <div class="modal" id="favModal" hidden>
     <div class="modal__panel">
-      <button class="modal__close" id="favClose" aria-label="閉じる">×</button>
+      <button type="button" class="modal__close" id="favClose" aria-label="閉じる">×</button>
       <h2 class="modal__h">Saved Tracks</h2>
       <p class="modal__lead">Saved to this device only. Not sent to any server.</p>
-      <button class="modal__submit" id="favPlayAll" hidden>▶ Play Saved Only</button>
+      <button type="button" class="modal__submit" id="favPlayAll" hidden>▶ Play Saved Only</button>
       <div class="fav-list" id="favList"></div>
       <p class="modal__note" id="favEmpty">No saved tracks yet. Hit ♡ Save on a track you like.</p>
     </div>
@@ -268,7 +269,7 @@
 
   <!-- ===== About オーバーレイ ===== -->
   <div class="about-ov" id="aboutOverlay" hidden>
-    <button class="about-ov__close" id="aboutClose" aria-label="閉じる">×</button>
+    <button type="button" class="about-ov__close" id="aboutClose" aria-label="閉じる">×</button>
     <div class="about-ov__inner">
       <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
       <p class="tag">Nothing but slaps.</p>
@@ -331,7 +332,7 @@
   <div class="toast" id="toast"></div>
 
   <!-- Scripts: Supabase→設定→本体→YT API の順 -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./i18n.js"></script>
   <script src="./config.js"></script>
   <script src="./script.js"></script>
