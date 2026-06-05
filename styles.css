@@ -457,7 +457,7 @@ body.is-fill #yt {
   .brand {
     left: calc(var(--gap) + env(safe-area-inset-left));
     right: auto; transform: none;
-    align-items: flex-start; text-align: left; gap: 2px;
+    align-items: flex-start; text-align: left; gap: 6px;
   }
   .brand__logo .logo-img--brand { height: 22px; }
   .brand__tag { font-size: 4.5px; letter-spacing: .06em; }
@@ -511,7 +511,7 @@ body.is-fill #yt {
   .brand {
     top: calc(8px + env(safe-area-inset-top));
     left: calc(12px + env(safe-area-inset-left)); right: auto; transform: none;
-    align-items: flex-start; text-align: left; gap: 0;
+    align-items: flex-start; text-align: left; gap: 6px;
   }
   .brand__logo .logo-img--brand { height: 22px; }
   .brand__tag { display: none; }
