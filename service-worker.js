@@ -1,14 +1,14 @@
-const CACHE_NAME = 'slaps-v2.2';
+const CACHE_NAME = 'slaps-v2.3';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=2.2',
-  './script.js?v=2.2',
-  './i18n.js?v=2.2',
-  './src/state.js?v=2.2',
-  './src/db.js?v=2.2',
-  './src/player.js?v=2.2',
-  './src/ui.js?v=2.2',
+  './styles.css?v=2.3',
+  './script.js?v=2.3',
+  './i18n.js?v=2.3',
+  './src/state.js?v=2.3',
+  './src/db.js?v=2.3',
+  './src/player.js?v=2.3',
+  './src/ui.js?v=2.3',
   './manifest.json',
   './assets/logo.png',
   './assets/apple-touch-icon.png',

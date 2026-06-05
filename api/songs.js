@@ -27,17 +27,17 @@ export default async function handler(req, res) {
     const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
     let dbSongs = [];
+    const brokenVotes = {};
     const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
     if (kvEnabled) {
-      const rawList = await kvFetch(['LRANGE', 'slaps:songs', '0', '-1']);
+      const [rawList, rawBroken] = await Promise.all([
+        kvFetch(['LRANGE', 'slaps:songs', '0', '-1']),
+        kvFetch(['HGETALL', 'slaps:broken'])
+      ]);
+
       if (rawList && Array.isArray(rawList)) {
         dbSongs = rawList.map(item => JSON.parse(item));
       }
-    }
-
-    const brokenVotes = {};
-    if (kvEnabled) {
-      const rawBroken = await kvFetch(['HGETALL', 'slaps:broken']);
       if (rawBroken && Array.isArray(rawBroken)) {
         for (let i = 0; i < rawBroken.length; i += 2) {
           brokenVotes[rawBroken[i]] = parseInt(rawBroken[i+1], 10);
