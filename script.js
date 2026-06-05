@@ -864,8 +864,9 @@ function trapFocus(modal) {
 const COACH_KEY = 'slaps_coach_done';
 const INFO_GUIDE_KEY = 'slaps_info_shown';
 function showInfoGuide() {
-  if (localStorage.getItem(INFO_GUIDE_KEY)) return;
-  localStorage.setItem(INFO_GUIDE_KEY, '1');
+  // TODO: テスト後にlocalStorage制限を戻す
+  // if (localStorage.getItem(INFO_GUIDE_KEY)) return;
+  // localStorage.setItem(INFO_GUIDE_KEY, '1');
   setTimeout(() => {
     const btn = $('#infoLink');
     if (!btn) return;

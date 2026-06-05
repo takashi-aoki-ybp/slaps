@@ -147,7 +147,7 @@ const I18N = {
     aboutPct: 'HIPHOPの中でも気分は色々。内省的でリリカルな気分の時もあれば、とにかくアガりたい時もある。だからジャンルじゃなく、<strong><span class="conscious">CONSCIOUS</span>（内省的）↔ <span class="turnt">TURNT</span>（アッパー）</strong>という感覚軸だけ置いた。真ん中で全部、左で深い曲、右で上がる曲。',
     aboutH2how: '使い方',
     aboutHow: [
-      '開いた瞬間にランダム再生（最初はミュート。タップで音が出る）',
+      '開いた瞬間にランダム再生',
       '左右のボタン／キー／スワイプで曲送り',
       '<span class="conscious">CONSCIOUS</span>↔<span class="turnt">TURNT</span> のバーで気分を絞る',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> で国を絞る（US / JP / UK / FR / KR …）',
