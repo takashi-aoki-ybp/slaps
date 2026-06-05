@@ -172,12 +172,9 @@ body.is-fill #yt {
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-right: 12px;
-  mask-image: linear-gradient(to right, #000 calc(100% - 16px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 16px), transparent 100%);
 }
 .regions::-webkit-scrollbar { display: none; }
-.regions.is-end { mask-image: none; -webkit-mask-image: none; }
-.regions > *:last-child { margin-right: 28px; }
+.regions > *:last-child { margin-right: 12px; }
 .region__btn {
   font-size: 14px; padding: 5px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -196,7 +193,7 @@ body.is-fill #yt {
   scrollbar-width: none;
 }
 .eras::-webkit-scrollbar { display: none; }
-.eras > *:last-child { margin-right: 28px; }
+.eras > *:last-child { margin-right: 12px; }
 .era__btn {
   font-size: 13px; padding: 4px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -497,10 +494,8 @@ body.is-fill #yt {
 
   /* フィルター: 超コンパクト化 */
   .regions { margin-top: 6px; gap: 4px; max-width: 72vw; }
-  .regions > *:last-child { margin-right: 36px; }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
   .eras { margin-top: 4px; gap: 4px; max-width: 72vw; }
-  .eras > *:last-child { margin-right: 36px; }
   .era__btn { font-size: 11px; padding: 5px 9px; min-height: 34px; }
 
   /* バランススライダー: 横幅縮小 */
@@ -553,10 +548,8 @@ body.is-fill #yt {
   .brand__logo .logo-img--brand { height: 28px; }
   .brand__tag { display: none; }
   .regions { margin-top: 6px; gap: 4px; }
-  .regions > *:last-child { margin-right: 36px; }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
   .eras { margin-top: 4px; gap: 4px; }
-  .eras > *:last-child { margin-right: 36px; }
   .era__btn { font-size: 11px; padding: 5px 8px; min-height: 34px; }
   .balance {
     position: fixed; z-index: 2;

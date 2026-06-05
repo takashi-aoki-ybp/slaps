@@ -634,21 +634,10 @@ export function setupUIListeners() {
   });
 
   // Regions
-  function updateRegionsMask() {
-    const el = $('#regions');
-    if (!el) return;
-    const isScrollable = el.scrollWidth > el.clientWidth;
-    const isEnd = !isScrollable || (el.scrollLeft + el.clientWidth >= el.scrollWidth - 24);
-    el.classList.toggle('is-end', isEnd);
-  }
   $('#regions').addEventListener('click', (e) => {
     const btn = e.target.closest('.region__btn');
     if (btn) setRegion(btn.dataset.region);
   });
-  $('#regions').addEventListener('scroll', updateRegionsMask, { passive: true });
-  window.addEventListener('resize', updateRegionsMask, { passive: true });
-  window.addEventListener('load', updateRegionsMask);
-  updateRegionsMask();
 
   // Eras
   $('#eras').addEventListener('click', (e) => {
