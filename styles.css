@@ -172,12 +172,12 @@ body.is-fill #yt {
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-right: 12px;
-  mask-image: linear-gradient(to right, #000 95%, transparent);
-  -webkit-mask-image: linear-gradient(to right, #000 95%, transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent 100%);
 }
 .regions::-webkit-scrollbar { display: none; }
 .regions.is-end { mask-image: none; -webkit-mask-image: none; }
-.regions > *:last-child { margin-right: 16px; }
+.regions > *:last-child { margin-right: 24px; }
 .region__btn {
   font-size: 14px; padding: 5px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -196,7 +196,7 @@ body.is-fill #yt {
   scrollbar-width: none;
 }
 .eras::-webkit-scrollbar { display: none; }
-.eras > *:last-child { margin-right: 16px; }
+.eras > *:last-child { margin-right: 24px; }
 .era__btn {
   font-size: 13px; padding: 4px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);

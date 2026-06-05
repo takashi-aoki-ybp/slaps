@@ -638,7 +638,7 @@ export function setupUIListeners() {
     const el = $('#regions');
     if (!el) return;
     const isScrollable = el.scrollWidth > el.clientWidth;
-    const isEnd = !isScrollable || (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10);
+    const isEnd = !isScrollable || (el.scrollLeft + el.clientWidth >= el.scrollWidth - 18);
     el.classList.toggle('is-end', isEnd);
   }
   $('#regions').addEventListener('click', (e) => {
