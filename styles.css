@@ -563,13 +563,25 @@ body.is-fill #yt {
 }
 .toast.is-show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
 
-/* ===== coach marks (first visit) ===== */
-.coach-tip {
-  position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
-  white-space: nowrap; font-size: 10px; color: var(--dim);
-  background: rgba(0,0,0,.75); border: 1px solid var(--line); border-radius: 6px;
-  padding: 3px 8px; pointer-events: none;
-  animation: coachIn .4s ease;
+/* ===== ⓘ パルスガイド =====*/
+.guide-pulse {
+  position: relative;
+  z-index: 10;
 }
-.coach-tip.is-out { opacity: 0; transition: opacity .5s ease; }
-@keyframes coachIn { from { opacity: 0; transform: translateX(-50%) translateY(-4px); } }
+.guide-pulse::before,
+.guide-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .6);
+  animation: pulseRing 1.8s ease-out infinite;
+  pointer-events: none;
+}
+.guide-pulse::after {
+  animation-delay: .6s;
+}
+@keyframes pulseRing {
+  0%   { transform: scale(1); opacity: .7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}

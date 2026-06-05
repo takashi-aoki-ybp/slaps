@@ -860,8 +860,7 @@ function trapFocus(modal) {
   if (m) trapFocus(m);
 });
 
-// ===== アイコンボタン コーチマーク（初回のみ） =====
-const COACH_KEY = 'slaps_coach_done';
+// ===== ⓘボタン パルスガイド =====
 const INFO_GUIDE_KEY = 'slaps_info_shown';
 function showInfoGuide() {
   // TODO: テスト後にlocalStorage制限を戻す
@@ -870,16 +869,12 @@ function showInfoGuide() {
   setTimeout(() => {
     const btn = $('#infoLink');
     if (!btn) return;
-    const tip = document.createElement('span');
-    tip.className = 'coach-tip';
-    tip.textContent = i18n.t('coachAbout');
-    btn.style.position = 'relative';
-    btn.appendChild(tip);
-    setTimeout(() => {
-      tip.classList.add('is-out');
-      setTimeout(() => tip.remove(), 600);
-    }, 5000);
-  }, 5000);
+    btn.classList.add('guide-pulse');
+    // クリックまたは8秒後に停止
+    const stop = () => btn.classList.remove('guide-pulse');
+    btn.addEventListener('click', stop, { once: true });
+    setTimeout(stop, 8000);
+  }, 3000);
 }
 
 // ===== 言語切り替え =====
