@@ -800,8 +800,8 @@ $('#favModal').addEventListener('click', (e) => { if (e.target === $('#favModal'
 
 // About overlay
 const aboutOverlay = $('#aboutOverlay');
-$('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; });
-$('#aboutClose').addEventListener('click', () => { aboutOverlay.hidden = true; });
+$('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'auto'; });
+$('#aboutClose').addEventListener('click', () => { aboutOverlay.hidden = true; document.body.style.overflow = ''; });
 
 $('#favList').addEventListener('click', (e) => {
   const item = e.target.closest('.fav-item');
@@ -855,7 +855,7 @@ document.addEventListener('visibilitychange', () => {
 document.addEventListener('keydown', (e) => {
   if (e.target.closest('input, textarea, select')) return;
   if (e.key === 'Escape') {
-    if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; return; }
+    if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; document.body.style.overflow = ''; return; }
     if (!$('#submitModal').hidden) { closeModal(); return; }
     if (!$('#reportModal').hidden) { closeReport(); return; }
     if (!$('#favModal').hidden) { closeFavs(); return; }
@@ -916,12 +916,12 @@ function trapFocus(modal) {
   if (!focusable.length) return;
   const first = focusable[0], last = focusable[focusable.length - 1];
   modal.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
+    if (modal.hidden || e.key !== 'Tab') return;
     if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
     else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
   });
 }
-['#submitModal', '#reportModal', '#favModal'].forEach((sel) => {
+['#submitModal', '#reportModal', '#favModal', '#aboutOverlay'].forEach((sel) => {
   const m = $(sel);
   if (m) trapFocus(m);
 });

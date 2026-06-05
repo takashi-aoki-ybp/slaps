@@ -96,14 +96,14 @@ body.is-started.is-pinned .player { pointer-events: auto; cursor: pointer; }
 }
 /* Fill mode: 4:3動画でも画面を覆うように拡大 */
 body.is-fill #yt {
-  width: 140%; height: 78.75vw;
-  min-height: 140%; min-width: 248.89vh;
+  width: 120%; height: 67.5vw;
+  min-height: 120%; min-width: 213.33vh;
 }
 /* ランドスケープ: さらに攻める */
 @media (orientation: landscape) {
   body.is-fill #yt {
-    width: 180%; height: 112.5vw;
-    min-height: 180%; min-width: 320vh;
+    width: 150%; height: 93.75vw;
+    min-height: 150%; min-width: 266.67vh;
   }
 }
 .icon-btn.is-fill { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.4); }
