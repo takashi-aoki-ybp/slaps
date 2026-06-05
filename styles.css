@@ -168,13 +168,13 @@ body.is-fill #yt {
 .regions {
   margin-top: 12px;
   display: flex; gap: 4px; flex-wrap: nowrap;
-  max-width: 480px;
+  max-width: calc(100vw - 220px);
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-right: 12px;
 }
 .regions::-webkit-scrollbar { display: none; }
-.regions > *:last-child { margin-right: 12px; }
+.regions > *:last-child { margin-right: 24px; }
 .region__btn {
   font-size: 14px; padding: 5px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -188,12 +188,12 @@ body.is-fill #yt {
 .eras {
   margin-top: 6px;
   display: flex; gap: 4px; flex-wrap: nowrap;
-  max-width: 400px;
+  max-width: calc(100vw - 220px);
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 .eras::-webkit-scrollbar { display: none; }
-.eras > *:last-child { margin-right: 12px; }
+.eras > *:last-child { margin-right: 24px; }
 .era__btn {
   font-size: 13px; padding: 4px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -493,9 +493,9 @@ body.is-fill #yt {
   .brand__tag { display: none; }
 
   /* フィルター: 超コンパクト化（画面幅いっぱいに広げてスクロール領域を最大化） */
-  .regions { margin-top: 6px; gap: 4px; max-width: calc(100vw - 32px); }
+  .regions { margin-top: 6px; gap: 4px; max-width: none; width: calc(100vw - 32px); }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
-  .eras { margin-top: 4px; gap: 4px; max-width: calc(100vw - 32px); }
+  .eras { margin-top: 4px; gap: 4px; max-width: none; width: calc(100vw - 32px); }
   .era__btn { font-size: 11px; padding: 5px 9px; min-height: 34px; }
 
   /* バランススライダー: 横幅縮小 */
