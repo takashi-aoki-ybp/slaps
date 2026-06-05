@@ -425,6 +425,14 @@ body.is-fill #yt {
 @keyframes aboutIn { from { opacity: 0; } }
 .about-ov__inner { max-width: 680px; margin: 0 auto; line-height: 1.9; }
 .about-icon { vertical-align: -2px; opacity: .8; display: inline; }
+.about-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  font-size: 9px; font-weight: 700; font-family: 'Inter', sans-serif;
+  color: var(--fg); border: 1px solid var(--line);
+  background: rgba(255,255,255,.08);
+  line-height: 1; vertical-align: middle; margin: 0 2px;
+}
 .about-ov__close {
   position: sticky; top: 14px; float: right;
   z-index: 61;
