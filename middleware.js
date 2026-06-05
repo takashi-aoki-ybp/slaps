@@ -13,8 +13,8 @@ export default async function middleware(request) {
   const url = new URL(request.url);
   const userAgent = request.headers.get('user-agent') || '';
 
-  // 拡張子（.css, .js, 画像等）へのリクエストは無視
-  if (url.pathname.includes('.') && !url.pathname.endsWith('.html')) {
+  // 拡張子（.css, .js, 画像等）および /api/ へのリクエストは無視
+  if (url.pathname.startsWith('/api/') || (url.pathname.includes('.') && !url.pathname.endsWith('.html'))) {
     return next();
   }
 
