@@ -493,7 +493,7 @@ body.is-fill #yt {
   .brand__tag { display: none; }
 
   /* フィルター: 超コンパクト化（画面幅いっぱいに広げてスクロール領域を最大化） */
-  .regions { margin-top: 6px; gap: 4px; max-width: none; width: calc(100vw - 32px); }
+  .regions { margin-top: 20px; gap: 4px; max-width: none; width: calc(100vw - 32px); }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
   .eras { margin-top: 4px; gap: 4px; max-width: none; width: calc(100vw - 32px); }
   .era__btn { font-size: 11px; padding: 5px 9px; min-height: 34px; }
