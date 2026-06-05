@@ -137,31 +137,12 @@ export function setEra(era) {
 }
 
 export async function setOrder(order) {
-  if (order === state.order) return;
+  if (order === state.order && order !== 'newest') return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.order === order));
 
-  if (order === 'newest') {
-    const btn = document.querySelector('[data-order="newest"]');
-    const originalHTML = btn ? btn.innerHTML : '';
-    if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
-    try {
-      const res = await fetch(`/api/songs?t=${Date.now()}`, { cache: 'no-store' });
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data)) {
-          state.all = data;
-          updateTrackCount();
-        }
-      }
-    } catch (e) {
-      console.warn('Failed to refresh songs on LATEST click:', e);
-    } finally {
-      if (btn) btn.innerHTML = originalHTML;
-    }
-  }
-
+  // 1. Immediately apply order to the queue based on current memory
   if (state.favMode) {
     const cur = current();
     applyOrder(state.queue);
@@ -169,7 +150,38 @@ export async function setOrder(order) {
     else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
     if (state.ready) loadCurrent();
   } else {
-    setBalance(state.balance);
+    // If LATEST (newest) is clicked, we want to play the newest song (index 0) immediately.
+    // Otherwise (e.g. SHUFFLE), we keep the current playing song seamless.
+    const isNewestClick = (order === 'newest');
+    setBalance(state.balance, { keep: !isNewestClick });
+  }
+
+  // 2. Fetch latest database songs in the background if LATEST is selected
+  if (order === 'newest') {
+    const btn = document.querySelector('[data-order="newest"]');
+    const originalHTML = btn ? btn.innerHTML : '';
+    // Avoid backing up the loading "..." HTML on rapid double-clicks
+    const fixedOriginalHTML = (originalHTML && originalHTML.includes('...')) ? 'LATEST' : originalHTML;
+    if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
+    try {
+      const res = await fetch(`/api/songs?t=${Date.now()}`, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        // Check if the user hasn't switched away from LATEST while waiting
+        if (Array.isArray(data) && state.order === 'newest') {
+          state.all = data;
+          updateTrackCount();
+          if (!state.favMode) {
+            // Once background fetch completes, always keep current song to prevent sudden audio resets
+            setBalance(state.balance, { keep: true });
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to refresh songs on LATEST click:', e);
+    } finally {
+      if (btn) btn.innerHTML = fixedOriginalHTML;
+    }
   }
 }
 
