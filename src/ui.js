@@ -89,6 +89,16 @@ export function setBalance(p, opts = {}) {
   state.queue = eligibleByBalance(p);
   applyOrder(state.queue);
   updateVibeColor(p);
+  if (opts.shareId) {
+    const targetSong = state.all.find((s) => s.youtube_id === opts.shareId);
+    if (targetSong) {
+      const filtered = state.queue.filter((s) => s.youtube_id !== opts.shareId);
+      state.queue = [targetSong, ...filtered];
+      state.index = 0;
+      if (state.ready && state.queue.length) loadCurrent();
+      return;
+    }
+  }
   if (opts.keep && cur) {
     if (state.order === 'shuffle') {
       const filtered = state.queue.filter((s) => s.youtube_id !== cur.youtube_id);

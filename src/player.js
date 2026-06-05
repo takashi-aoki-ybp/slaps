@@ -73,7 +73,9 @@ export function markBroken(id, code) {
 export function tryStart() {
   if (state.started || !state.ready || !state.all.length) return;
   state.started = true;
-  setBalance(2.5);
+  const params = new URLSearchParams(window.location.search);
+  const shareId = params.get('v');
+  setBalance(2.5, { shareId });
   runIntro();
 }
 
