@@ -344,8 +344,14 @@ function runIntro() {
     intro.remove();
     document.body.classList.add('is-live');
     $('#unmute').hidden = false;
-    showCoachMarks();
-    wake();
+    // モバイルランドスケープ: UI即非表示（映像没入優先）
+    const isMobileLandscape = window.matchMedia('(orientation: landscape) and (max-height: 500px)').matches;
+    if (isMobileLandscape && !state.pinned) {
+      document.body.classList.add('is-idle');
+    } else {
+      showCoachMarks();
+      wake();
+    }
   }, 6000);
 }
 
