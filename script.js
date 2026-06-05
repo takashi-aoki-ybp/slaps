@@ -889,7 +889,7 @@ document.addEventListener('touchstart', (e) => {
 document.addEventListener('touchend', (e) => {
   if (!touchStart) return;
   // フィルタースライダー上のスワイプは無視
-  if (touchStartTarget && touchStartTarget.closest('.chrome__filter, input[type=range]')) {
+  if (touchStartTarget && touchStartTarget.closest('.regions, .eras, .balance, .order, input[type=range]')) {
     touchStart = null;
     touchStartTarget = null;
     return;
