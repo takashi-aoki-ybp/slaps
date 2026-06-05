@@ -11,6 +11,8 @@ const I18N = {
     addTrack: '＋ Add Track',
     save: '♡ Save',
     saved: '♥ Saved',
+    share: '🔗 Share',
+    shareCopied: 'Link copied to clipboard!',
     report: '⚐ Report',
     start: '▶ START',
     // submit modal
@@ -101,6 +103,8 @@ const I18N = {
     addTrack: '＋ 曲を追加',
     save: '♡ 保存',
     saved: '♥ 保存済',
+    share: '🔗 共有',
+    shareCopied: 'リンクをクリップボードにコピーしました！',
     report: '⚐ 報告',
     start: '▶ START',
     modalTitle: '曲を追加',
@@ -194,6 +198,8 @@ const i18n = (() => {
     const submitOpen = $('#submitOpen');
     if (submitOpen) submitOpen.textContent = t('addTrack');
     if (typeof renderFavBtn === 'function') renderFavBtn();
+    const shareBtn = $('#shareBtn');
+    if (shareBtn) shareBtn.textContent = t('share');
     const reportBtn = $('#reportBtn');
     if (reportBtn) reportBtn.textContent = t('report');
 

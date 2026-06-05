@@ -797,6 +797,50 @@ $('#reportClose').addEventListener('click', closeReport);
 $('#reportDo').addEventListener('click', doReport);
 $('#submitDo').disabled = true;
 
+async function doShare() {
+  const song = current();
+  if (!song) return;
+  const shareUrl = `${window.location.origin}/?v=${song.youtube_id}`;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile && navigator.share) {
+    try {
+      let desc = '';
+      if (song.description) {
+        if (typeof song.description === 'string') {
+          desc = song.description;
+        } else {
+          desc = song.description[i18n.getLang()] || song.description.en || song.description.ja || '';
+        }
+      }
+      await navigator.share({
+        title: song.name,
+        text: desc,
+        url: shareUrl
+      });
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(shareUrl);
+    showToast(i18n.t('shareCopied'));
+  } catch (_) {
+    const input = document.createElement('input');
+    input.value = shareUrl;
+    input.style.position = 'absolute';
+    input.style.opacity = '0';
+    document.body.appendChild(input);
+    input.select();
+    try {
+      document.execCommand('copy');
+      showToast(i18n.t('shareCopied'));
+    } catch (__ون) {}
+    document.body.removeChild(input);
+  }
+}
+$('#shareBtn').addEventListener('click', doShare);
+
 $('#favBtn').addEventListener('click', toggleFav);
 $('#favOpen').addEventListener('click', openFavs);
 $('#favClose').addEventListener('click', closeFavs);
