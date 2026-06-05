@@ -133,7 +133,7 @@ body.is-fill #yt {
 .icon-btn svg { display: block; }
 .lang-toggle {
   height: 40px; border-radius: 999px; padding: 0 14px;
-  font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  font-size: 13px; font-weight: 600; letter-spacing: .04em;
   background: rgba(0,0,0,.38); backdrop-filter: blur(4px);
   border: 1px solid var(--line); transition: background .15s;
   white-space: nowrap; display: flex; align-items: center; gap: 2px;
@@ -175,7 +175,7 @@ body.is-fill #yt {
 .regions::-webkit-scrollbar { display: none; }
 .regions.is-end { mask-image: none; -webkit-mask-image: none; }
 .region__btn {
-  font-size: 12px; padding: 5px 10px; border-radius: 999px;
+  font-size: 14px; padding: 5px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
   backdrop-filter: blur(6px); color: rgba(255,255,255,.65);
   transition: .15s; white-space: nowrap;
@@ -193,7 +193,7 @@ body.is-fill #yt {
 }
 .eras::-webkit-scrollbar { display: none; }
 .era__btn {
-  font-size: 11px; padding: 4px 10px; border-radius: 999px;
+  font-size: 13px; padding: 4px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
   backdrop-filter: blur(6px); color: rgba(255,255,255,.65);
   transition: .15s; white-space: nowrap; letter-spacing: .06em; font-weight: 600;
@@ -207,11 +207,11 @@ body.is-fill #yt {
   width: min(240px, 64vw);
 }
 .balance__zone {
-  font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+  font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
   color: rgba(255,255,255,.85); min-height: 14px;
 }
 .balance__row { display: flex; align-items: center; gap: 8px; width: 100%; }
-.balance__end { font-size: 8px; letter-spacing: .08em; color: rgba(255,255,255,.55); flex-shrink: 0; text-transform: uppercase; }
+.balance__end { font-size: 10px; letter-spacing: .08em; color: rgba(255,255,255,.55); flex-shrink: 0; text-transform: uppercase; }
 .balance__end--conscious { color: var(--conscious); }
 .balance__end--turnt { color: var(--turnt); }
 .balance__range {
@@ -249,7 +249,7 @@ body.is-fill #yt {
   backdrop-filter: blur(6px);
 }
 .order__btn {
-  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
   color: rgba(255,255,255,.55); padding: 5px 12px; border-radius: 999px;
   transition: color .15s, background .15s;
 }
@@ -264,7 +264,7 @@ body.is-fill #yt {
 .track-count {
   margin-top: 6px; white-space: nowrap;
   color: rgba(255,255,255,.7);
-  font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
   text-shadow: 0 1px 4px rgba(0,0,0,.6);
   pointer-events: none;
 }
@@ -319,16 +319,16 @@ body.is-fill #yt {
 }
 .meta { text-align: center; min-height: 60px; opacity: 0; transform: translateY(6px); transition: .4s ease; }
 .meta.is-show { opacity: 1; transform: none; }
-.meta__title { font-size: clamp(14px, 3.5vw, 20px); font-weight: 600; }
+.meta__title { font-size: clamp(16px, 4vw, 22px); font-weight: 600; }
 .meta__desc {
-  margin-top: 5px; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.7;
+  margin-top: 5px; color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.7;
   max-width: 100%; margin-inline: auto;
 }
-.meta__foot { margin-top: 6px; display: flex; gap: 12px; justify-content: center; align-items: center; font-size: 11px; color: rgba(255,255,255,.5); }
+.meta__foot { margin-top: 6px; display: flex; gap: 12px; justify-content: center; align-items: center; font-size: 13px; color: rgba(255,255,255,.5); }
 
 /* ===== pill buttons ===== */
 .pill {
-  font-size: 13px; color: var(--fg);
+  font-size: 15px; color: var(--fg);
   border: 1px solid var(--line); border-radius: 999px;
   padding: 9px 16px; background: rgba(0,0,0,.4);
   backdrop-filter: blur(6px); transition: .15s;
@@ -475,22 +475,22 @@ body.is-fill #yt {
   .brand__tag { display: none; }
 
   /* フィルター: 超コンパクト化 */
-  .regions { margin-top: 6px; gap: 3px; max-width: 72vw; }
-  .region__btn { font-size: 10px; padding: 6px 8px; min-height: 32px; }
-  .eras { margin-top: 4px; gap: 3px; max-width: 72vw; }
-  .era__btn { font-size: 9px; padding: 5px 8px; min-height: 32px; }
+  .regions { margin-top: 6px; gap: 4px; max-width: 72vw; }
+  .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
+  .eras { margin-top: 4px; gap: 4px; max-width: 72vw; }
+  .era__btn { font-size: 11px; padding: 5px 9px; min-height: 34px; }
 
   /* バランススライダー: 横幅縮小 */
   .balance { margin-top: 6px; width: min(180px, 50vw); gap: 3px; align-items: flex-start; }
-  .balance__zone { font-size: 8px; }
-  .balance__end { font-size: 7px; }
+  .balance__zone { font-size: 11px; }
+  .balance__end { font-size: 9px; }
 
   /* 再生順: 小さく */
   .order { margin-top: 4px; }
-  .order__btn { font-size: 8px; padding: 3px 8px; letter-spacing: .15em; }
+  .order__btn { font-size: 10px; padding: 4px 10px; letter-spacing: .15em; }
 
   /* 曲数 */
-  .track-count { margin-top: 4px; font-size: 9px; }
+  .track-count { margin-top: 4px; font-size: 11px; }
 
   /* ナビボタン: 小さく */
   .stage__nav { width: 40px; height: 40px; }
@@ -500,17 +500,17 @@ body.is-fill #yt {
   /* 右上ボタン: コンパクト */
   .top-right { gap: 4px; top: calc(8px + env(safe-area-inset-top)); right: calc(8px + env(safe-area-inset-right)); }
   .icon-btn { width: 34px; height: 34px; }
-  .lang-toggle { height: 30px; padding: 0 8px; font-size: 9px; }
+  .lang-toggle { height: 32px; padding: 0 10px; font-size: 11px; }
 
   /* dock: 下部をコンパクトに */
   .dock { gap: 8px; }
   .meta { gap: 2px; }
-  .meta__title { font-size: 14px; }
-  .meta__desc { font-size: 11px; }
-  .meta__user { font-size: 10px; }
+  .meta__title { font-size: 16px; }
+  .meta__desc { font-size: 13px; }
+  .meta__user { font-size: 11px; }
   .dock__actions { gap: 8px; }
-  .act-btn { font-size: 11px; padding: 7px 16px; }
-  .dock__sub { gap: 10px; font-size: 10px; }
+  .pill { font-size: 13px; padding: 8px 14px; }
+  .dock__sub { gap: 10px; font-size: 11px; }
 
   /* scrim: モバイルではグラデーション短く */
   .scrim--top { height: 160px; }
@@ -527,28 +527,28 @@ body.is-fill #yt {
   }
   .brand__logo .logo-img--brand { height: 22px; }
   .brand__tag { display: none; }
-  .regions { margin-top: 6px; gap: 3px; }
-  .region__btn { font-size: 10px; padding: 6px 8px; min-height: 32px; }
-  .eras { margin-top: 4px; gap: 3px; }
-  .era__btn { font-size: 9px; padding: 5px 7px; min-height: 32px; }
+  .regions { margin-top: 6px; gap: 4px; }
+  .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
+  .eras { margin-top: 4px; gap: 4px; }
+  .era__btn { font-size: 11px; padding: 5px 8px; min-height: 34px; }
   .balance {
     position: fixed; z-index: 2;
     top: calc(10px + env(safe-area-inset-top));
     left: 50%; transform: translateX(-50%);
     margin-top: 0; width: min(260px, 50vw); align-items: center; gap: 3px;
   }
-  .balance__zone { font-size: 9px; }
+  .balance__zone { font-size: 11px; }
   .stage__nav { width: 38px; height: 38px; }
   .stage__nav svg { width: 20px; height: 20px; }
   .icon-btn { width: 34px; height: 34px; }
-  .lang-toggle { height: 34px; padding: 0 10px; font-size: 10px; }
+  .lang-toggle { height: 34px; padding: 0 10px; font-size: 11px; }
   .dock { bottom: calc(8px + env(safe-area-inset-bottom)); gap: 6px; }
   .meta { min-height: 0; }
-  .meta__title { font-size: 13px; }
-  .meta__desc { margin-top: 2px; font-size: 12px; }
+  .meta__title { font-size: 15px; }
+  .meta__desc { margin-top: 2px; font-size: 13px; }
   .meta__foot { margin-top: 3px; }
   .actions { gap: 6px; }
-  .pill { padding: 6px 12px; font-size: 12px; }
+  .pill { padding: 7px 14px; font-size: 13px; }
   .unmute { top: 38%; padding: 12px 24px; font-size: 18px; }
   .intro__logo { font-size: min(48px, 12vw); }
 }
