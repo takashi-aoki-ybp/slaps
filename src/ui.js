@@ -136,6 +136,7 @@ export function setRegion(region) {
     b.classList.toggle('is-active', b.dataset.region === region));
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
+  updateFavCount();
   setBalance(state.balance, { keep: true });
   updateTrackCount();
   showFilterFeedback();
@@ -147,6 +148,7 @@ export function setEra(era) {
     b.classList.toggle('is-active', b.dataset.era === era));
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
+  updateFavCount();
   setBalance(state.balance, { keep: true });
   updateTrackCount();
   showFilterFeedback();
@@ -245,6 +247,9 @@ export function toggleFill() {
 // ---- 投稿 ----
 const YT_ID_RE = /(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/;
 function parseYouTubeId(url) {
+  if (/^[A-Za-z0-9_-]{11}$/.test(url)) {
+    return url;
+  }
   const m = url.match(YT_ID_RE);
   return m ? m[1] : null;
 }
@@ -256,6 +261,15 @@ export async function onUrlInput() {
     const id = parseYouTubeId($('#ytUrl').value.trim());
     const preview = $('#preview');
     if (!id) { preview.hidden = true; $('#submitDo').disabled = true; return; }
+    
+    // 即時重複検知
+    if (state.all.some((s) => s.youtube_id === id)) {
+      preview.hidden = true;
+      $('#submitDo').disabled = true;
+      showToast(window.i18n.t('toastDuplicate'));
+      return;
+    }
+    
     $('#previewThumb').src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
     $('#previewTitle').textContent = 'Loading...';
     preview.hidden = false;
@@ -300,7 +314,16 @@ export async function doSubmit() {
     status: 'published',
   };
   const btn = $('#submitDo');
-  btn.disabled = true;
+  const inputs = [
+    $('#ytUrl'),
+    $('#ytConsTurnt'),
+    $('#ytRegion'),
+    $('#ytEra'),
+    $('#ytName'),
+    $('#ytComment'),
+    btn
+  ];
+  inputs.forEach((el) => { if (el) el.disabled = true; });
   try {
     const saved = await db.submit(song);
     const entry = saved || song;
@@ -321,7 +344,7 @@ export async function doSubmit() {
       showToast(window.i18n.t('toastAddFail'));
     }
   } finally {
-    btn.disabled = false;
+    inputs.forEach((el) => { if (el) el.disabled = false; });
   }
 }
 
@@ -420,7 +443,13 @@ export function renderFavBtn() {
   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
   btn.classList.toggle('is-fav', on);
 }
-export function updateFavCount() { $('#favCount').textContent = favGet().length; }
+export function updateFavCount() {
+  const count = favGet().length;
+  const labelKey = state.favMode ? 'favOpenActive' : 'favOpen';
+  const label = window.i18n.t(labelKey);
+  const icon = state.favMode ? '◀' : '♡';
+  $('#favOpen').innerHTML = `${icon} ${label} (<span id="favCount">${count}</span>)`;
+}
 
 function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
@@ -455,6 +484,7 @@ export function playFavorites(fromId) {
     state.index = 0;
   }
   $('#favOpen').classList.add('is-active');
+  updateFavCount();
   if (state.ready) loadCurrent();
   closeFavs();
 }
@@ -590,6 +620,7 @@ export function setupUIListeners() {
   balanceRange.addEventListener('change', () => {
     state.favMode = false;
     $('#favOpen').classList.remove('is-active');
+    updateFavCount();
     setBalance(Number(balanceRange.value));
   });
   ['touchstart', 'touchend'].forEach((ev) =>
@@ -645,7 +676,18 @@ export function setupUIListeners() {
   // Share / Favs
   $('#shareBtn').addEventListener('click', doShare);
   $('#favBtn').addEventListener('click', toggleFav);
-  $('#favOpen').addEventListener('click', openFavs);
+  $('#favOpen').addEventListener('click', () => {
+    if (state.favMode) {
+      state.favMode = false;
+      $('#favOpen').classList.remove('is-active');
+      updateFavCount();
+      setBalance(state.balance);
+      updateTrackCount();
+      showToast(window.i18n.t('toastBackToAll'));
+    } else {
+      openFavs();
+    }
+  });
   $('#favClose').addEventListener('click', closeFavs);
   $('#favPlayAll').addEventListener('click', () => playFavorites());
 
