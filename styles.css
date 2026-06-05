@@ -177,6 +177,7 @@ body.is-fill #yt {
 }
 .regions::-webkit-scrollbar { display: none; }
 .regions.is-end { mask-image: none; -webkit-mask-image: none; }
+.regions > *:last-child { margin-right: 16px; }
 .region__btn {
   font-size: 14px; padding: 5px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -195,6 +196,7 @@ body.is-fill #yt {
   scrollbar-width: none;
 }
 .eras::-webkit-scrollbar { display: none; }
+.eras > *:last-child { margin-right: 16px; }
 .era__btn {
   font-size: 13px; padding: 4px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: rgba(0,0,0,.4);
@@ -213,8 +215,9 @@ body.is-fill #yt {
   font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
   color: var(--fg); min-height: 14px;
   font-weight: 800; text-shadow: 0 0 3px #000, 0 0 5px #000, 0 1px 2px rgba(0,0,0,0.8);
+  margin-left: 7px;
 }
-.balance__row { display: flex; align-items: center; gap: 8px; width: 100%; }
+.balance__row { display: flex; align-items: center; gap: 8px; width: calc(100% - 7px); margin-left: 7px; }
 .balance__end {
   font-size: 10px; letter-spacing: .08em; color: rgba(255,255,255,.85); flex-shrink: 0; text-transform: uppercase;
   font-weight: 800; text-shadow: 0 0 3px #000, 0 0 5px #000, 0 1px 2px rgba(0,0,0,0.8);
@@ -251,7 +254,7 @@ body.is-fill #yt {
 
 /* 再生順トグル */
 .order {
-  margin-top: 8px; display: flex; width: 100%; gap: 2px; padding: 2px;
+  margin-top: 8px; display: flex; width: 108%; gap: 2px; padding: 2px;
   background: rgba(0,0,0,.4); border: 1px solid var(--line); border-radius: 999px;
   backdrop-filter: blur(6px);
 }
@@ -275,6 +278,7 @@ body.is-fill #yt {
   font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
   text-shadow: 0 1px 4px rgba(0,0,0,.6);
   pointer-events: none;
+  margin-left: 7px;
 }
 .track-count:empty { display: none; }
 .track-count b { font-weight: 700; color: var(--fg); }
@@ -503,7 +507,7 @@ body.is-fill #yt {
   .balance__end { font-size: 9px; }
 
   /* 再生順: 小さく */
-  .order { margin-top: 4px; }
+  .order { margin-top: 4px; width: 100%; }
   .order__btn { font-size: 10px; padding: 4px 10px; letter-spacing: .15em; }
 
   /* 曲数 */
@@ -561,6 +565,7 @@ body.is-fill #yt {
   .icon-btn { width: 26px; height: 26px; }
   .icon-btn--text { font-size: 11px; }
   .lang-toggle { height: 26px; padding: 0 10px; font-size: 11px; }
+  .order { width: 100%; }
   .dock { bottom: calc(8px + env(safe-area-inset-bottom)); gap: 6px; }
   .meta { min-height: 0; }
   .meta__title { font-size: 15px; }
