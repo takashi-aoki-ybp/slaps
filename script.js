@@ -797,6 +797,34 @@ function wake() {
   document.addEventListener(ev, wake, { passive: true })
 );
 
+// ===== スリープ復帰対応 =====
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') return;
+  if (!state.started || !state.player) return;
+  wake();
+  // プレイヤー状態を確認して復帰
+  try {
+    const ps = state.player.getPlayerState();
+    // PAUSED(-1,2) or UNSTARTED(-1) or CUED(5) → 再生再開
+    if (ps === YT.PlayerState.PAUSED || ps === YT.PlayerState.CUED || ps === -1) {
+      if (!state.paused) {
+        state.player.playVideo();
+      }
+    }
+    // エラー状態 → 現在の曲をリロード
+    if (ps === YT.PlayerState.ENDED || ps === 0) {
+      // 曲が終わっていたら次へ
+      next();
+    }
+  } catch (_) {
+    // player destroyed — 曲をリロード
+    loadCurrent();
+  }
+  // プログレスバー再開
+  const ps2 = state.player?.getPlayerState?.();
+  if (ps2 === YT.PlayerState.PLAYING) startProgress();
+});
+
 // キーボード操作
 document.addEventListener('keydown', (e) => {
   if (e.target.closest('input, textarea, select')) return;
