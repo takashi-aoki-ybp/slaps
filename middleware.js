@@ -26,15 +26,14 @@ export default async function middleware(request) {
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
-    let title = "SLAPS — HIPHOP Jukebox";
-    let desc = "Nothing but slaps. An online jukebox dedicated to HIPHOP.";
-    let thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    let songName = "";
+    let thumbnail = `/api/og-image?v=${videoId}`;
 
     if (supabaseUrl && supabaseKey) {
       try {
         // Supabase REST API を直接叩いて高速取得
         const res = await fetch(
-          `${supabaseUrl}/rest/v1/songs?youtube_id=eq.${videoId}&select=name,description`,
+          `${supabaseUrl}/rest/v1/songs?youtube_id=eq.${videoId}&select=name`,
           {
             headers: {
               'apikey': supabaseKey,
@@ -44,19 +43,10 @@ export default async function middleware(request) {
         );
         const data = await res.json();
         if (data && data.length > 0) {
-          const song = data[0];
-          title = `${song.name} | SLAPS`;
-          
-          if (song.description) {
-            if (typeof song.description === 'string') {
-              desc = song.description;
-            } else {
-              desc = song.description.ja || song.description.en || desc;
-            }
-          }
+          songName = data[0].name;
         }
       } catch (e) {
-        // Supabase取得失敗時はデフォルト
+        // Supabase取得失敗時
       }
     } else {
       // ローカル json へのフォールバック（Edge内でのfetch）
@@ -66,17 +56,16 @@ export default async function middleware(request) {
         const songs = await res.json();
         const song = songs.find(s => s.youtube_id === videoId);
         if (song) {
-          title = `${song.name} | SLAPS`;
-          if (song.description) {
-            desc = typeof song.description === 'string' 
-              ? song.description 
-              : (song.description.ja || song.description.en || desc);
-          }
+          songName = song.name;
         }
       } catch (e) {
-        // フォールバック失敗時はデフォルト
+        // フォールバック失敗時
       }
     }
+
+    const title = "Playing on SLAPS";
+    const desc = songName ? `Playing on SLAPS | ${songName}` : "Nothing but slaps. An online jukebox dedicated to HIPHOP.";
+
 
     // 元の index.html をフェッチ
     try {
@@ -90,8 +79,9 @@ export default async function middleware(request) {
       html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, `<meta name="twitter:title" content="${title}">`);
       html = html.replace(/<meta property="og:description" content="[^"]*">/g, `<meta property="og:description" content="${desc}">`);
       html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, `<meta name="twitter:description" content="${desc}">`);
-      html = html.replace(/<meta property="og:image" content="[^"]*">/g, `<meta property="og:image" content="${thumbnail}">`);
-      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, `<meta name="twitter:image" content="${thumbnail}">`);
+      const imageUrl = `${url.origin}${thumbnail}`;
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, `<meta property="og:image" content="${imageUrl}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, `<meta name="twitter:image" content="${imageUrl}">`);
       html = html.replace(/<meta property="og:url" content="[^"]*">/g, `<meta property="og:url" content="${shareUrl}">`);
       html = html.replace(/<link rel="canonical" href="[^"]*">/g, `<link rel="canonical" href="${shareUrl}">`);
       html = html.replace(/<title>[^<]*<\/title>/g, `<title>${title}</title>`);

@@ -1,0 +1,9 @@
+{
+  "name": "slaps",
+  "version": "1.1.0",
+  "description": "Nothing but slaps. — HIPHOP Jukebox",
+  "main": "script.js",
+  "dependencies": {
+    "jimp": "^0.16.13"
+  }
+}
