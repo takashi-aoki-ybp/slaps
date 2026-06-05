@@ -583,5 +583,5 @@ body.is-fill #yt {
 }
 @keyframes pulseRing {
   0%   { transform: scale(1); opacity: .7; }
-  100% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(3); opacity: 0; }
 }
