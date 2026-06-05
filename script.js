@@ -971,3 +971,12 @@ i18n.applyAll();
 loadData();
 updateRegionsMask();
 window.addEventListener('load', updateRegionsMask);
+
+// ===== Service Worker (PWA) =====
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => {})
+      .catch(() => {});
+  });
+}
