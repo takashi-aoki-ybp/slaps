@@ -168,7 +168,7 @@ body.is-fill #yt {
 .regions {
   margin-top: 12px;
   display: flex; gap: 4px; flex-wrap: nowrap;
-  max-width: min(380px, 82vw);
+  max-width: 480px;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-right: 12px;
@@ -188,7 +188,7 @@ body.is-fill #yt {
 .eras {
   margin-top: 6px;
   display: flex; gap: 4px; flex-wrap: nowrap;
-  max-width: min(320px, 72vw);
+  max-width: 400px;
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -492,10 +492,10 @@ body.is-fill #yt {
   .brand__logo .logo-img--brand { height: 30px; }
   .brand__tag { display: none; }
 
-  /* フィルター: 超コンパクト化（右上ボタンとの衝突を防ぎつつ最大幅に拡張） */
-  .regions { margin-top: 6px; gap: 4px; max-width: calc(100vw - 160px); }
+  /* フィルター: 超コンパクト化（画面幅いっぱいに広げてスクロール領域を最大化） */
+  .regions { margin-top: 6px; gap: 4px; max-width: calc(100vw - 32px); }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
-  .eras { margin-top: 4px; gap: 4px; max-width: calc(100vw - 160px); }
+  .eras { margin-top: 4px; gap: 4px; max-width: calc(100vw - 32px); }
   .era__btn { font-size: 11px; padding: 5px 9px; min-height: 34px; }
 
   /* バランススライダー: 横幅縮小 */
@@ -547,9 +547,9 @@ body.is-fill #yt {
   }
   .brand__logo .logo-img--brand { height: 28px; }
   .brand__tag { display: none; }
-  .regions { margin-top: 6px; gap: 4px; }
+  .regions { margin-top: 6px; gap: 4px; max-width: calc(100vw - 32px); }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
-  .eras { margin-top: 4px; gap: 4px; }
+  .eras { margin-top: 4px; gap: 4px; max-width: calc(100vw - 32px); }
   .era__btn { font-size: 11px; padding: 5px 8px; min-height: 34px; }
   .balance {
     position: fixed; z-index: 2;
