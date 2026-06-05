@@ -28,7 +28,7 @@ export default async function middleware(request) {
 
     let title = "SLAPS — HIPHOP Jukebox";
     let desc = "Nothing but slaps. An online jukebox dedicated to HIPHOP.";
-    let thumbnail = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+    let thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
     if (supabaseUrl && supabaseKey) {
       try {
