@@ -90,6 +90,12 @@ export function setBalance(p, opts = {}) {
   applyOrder(state.queue);
   updateVibeColor(p);
   if (opts.keep && cur) {
+    if (state.order === 'shuffle') {
+      const filtered = state.queue.filter((s) => s.youtube_id !== cur.youtube_id);
+      state.queue = [cur, ...filtered];
+      state.index = 0;
+      return;
+    }
     const keepIdx = state.queue.findIndex((s) => s.youtube_id === cur.youtube_id);
     if (keepIdx >= 0) { state.index = keepIdx; return; }
     state.queue.unshift(cur);
