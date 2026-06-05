@@ -870,8 +870,12 @@ function showInfoGuide() {
     const btn = $('#infoLink');
     if (!btn) return;
     btn.classList.add('guide-pulse');
+    document.body.classList.add('guide-active');
     // クリックまたは8秒後に停止
-    const stop = () => btn.classList.remove('guide-pulse');
+    const stop = () => {
+      btn.classList.remove('guide-pulse');
+      document.body.classList.remove('guide-active');
+    };
     btn.addEventListener('click', stop, { once: true });
     setTimeout(stop, 8000);
   }, 3000);

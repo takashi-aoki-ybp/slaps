@@ -66,6 +66,8 @@ body.is-started .chrome { opacity: 1; pointer-events: auto; }
 body.is-started.is-idle .chrome { opacity: 0; pointer-events: none; }
 body.is-started.is-idle { cursor: none; }
 body.is-started.is-idle .scrim { opacity: 0; transition: opacity .7s ease; }
+/* パルスガイド中: ⓘのあるツールバーだけ表示維持 */
+body.guide-active.is-idle .top-right { opacity: 1; pointer-events: auto; }
 /* ピン留め時はアイドルでもUI維持（START後のみ） */
 body.is-started.is-pinned.is-idle .chrome { opacity: 1; pointer-events: auto; }
 body.is-started.is-pinned.is-idle { cursor: auto; }
