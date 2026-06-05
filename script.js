@@ -342,16 +342,7 @@ function runIntro() {
   setTimeout(() => { intro.classList.add('is-out'); }, 4800);
   setTimeout(() => {
     intro.remove();
-    document.body.classList.add('is-live');
     $('#unmute').hidden = false;
-    // モバイルランドスケープ: UI即非表示（映像没入優先）
-    const isMobileLandscape = window.matchMedia('(orientation: landscape) and (max-height: 500px)').matches;
-    if (isMobileLandscape && !state.pinned) {
-      document.body.classList.add('is-idle');
-    } else {
-      showCoachMarks();
-      wake();
-    }
   }, 6000);
 }
 
@@ -454,6 +445,11 @@ function unmute() {
   state.muted = false;
   if (state.player) { state.player.unMute(); state.player.setVolume(100); state.player.playVideo(); }
   $('#unmute').hidden = true;
+  // START後にUI表示開始
+  document.body.classList.add('is-started');
+  wake();
+  // 初回訪問: 5秒後にⓘボタンを案内
+  showInfoGuide();
 }
 
 // ---- CONSCIOUS↔TURNT スライダー ----
@@ -866,29 +862,23 @@ function trapFocus(modal) {
 
 // ===== アイコンボタン コーチマーク（初回のみ） =====
 const COACH_KEY = 'slaps_coach_done';
-function showCoachMarks() {
-  if (sessionStorage.getItem(COACH_KEY)) return;
-  const tips = [
-    { el: '#fillBtn', text: i18n.t('coachFill') },
-    { el: '#pinBtn', text: i18n.t('coachPin') },
-    { el: '#infoLink', text: i18n.t('coachAbout') },
-  ];
-  tips.forEach(({ el, text }) => {
-    const btn = $(el);
+const INFO_GUIDE_KEY = 'slaps_info_shown';
+function showInfoGuide() {
+  if (localStorage.getItem(INFO_GUIDE_KEY)) return;
+  localStorage.setItem(INFO_GUIDE_KEY, '1');
+  setTimeout(() => {
+    const btn = $('#infoLink');
     if (!btn) return;
     const tip = document.createElement('span');
     tip.className = 'coach-tip';
-    tip.textContent = text;
+    tip.textContent = i18n.t('coachAbout');
     btn.style.position = 'relative';
     btn.appendChild(tip);
-  });
-  sessionStorage.setItem(COACH_KEY, '1');
-  setTimeout(() => {
-    document.querySelectorAll('.coach-tip').forEach((t) => {
-      t.classList.add('is-out');
-      setTimeout(() => t.remove(), 600);
-    });
-  }, 4000);
+    setTimeout(() => {
+      tip.classList.add('is-out');
+      setTimeout(() => tip.remove(), 600);
+    }, 5000);
+  }, 5000);
 }
 
 // ===== 言語切り替え =====

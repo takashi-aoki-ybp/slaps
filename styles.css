@@ -61,16 +61,17 @@ img { display: block; max-width: 100%; }
 
 /* ===== chrome（UI要素の表示制御） ===== */
 .chrome { opacity: 0; transition: opacity .7s ease; pointer-events: none; }
-body.is-live .chrome { opacity: 1; pointer-events: auto; }
-body.is-live.is-idle .chrome { opacity: 0; pointer-events: none; }
-body.is-live.is-idle { cursor: none; }
-body.is-live.is-idle .scrim { opacity: 0; transition: opacity .7s ease; }
-/* ピン留め時はアイドルでもUI維持 */
-body.is-pinned.is-idle .chrome { opacity: 1; pointer-events: auto; }
-body.is-pinned.is-idle { cursor: auto; }
-body.is-pinned.is-idle .scrim { opacity: 1; }
-body.is-pinned .stage__nav.is-play { display: none !important; }
-body.is-pinned .player { pointer-events: auto; cursor: pointer; }
+/* START前: chrome非表示。STARTタップ後に表示 */
+body.is-started .chrome { opacity: 1; pointer-events: auto; }
+body.is-started.is-idle .chrome { opacity: 0; pointer-events: none; }
+body.is-started.is-idle { cursor: none; }
+body.is-started.is-idle .scrim { opacity: 0; transition: opacity .7s ease; }
+/* ピン留め時はアイドルでもUI維持（START後のみ） */
+body.is-started.is-pinned.is-idle .chrome { opacity: 1; pointer-events: auto; }
+body.is-started.is-pinned.is-idle { cursor: auto; }
+body.is-started.is-pinned.is-idle .scrim { opacity: 1; }
+body.is-started.is-pinned .stage__nav.is-play { display: none !important; }
+body.is-started.is-pinned .player { pointer-events: auto; cursor: pointer; }
 
 /* ===== YouTube映像（フルブリード） ===== */
 .video-bg {
