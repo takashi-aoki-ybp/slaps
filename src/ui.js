@@ -275,7 +275,7 @@ export function closeModal() {
   $('#ytUrl').value = ''; $('#ytComment').value = ''; $('#ytName').value = '';
   $('#ytRegion').value = ''; $('#ytEra').value = '';
   $('#preview').hidden = true; $('#submitDo').disabled = true;
-  ytCtTouched = false; ytCt.value = '2.5'; $('#ytConsTurntVal').textContent = window.i18n.t('vibeNotSet');
+  ytCtTouched = false; $('#ytConsTurnt').value = '2.5'; $('#ytConsTurntVal').textContent = window.i18n.t('vibeNotSet');
 }
 
 // ---- 報告 ----
