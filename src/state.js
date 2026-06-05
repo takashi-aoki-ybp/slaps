@@ -1,0 +1,90 @@
+export const REGION_LABELS = {
+  us: '🇺🇸 US', jp: '🇯🇵 JP', uk: '🇬🇧 UK', fr: '🇫🇷 FR', kr: '🇰🇷 KR', other: '🌍', all: '🌐 ALL',
+};
+
+export const state = {
+  all: [],
+  balance: 2.5,       // CONSCIOUS(0) ↔ TURNT(5)
+  region: 'all',       // 地域フィルター
+  era: 'all',          // 年代フィルター
+  order: 'shuffle',
+  favMode: false,
+  queue: [],
+  index: 0,
+  player: null,
+  ready: false,
+  started: false,
+  muted: true,
+  paused: false,
+  pinned: false,       // UI固定
+  fill: true,         // 映像拡大（4:3対応）— デフォルトON
+  broken: new Set(),
+  played: new Set(),   // デッキシャッフル: 再生済みID
+};
+
+export const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));
+
+export function current() {
+  return state.queue[state.index];
+}
+
+export function getFilteredPool() {
+  let pool = state.all.filter((s) => !state.broken.has(s.youtube_id));
+  if (state.region !== 'all') {
+    pool = pool.filter((s) => s.region === state.region);
+  }
+  if (state.era !== 'all') {
+    pool = pool.filter((s) => s.era === state.era);
+  }
+  return pool;
+}
+
+export function playableCount() {
+  return getFilteredPool().length;
+}
+
+export function eligibleByBalance(p) {
+  const live = getFilteredPool();
+  let pool;
+  if (p > 2.4 && p < 2.6) {
+    pool = live;
+  } else if (p < 2.5) {
+    const ceil = 1.5 + 1.4 * p;
+    pool = live.filter((s) => CT(s) <= ceil);
+  } else {
+    const floor = 1.4 * p - 3.5;
+    pool = live.filter((s) => CT(s) >= floor);
+  }
+  if (!pool.length && live.length) {
+    pool = live.slice().sort((a, b) => Math.abs(CT(a) - p) - Math.abs(CT(b) - p)).slice(0, 20);
+  }
+  return pool;
+}
+
+// Fisher–Yates
+export function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+// デッキシャッフル: 未再生曲を優先
+export function deckShuffle(arr) {
+  const unplayed = arr.filter((s) => !state.played.has(s.youtube_id));
+  if (unplayed.length === 0) { state.played.clear(); shuffle(arr); return; }
+  const played = arr.filter((s) => state.played.has(s.youtube_id));
+  shuffle(unplayed); shuffle(played);
+  arr.length = 0; arr.push(...unplayed, ...played);
+}
+
+export function songTime(s) {
+  const t = s.publish_at || s.created_at;
+  const n = t ? Date.parse(t) : NaN;
+  return Number.isNaN(n) ? 0 : n;
+}
+
+export function applyOrder(arr) {
+  if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
+  else deckShuffle(arr);
+}

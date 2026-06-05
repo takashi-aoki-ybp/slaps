@@ -1,4 +1,6 @@
 // ===== SLAPS i18n (EN / JA) =====
+const $ = (sel) => document.querySelector(sel);
+
 const I18N = {
   en: {
     // brand
@@ -339,3 +341,5 @@ const i18n = (() => {
 
   return { t, getLang, setLang, applyAll };
 })();
+
+window.i18n = i18n;

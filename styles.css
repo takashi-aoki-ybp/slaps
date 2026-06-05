@@ -144,7 +144,8 @@ body.is-fill #yt {
 .lang-sep { color: rgba(255,255,255,.25); font-weight: 400; margin: 0 1px; }
 /* ピン留めON状態 */
 .icon-btn.is-pinned { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.4); }
-.icon-btn.is-pinned .pin-icon { stroke: var(--turnt); }
+.icon-btn.is-pinned .pin-icon { stroke: var(--turnt); filter: drop-shadow(0 0 4px var(--turnt)); }
+.icon-btn.is-pinned .pin-icon text { fill: var(--turnt); }
 
 /* ===== brand（左上） ===== */
 .brand {
