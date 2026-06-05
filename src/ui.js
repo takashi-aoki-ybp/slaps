@@ -450,6 +450,7 @@ export function updateFavCount() {
   const icon = state.favMode ? '◀' : '♡';
   $('#favOpen').innerHTML = `${icon} ${label} (<span id="favCount">${count}</span>)`;
 }
+window.updateFavCount = updateFavCount;
 
 function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 

@@ -320,6 +320,7 @@ const i18n = (() => {
 
     // update track count
     if (typeof updateTrackCount === 'function') updateTrackCount();
+    if (typeof window.updateFavCount === 'function') window.updateFavCount();
 
     // update description for current song (lang switch)
     const descEl = $('#metaDesc');
