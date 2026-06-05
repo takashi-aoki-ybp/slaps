@@ -49,7 +49,7 @@ self.addEventListener('fetch', (e) => {
 
   const url = new URL(e.request.url);
   // 動的アセット（songs.json, config.js）は Network First（即時反映）
-  if (url.pathname.includes('/data/songs.json') || url.pathname.endsWith('/config.js')) {
+  if (url.pathname.includes('/data/songs.json') || url.pathname.includes('/config.js')) {
     e.respondWith(
       fetch(e.request).then((networkResponse) => {
         if (networkResponse.status === 200) {
