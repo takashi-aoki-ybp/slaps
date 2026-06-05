@@ -418,8 +418,7 @@ body.is-fill #yt {
   background: rgba(255,255,255,.08); border: 1px solid var(--line); backdrop-filter: blur(6px);
 }
 .about-ov__close:hover { background: rgba(255,255,255,.18); }
-.about-ov__logo {
-}
+.about-ov__logo { line-height: 1; }
 .about-ov .tag { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: rgba(255,255,255,.55); }
 .about-ov h1 { font-size: clamp(22px, 6vw, 30px); font-weight: 800; margin: 36px 0 16px; letter-spacing: .01em; }
 .about-ov h2 { font-size: clamp(15px, 4vw, 18px); font-weight: 700; margin: 40px 0 12px; }
@@ -516,9 +515,9 @@ body.is-fill #yt {
   .brand__logo .logo-img--brand { height: 22px; }
   .brand__tag { display: none; }
   .regions { margin-top: 6px; gap: 3px; }
-  .region__btn { font-size: 10px; padding: 3px 7px; }
+  .region__btn { font-size: 10px; padding: 6px 8px; min-height: 32px; }
   .eras { margin-top: 4px; gap: 3px; }
-  .era__btn { font-size: 9px; padding: 2px 6px; }
+  .era__btn { font-size: 9px; padding: 5px 7px; min-height: 32px; }
   .balance {
     position: fixed; z-index: 2;
     top: calc(10px + env(safe-area-inset-top));
@@ -593,5 +592,8 @@ body.is-fill #yt {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .modal, .about-ov, .stage__nav, .fav-toast, .toast, .regions, .eras {
+    backdrop-filter: none !important;
   }
 }

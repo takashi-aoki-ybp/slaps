@@ -126,7 +126,7 @@ function updateTrackCount() {
   if (!el) return;
   const n = playableCount();
   const unit = i18n.t(n === 1 ? 'track' : 'tracks');
-  el.innerHTML = `<b>${n.toLocaleString('en-US')}</b>&nbsp;${unit}`;
+  el.innerHTML = `<b>${n.toLocaleString(i18n.getLang() === 'ja' ? 'ja-JP' : 'en-US')}</b>&nbsp;${unit}`;
   // フィルター中はアクセントカラーで明示
   el.classList.toggle('is-filtered', state.region !== 'all' || state.era !== 'all');
 }
@@ -594,7 +594,7 @@ async function doSubmit() {
     name: rawName,
     description: rawDesc,
     user_name: rawUser,
-    thumbnail: `https://i.ytimg.com/vi/${id}/0.jpg`,
+    thumbnail: `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
     conscious_turnt: ytCtTouched ? Number($('#ytConsTurnt').value) : null,
@@ -734,8 +734,8 @@ function openFavs() {
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
         <span class="fav-item__sub">${escapeHtml(f.user_name || i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
       </div>
-      <button class="fav-item__btn" data-fav-play aria-label="Play">▶</button>
-      <button class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove">×</button>
+      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play">▶</button>
+      <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove">×</button>
     </div>`).join('');
   $('#favModal').hidden = false;
 }
@@ -800,7 +800,7 @@ $('#favModal').addEventListener('click', (e) => { if (e.target === $('#favModal'
 
 // About overlay
 const aboutOverlay = $('#aboutOverlay');
-$('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'auto'; });
+$('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'hidden'; });
 $('#aboutClose').addEventListener('click', () => { aboutOverlay.hidden = true; document.body.style.overflow = ''; });
 
 $('#favList').addEventListener('click', (e) => {
@@ -835,10 +835,14 @@ function wake() {
 );
 
 // ===== スリープ復帰対応 =====
+let lastVisibleAt = Date.now();
 document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') { lastVisibleAt = Date.now(); return; }
   if (document.visibilityState !== 'visible') return;
   if (!state.started || !state.player) return;
-  // UIをSTARTのみ状態に戻す
+  // 5分以内の復帰はリセットしない（タブ切替対策）
+  if (Date.now() - lastVisibleAt < 300000) return;
+  // 長時間離席→STARTに戻す
   document.body.classList.remove('is-started');
   document.body.classList.remove('is-idle');
   state.muted = true;
@@ -847,7 +851,6 @@ document.addEventListener('visibilitychange', () => {
     state.player.mute();
   } catch (_) {}
   stopProgress();
-  // STARTボタン表示（タップでunmute → is-started → 再開）
   $('#unmute').hidden = false;
 });
 
@@ -936,13 +939,16 @@ function showInfoGuide() {
     if (!btn) return;
     btn.classList.add('guide-pulse');
     document.body.classList.add('guide-active');
-    // クリックまたは8秒後に停止
+    let stopped = false;
     const stop = () => {
+      if (stopped) return;
+      stopped = true;
       btn.classList.remove('guide-pulse');
       document.body.classList.remove('guide-active');
+      clearTimeout(guideTimeout);
     };
     btn.addEventListener('click', stop, { once: true });
-    setTimeout(stop, 8000);
+    const guideTimeout = setTimeout(stop, 8000);
   }, 3000);
 }
 
