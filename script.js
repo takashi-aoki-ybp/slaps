@@ -407,9 +407,40 @@ function step(dir) {
   if (!n) return;
   for (let i = 0; i < n; i++) {
     state.index = (state.index + dir + n) % n;
-    if (!state.broken.has(current().youtube_id)) { loadCurrent(); return; }
+    if (!state.broken.has(current().youtube_id)) {
+      slideTransition(dir);
+      return;
+    }
   }
 }
+
+function slideTransition(dir) {
+  const vb = document.querySelector('.video-bg');
+  const outClass = dir > 0 ? 'slide-out-left' : 'slide-out-right';
+  const inClass  = dir > 0 ? 'slide-in-left'  : 'slide-in-right';
+
+  // Phase 1: Slide out
+  vb.classList.add(outClass);
+
+  const onSlideOutEnd = () => {
+    vb.removeEventListener('transitionend', onSlideOutEnd);
+    // Load new video while offscreen
+    loadCurrent();
+    // Phase 2: Jump to entry position (no transition)
+    vb.classList.remove(outClass);
+    vb.classList.add(inClass);
+    // Phase 3: Slide in (re-enable transition)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        vb.classList.remove(inClass);
+      });
+    });
+  };
+  vb.addEventListener('transitionend', onSlideOutEnd, { once: true });
+  // Fallback if transitionend doesn't fire
+  setTimeout(() => { vb.classList.remove(outClass, inClass); }, 500);
+}
+
 function next() { step(1); }
 function prev() { step(-1); }
 

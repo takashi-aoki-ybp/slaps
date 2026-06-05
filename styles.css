@@ -71,7 +71,14 @@ body.is-pinned .stage__nav.is-play { display: none !important; }
 body.is-pinned .player { pointer-events: auto; cursor: pointer; }
 
 /* ===== YouTube映像（フルブリード） ===== */
-.video-bg { position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden; }
+.video-bg {
+  position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1), opacity .35s ease;
+}
+.video-bg.slide-out-left  { transform: translateX(-12%); opacity: 0; }
+.video-bg.slide-out-right { transform: translateX(12%); opacity: 0; }
+.video-bg.slide-in-left   { transform: translateX(12%); opacity: 0; transition: none; }
+.video-bg.slide-in-right  { transform: translateX(-12%); opacity: 0; transition: none; }
 #yt {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 100vw; height: 56.25vw;
