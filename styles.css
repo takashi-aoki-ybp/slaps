@@ -72,7 +72,10 @@ body.is-pinned .player { pointer-events: auto; cursor: pointer; }
 
 /* ===== YouTube映像（フルブリード） ===== */
 .video-bg {
-  position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden;
+  position: fixed; z-index: 0; background: #000; overflow: hidden;
+  top: 0; bottom: 0;
+  left: calc(-1 * env(safe-area-inset-left, 0px));
+  right: calc(-1 * env(safe-area-inset-right, 0px));
   transition: transform .35s cubic-bezier(.4, 0, .2, 1), opacity .35s ease;
 }
 .video-bg.slide-out-left  { transform: translateX(-12%); opacity: 0; }
