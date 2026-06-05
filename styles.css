@@ -419,9 +419,8 @@ body.is-fill #yt {
 }
 .about-ov__close:hover { background: rgba(255,255,255,.18); }
 .about-ov__logo {
-  text-align: center;
 }
-.about-ov .tag { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: rgba(255,255,255,.55); text-align: center; padding-left: .34em; }
+.about-ov .tag { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: rgba(255,255,255,.55); }
 .about-ov h1 { font-size: clamp(22px, 6vw, 30px); font-weight: 800; margin: 36px 0 16px; letter-spacing: .01em; }
 .about-ov h2 { font-size: clamp(15px, 4vw, 18px); font-weight: 700; margin: 40px 0 12px; }
 .about-ov p { color: rgba(255,255,255,.82); margin-bottom: 14px; font-size: 15px; }
