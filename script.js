@@ -47,16 +47,24 @@ const db = (() => {
     live,
     async loadSongs() {
       if (live) {
+        const controller = new AbortController();
+        const signal = controller.signal;
         const query = sb
           .from('songs')
           .select('youtube_id,name,description,user_name,region,era,thumbnail,conscious_turnt,created_at,publish_at')
           .eq('status', 'published')
           .eq('unplayable', false)
-          .limit(5000);
-        const timeout = new Promise((res) => setTimeout(() => res({ data: null, error: { message: 'timeout' } }), 6000));
-        const { data, error } = await Promise.race([query, timeout]);
-        if (error) { /* loadSongs failed, falling back to JSON */ }
-        else return data;
+          .limit(5000)
+          .abortSignal(signal);
+        const timer = setTimeout(() => controller.abort(), 6000);
+        try {
+          const { data, error } = await query;
+          clearTimeout(timer);
+          if (error) { /* loadSongs failed, falling back to JSON */ }
+          else return data;
+        } catch (_) {
+          clearTimeout(timer);
+        }
       }
       const songs = await fetch('./data/songs.json').then((r) => r.json());
       const mine = lsGet('slaps_submissions');
@@ -205,11 +213,30 @@ function eligibleByBalance(p) {
   return pool;
 }
 
+function updateVibeColor(p, element = balanceRange) {
+  let color;
+  if (p < 2.5) {
+    const ratio = p / 2.5;
+    const r = Math.round(107 + (255 - 107) * ratio);
+    const g = Math.round(170 + (255 - 170) * ratio);
+    const b = 255;
+    color = `rgb(${r}, ${g}, ${b})`;
+  } else {
+    const ratio = (p - 2.5) / 2.5;
+    const r = 255;
+    const g = Math.round(255 - (255 - 107) * ratio);
+    const b = Math.round(255 - (255 - 74) * ratio);
+    color = `rgb(${r}, ${g}, ${b})`;
+  }
+  element.style.setProperty('--vibe-color', color);
+}
+
 function setBalance(p, opts = {}) {
   state.balance = p;
   const cur = current();
   state.queue = eligibleByBalance(p);
   applyOrder(state.queue);
+  updateVibeColor(p);
   if (opts.keep && cur) {
     // フィルター内に現在曲があればそのまま維持
     const keepIdx = state.queue.findIndex((s) => s.youtube_id === cur.youtube_id);
@@ -437,7 +464,8 @@ function slideTransition(dir) {
   // Phase 1: Slide out
   vb.classList.add(outClass);
 
-  const onSlideOutEnd = () => {
+  const onSlideOutEnd = (e) => {
+    if (e.target !== vb) return;
     vb.removeEventListener('transitionend', onSlideOutEnd);
     // Load new video while offscreen
     if (!loadCalled) { loadCalled = true; loadCurrent(); }
@@ -452,7 +480,7 @@ function slideTransition(dir) {
       });
     });
   };
-  vb.addEventListener('transitionend', onSlideOutEnd, { once: true });
+  vb.addEventListener('transitionend', onSlideOutEnd);
   // Fallback if transitionend doesn't fire
   setTimeout(() => {
     vb.classList.remove(outClass, inClass);
@@ -477,7 +505,11 @@ function unmute() {
 
 // ---- CONSCIOUS↔TURNT スライダー ----
 const balanceRange = $('#balanceRange');
-balanceRange.addEventListener('input', () => updateBalanceLabel(Number(balanceRange.value)));
+balanceRange.addEventListener('input', () => {
+  const v = Number(balanceRange.value);
+  updateBalanceLabel(v);
+  updateVibeColor(v);
+});
 balanceRange.addEventListener('change', () => {
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
@@ -580,6 +612,7 @@ ytCt.addEventListener('input', () => {
   ytCtTouched = true;
   const v = Number(ytCt.value);
   $('#ytConsTurntVal').textContent = `${v.toFixed(1)} ${zoneLabel(v)}`;
+  updateVibeColor(v, ytCt);
 });
 
 let lastSubmitTime = 0;
@@ -737,14 +770,14 @@ function openFavs() {
   $('#favEmpty').hidden = favs.length > 0;
   $('#favPlayAll').hidden = favs.length === 0;
   list.innerHTML = favs.map((f) => `
-    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}">
+    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}" role="button" tabindex="0">
       <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
       <div class="fav-item__body">
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
         <span class="fav-item__sub">${escapeHtml(f.user_name || i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
       </div>
-      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play">▶</button>
-      <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove">×</button>
+      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play" tabindex="-1">▶</button>
+      <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="-1">×</button>
     </div>`).join('');
   $('#favModal').hidden = false;
 }
@@ -856,17 +889,28 @@ const aboutOverlay = $('#aboutOverlay');
 $('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'hidden'; });
 $('#aboutClose').addEventListener('click', () => { aboutOverlay.hidden = true; document.body.style.overflow = ''; });
 
-$('#favList').addEventListener('click', (e) => {
-  const item = e.target.closest('.fav-item');
-  if (!item) return;
+function handleFavAction(target, item) {
   const id = item.dataset.yt;
-  if (e.target.closest('[data-fav-del]')) {
+  if (target.closest('[data-fav-del]')) {
     favSave(favGet().filter((f) => f.youtube_id !== id));
     updateFavCount();
     openFavs();
     renderFavBtn();
   } else {
     playFavorites(id);
+  }
+}
+$('#favList').addEventListener('click', (e) => {
+  const item = e.target.closest('.fav-item');
+  if (!item) return;
+  handleFavAction(e.target, item);
+});
+$('#favList').addEventListener('keydown', (e) => {
+  const item = e.target.closest('.fav-item');
+  if (!item) return;
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    handleFavAction(e.target, item);
   }
 });
 updateFavCount();
@@ -893,18 +937,12 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') { lastVisibleAt = Date.now(); return; }
   if (document.visibilityState !== 'visible') return;
   if (!state.started || !state.player) return;
-  // 5分以内の復帰はリセットしない（タブ切替対策）
+  // 5分以内の復帰は無視
   if (Date.now() - lastVisibleAt < 300000) return;
-  // 長時間離席→STARTに戻す
-  document.body.classList.remove('is-started');
-  document.body.classList.remove('is-idle');
-  state.muted = true;
+  // 長時間離席時：リセットせず単に一時停止状態にする（UX改善）
   try {
     state.player.pauseVideo();
-    state.player.mute();
   } catch (_) {}
-  stopProgress();
-  $('#unmute').hidden = false;
 });
 
 // キーボード操作

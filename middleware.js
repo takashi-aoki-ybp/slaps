@@ -7,7 +7,7 @@ function next() {
 }
 
 // クローラー判定用の正規表現
-const BOT_UA_REGEX = /bot|crawl|spider|facebook|twitter|slack|discord|whatsapp|telegram/i;
+const BOT_UA_REGEX = /bot|crawl|spider|facebook|twitter|slack|discord|whatsapp|telegram|line|pinterest/i;
 
 export default async function middleware(request) {
   const url = new URL(request.url);

@@ -182,9 +182,9 @@
 
   <!-- お気に入りトースト -->
   <div class="fav-toast" id="favToast" hidden>
-    <span class="fav-toast__msg">♥ Saved to this device only.<br>Not sent to server. Cleared if you clear browser data.</span>
+    <span class="fav-toast__msg"></span>
     <label class="fav-toast__check">
-      <input type="checkbox" id="favToastDismiss"> Don't show again
+      <input type="checkbox" id="favToastDismiss">
     </label>
   </div>
 
@@ -211,7 +211,7 @@
           <span class="balance__end balance__end--conscious">CONSCIOUS</span>
           <input type="range" class="balance__range" id="ytConsTurnt" min="0" max="5" step="0.5" value="2.5" aria-label="CONSCIOUS↔TURNT">
           <span class="balance__end balance__end--turnt">TURNT</span>
-          <span class="balance__formval" id="ytConsTurntVal">未設定</span>
+          <span class="balance__formval" id="ytConsTurntVal"></span>
         </div>
       </div>
       <div class="field">
@@ -246,7 +246,7 @@
       </label>
 
       <button type="button" class="modal__submit" id="submitDo" disabled>Add to Jukebox</button>
-      <p class="modal__note">※ Added tracks are immediately public.</p>
+      <p class="modal__note"></p>
     </div>
   </div>
 
@@ -279,10 +279,10 @@
     <div class="modal__panel">
       <button type="button" class="modal__close" id="favClose" aria-label="閉じる">×</button>
       <h2 class="modal__h">Saved Tracks</h2>
-      <p class="modal__lead">Saved to this device only. Not sent to any server.</p>
+      <p class="modal__lead"></p>
       <button type="button" class="modal__submit" id="favPlayAll" hidden>▶ Play Saved Only</button>
       <div class="fav-list" id="favList"></div>
-      <p class="modal__note" id="favEmpty">No saved tracks yet. Hit ♡ Save on a track you like.</p>
+      <p class="modal__note" id="favEmpty"></p>
     </div>
   </div>
 

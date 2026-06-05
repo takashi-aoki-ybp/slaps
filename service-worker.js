@@ -1,13 +1,11 @@
-const CACHE_NAME = 'slaps-v1.1';
+const CACHE_NAME = 'slaps-v1.2';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
   './script.js',
   './i18n.js',
-  './config.js',
   './manifest.json',
-  './data/songs.json',
   './assets/logo.png',
   './assets/apple-touch-icon.png',
   './assets/favicon-32x32.png',
@@ -38,21 +36,41 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// キャッシュ優先（アセット）またはネットワークフェッチ
+// フェッチ制御
 self.addEventListener('fetch', (e) => {
   // YouTube API 等の外部リクエストはキャッシュしない
   if (!e.request.url.startsWith(self.location.origin)) {
     return;
   }
 
+  const url = new URL(e.request.url);
+  // 動的アセット（songs.json, config.js）は Network First（即時反映）
+  if (url.pathname.includes('/data/songs.json') || url.pathname.endsWith('/config.js')) {
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        if (networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, clone);
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        // オフラインフォールバック: キャッシュがあれば返す
+        return caches.match(e.request);
+      })
+    );
+    return;
+  }
+
+  // 静的アセットはキャッシュ優先（Stale-While-Revalidate）
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // バックグラウンドでアセットを更新する stale-while-revalidate 的な動き
         fetch(e.request).then((networkResponse) => {
           if (networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => {
-              cache.put(e.request, networkResponse);
+              cache.put(e.request, networkResponse.clone());
             });
           }
         }).catch(() => { /* ignore offline fetch errors */ });
