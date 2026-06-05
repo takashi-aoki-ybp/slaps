@@ -1,14 +1,14 @@
-const CACHE_NAME = 'slaps-v1.7';
+const CACHE_NAME = 'slaps-v1.8';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=1.7',
-  './script.js?v=1.7',
-  './i18n.js?v=1.7',
-  './src/state.js?v=1.7',
-  './src/db.js?v=1.7',
-  './src/player.js?v=1.7',
-  './src/ui.js?v=1.7',
+  './styles.css?v=1.8',
+  './script.js?v=1.8',
+  './i18n.js?v=1.8',
+  './src/state.js?v=1.8',
+  './src/db.js?v=1.8',
+  './src/player.js?v=1.8',
+  './src/ui.js?v=1.8',
   './manifest.json',
   './assets/logo.png',
   './assets/apple-touch-icon.png',
@@ -42,12 +42,23 @@ self.addEventListener('activate', (e) => {
 
 // フェッチ制御
 self.addEventListener('fetch', (e) => {
+  // GET以外のリクエストはキャッシュしない (POSTのAPI送信など)
+  if (e.request.method !== 'GET') {
+    return;
+  }
+
   // YouTube API 等の外部リクエストはキャッシュしない
   if (!e.request.url.startsWith(self.location.origin)) {
     return;
   }
 
   const url = new URL(e.request.url);
+
+  // /api/ へのリクエストはキャッシュせずパススルー
+  if (url.pathname.startsWith('/api/')) {
+    return;
+  }
+
   // 動的アセット（songs.json, config.js）は Network First（即時反映）
   if (url.pathname.includes('/data/songs.json') || url.pathname.includes('/config.js')) {
     e.respondWith(

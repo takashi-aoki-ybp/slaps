@@ -136,11 +136,32 @@ export function setEra(era) {
   showFilterFeedback();
 }
 
-export function setOrder(order) {
+export async function setOrder(order) {
   if (order === state.order) return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.order === order));
+
+  if (order === 'newest') {
+    const btn = document.querySelector('[data-order="newest"]');
+    const originalHTML = btn ? btn.innerHTML : '';
+    if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
+    try {
+      const res = await fetch(`/api/songs?t=${Date.now()}`, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          state.all = data;
+          updateTrackCount();
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to refresh songs on LATEST click:', e);
+    } finally {
+      if (btn) btn.innerHTML = originalHTML;
+    }
+  }
+
   if (state.favMode) {
     const cur = current();
     applyOrder(state.queue);
