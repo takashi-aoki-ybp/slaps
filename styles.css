@@ -492,10 +492,10 @@ body.is-fill #yt {
   .brand__logo .logo-img--brand { height: 30px; }
   .brand__tag { display: none; }
 
-  /* フィルター: 超コンパクト化 */
-  .regions { margin-top: 6px; gap: 4px; max-width: 72vw; }
+  /* フィルター: 超コンパクト化（右上ボタンとの衝突を防ぎつつ最大幅に拡張） */
+  .regions { margin-top: 6px; gap: 4px; max-width: calc(100vw - 160px); }
   .region__btn { font-size: 12px; padding: 6px 10px; min-height: 34px; }
-  .eras { margin-top: 4px; gap: 4px; max-width: 72vw; }
+  .eras { margin-top: 4px; gap: 4px; max-width: calc(100vw - 160px); }
   .era__btn { font-size: 11px; padding: 5px 9px; min-height: 34px; }
 
   /* バランススライダー: 横幅縮小 */
