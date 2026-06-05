@@ -143,7 +143,7 @@ export function setEra(era) {
 }
 
 export async function setOrder(order) {
-  if (order === state.order && order !== 'newest') return;
+  if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.order === order));
@@ -156,10 +156,9 @@ export async function setOrder(order) {
     else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
     if (state.ready) loadCurrent();
   } else {
-    // If LATEST (newest) is clicked, we want to play the newest song (index 0) immediately.
-    // Otherwise (e.g. SHUFFLE), we keep the current playing song seamless.
-    const isNewestClick = (order === 'newest');
-    setBalance(state.balance, { keep: !isNewestClick });
+    // If LATEST (newest) or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
+    const shouldCutPlay = (order === 'newest' || order === 'shuffle');
+    setBalance(state.balance, { keep: !shouldCutPlay });
   }
 
   // 2. Fetch latest database songs in the background if LATEST is selected
