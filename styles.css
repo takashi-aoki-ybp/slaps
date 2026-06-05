@@ -322,8 +322,7 @@ body.is-fill #yt {
 .meta__title { font-size: clamp(14px, 3.5vw, 20px); font-weight: 600; }
 .meta__desc {
   margin-top: 5px; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.7;
-  max-width: 620px; margin-inline: auto;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  max-width: 100%; margin-inline: auto;
 }
 .meta__foot { margin-top: 6px; display: flex; gap: 12px; justify-content: center; align-items: center; font-size: 11px; color: rgba(255,255,255,.5); }
 
@@ -546,7 +545,7 @@ body.is-fill #yt {
   .dock { bottom: calc(8px + env(safe-area-inset-bottom)); gap: 6px; }
   .meta { min-height: 0; }
   .meta__title { font-size: 13px; }
-  .meta__desc { -webkit-line-clamp: 1; margin-top: 2px; font-size: 12px; }
+  .meta__desc { margin-top: 2px; font-size: 12px; }
   .meta__foot { margin-top: 3px; }
   .actions { gap: 6px; }
   .pill { padding: 6px 12px; font-size: 12px; }
