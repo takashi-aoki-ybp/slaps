@@ -112,7 +112,11 @@ const db = (() => {
 
 // ---- データ読み込み ----
 async function loadData() {
-  state.all = await db.loadSongs();
+  try {
+    state.all = await db.loadSongs();
+  } catch {
+    state.all = [];
+  }
   updateTrackCount();
   tryStart();
 }
