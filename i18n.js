@@ -171,7 +171,7 @@ const I18N = {
 };
 
 const i18n = (() => {
-  let lang = localStorage.getItem('slaps_lang') || 'en';
+  let lang = localStorage.getItem('slaps_lang') || 'ja';
 
   function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
   function getLang() { return lang; }
