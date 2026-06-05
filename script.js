@@ -493,14 +493,19 @@ $('#order').addEventListener('click', (e) => {
 });
 
 // ---- 地域フィルター ----
+function updateRegionsMask() {
+  const el = $('#regions');
+  if (!el) return;
+  const isScrollable = el.scrollWidth > el.clientWidth;
+  const isEnd = !isScrollable || (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10);
+  el.classList.toggle('is-end', isEnd);
+}
 $('#regions').addEventListener('click', (e) => {
   const btn = e.target.closest('.region__btn');
   if (btn) setRegion(btn.dataset.region);
 });
-$('#regions').addEventListener('scroll', () => {
-  const el = $('#regions');
-  el.classList.toggle('is-end', el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
-}, { passive: true });
+$('#regions').addEventListener('scroll', updateRegionsMask, { passive: true });
+window.addEventListener('resize', updateRegionsMask, { passive: true });
 
 // ---- 年代フィルター ----
 $('#eras').addEventListener('click', (e) => {
@@ -964,3 +969,5 @@ i18n.applyAll();
 
 // ===== 起動 =====
 loadData();
+updateRegionsMask();
+window.addEventListener('load', updateRegionsMask);

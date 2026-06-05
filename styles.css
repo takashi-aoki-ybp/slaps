@@ -168,8 +168,8 @@ body.is-fill #yt {
   max-width: min(380px, 82vw);
   overflow-x: auto; -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  mask-image: linear-gradient(to right, #000 92%, transparent);
-  -webkit-mask-image: linear-gradient(to right, #000 92%, transparent);
+  mask-image: linear-gradient(to right, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, #000 95%, transparent);
 }
 .regions::-webkit-scrollbar { display: none; }
 .regions.is-end { mask-image: none; -webkit-mask-image: none; }
