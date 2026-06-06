@@ -11,7 +11,8 @@ import {
   setBalance,
   showInfoGuide,
   fetchComments,
-  showSeekIndicator
+  showSeekIndicator,
+  getAudioContext
 } from './ui.js';
 
 let consecutiveErrors = 0;
@@ -207,6 +208,13 @@ export function unmute() {
   document.body.classList.add('is-started');
   wake();
   showInfoGuide();
+  
+  // ユーザーの最初のアクションでAudioContextを有効化し、即座に効果音MP3のロード＆デコードを開始
+  try {
+    getAudioContext();
+  } catch (audioErr) {
+    console.warn('Failed to pre-initialize AudioContext during unmute:', audioErr);
+  }
 }
 
 export function seekBy(seconds) {

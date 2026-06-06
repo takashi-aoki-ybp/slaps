@@ -1399,7 +1399,7 @@ async function loadAirhornBuffer(ctx) {
 }
 
 let audioCtx = null;
-function getAudioContext() {
+export function getAudioContext() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
@@ -1424,9 +1424,7 @@ function playAirhornSound(ctx) {
     
     source.start(now);
   } else {
-    // フォールバックとして以前のシンセサイズ音を再生
-    playAirhornSynthesized(ctx);
-    // バックグラウンドでプリロードをリトライ
+    // フォールバック再生（シンセサイズ音）は廃止し、プリロードのみリトライ
     loadAirhornBuffer(ctx);
   }
 }
