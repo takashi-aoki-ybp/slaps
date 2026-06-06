@@ -81,16 +81,16 @@ export default async function middleware(request) {
 
       // OGPタグを置換
       const shareUrl = `${url.origin}/?v=${videoId}`;
-      html = html.replace(/<meta property="og:title" content="[^"]*">/g, `<meta property="og:title" content="${title}">`);
-      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, `<meta name="twitter:title" content="${title}">`);
-      html = html.replace(/<meta property="og:description" content="[^"]*">/g, `<meta property="og:description" content="${desc}">`);
-      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, `<meta name="twitter:description" content="${desc}">`);
+      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${title}">`);
+      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${title}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${desc}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${desc}">`);
       const imageUrl = `${url.origin}${thumbnail}`;
-      html = html.replace(/<meta property="og:image" content="[^"]*">/g, `<meta property="og:image" content="${imageUrl}">`);
-      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, `<meta name="twitter:image" content="${imageUrl}">`);
-      html = html.replace(/<meta property="og:url" content="[^"]*">/g, `<meta property="og:url" content="${shareUrl}">`);
-      html = html.replace(/<link rel="canonical" href="[^"]*">/g, `<link rel="canonical" href="${shareUrl}">`);
-      html = html.replace(/<title>[^<]*<\/title>/g, `<title>${title}</title>`);
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${imageUrl}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${imageUrl}">`);
+      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${shareUrl}">`);
+      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${shareUrl}">`);
+      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${title}</title>`);
 
       return new Response(html, {
         headers: {
