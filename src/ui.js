@@ -467,7 +467,7 @@ export function openFavs() {
         <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
       </div>
       <button type="button" class="fav-item__btn" data-fav-play aria-label="Play" tabindex="-1">▶</button>
-      <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="-1">×</button>
+      <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="0">×</button>
     </div>`).join('');
   $('#favModal').hidden = false;
 }

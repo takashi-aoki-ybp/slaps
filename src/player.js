@@ -29,6 +29,11 @@ export function createYTPlayer() {
 // Global exposure for iframe API
 window.onYouTubeIframeAPIReady = createYTPlayer;
 
+// Self-bootstrap if YT API is already loaded
+if (window.YT && window.YT.Player) {
+  createYTPlayer();
+}
+
 export function onPlayerStateChange(e) {
   if (e.data === YT.PlayerState.ENDED) { next(); return; }
   if (e.data === YT.PlayerState.PLAYING) startProgress();
@@ -123,20 +128,40 @@ export function step(dir) {
 }
 
 let isTransitioning = false;
+let slideTransitionTimeout = null;
+let activeSlideOutEndListener = null;
+
 export function slideTransition(dir) {
-  if (isTransitioning) return;
+  const vb = document.querySelector('.video-bg');
+  
+  if (activeSlideOutEndListener) {
+    vb.removeEventListener('transitionend', activeSlideOutEndListener);
+    activeSlideOutEndListener = null;
+  }
+  if (slideTransitionTimeout) {
+    clearTimeout(slideTransitionTimeout);
+    slideTransitionTimeout = null;
+  }
+
   isTransitioning = true;
   let loadCalled = false;
 
-  const vb = document.querySelector('.video-bg');
   const outClass = dir > 0 ? 'slide-out-left' : 'slide-out-right';
   const inClass  = dir > 0 ? 'slide-in-left'  : 'slide-in-right';
 
+  vb.classList.remove('slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
   vb.classList.add(outClass);
 
   const onSlideOutEnd = (e) => {
     if (e.target !== vb) return;
     vb.removeEventListener('transitionend', onSlideOutEnd);
+    activeSlideOutEndListener = null;
+    
+    if (slideTransitionTimeout) {
+      clearTimeout(slideTransitionTimeout);
+      slideTransitionTimeout = null;
+    }
+
     if (!loadCalled) { loadCalled = true; loadCurrent(); }
     vb.classList.remove(outClass);
     vb.classList.add(inClass);
@@ -147,9 +172,17 @@ export function slideTransition(dir) {
       });
     });
   };
+
+  activeSlideOutEndListener = onSlideOutEnd;
   vb.addEventListener('transitionend', onSlideOutEnd);
-  setTimeout(() => {
-    vb.classList.remove(outClass, inClass);
+
+  slideTransitionTimeout = setTimeout(() => {
+    slideTransitionTimeout = null;
+    if (activeSlideOutEndListener) {
+      vb.removeEventListener('transitionend', activeSlideOutEndListener);
+      activeSlideOutEndListener = null;
+    }
+    vb.classList.remove('slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
     if (!loadCalled) { loadCalled = true; loadCurrent(); }
     isTransitioning = false;
   }, 500);
