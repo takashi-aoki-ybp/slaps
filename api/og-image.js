@@ -2,11 +2,42 @@ const Jimp = require('jimp');
 const path = require('path');
 const fs = require('fs');
 
+async function kvFetch(command) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(command),
+  });
+  if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
+  const data = await res.json();
+  return data.result;
+}
+
 export default async function handler(req, res) {
   const { v } = req.query;
 
   if (!v) {
     return res.status(400).send('Missing video ID parameter "v"');
+  }
+
+  // Redis (Vercel KV) からキャッシュの取得を試みる
+  try {
+    const cachedBase64 = await kvFetch(['GET', `slaps:og:${v}`]);
+    if (cachedBase64) {
+      const buffer = Buffer.from(cachedBase64, 'base64');
+      res.setHeader('Content-Type', 'image/jpeg');
+      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+      res.setHeader('X-Slaps-Cache', 'KV_HIT');
+      return res.send(buffer);
+    }
+  } catch (kvError) {
+    console.error('KV Cache Read Error:', kvError);
   }
 
   try {
@@ -42,9 +73,18 @@ export default async function handler(req, res) {
     bgImage.quality(85);
     const buffer = await bgImage.getBufferAsync(Jimp.MIME_JPEG);
 
+    // Vercel KV へのキャッシュ書き込み
+    try {
+      const base64 = buffer.toString('base64');
+      await kvFetch(['SET', `slaps:og:${v}`, base64]);
+    } catch (kvError) {
+      console.error('KV Cache Write Error:', kvError);
+    }
+
     // 適切なキャッシュヘッダーとコンテンツタイプを設定
     res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    res.setHeader('X-Slaps-Cache', 'KV_MISS');
     return res.send(buffer);
 
   } catch (error) {
