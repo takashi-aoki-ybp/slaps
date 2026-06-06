@@ -34,6 +34,21 @@ export default async function handler(req, res) {
       const rawComments = await kvFetch(['LRANGE', `${prefix}slaps:comments:${youtube_id}`, 0, -1]) || [];
       const comments = rawComments.map(c => JSON.parse(c));
       
+      if (comments.length > 0) {
+        const likeKeys = comments.map(c => `${prefix}slaps:likes:${youtube_id}:${c.id}`);
+        try {
+          const likesArray = await kvFetch(['MGET', ...likeKeys]) || [];
+          comments.forEach((c, idx) => {
+            c.likes = parseInt(likesArray[idx] || 0, 10);
+          });
+        } catch (likeErr) {
+          console.error('Failed to fetch likes, defaulting to 0:', likeErr);
+          comments.forEach(c => {
+            c.likes = 0;
+          });
+        }
+      }
+
       comments.sort((a, b) => a.time - b.time);
 
       return res.status(200).json({ comments });

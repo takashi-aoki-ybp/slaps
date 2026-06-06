@@ -997,6 +997,9 @@ function showCommentCard(c) {
   const randomColor = colorTypes[Math.floor(Math.random() * colorTypes.length)];
   
   card.className = `comment-card ${randomColor}`;
+  
+  const initialLikes = c.likes || 0;
+  
   card.innerHTML = `
     <div class="comment-card__bubble">
       <div class="comment-card__meta">
@@ -1004,8 +1007,49 @@ function showCommentCard(c) {
         <span class="comment-card__user">${escapeHTML(c.user_name)}</span>
       </div>
       <p class="comment-card__text">${escapeHTML(c.text)}</p>
+      <div class="comment-card__actions">
+        <button class="comment-card__respect-btn" data-comment-id="${c.id}" data-likes="${initialLikes}">
+          <span class="comment-card__respect-emoji">👊</span>
+          <span class="comment-card__respect-count">${initialLikes}</span>
+        </button>
+      </div>
     </div>
   `;
+  
+  // RESPECTボタンのクリックイベントを設定（連打可能・伝播防止）
+  const respectBtn = card.querySelector('.comment-card__respect-btn');
+  if (respectBtn) {
+    respectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      // 1. 楽観的アップデート（いいねカウントの加算と表示更新）
+      const countEl = respectBtn.querySelector('.comment-card__respect-count');
+      let currentLikes = parseInt(respectBtn.getAttribute('data-likes') || '0', 10);
+      currentLikes++;
+      respectBtn.setAttribute('data-likes', currentLikes);
+      if (countEl) {
+        countEl.textContent = currentLikes;
+      }
+      
+      // クリック時のプニッとするアニメーションクラス適用
+      respectBtn.classList.add('is-clicked');
+      setTimeout(() => {
+        respectBtn.classList.remove('is-clicked');
+      }, 200);
+      
+      // 2. 音声の再生（Vibe判定 ➔ スクラッチ or エアホーン）
+      playVibeSE();
+      
+      // 3. APIリクエストを非同期送信してサーバーに永続化
+      sendLike(c.id);
+    });
+  }
+  
+  // カード自体のクリックも背後の動画プレイヤーにイベントが伝播しないようにストップする
+  card.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
   
   // ランダムな位置を設定
   const pos = calculateRandomPosition(overlay);
@@ -1326,7 +1370,189 @@ export function onPromoBadgeClick() {
   next();
 }
 
+let audioCtx = null;
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playAirhornSound(ctx) {
+  const now = ctx.currentTime;
+  
+  const osc1 = ctx.createOscillator();
+  const osc2 = ctx.createOscillator();
+  const osc3 = ctx.createOscillator();
+  
+  const filter = ctx.createBiquadFilter();
+  const gainNode = ctx.createGain();
+  
+  osc1.type = 'sawtooth';
+  osc2.type = 'sawtooth';
+  osc3.type = 'sawtooth';
+  
+  // レゲエ・エアホーンサウンドを特徴づけるピッチの重ね合わせ
+  const baseFreq1 = 587.33; // D5
+  const baseFreq2 = 783.99; // G5
+  
+  osc1.frequency.setValueAtTime(baseFreq1, now);
+  osc2.frequency.setValueAtTime(baseFreq2, now);
+  osc3.frequency.setValueAtTime(baseFreq1 * 1.5, now); // A5 (5度上)
+  
+  // デチューンを効かせて音に広がりと厚みを出す
+  osc1.detune.setValueAtTime(-12, now);
+  osc2.detune.setValueAtTime(0, now);
+  osc3.detune.setValueAtTime(12, now);
+  
+  // アタックの「プ！」音：0.15秒でピッチを 0.8倍に降下させてホーン特有のピッチベンドを再現
+  osc1.frequency.exponentialRampToValueAtTime(baseFreq1 * 0.8, now + 0.15);
+  osc2.frequency.exponentialRampToValueAtTime(baseFreq2 * 0.8, now + 0.15);
+  osc3.frequency.exponentialRampToValueAtTime((baseFreq1 * 1.5) * 0.8, now + 0.15);
+  
+  // メガホン／拡声器らしさを出すフィルタリング（1.2kHz付近をブーストして金属的に）
+  filter.type = 'peaking';
+  filter.frequency.setValueAtTime(1200, now);
+  filter.Q.setValueAtTime(2.0, now);
+  filter.gain.setValueAtTime(12, now);
+  
+  // 音量エンベロープ（超急激な立ち上がり ＆ なだらかなディケイ）
+  gainNode.gain.setValueAtTime(0, now);
+  gainNode.gain.linearRampToValueAtTime(0.35, now + 0.015);
+  gainNode.gain.setValueAtTime(0.35, now + 0.12);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+  
+  osc1.connect(filter);
+  osc2.connect(filter);
+  osc3.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(ctx.destination);
+  
+  osc1.start(now);
+  osc2.start(now);
+  osc3.start(now);
+  
+  osc1.stop(now + 0.6);
+  osc2.stop(now + 0.6);
+  osc3.stop(now + 0.6);
+}
+
+function playScratchSound(ctx) {
+  const now = ctx.currentTime;
+  
+  // ホワイトノイズ生成
+  const bufferSize = ctx.sampleRate * 0.3;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+  const noiseSource = ctx.createBufferSource();
+  noiseSource.buffer = buffer;
+  
+  // 低域〜中域のうねり（レコード盤のピッチ模倣）用の三角波オシレーター
+  const osc = ctx.createOscillator();
+  osc.type = 'triangle';
+  
+  const noiseFilter = ctx.createBiquadFilter();
+  const oscFilter = ctx.createBiquadFilter();
+  const mainGain = ctx.createGain();
+  
+  // 摩擦音（シュッ）を引き立たせるバンドパスフィルター
+  noiseFilter.type = 'bandpass';
+  noiseFilter.Q.setValueAtTime(4.0, now);
+  
+  // 三角波をマイルドにするためのローパスフィルター
+  oscFilter.type = 'lowpass';
+  oscFilter.frequency.setValueAtTime(800, now);
+  
+  // キュッ・キュッという擦りの往復運動（ダブルスクラッチ）
+  // 往路の擦り
+  osc.frequency.setValueAtTime(120, now);
+  osc.frequency.exponentialRampToValueAtTime(1000, now + 0.07);
+  osc.frequency.exponentialRampToValueAtTime(250, now + 0.13);
+  
+  noiseFilter.frequency.setValueAtTime(500, now);
+  noiseFilter.frequency.exponentialRampToValueAtTime(3200, now + 0.07);
+  noiseFilter.frequency.exponentialRampToValueAtTime(800, now + 0.13);
+  
+  // 復路の擦り
+  osc.frequency.setValueAtTime(250, now + 0.13);
+  osc.frequency.exponentialRampToValueAtTime(1200, now + 0.19);
+  osc.frequency.exponentialRampToValueAtTime(80, now + 0.27);
+  
+  noiseFilter.frequency.setValueAtTime(800, now + 0.13);
+  noiseFilter.frequency.exponentialRampToValueAtTime(3600, now + 0.19);
+  noiseFilter.frequency.exponentialRampToValueAtTime(300, now + 0.27);
+  
+  // ゲインエンベロープ（往復に合わせた山2つ）
+  mainGain.gain.setValueAtTime(0, now);
+  mainGain.gain.linearRampToValueAtTime(0.25, now + 0.04);
+  mainGain.gain.linearRampToValueAtTime(0.08, now + 0.13);
+  mainGain.gain.linearRampToValueAtTime(0.28, now + 0.18);
+  mainGain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+  
+  noiseSource.connect(noiseFilter);
+  noiseFilter.connect(mainGain);
+  
+  osc.connect(oscFilter);
+  oscFilter.connect(mainGain);
+  
+  mainGain.connect(ctx.destination);
+  
+  noiseSource.start(now);
+  osc.start(now);
+  
+  noiseSource.stop(now + 0.3);
+  osc.stop(now + 0.3);
+}
+
+function playVibeSE() {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    
+    // state.balance が 2.5以下（Conscious）ならスクラッチ、2.5超（Turnt）ならエアホーン
+    const isConscious = state.balance <= 2.5;
+    if (isConscious) {
+      playScratchSound(ctx);
+    } else {
+      playAirhornSound(ctx);
+    }
+  } catch (err) {
+    console.error('Audio synthesis failed:', err);
+  }
+}
+
+async function sendLike(commentId) {
+  const song = current();
+  if (!song || !song.youtube_id) return;
+  
+  try {
+    const res = await fetch('/api/comments/like', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        youtube_id: song.youtube_id,
+        comment_id: commentId
+      })
+    });
+    if (!res.ok) {
+      console.warn('Failed to persist like on server');
+    }
+  } catch (err) {
+    console.error('Failed to send like API request:', err);
+  }
+}
+
 // Expose functions globally for i18n.js integration
 window.renderFavBtn = renderFavBtn;
 window.updateTrackCount = updateTrackCount;
 window.current = current;
+window.playVibeSE = playVibeSE;
+window.state = state;
