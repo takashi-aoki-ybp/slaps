@@ -499,12 +499,12 @@ export async function doShare() {
   fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
 
   const shareText = `Playing on SLAPS | ${song.name}`;
+  const fullCopyText = `${shareText}\n${shareUrl}`;
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (isMobile && navigator.share) {
     try {
       await navigator.share({
-        text: shareText,
-        url: shareUrl
+        text: fullCopyText
       });
       return;
     } catch (err) {

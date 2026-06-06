@@ -1,8 +1,8 @@
-const CACHE_NAME = 'slaps-v2.36';
+const CACHE_NAME = 'slaps-v2.37';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=2.36',
+  './styles.css?v=2.37',
   './script.js?v=2.25',
   './i18n.js?v=2.18',
   './src/state.js?v=2.18',
@@ -57,6 +57,24 @@ self.addEventListener('fetch', (e) => {
 
   // /api/ へのリクエストはキャッシュせずパススルー
   if (url.pathname.startsWith('/api/')) {
+    return;
+  }
+
+  // index.html またはルートパスへのリクエストは Network First (即時反映)
+  if (url.pathname === '/' || url.pathname.endsWith('/index.html')) {
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        if (networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, clone);
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        return caches.match(e.request);
+      })
+    );
     return;
   }
 
