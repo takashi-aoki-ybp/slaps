@@ -1046,15 +1046,7 @@ export function toggleTTS() {
 export function updatePromoBadge(song) {
   const badge = $('#promoBadge');
   if (!badge) return;
-  const promos = state.all.filter((s) => s.promo === true && !state.broken.has(s.youtube_id));
-  
-  if (song && song.promo) {
-    badge.hidden = true;
-  } else if (promos.length > 0) {
-    badge.hidden = false;
-  } else {
-    badge.hidden = true;
-  }
+  badge.hidden = true; // プロモ一時無効化
 }
 
 export function onPromoBadgeClick() {

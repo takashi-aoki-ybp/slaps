@@ -188,5 +188,5 @@ export function injectPromoSongs(arr) {
 export function applyOrder(arr) {
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
   else deckShuffle(arr);
-  injectPromoSongs(arr);
+  // injectPromoSongs(arr);
 }
