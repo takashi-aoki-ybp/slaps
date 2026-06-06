@@ -38,11 +38,12 @@ export default async function handler(req, res) {
 
     bgImage.composite(overlayImage, x, y);
 
-    // 3. バッファに変換して画像として返却
-    const buffer = await bgImage.getBufferAsync(Jimp.MIME_PNG);
+    // 3. バッファに変換して画像として返却（処理速度が圧倒的に速いJPEGに変更し、画質を85%に設定）
+    bgImage.quality(85);
+    const buffer = await bgImage.getBufferAsync(Jimp.MIME_JPEG);
 
     // 適切なキャッシュヘッダーとコンテンツタイプを設定
-    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
     return res.send(buffer);
 

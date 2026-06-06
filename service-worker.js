@@ -1,8 +1,8 @@
-const CACHE_NAME = 'slaps-v2.33';
+const CACHE_NAME = 'slaps-v2.34';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=2.33',
+  './styles.css?v=2.34',
   './script.js?v=2.25',
   './i18n.js?v=2.18',
   './src/state.js?v=2.18',
