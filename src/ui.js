@@ -512,7 +512,6 @@ export async function doShare() {
     }
   }
   
-  const fullCopyText = `${shareText}\n${shareUrl}`;
   try {
     await navigator.clipboard.writeText(fullCopyText);
     showToast(window.i18n.t('shareCopied'));
