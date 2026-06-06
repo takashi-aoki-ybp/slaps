@@ -1,14 +1,14 @@
-const CACHE_NAME = 'slaps-v2.49';
+const CACHE_NAME = 'slaps-v2.50';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=2.49',
-  './script.js?v=2.49',
-  './i18n.js?v=2.49',
-  './src/state.js?v=2.49',
-  './src/db.js?v=2.49',
-  './src/player.js?v=2.49',
-  './src/ui.js?v=2.49',
+  './styles.css?v=2.50',
+  './script.js?v=2.50',
+  './i18n.js?v=2.50',
+  './src/state.js?v=2.50',
+  './src/db.js?v=2.50',
+  './src/player.js?v=2.50',
+  './src/ui.js?v=2.50',
   './manifest.json',
   './data/songs.json',
   './assets/logo.png',

@@ -57,7 +57,7 @@ export const state = {
   played: loadPlayed(),   // デッキシャッフル: 再生済みID
   recent: loadRecent(),   // 直近再生曲のガード（最大10曲の配列）
   comments: [],           // コメントデータ
-  ttsEnabled: false,      // 音声読み上げON/OFF
+  commentMode: 2,         // コメンタリーモード (0 = OFF, 1 = 字幕のみ, 2 = フル機能)
   triggeredComments: new Set(), // すでにトリガーしたコメントID
 };
 

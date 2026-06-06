@@ -10,7 +10,8 @@ import {
   stopProgress,
   setBalance,
   showInfoGuide,
-  fetchComments
+  fetchComments,
+  showSeekIndicator
 } from './ui.js';
 
 let consecutiveErrors = 0;
@@ -206,4 +207,23 @@ export function unmute() {
   document.body.classList.add('is-started');
   wake();
   showInfoGuide();
+}
+
+export function seekBy(seconds) {
+  if (!state.player || !state.ready) return;
+  try {
+    const cur = state.player.getCurrentTime();
+    const dur = state.player.getDuration();
+    if (cur == null || dur == null) return;
+    let target = cur + seconds;
+    if (target < 0) target = 0;
+    if (target > dur) target = dur;
+    state.player.seekTo(target, true);
+    
+    // UI側のシークインジケーター表示を呼び出す
+    const isForward = seconds > 0;
+    showSeekIndicator(isForward);
+  } catch (e) {
+    console.warn('Seek failed:', e);
+  }
 }

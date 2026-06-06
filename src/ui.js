@@ -1,6 +1,6 @@
 import { state, REGION_LABELS, CT, current, getFilteredPool, playableCount, eligibleByBalance, applyOrder } from './state.js';
 import { db } from './db.js';
-import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer } from './player.js';
+import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy } from './player.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -740,7 +740,9 @@ export function setupUIListeners() {
 
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (e.target.closest('input, textarea, select')) return;
+    if (e.target && typeof e.target.closest === 'function') {
+      if (e.target.closest('input, textarea, select')) return;
+    }
     if (e.key === 'Escape') {
       if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; document.body.style.overflow = ''; return; }
       if (!$('#submitModal').hidden) { closeModal(); return; }
@@ -750,8 +752,22 @@ export function setupUIListeners() {
     }
     const modalOpen = !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden;
     if (modalOpen) return;
-    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (e.shiftKey) {
+        seekBy(10);
+      } else {
+        next();
+      }
+    }
+    else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (e.shiftKey) {
+        seekBy(-10);
+      } else {
+        prev();
+      }
+    }
     else if (e.key === ' ' || e.code === 'Space') {
       e.preventDefault();
       if (!$('#unmute').hidden) { unmute(); return; }
@@ -800,7 +816,7 @@ export function setupUIListeners() {
     });
   }
   
-  $('#ttsBtn').addEventListener('click', toggleTTS);
+  $('#ttsBtn').addEventListener('click', () => toggleCommentMode());
   $('#promoBadge').addEventListener('click', onPromoBadgeClick);
 
   // Focus trap setup
@@ -816,6 +832,31 @@ export function setupUIListeners() {
 
   // Init favs and labels
   updateFavCount();
+
+  // コメンタリーモードの復元と初期設定
+  let savedMode = localStorage.getItem('slaps_comment_mode');
+  if (savedMode === null) {
+    savedMode = '2'; // デフォルトはフル機能 (2)
+  }
+  state.commentMode = parseInt(savedMode, 10);
+  const ttsBtn = $('#ttsBtn');
+  if (ttsBtn) {
+    ttsBtn.setAttribute('data-mode', state.commentMode.toString());
+    ttsBtn.setAttribute('aria-pressed', state.commentMode > 0 ? 'true' : 'false');
+    if (state.commentMode === 2) {
+      ttsBtn.setAttribute('aria-label', 'コメンタリー: 字幕＋音声');
+      ttsBtn.setAttribute('title', 'コメンタリー: 字幕＋音声 (クリックでOFF)');
+    } else if (state.commentMode === 1) {
+      ttsBtn.setAttribute('aria-label', 'コメンタリー: 字幕のみ');
+      ttsBtn.setAttribute('title', 'コメンタリー: 字幕のみ (クリックで字幕＋音声)');
+    } else {
+      ttsBtn.setAttribute('aria-label', 'コメンタリー: OFF');
+      ttsBtn.setAttribute('title', 'コメンタリー: OFF (クリックで字幕のみ)');
+    }
+  }
+
+  // ダブルタップシークの有効化
+  setupDoubleTapSeek();
 }
 
 // ---- コメンタリー機能 & プロモーション機能の追加ロジック ----
@@ -877,27 +918,41 @@ export function renderCommentDots() {
   }
 }
 
+let lastSpeechTime = 0;
+
 export function checkComments(curTime) {
   if (!state.comments || !state.comments.length) return;
+  if (state.commentMode === 0) return; // コメンタリー完全OFF
   
   state.comments.forEach((c) => {
     if (curTime >= c.time && curTime < c.time + 5) {
       if (!state.triggeredComments.has(c.id)) {
         state.triggeredComments.add(c.id);
+        
+        // 字幕表示（字幕ONのモード1と2で実行）
         showCommentCard(c);
-        if (state.ttsEnabled) {
-          speakComment(c);
+        
+        // 音声読み上げON（モード2）かつ、前回の読み上げから3秒以上経過している場合のみ読み上げる
+        if (state.commentMode === 2) {
+          const now = Date.now();
+          if (now - lastSpeechTime >= 3000) {
+            lastSpeechTime = now;
+            speakComment(c);
+          } else {
+            console.log(`Speech synthesis for comment ID ${c.id} skipped due to 3s interval restriction.`);
+          }
         }
       }
     }
   });
 }
 
-let commentCardTimeout = null;
 function showCommentCard(c) {
-  const card = $('#commentCard');
-  if (!card) return;
+  const overlay = $('#commentOverlay');
+  if (!overlay) return;
   
+  const card = document.createElement('div');
+  card.className = 'comment-card';
   card.innerHTML = `
     <div class="comment-card__bubble">
       <div class="comment-card__meta">
@@ -907,17 +962,28 @@ function showCommentCard(c) {
       <p class="comment-card__text">${escapeHTML(c.text)}</p>
     </div>
   `;
-  card.hidden = false;
-  card.offsetHeight;
+  
+  overlay.appendChild(card);
+  card.offsetHeight; // reflow
   card.classList.add('is-show');
   
-  clearTimeout(commentCardTimeout);
-  commentCardTimeout = setTimeout(() => {
+  // 最大3件を超えたら古いカードをフェードアウトして削除
+  const children = Array.from(overlay.children);
+  if (children.length > 3) {
+    const toRemove = children.slice(0, children.length - 3);
+    toRemove.forEach((child) => {
+      child.classList.remove('is-show');
+      setTimeout(() => {
+        if (child.parentNode) child.parentNode.removeChild(child);
+      }, 300);
+    });
+  }
+  
+  // 5秒後に自動フェードアウトして削除
+  setTimeout(() => {
     card.classList.remove('is-show');
     setTimeout(() => {
-      if (!card.classList.contains('is-show')) {
-        card.hidden = true;
-      }
+      if (card.parentNode) card.parentNode.removeChild(card);
     }, 300);
   }, 5000);
 }
@@ -1022,25 +1088,104 @@ export async function doSubmitComment() {
   }
 }
 
-export function toggleTTS() {
-  state.ttsEnabled = !state.ttsEnabled;
+export function toggleCommentMode(customMode = null) {
+  if (customMode !== null) {
+    state.commentMode = customMode;
+  } else {
+    state.commentMode = (state.commentMode + 1) % 3;
+  }
+  
   const btn = $('#ttsBtn');
   if (btn) {
-    btn.classList.toggle('is-active', state.ttsEnabled);
-    btn.setAttribute('aria-pressed', state.ttsEnabled ? 'true' : 'false');
-    if (state.ttsEnabled) {
-      showToast('音声読み上げ: ON');
+    btn.setAttribute('data-mode', state.commentMode.toString());
+    btn.setAttribute('aria-pressed', state.commentMode > 0 ? 'true' : 'false');
+    
+    if (state.commentMode === 2) {
+      btn.setAttribute('aria-label', 'コメンタリー: 字幕＋音声');
+      btn.setAttribute('title', 'コメンタリー: 字幕＋音声 (クリックでOFF)');
+      showToast('コメンタリー: 字幕＋音声');
+      
       if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
         const dummy = new SpeechSynthesisUtterance('');
         window.speechSynthesis.speak(dummy);
       }
+    } else if (state.commentMode === 1) {
+      btn.setAttribute('aria-label', 'コメンタリー: 字幕のみ');
+      btn.setAttribute('title', 'コメンタリー: 字幕のみ (クリックで字幕＋音声)');
+      showToast('コメンタリー: 字幕のみ');
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
     } else {
-      showToast('音声読み上げ: OFF');
+      btn.setAttribute('aria-label', 'コメンタリー: OFF');
+      btn.setAttribute('title', 'コメンタリー: OFF (クリックで字幕のみ)');
+      showToast('コメンタリー: OFF');
+      
+      const overlay = $('#commentOverlay');
+      if (overlay) overlay.innerHTML = '';
+      
       if (window.speechSynthesis) {
         window.speechSynthesis.cancel();
       }
     }
+    
+    localStorage.setItem('slaps_comment_mode', state.commentMode.toString());
   }
+}
+
+let seekIndicatorTimeout = null;
+export function showSeekIndicator(isForward) {
+  const ind = $('#seekIndicator');
+  if (!ind) return;
+  
+  ind.hidden = true;
+  ind.classList.remove('is-left', 'is-right', 'is-active');
+  ind.offsetHeight; // reflow
+  
+  const arrowEl = ind.querySelector('.seek-indicator__arrow');
+  if (arrowEl) {
+    arrowEl.textContent = isForward ? '▶▶' : '◀◀';
+  }
+  
+  ind.classList.add(isForward ? 'is-right' : 'is-left');
+  ind.hidden = false;
+  ind.classList.add('is-active');
+  
+  clearTimeout(seekIndicatorTimeout);
+  seekIndicatorTimeout = setTimeout(() => {
+    ind.classList.remove('is-active');
+    setTimeout(() => {
+      if (!ind.classList.contains('is-active')) {
+        ind.hidden = true;
+      }
+    }, 300);
+  }, 600);
+}
+
+export function setupDoubleTapSeek() {
+  const playerEl = $('#player');
+  if (!playerEl) return;
+  
+  let lastTouchTime = 0;
+  
+  playerEl.addEventListener('touchstart', (e) => {
+    if (!$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !$('#aboutOverlay').hidden) return;
+    if (e.target.closest('button, input, a, .dock, .regions, .eras, .balance, .top-right, .brand')) return;
+    
+    const now = Date.now();
+    const touchX = e.touches[0].clientX;
+    const screenWidth = window.innerWidth;
+    const isForward = touchX > screenWidth / 2;
+    
+    if (now - lastTouchTime < 300) {
+      seekBy(isForward ? 10 : -10);
+      e.preventDefault();
+      lastTouchTime = 0;
+    } else {
+      lastTouchTime = now;
+    }
+  }, { passive: false });
 }
 
 export function updatePromoBadge(song) {

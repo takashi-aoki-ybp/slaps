@@ -666,25 +666,29 @@ body.is-fill #yt {
   pointer-events: none;
   width: min(500px, 90vw);
   display: flex;
-  justify-content: center;
+  flex-direction: column-reverse; /* 下から上に押し上げるチャットログ風 */
+  align-items: center;
+  gap: 8px;
 }
 .comment-card {
-  background: rgba(10, 10, 10, 0.8);
+  background: rgba(10, 10, 10, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 12px 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 10px 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   color: #fff;
   text-align: center;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(15px) scale(0.95);
+  width: 100%; /* 横幅一杯 */
+  box-sizing: border-box;
 }
 .comment-card.is-show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 .comment-card__bubble {
   display: flex;
@@ -762,6 +766,71 @@ body.is-fill #yt {
   from { transform: scale(1); }
   to { transform: scale(1.2); filter: drop-shadow(0 0 4px #ff3366); }
 }
+
+/* ===== ダブルタップシークインジケーター ===== */
+.seek-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 35;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+.seek-indicator.is-left {
+  left: 20%;
+}
+.seek-indicator.is-right {
+  right: 20%;
+}
+.seek-indicator.is-active {
+  animation: seekFade 0.6s ease-out forwards;
+}
+.seek-indicator__circle {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 51, 102, 0.1);
+  border: 2px solid rgba(255, 51, 102, 0.6);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.seek-indicator__arrow {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff3366;
+  text-shadow: 0 0 8px rgba(255, 51, 102, 0.8);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.seek-indicator__text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.05em;
+}
+@keyframes seekFade {
+  0% { transform: translateY(-50%) scale(0.8); opacity: 0; }
+  20% { transform: translateY(-50%) scale(1.1); opacity: 1; }
+  80% { transform: translateY(-50%) scale(1); opacity: 1; }
+  100% { transform: translateY(-50%) scale(0.9); opacity: 0; }
+}
+
+/* ===== TTS ボタンの3段階制御 ===== */
+#ttsBtn[data-mode="2"] .tts-off-line { display: none; }
+#ttsBtn[data-mode="2"] .tts-wave-lines { display: block; }
+#ttsBtn[data-mode="1"] .tts-off-line { display: none; }
+#ttsBtn[data-mode="1"] .tts-wave-lines { display: none; }
+#ttsBtn[data-mode="0"] .tts-off-line { display: block; }
+#ttsBtn[data-mode="0"] .tts-wave-lines { display: none; }
 
 /* ===== アクセシビリティ: モーション軽減 ===== */
 @media (prefers-reduced-motion: reduce) {
