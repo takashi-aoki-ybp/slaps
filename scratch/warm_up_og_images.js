@@ -31,8 +31,8 @@ async function main() {
   console.log(`--- SLAPS OGP Image Pre-warm Batch ---`);
   console.log(`Total songs to pre-warm: ${songs.length}`);
 
-  // 10個ずつの並行実行チャンクで回す
-  const CHUNK_SIZE = 10;
+  // 3個ずつの並行実行チャンクで回す（Vercel同時実行制限とKVアクセスレート制限を回避するため）
+  const CHUNK_SIZE = 3;
   for (let i = 0; i < songs.length; i += CHUNK_SIZE) {
     const chunk = songs.slice(i, i + CHUNK_SIZE);
     console.log(`Processing chunk ${Math.floor(i / CHUNK_SIZE) + 1}/${Math.ceil(songs.length / CHUNK_SIZE)}...`);
@@ -48,8 +48,8 @@ async function main() {
     });
 
     await Promise.all(promises);
-    // Vercelサーバーの急激なCPUバーストを防ぐために少しスリープ
-    await new Promise((r) => setTimeout(r, 600));
+    // VercelサーバーのCPUバーストとKVレート制限を防ぐためにスリープを1.5秒に延長
+    await new Promise((r) => setTimeout(r, 1500));
   }
 
   console.log('OGP Pre-warm complete!');
