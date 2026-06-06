@@ -494,20 +494,15 @@ export async function doShare() {
   const song = current();
   if (!song) return;
   const shareUrl = `${window.location.origin}/?v=${song.youtube_id}`;
+
+  // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
+  fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
+
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (isMobile && navigator.share) {
     try {
-      let desc = '';
-      if (song.description) {
-        if (typeof song.description === 'string') {
-          desc = song.description;
-        } else {
-          desc = song.description[window.i18n.getLang()] || song.description.en || song.description.ja || '';
-        }
-      }
+      // 説明文やタイトルは含めず、共有URLのみを送信
       await navigator.share({
-        title: song.name,
-        text: desc,
         url: shareUrl
       });
       return;

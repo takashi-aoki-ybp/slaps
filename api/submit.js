@@ -95,6 +95,11 @@ export default async function handler(req, res) {
     await kvFetch(['LPUSH', 'slaps:songs', JSON.stringify(finalSong)]);
     await kvFetch(['SADD', 'slaps:existing_ids', youtube_id]);
 
+    // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
+    const host = req.headers.host || 'slaps.tokyo';
+    const protocol = req.headers.host && req.headers.host.includes('localhost') ? 'http' : 'https';
+    fetch(`${protocol}://${host}/api/og-image?v=${youtube_id}`).catch(() => {});
+
     return res.status(200).json({ status: 'success', song: finalSong });
   } catch (error) {
     console.error('Failed to submit song:', error);

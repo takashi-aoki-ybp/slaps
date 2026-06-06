@@ -113,6 +113,9 @@ export function loadCurrent() {
   if (state.muted) state.player.mute();
   renderMeta(song);
   resetProgress();
+
+  // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
+  fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
 }
 
 export function step(dir) {
