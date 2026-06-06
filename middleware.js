@@ -26,7 +26,7 @@ export default async function middleware(request) {
     const kvToken = process.env.KV_REST_API_TOKEN;
 
     let songName = "";
-    let thumbnail = `/api/og-image?v=${videoId}&ext=.jpg`;
+    let thumbnail = `/og-image/${videoId}.jpg`;
 
     if (kvUrl && kvToken) {
       try {

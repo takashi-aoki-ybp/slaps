@@ -4,5 +4,11 @@
       "path": "/api/cron/auto-classify",
       "schedule": "0 20 * * *"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/og-image/:id.jpg",
+      "destination": "/api/og-image?v=:id"
+    }
   ]
 }
