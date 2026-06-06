@@ -1370,6 +1370,33 @@ export function onPromoBadgeClick() {
   next();
 }
 
+let airhornBuffer = null;
+let isAirhornLoading = false;
+
+async function loadAirhornBuffer(ctx) {
+  if (airhornBuffer || isAirhornLoading) return;
+  isAirhornLoading = true;
+  try {
+    const res = await fetch('./assets/se_1.mp3?v=2.56');
+    if (!res.ok) throw new Error(`Fetch failed: ${res.statusText}`);
+    const arrayBuffer = await res.arrayBuffer();
+    ctx.decodeAudioData(
+      arrayBuffer,
+      (decoded) => {
+        airhornBuffer = decoded;
+        isAirhornLoading = false;
+      },
+      (err) => {
+        console.error('Failed to decode airhorn MP3:', err);
+        isAirhornLoading = false;
+      }
+    );
+  } catch (err) {
+    console.error('Failed to load airhorn buffer:', err);
+    isAirhornLoading = false;
+  }
+}
+
 let audioCtx = null;
 function getAudioContext() {
   if (!audioCtx) {
@@ -1378,10 +1405,32 @@ function getAudioContext() {
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
   }
+  loadAirhornBuffer(audioCtx);
   return audioCtx;
 }
 
 function playAirhornSound(ctx) {
+  if (airhornBuffer) {
+    const now = ctx.currentTime;
+    const source = ctx.createBufferSource();
+    source.buffer = airhornBuffer;
+    
+    const gainNode = ctx.createGain();
+    gainNode.gain.setValueAtTime(0.5, now); // 適度な音量に調整
+    
+    source.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    source.start(now);
+  } else {
+    // フォールバックとして以前のシンセサイズ音を再生
+    playAirhornSynthesized(ctx);
+    // バックグラウンドでプリロードをリトライ
+    loadAirhornBuffer(ctx);
+  }
+}
+
+function playAirhornSynthesized(ctx) {
   const now = ctx.currentTime;
   
   const osc1 = ctx.createOscillator();
