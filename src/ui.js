@@ -1416,7 +1416,7 @@ function playAirhornSound(ctx) {
     source.buffer = airhornBuffer;
     
     const gainNode = ctx.createGain();
-    gainNode.gain.setValueAtTime(0.5, now); // 適度な音量に調整
+    gainNode.gain.setValueAtTime(0.2, now); // 適度な音量に調整
     
     source.connect(gainNode);
     gainNode.connect(ctx.destination);
@@ -1470,8 +1470,8 @@ function playAirhornSynthesized(ctx) {
   
   // 音量エンベロープ（超急激な立ち上がり ＆ なだらかなディケイ）
   gainNode.gain.setValueAtTime(0, now);
-  gainNode.gain.linearRampToValueAtTime(0.35, now + 0.015);
-  gainNode.gain.setValueAtTime(0.35, now + 0.12);
+  gainNode.gain.linearRampToValueAtTime(0.15, now + 0.015);
+  gainNode.gain.setValueAtTime(0.15, now + 0.12);
   gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
   
   osc1.connect(filter);
