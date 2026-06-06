@@ -36,7 +36,7 @@
       "ja": "90年代ゴールデンエラへの回帰を感じさせる、鋭いリリシズムとクラシックなブーンバップサウンド。",
       "en": "A throw back to the 90s golden era boom-bap, featuring sharp lyricism and vintage production."
     },
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/N1yMLZ_d1tI/mqdefault.jpg",
     "user_name": "Editor",
     "status": "published"
@@ -50,7 +50,7 @@
       "ja": "Nujabesのメロウなビートに乗せて語られる、普遍的な愛のメッセージ。ジャパニーズヒップホップの至宝。",
       "en": "Spitting timeless messages of love over Nujabes' signature mellow beats. A cornerstone of Japanese hip-hop history."
     },
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/f0Tq1qS5z7k/mqdefault.jpg",
     "user_name": "Editor",
     "status": "published"
@@ -79,7 +79,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/_CL6n0FJZpk/mqdefault.jpg",
     "created_at": "2026-05-01T00:00:00Z"
   },
@@ -149,7 +149,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "00s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/PWgvGjAhvIw/mqdefault.jpg",
     "created_at": "2026-05-01T20:00:00Z"
   },
@@ -191,7 +191,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/Z-48u_uWMHY/mqdefault.jpg",
     "created_at": "2026-05-02T08:00:00Z"
   },
@@ -205,7 +205,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/VYOjWnS4cMY/mqdefault.jpg",
     "created_at": "2026-05-02T12:00:00Z"
   },
@@ -219,7 +219,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 5.0,
+    "conscious_turnt": 5,
     "thumbnail": "https://img.youtube.com/vi/S-sJp1FfG7Q/mqdefault.jpg",
     "created_at": "2026-05-02T16:00:00Z"
   },
@@ -303,7 +303,7 @@
     "user_name": "青木 喬",
     "region": "uk",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/MQOG5BkY2Bc/mqdefault.jpg",
     "created_at": "2026-05-03T16:00:00Z"
   },
@@ -331,7 +331,7 @@
     "user_name": "青木 喬",
     "region": "kr",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/gx_mg-1WhWw/mqdefault.jpg",
     "created_at": "2026-05-04T00:00:00Z"
   },
@@ -345,7 +345,7 @@
     "user_name": "青木 喬",
     "region": "kr",
     "era": "10s",
-    "conscious_turnt": 5.0,
+    "conscious_turnt": 5,
     "thumbnail": "https://img.youtube.com/vi/DPC9erC5WqU/mqdefault.jpg",
     "created_at": "2026-05-04T04:00:00Z"
   },
@@ -372,7 +372,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/xvZqHgFz51I/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-04T12:00:00Z"
@@ -386,7 +386,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/DawrlSwHUiM/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-04T16:00:00Z"
@@ -414,7 +414,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/_L2vJEb6lVE/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-05T00:00:00Z"
@@ -428,7 +428,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/SsKT0s5J8ko/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-05T04:00:00Z"
@@ -456,7 +456,7 @@
     },
     "region": "uk",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/9ClYy0MxsU0/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-05T12:00:00Z"
@@ -470,7 +470,7 @@
     },
     "region": "uk",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/8AHRFybJ820/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-05T16:00:00Z"
@@ -540,7 +540,7 @@
     },
     "region": "jp",
     "era": "00s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/P4_HwzxnG0I/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-06T12:00:00Z"
@@ -554,7 +554,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/IxFfn2oHBl4/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-06T16:00:00Z"
@@ -568,7 +568,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/h4rtxlz5f24/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-06T20:00:00Z"
@@ -804,7 +804,7 @@
       "en": "Tego's reggaeton classic — Puerto Rican flavor",
       "ja": "レゲトンのゴッドファーザーのアグレッシブなフロウが炸裂するクラシック"
     },
-    "region": "other",
+    "region": "us",
     "era": "00s",
     "conscious_turnt": 5,
     "thumbnail": "https://img.youtube.com/vi/lRnSsiT-fio/mqdefault.jpg",
@@ -818,7 +818,7 @@
       "en": "Don Omar's reggaeton romance",
       "ja": "レゲトン黄金期を代表するロマンティックなヒット"
     },
-    "region": "other",
+    "region": "us",
     "era": "00s",
     "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/zODmu06pqvg/mqdefault.jpg",
@@ -832,7 +832,7 @@
       "en": "Anuel and Ozuna toast to the trap life",
       "ja": "ストリートからの成功を祝うラテントラップアンセム"
     },
-    "region": "other",
+    "region": "us",
     "era": "10s",
     "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/NHTbrrf6W8c/mqdefault.jpg",
@@ -846,7 +846,7 @@
       "en": "Falz's sharp Nigerian social commentary",
       "ja": "ナイジェリアの社会問題を風刺するChildish Gambinoへの回答"
     },
-    "region": "other",
+    "region": "us",
     "era": "10s",
     "conscious_turnt": 0,
     "thumbnail": "https://img.youtube.com/vi/CdvY-tfI3ME/mqdefault.jpg",
@@ -888,7 +888,7 @@
       "en": "Kwesi Arthur's Ghanaian grind anthem remix with Sarkodie",
       "ja": "ガーナの新世代ラッパーのアフリカンヒップホップの逸品"
     },
-    "region": "other",
+    "region": "us",
     "era": "10s",
     "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/QLg8lPWnuHk/mqdefault.jpg",
@@ -1100,7 +1100,7 @@
     },
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/n1aG6WUWO5Q/mqdefault.jpg",
     "user_name": "青木 喬",
     "created_at": "2026-05-13T04:00:00Z"
@@ -3006,7 +3006,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/oZPiskvDlTo/mqdefault.jpg",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3048,7 +3048,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/d5254qIwSDo/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3062,7 +3062,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/987JwJ9iYtk/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3076,7 +3076,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/EOH7Oz7bSas/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3090,7 +3090,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/ehjeUKgF_Io/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3118,7 +3118,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/djiRmZeBuSY/mqdefault.jpg",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3146,7 +3146,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/FI1CXjIz6SQ/mqdefault.jpg",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3188,7 +3188,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/OIMloua-_20/mqdefault.jpg",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3202,7 +3202,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/F_I3FDDiO1o/mqdefault.jpg",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3244,7 +3244,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/JRQELAAIVkU/mqdefault.jpg",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3258,7 +3258,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/AVGmr0HjG_c/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3286,7 +3286,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/9Vjus4x7XhY/mqdefault.jpg",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "created_at": "2026-06-05T06:52:54Z"
   },
   {
@@ -3314,7 +3314,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/Dga18Jd5lNA/mqdefault.jpg",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3328,7 +3328,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/XLrfoZhx0e0/mqdefault.jpg",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3342,7 +3342,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/IkiuDffaALQ/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3398,7 +3398,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/RdZsb2Z9TvM/mqdefault.jpg",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3440,7 +3440,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/281RNSp6g_U/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3454,7 +3454,7 @@
     "region": "jp",
     "era": "20s",
     "thumbnail": "https://img.youtube.com/vi/8dT8PalJyXo/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3510,7 +3510,7 @@
     "region": "jp",
     "era": "10s",
     "thumbnail": "https://img.youtube.com/vi/J9EFBhMlmEE/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3538,7 +3538,7 @@
     "region": "us",
     "era": "90s",
     "thumbnail": "https://img.youtube.com/vi/jQ-RrGCSa2M/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3566,7 +3566,7 @@
     "region": "us",
     "era": "90s",
     "thumbnail": "https://img.youtube.com/vi/75L7L6zaNoQ/mqdefault.jpg",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
   },
   {
@@ -3719,7 +3719,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/Y7OTdHYEXw8/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -3733,7 +3733,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "20s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/HXnD0NmFs7A/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -3817,7 +3817,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "20s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/e-1sBIuHZ1g/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -3845,7 +3845,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/gSVUfktiLpo/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -3873,7 +3873,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "20s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/3C2WlJaOihU/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -3957,7 +3957,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "20s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/JrnCjKBmGPs/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -4027,7 +4027,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/As1v0Jb3KRg/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -4069,7 +4069,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/kH5ZacivG4Y/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -4111,7 +4111,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/mjJ-GywwR2I/mqdefault.jpg",
     "created_at": "2026-06-05T07:25:47Z"
   },
@@ -4125,7 +4125,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "20s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/Y19q-7VN2WI/mqdefault.jpg",
     "created_at": "2026-06-05T07:28:11Z"
   },
@@ -4153,7 +4153,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/ytCLHXGmuHY/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4223,7 +4223,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/opWYnUpNtG8/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4237,7 +4237,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/OKlFQYDt3Wg/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4251,7 +4251,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/IfiGeZUxBqU/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4265,7 +4265,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/Ptiz0KtR16E/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4279,7 +4279,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "00s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/5t71DEU6y2I/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4307,7 +4307,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/uznTHSEgx4U/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4321,7 +4321,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/4_122Tx8xmg/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4335,7 +4335,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/hFdRMJk9huk/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4377,7 +4377,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/eRf82JFCYpQ/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4405,7 +4405,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/nxuzYWcY2O0/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4419,7 +4419,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/QhTCHikzdo8/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4447,7 +4447,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/X2xmQthQwcw/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4489,7 +4489,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/YNQ9DP3BbRw/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4559,7 +4559,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/Nkw9N0YpveU/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4587,7 +4587,7 @@
     "user_name": "青木 喬",
     "region": "kr",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/doFK7Eanm3I/mqdefault.jpg",
     "created_at": "2026-06-05T08:43:48Z"
   },
@@ -4601,7 +4601,7 @@
     "user_name": "青木 喬",
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/Z9doCz9P6Pw/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4657,7 +4657,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/5m332hrZkkY/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4685,7 +4685,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/U1D9oV6zKgU/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4699,7 +4699,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/12sz-dzAqNo/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4741,7 +4741,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/W0nhOV_M23M/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4755,7 +4755,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/lwj4bpQ4XFY/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4783,7 +4783,7 @@
     "user_name": "青木 喬",
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/09oxUOjQdAE/mqdefault.jpg",
     "created_at": "2026-06-05T09:40:54Z"
   },
@@ -4797,7 +4797,7 @@
     "user_name": "お友達",
     "region": "us",
     "era": "00s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/XvzD7D4VcSc/mqdefault.jpg",
     "created_at": "2026-06-05T11:33:32Z"
   },
@@ -4810,7 +4810,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/7TfaU1ciA3g/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.761974+00:00",
@@ -4825,7 +4825,7 @@
     },
     "region": "jp",
     "era": "00s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/k9kiy1Frn68/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.762706+00:00",
@@ -4840,7 +4840,7 @@
     },
     "region": "jp",
     "era": "90s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/yEpKC0wXy4M/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.762715+00:00",
@@ -4855,7 +4855,7 @@
     },
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/KZZmR87QZZw/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.762719+00:00",
@@ -4870,7 +4870,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/wbUkdjvokO0/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.762723+00:00",
@@ -4885,7 +4885,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/5xALUzAYYTI/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.762727+00:00",
@@ -4900,7 +4900,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 1.0,
+    "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/zv--cE_G7Y0/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T13:49:49.762731+00:00",
@@ -4915,7 +4915,7 @@
     },
     "region": "jp",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/6awx5kmTONo/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.680749+00:00",
@@ -4930,7 +4930,7 @@
     },
     "region": "jp",
     "era": "20s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/IRDoeQZ12-Y/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.681312+00:00",
@@ -4945,7 +4945,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 2.0,
+    "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/vO2Su3erRIA/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.681319+00:00",
@@ -4960,7 +4960,7 @@
     },
     "region": "us",
     "era": "00s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/sevZEOUXpw4/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.681323+00:00",
@@ -4975,7 +4975,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 4.0,
+    "conscious_turnt": 4,
     "thumbnail": "https://img.youtube.com/vi/8XK7nzAW_b0/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.681327+00:00",
@@ -4990,7 +4990,7 @@
     },
     "region": "us",
     "era": "90s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/VC4ORS5n9Hg/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.681331+00:00",
@@ -5005,7 +5005,7 @@
     },
     "region": "us",
     "era": "10s",
-    "conscious_turnt": 3.0,
+    "conscious_turnt": 3,
     "thumbnail": "https://img.youtube.com/vi/ithYB82y0Sk/mqdefault.jpg",
     "user_name": "青木 喬",
     "publish_at": "2026-06-05T14:01:26.681337+00:00",

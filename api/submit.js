@@ -1,3 +1,5 @@
+import { classifySong } from './utils/classifier.js';
+
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
@@ -31,17 +33,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid song name (1-150 chars)' });
   }
 
-  // region のフォールバックと検証
-  if (!region || region === '') {
-    region = 'other';
+  // region/era の自動分類とフォールバック
+  const guesses = classifySong({ name, region, era, description });
+  if (!region || region === '' || region === 'other') {
+    region = guesses.region;
   }
-  if (!['us', 'jp', 'uk', 'fr', 'kr', 'other'].includes(region)) {
-    return res.status(400).json({ error: 'Invalid region' });
+  if (!era || era === '' || era === 'other') {
+    era = guesses.era;
   }
 
-  // era のフォールバックと検証
-  if (!era || era === '') {
-    era = '20s';
+  // 検証
+  if (!['us', 'jp', 'uk', 'fr', 'kr', 'other'].includes(region)) {
+    return res.status(400).json({ error: 'Invalid region' });
   }
   if (!['90s', '00s', '10s', '20s'].includes(era)) {
     return res.status(400).json({ error: 'Invalid era' });
