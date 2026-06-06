@@ -86,10 +86,11 @@ export function tryStart() {
 
 export function runIntro() {
   const intro = document.querySelector('#intro');
+  // イントロの裏側で最初からボタンを表示状態にしておく
+  document.querySelector('#unmute').hidden = false;
   setTimeout(() => { intro.classList.add('is-out'); }, 4800);
   setTimeout(() => {
     intro.remove();
-    document.querySelector('#unmute').hidden = false;
   }, 6000);
 }
 
