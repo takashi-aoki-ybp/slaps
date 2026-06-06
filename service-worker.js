@@ -1,14 +1,14 @@
-const CACHE_NAME = 'slaps-v2.47';
+const CACHE_NAME = 'slaps-v2.48';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=2.47',
-  './script.js?v=2.25',
-  './i18n.js?v=2.18',
-  './src/state.js?v=2.18',
-  './src/db.js?v=2.18',
-  './src/player.js?v=2.40',
-  './src/ui.js?v=2.46',
+  './styles.css?v=2.48',
+  './script.js?v=2.48',
+  './i18n.js?v=2.48',
+  './src/state.js?v=2.48',
+  './src/db.js?v=2.48',
+  './src/player.js?v=2.48',
+  './src/ui.js?v=2.48',
   './manifest.json',
   './data/songs.json',
   './assets/logo.png',
@@ -60,26 +60,16 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // index.html またはルートパスへのリクエストは Network First (即時反映)
-  if (url.pathname === '/' || url.pathname.endsWith('/index.html')) {
-    e.respondWith(
-      fetch(e.request).then((networkResponse) => {
-        if (networkResponse.status === 200) {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(e.request, clone);
-          });
-        }
-        return networkResponse;
-      }).catch(() => {
-        return caches.match(e.request);
-      })
-    );
-    return;
-  }
+  // コアアセット（HTML, JS, CSS, JSONデータ）は Network First (即時反映・オフライン対応)
+  const isCoreAsset = 
+    url.pathname === '/' || 
+    url.pathname.endsWith('/index.html') ||
+    url.pathname.endsWith('.js') ||
+    url.pathname.endsWith('.css') ||
+    url.pathname.includes('/data/songs.json') ||
+    url.pathname.includes('/config.js');
 
-  // 動的アセット（songs.json, config.js）は Network First（即時反映）
-  if (url.pathname.includes('/data/songs.json') || url.pathname.includes('/config.js')) {
+  if (isCoreAsset) {
     e.respondWith(
       fetch(e.request).then((networkResponse) => {
         if (networkResponse.status === 200) {
@@ -97,7 +87,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // 静的アセットはキャッシュ優先（Stale-While-Revalidate）
+  // その他画像などの静的アセットはキャッシュ優先（Stale-While-Revalidate）
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
