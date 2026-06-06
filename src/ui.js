@@ -1377,13 +1377,14 @@ async function loadAirhornBuffer(ctx) {
   if (airhornBuffer || isAirhornLoading) return;
   isAirhornLoading = true;
   try {
-    const res = await fetch('./assets/se_1.mp3?v=2.56');
+    const res = await fetch('./assets/se_1.mp3');
     if (!res.ok) throw new Error(`Fetch failed: ${res.statusText}`);
     const arrayBuffer = await res.arrayBuffer();
     ctx.decodeAudioData(
       arrayBuffer,
       (decoded) => {
         airhornBuffer = decoded;
+        window.airhornBuffer = decoded; // デバッグ用にグローバル露出
         isAirhornLoading = false;
       },
       (err) => {
@@ -1564,13 +1565,8 @@ function playVibeSE() {
     const ctx = getAudioContext();
     if (!ctx) return;
     
-    // state.balance が 2.5以下（Conscious）ならスクラッチ、2.5超（Turnt）ならエアホーン
-    const isConscious = state.balance <= 2.5;
-    if (isConscious) {
-      playScratchSound(ctx);
-    } else {
-      playAirhornSound(ctx);
-    }
+    // すべてエアホーン音源（se_1.mp3）に統一して再生
+    playAirhornSound(ctx);
   } catch (err) {
     console.error('Audio synthesis failed:', err);
   }

@@ -1,21 +1,21 @@
-const CACHE_NAME = 'slaps-v2.58';
+const CACHE_NAME = 'slaps-v2.60';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=2.58',
-  './script.js?v=2.58',
-  './i18n.js?v=2.58',
-  './src/state.js?v=2.58',
-  './src/db.js?v=2.58',
-  './src/player.js?v=2.58',
-  './src/ui.js?v=2.58',
+  './styles.css?v=2.60',
+  './script.js?v=2.60',
+  './i18n.js?v=2.60',
+  './src/state.js?v=2.60',
+  './src/db.js?v=2.60',
+  './src/player.js?v=2.60',
+  './src/ui.js?v=2.60',
   './manifest.json',
   './data/songs.json',
   './assets/logo.png',
   './assets/apple-touch-icon.png',
   './assets/favicon-32x32.png',
   './assets/favicon.svg',
-  './assets/se_1.mp3?v=2.58'
+  './assets/se_1.mp3'
 ];
 
 // インストール時に静的アセットをキャッシュ
