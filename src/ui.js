@@ -878,13 +878,11 @@ function formatTime(sec) {
 export async function fetchComments(youtubeId) {
   state.comments = [];
   state.triggeredComments.clear();
-  renderCommentDots();
+  clearSpeechQueue();
   
-  const card = $('#commentCard');
-  if (card) {
-    card.classList.remove('is-show');
-    card.hidden = true;
-  }
+  const overlay = $('#commentOverlay');
+  if (overlay) overlay.innerHTML = '';
+  renderCommentDots();
   
   try {
     const res = await fetch(`/api/comments?v=${youtubeId}`);
@@ -1047,23 +1045,87 @@ function showCommentCard(c) {
   }, 5000);
 }
 
-function speakComment(c) {
+let speechQueue = [];
+let isSpeaking = false;
+
+export function clearSpeechQueue() {
+  speechQueue = [];
+  isSpeaking = false;
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+}
+
+function processSpeechQueue() {
   if (!window.speechSynthesis) return;
+  if (speechQueue.length === 0) {
+    isSpeaking = false;
+    return;
+  }
+  
+  isSpeaking = true;
+  const c = speechQueue.shift();
+  
   try {
-    // speechSynthesis.cancel() をあえて呼ばないことで、複数の発話をキューイングし、
-    // 全てのコメントがぶつ切りにならずに順次再生されるようにします（ガヤ感の構築）
+    // 25文字制限（A案）
+    let textToSpeak = c.text;
+    if (textToSpeak.length > 25) {
+      textToSpeak = textToSpeak.substring(0, 25) + '...';
+    }
     
-    const ut = new SpeechSynthesisUtterance(c.text);
-    const isJapanese = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]/.test(c.text);
+    const ut = new SpeechSynthesisUtterance(textToSpeak);
+    const isJapanese = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]/.test(textToSpeak);
     ut.lang = isJapanese ? 'ja-JP' : 'en-US';
     
-    // ガヤ感を出すため、声の高さと速度をコメントごとにランダムに変動させる
+    // ガヤ感を出すためのピッチ揺らぎ
     ut.pitch = parseFloat((0.85 + Math.random() * 0.3).toFixed(2)); // 0.85 ~ 1.15
-    ut.rate = parseFloat((1.0 + Math.random() * 0.2).toFixed(2));   // 1.00 ~ 1.20
+    
+    // 渋滞状況（キューの長さ）に応じて話速を動的に加速（A案）
+    const queueLen = speechQueue.length;
+    let baseRate = 1.05;
+    if (queueLen >= 3) {
+      baseRate = 1.45; // 大渋滞
+    } else if (queueLen >= 1) {
+      baseRate = 1.25; // 渋滞
+    }
+    ut.rate = parseFloat((baseRate + Math.random() * 0.15).toFixed(2));
+    
+    ut.onend = () => {
+      setTimeout(() => {
+        processSpeechQueue();
+      }, 100);
+    };
+    
+    ut.onerror = () => {
+      isSpeaking = false;
+      setTimeout(() => {
+        processSpeechQueue();
+      }, 100);
+    };
     
     window.speechSynthesis.speak(ut);
   } catch (e) {
     console.warn('SpeechSynthesis failed:', e);
+    isSpeaking = false;
+    setTimeout(() => {
+      processSpeechQueue();
+    }, 100);
+  }
+}
+
+function speakComment(c) {
+  if (!window.speechSynthesis) return;
+  
+  // キューに追加
+  speechQueue.push(c);
+  
+  // 渋滞が酷すぎる場合（オーバーフロー対策：最新5件を残して古いものを捨てる）
+  if (speechQueue.length > 5) {
+    speechQueue.shift();
+  }
+  
+  if (!isSpeaking) {
+    processSpeechQueue();
   }
 }
 
@@ -1176,9 +1238,7 @@ export function toggleCommentMode(customMode = null) {
       btn.setAttribute('aria-label', 'コメンタリー: 字幕のみ');
       btn.setAttribute('title', 'コメンタリー: 字幕のみ (クリックで字幕＋音声)');
       showToast('コメンタリー: 字幕のみ');
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
+      clearSpeechQueue();
     } else {
       btn.setAttribute('aria-label', 'コメンタリー: OFF');
       btn.setAttribute('title', 'コメンタリー: OFF (クリックで字幕のみ)');
@@ -1187,9 +1247,7 @@ export function toggleCommentMode(customMode = null) {
       const overlay = $('#commentOverlay');
       if (overlay) overlay.innerHTML = '';
       
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
+      clearSpeechQueue();
     }
     
     localStorage.setItem('slaps_comment_mode', state.commentMode.toString());
