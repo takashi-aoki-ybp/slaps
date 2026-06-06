@@ -498,11 +498,12 @@ export async function doShare() {
   // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
   fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
 
+  const shareText = `Playing on SLAPS | ${song.name}`;
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (isMobile && navigator.share) {
     try {
-      // 説明文やタイトルは含めず、共有URLのみを送信
       await navigator.share({
+        text: shareText,
         url: shareUrl
       });
       return;
@@ -510,12 +511,14 @@ export async function doShare() {
       if (err.name === 'AbortError') return;
     }
   }
+  
+  const fullCopyText = `${shareText}\n${shareUrl}`;
   try {
-    await navigator.clipboard.writeText(shareUrl);
+    await navigator.clipboard.writeText(fullCopyText);
     showToast(window.i18n.t('shareCopied'));
   } catch (_) {
     const input = document.createElement('input');
-    input.value = shareUrl;
+    input.value = fullCopyText;
     input.style.position = 'absolute';
     input.style.opacity = '0';
     document.body.appendChild(input);

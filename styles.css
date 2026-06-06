@@ -357,18 +357,26 @@ body.is-fill #yt {
 /* ===== unmute (START) ===== */
 .unmute {
   position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 35;
-  display: flex; align-items: center; gap: 10px;
-  background: var(--fg); color: #000; font-family: 'Bebas Neue', sans-serif; font-size: 22px;
-  letter-spacing: .15em; text-transform: uppercase;
-  border-radius: 999px; padding: 16px 36px;
-  box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 0 0 rgba(255,255,255,.4);
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 26px;
+  letter-spacing: .18em; text-transform: uppercase;
+  border-radius: 999px; padding: 20px 48px;
+  box-shadow: 0 10px 32px rgba(0,0,0,.65), 0 0 0 0 rgba(255,255,255,.3);
   animation: unmutePulse 2s ease-in-out infinite;
+  transition: background .2s, border-color .2s;
+}
+.unmute:hover {
+  background: rgba(0, 0, 0, 0.88);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 @keyframes unmutePulse {
-  0%, 100% { box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 0 0 rgba(255,255,255,.4); }
-  50% { box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 0 14px rgba(255,255,255,0); }
+  0%, 100% { box-shadow: 0 10px 32px rgba(0,0,0,.65), 0 0 0 0 rgba(255,255,255,.3); }
+  50% { box-shadow: 0 10px 32px rgba(0,0,0,.65), 0 0 0 18px rgba(255,255,255,0); }
 }
-.unmute__icon { font-size: 16px; }
+.unmute__icon { font-size: 18px; color: #fff; }
 
 /* ===== fav toast ===== */
 .fav-toast {
@@ -572,7 +580,7 @@ body.is-fill #yt {
   .meta__foot { margin-top: 3px; }
   .actions { gap: 6px; }
   .pill { padding: 7px 14px; font-size: 13px; }
-  .unmute { top: 38%; padding: 12px 24px; font-size: 18px; }
+  .unmute { top: 38%; padding: 14px 30px; font-size: 20px; }
   .intro__logo { font-size: min(48px, 12vw); }
 }
 
