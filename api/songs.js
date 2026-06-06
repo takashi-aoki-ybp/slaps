@@ -30,9 +30,10 @@ export default async function handler(req, res) {
     const brokenVotes = {};
     const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
     if (kvEnabled) {
+      const prefix = process.env.DB_PREFIX || '';
       const [rawList, rawBroken] = await Promise.all([
-        kvFetch(['LRANGE', 'slaps:songs', '0', '-1']),
-        kvFetch(['HGETALL', 'slaps:broken'])
+        kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
+        kvFetch(['HGETALL', `${prefix}slaps:broken`])
       ]);
 
       if (rawList && Array.isArray(rawList)) {

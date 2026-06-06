@@ -36,7 +36,7 @@ export default async function middleware(request) {
             Authorization: `Bearer ${kvToken}`,
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(['LRANGE', 'slaps:songs', 0, -1])
+          body: JSON.stringify(['LRANGE', `${process.env.DB_PREFIX || ''}slaps:songs`, 0, -1])
         });
         if (res.ok) {
           const data = await res.json();

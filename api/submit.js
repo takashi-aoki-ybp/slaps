@@ -86,14 +86,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const isDup = await kvFetch(['SISMEMBER', 'slaps:existing_ids', youtube_id]);
+    const prefix = process.env.DB_PREFIX || '';
+    const isDup = await kvFetch(['SISMEMBER', `${prefix}slaps:existing_ids`, youtube_id]);
     if (isDup === 1) {
       return res.status(400).json({ error: 'This song already exists on SLAPS.' });
     }
 
     // LPUSH & SADD
-    await kvFetch(['LPUSH', 'slaps:songs', JSON.stringify(finalSong)]);
-    await kvFetch(['SADD', 'slaps:existing_ids', youtube_id]);
+    await kvFetch(['LPUSH', `${prefix}slaps:songs`, JSON.stringify(finalSong)]);
+    await kvFetch(['SADD', `${prefix}slaps:existing_ids`, youtube_id]);
 
     // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
     const host = req.headers.host || 'slaps.tokyo';

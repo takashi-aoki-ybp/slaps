@@ -33,8 +33,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    const prefix = process.env.DB_PREFIX || '';
     // Redis HINCRBY slaps:broken [youtube_id] 1
-    const currentVotes = await kvFetch(['HINCRBY', 'slaps:broken', youtube_id, '1']);
+    const currentVotes = await kvFetch(['HINCRBY', `${prefix}slaps:broken`, youtube_id, '1']);
     
     // 詳細なログを保存
     const logItem = {
@@ -43,7 +44,7 @@ export default async function handler(req, res) {
       current_votes: currentVotes,
       created_at: new Date().toISOString()
     };
-    await kvFetch(['LPUSH', 'slaps:broken_logs', JSON.stringify(logItem)]);
+    await kvFetch(['LPUSH', `${prefix}slaps:broken_logs`, JSON.stringify(logItem)]);
 
     res.status(200).json({ status: 'success', current_votes: currentVotes });
   } catch (error) {

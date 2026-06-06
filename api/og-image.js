@@ -26,9 +26,11 @@ export default async function handler(req, res) {
     return res.status(400).send('Missing video ID parameter "v"');
   }
 
+  const prefix = process.env.DB_PREFIX || '';
+
   // Redis (Vercel KV) からキャッシュの取得を試みる
   try {
-    const cachedBase64 = await kvFetch(['GET', `slaps:og:${v}`]);
+    const cachedBase64 = await kvFetch(['GET', `${prefix}slaps:og:${v}`]);
     if (cachedBase64) {
       const buffer = Buffer.from(cachedBase64, 'base64');
       res.setHeader('Content-Type', 'image/jpeg');
@@ -76,7 +78,7 @@ export default async function handler(req, res) {
     // Vercel KV へのキャッシュ書き込み
     try {
       const base64 = buffer.toString('base64');
-      await kvFetch(['SET', `slaps:og:${v}`, base64]);
+      await kvFetch(['SET', `${prefix}slaps:og:${v}`, base64]);
     } catch (kvError) {
       console.error('KV Cache Write Error:', kvError);
     }

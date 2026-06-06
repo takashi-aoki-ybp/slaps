@@ -25,7 +25,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const rawList = await kvFetch(['LRANGE', 'slaps:songs', '0', '-1']);
+    const prefix = process.env.DB_PREFIX || '';
+    const rawList = await kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']);
     if (!rawList || !Array.isArray(rawList)) {
       return res.status(200).json({ message: 'No songs found' });
     }
@@ -47,9 +48,9 @@ export default async function handler(req, res) {
 
     if (updatedCount > 0) {
       // 一括上書き
-      await kvFetch(['DEL', 'slaps:songs']);
+      await kvFetch(['DEL', `${prefix}slaps:songs`]);
       const jsonStrings = updatedSongs.map((s) => JSON.stringify(s));
-      await kvFetch(['RPUSH', 'slaps:songs', ...jsonStrings]);
+      await kvFetch(['RPUSH', `${prefix}slaps:songs`, ...jsonStrings]);
       
       return res.status(200).json({
         message: `Successfully completed auto-classification. Updated ${updatedCount} songs.`

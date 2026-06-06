@@ -33,6 +33,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    const prefix = process.env.DB_PREFIX || '';
     const report = {
       youtube_id,
       name: (name && name.slice(0, 150)) || '',
@@ -41,7 +42,7 @@ export default async function handler(req, res) {
       created_at: new Date().toISOString()
     };
 
-    await kvFetch(['LPUSH', 'slaps:reports', JSON.stringify(report)]);
+    await kvFetch(['LPUSH', `${prefix}slaps:reports`, JSON.stringify(report)]);
 
     res.status(200).json({ status: 'success' });
   } catch (error) {
