@@ -69,8 +69,8 @@ export default async function middleware(request) {
       }
     }
 
-    const title = "Playing on SLAPS";
-    const desc = songName ? `Playing on SLAPS | ${songName}` : "Nothing but slaps. An online jukebox dedicated to HIPHOP.";
+    const title = "Play on SLAPS";
+    const desc = songName ? `Play on SLAPS | ${songName}` : "Nothing but slaps. An online jukebox dedicated to HIPHOP.";
 
 
     // 元の index.html をフェッチ

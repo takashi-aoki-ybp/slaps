@@ -498,7 +498,7 @@ export async function doShare() {
   // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
   fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
 
-  const shareText = `Playing on SLAPS | ${song.name}`;
+  const shareText = `Play on SLAPS | ${song.name}`;
   const fullCopyText = `${shareText}\n${shareUrl}`;
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (isMobile && navigator.share) {
