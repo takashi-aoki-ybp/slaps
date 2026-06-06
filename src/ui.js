@@ -918,7 +918,54 @@ export function renderCommentDots() {
   }
 }
 
-let lastSpeechTime = 0;
+// 画面内のランダムな位置を計算する（簡易衝突回避付き）
+function calculateRandomPosition(overlay) {
+  const overlayWidth = overlay.clientWidth || window.innerWidth;
+  const overlayHeight = overlay.clientHeight || (window.innerHeight - 300);
+  
+  // 表示中の他のバブルの座標を取得
+  const existingBubbles = Array.from(overlay.querySelectorAll('.comment-card.is-show')).map(el => {
+    return {
+      left: parseFloat(el.style.left) || 0,
+      top: parseFloat(el.style.top) || 0
+    };
+  });
+  
+  let bestLeft = 0;
+  let bestTop = 0;
+  const maxAttempts = 10;
+  
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    // left: 5% ~ 65% (幅260px考慮)
+    // top: 5% ~ 65% (高さ制限)
+    const randomLeft = 5 + Math.random() * 60;
+    const randomTop = 5 + Math.random() * 60;
+    
+    let tooClose = false;
+    for (const b of existingBubbles) {
+      const distLeft = Math.abs(randomLeft - b.left);
+      const distTop = Math.abs(randomTop - b.top);
+      // 横20%、縦15%未満の場合は重なっているとみなす
+      if (distLeft < 20 && distTop < 15) {
+        tooClose = true;
+        break;
+      }
+    }
+    
+    if (!tooClose) {
+      bestLeft = randomLeft;
+      bestTop = randomTop;
+      break;
+    }
+    
+    if (attempt === maxAttempts - 1) {
+      bestLeft = randomLeft;
+      bestTop = randomTop;
+    }
+  }
+  
+  return { left: bestLeft, top: bestTop };
+}
 
 export function checkComments(curTime) {
   if (!state.comments || !state.comments.length) return;
@@ -929,18 +976,12 @@ export function checkComments(curTime) {
       if (!state.triggeredComments.has(c.id)) {
         state.triggeredComments.add(c.id);
         
-        // 字幕表示（字幕ONのモード1と2で実行）
+        // 吹き出しを表示
         showCommentCard(c);
         
-        // 音声読み上げON（モード2）かつ、前回の読み上げから3秒以上経過している場合のみ読み上げる
+        // 音声読み上げON（モード2）
         if (state.commentMode === 2) {
-          const now = Date.now();
-          if (now - lastSpeechTime >= 3000) {
-            lastSpeechTime = now;
-            speakComment(c);
-          } else {
-            console.log(`Speech synthesis for comment ID ${c.id} skipped due to 3s interval restriction.`);
-          }
+          speakComment(c);
         }
       }
     }
@@ -952,7 +993,12 @@ function showCommentCard(c) {
   if (!overlay) return;
   
   const card = document.createElement('div');
-  card.className = 'comment-card';
+  
+  // ネオンカラーのバリエーションをランダムに決定
+  const colorTypes = ['is-neon-pink', 'is-neon-green', 'is-neon-cyan'];
+  const randomColor = colorTypes[Math.floor(Math.random() * colorTypes.length)];
+  
+  card.className = `comment-card ${randomColor}`;
   card.innerHTML = `
     <div class="comment-card__bubble">
       <div class="comment-card__meta">
@@ -963,41 +1009,57 @@ function showCommentCard(c) {
     </div>
   `;
   
+  // ランダムな位置を設定
+  const pos = calculateRandomPosition(overlay);
+  card.style.left = `${pos.left}%`;
+  card.style.top = `${pos.top}%`;
+  
+  // アニメーションの揺れにバリエーションを持たせるため、少しディレイとデュレーションをランダム化
+  const floatDelay = -(Math.random() * 4).toFixed(2);
+  const floatDuration = (3.5 + Math.random() * 2).toFixed(2);
+  card.style.animationDelay = `0s, ${floatDelay}s`;
+  card.style.animationDuration = `0.35s, ${floatDuration}s`;
+  
   overlay.appendChild(card);
   card.offsetHeight; // reflow
   card.classList.add('is-show');
   
-  // 最大3件を超えたら古いカードをフェードアウトして削除
-  const children = Array.from(overlay.children);
-  if (children.length > 3) {
-    const toRemove = children.slice(0, children.length - 3);
+  // 最大6枚（お祭り感のために少し多めに許容）を超えたら古いカードを弾けさせて消去
+  const children = Array.from(overlay.querySelectorAll('.comment-card:not(.is-pop-out)'));
+  if (children.length > 6) {
+    const toRemove = children.slice(0, children.length - 6);
     toRemove.forEach((child) => {
-      child.classList.remove('is-show');
+      child.classList.add('is-pop-out');
       setTimeout(() => {
         if (child.parentNode) child.parentNode.removeChild(child);
-      }, 300);
+      }, 250);
     });
   }
   
-  // 5秒後に自動フェードアウトして削除
+  // 5秒後に自動的に弾けて消える
   setTimeout(() => {
-    card.classList.remove('is-show');
-    setTimeout(() => {
-      if (card.parentNode) card.parentNode.removeChild(card);
-    }, 300);
+    if (card.parentNode) {
+      card.classList.add('is-pop-out');
+      setTimeout(() => {
+        if (card.parentNode) card.parentNode.removeChild(card);
+      }, 250);
+    }
   }, 5000);
 }
 
 function speakComment(c) {
   if (!window.speechSynthesis) return;
   try {
-    window.speechSynthesis.cancel();
+    // speechSynthesis.cancel() をあえて呼ばないことで、複数の発話をキューイングし、
+    // 全てのコメントがぶつ切りにならずに順次再生されるようにします（ガヤ感の構築）
     
     const ut = new SpeechSynthesisUtterance(c.text);
     const isJapanese = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]/.test(c.text);
     ut.lang = isJapanese ? 'ja-JP' : 'en-US';
-    ut.pitch = 1.0;
-    ut.rate = 1.1; 
+    
+    // ガヤ感を出すため、声の高さと速度をコメントごとにランダムに変動させる
+    ut.pitch = parseFloat((0.85 + Math.random() * 0.3).toFixed(2)); // 0.85 ~ 1.15
+    ut.rate = parseFloat((1.0 + Math.random() * 0.2).toFixed(2));   // 1.00 ~ 1.20
     
     window.speechSynthesis.speak(ut);
   } catch (e) {
