@@ -55,7 +55,12 @@ export default async function handler(req, res) {
     const merged = [];
     for (const id of allIds) {
       if (dbMap.has(id)) {
-        merged.push(dbMap.get(id));
+        const dbSong = dbMap.get(id);
+        const localSong = localMap.get(id);
+        if (localSong && localSong.promo) {
+          dbSong.promo = true;
+        }
+        merged.push(dbSong);
       } else {
         merged.push(localMap.get(id));
       }

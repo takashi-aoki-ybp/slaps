@@ -14,6 +14,7 @@ export function startProgress() {
       const dur = state.player.getDuration() || 1;
       const cur = state.player.getCurrentTime() || 0;
       $('#progressBar').style.width = `${(cur / dur) * 100}%`;
+      checkComments(cur);
     } catch {
       stopProgress();
       return;
@@ -206,6 +207,7 @@ export async function setOrder(order) {
 export function renderMeta(song) {
   const meta = $('#meta');
   renderFavBtn();
+  updatePromoBadge(song);
   meta.classList.remove('is-show');
   setTimeout(() => {
     $('#metaTitle').textContent = song.name;
@@ -781,8 +783,28 @@ export function setupUIListeners() {
     touchStartTarget = null;
   }, { passive: true });
 
+  // コメンタリー＆プロモーションリスナー
+  const commentModal = $('#commentModal');
+  if (commentModal) {
+    $('#commentOpen').addEventListener('click', openCommentModal);
+    $('#commentClose').addEventListener('click', closeCommentModal);
+    $('#commentDo').addEventListener('click', doSubmitComment);
+    $('#commentTimeFetch').addEventListener('click', updateCommentTime);
+    
+    commentModal.addEventListener('click', (e) => { if (e.target === commentModal) closeCommentModal(); });
+    
+    const commentText = $('#commentText');
+    commentText.addEventListener('input', () => {
+      const text = commentText.value.trim();
+      $('#commentDo').disabled = !text || text.length > 140;
+    });
+  }
+  
+  $('#ttsBtn').addEventListener('click', toggleTTS);
+  $('#promoBadge').addEventListener('click', onPromoBadgeClick);
+
   // Focus trap setup
-  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay'].forEach((sel) => {
+  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay', '#commentModal'].forEach((sel) => {
     const m = $(sel);
     if (m) trapFocus(m);
   });
@@ -794,6 +816,257 @@ export function setupUIListeners() {
 
   // Init favs and labels
   updateFavCount();
+}
+
+// ---- コメンタリー機能 & プロモーション機能の追加ロジック ----
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return str.replace(/[&<>'"]/g, 
+    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+  );
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  const ms = Math.floor((sec % 1) * 10);
+  return `${m}:${s.toString().padStart(2, '0')}.${ms}`;
+}
+
+export async function fetchComments(youtubeId) {
+  state.comments = [];
+  state.triggeredComments.clear();
+  renderCommentDots();
+  
+  const card = $('#commentCard');
+  if (card) {
+    card.classList.remove('is-show');
+    card.hidden = true;
+  }
+  
+  try {
+    const res = await fetch(`/api/comments?v=${youtubeId}`);
+    if (res.ok) {
+      const data = await res.json();
+      state.comments = data.comments || [];
+      renderCommentDots();
+    }
+  } catch (e) {
+    console.warn('Failed to fetch comments:', e);
+  }
+}
+
+export function renderCommentDots() {
+  const container = $('#progressDots');
+  if (!container) return;
+  container.innerHTML = '';
+  if (!state.player || !state.ready || !state.comments.length) return;
+
+  try {
+    const dur = state.player.getDuration() || 1;
+    state.comments.forEach((c) => {
+      const dot = document.createElement('div');
+      dot.className = 'progress__dot';
+      dot.style.left = `${(c.time / dur) * 100}%`;
+      dot.title = `${c.user_name}: ${c.text}`;
+      container.appendChild(dot);
+    });
+  } catch (e) {
+    console.warn('Failed to render comment dots:', e);
+  }
+}
+
+export function checkComments(curTime) {
+  if (!state.comments || !state.comments.length) return;
+  
+  state.comments.forEach((c) => {
+    if (curTime >= c.time && curTime < c.time + 5) {
+      if (!state.triggeredComments.has(c.id)) {
+        state.triggeredComments.add(c.id);
+        showCommentCard(c);
+        if (state.ttsEnabled) {
+          speakComment(c);
+        }
+      }
+    }
+  });
+}
+
+let commentCardTimeout = null;
+function showCommentCard(c) {
+  const card = $('#commentCard');
+  if (!card) return;
+  
+  card.innerHTML = `
+    <div class="comment-card__bubble">
+      <div class="comment-card__meta">
+        <span class="comment-card__time">${formatTime(c.time)}</span>
+        <span class="comment-card__user">${escapeHTML(c.user_name)}</span>
+      </div>
+      <p class="comment-card__text">${escapeHTML(c.text)}</p>
+    </div>
+  `;
+  card.hidden = false;
+  card.offsetHeight;
+  card.classList.add('is-show');
+  
+  clearTimeout(commentCardTimeout);
+  commentCardTimeout = setTimeout(() => {
+    card.classList.remove('is-show');
+    setTimeout(() => {
+      if (!card.classList.contains('is-show')) {
+        card.hidden = true;
+      }
+    }, 300);
+  }, 5000);
+}
+
+function speakComment(c) {
+  if (!window.speechSynthesis) return;
+  try {
+    window.speechSynthesis.cancel();
+    
+    const ut = new SpeechSynthesisUtterance(c.text);
+    const isJapanese = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]/.test(c.text);
+    ut.lang = isJapanese ? 'ja-JP' : 'en-US';
+    ut.pitch = 1.0;
+    ut.rate = 1.1; 
+    
+    window.speechSynthesis.speak(ut);
+  } catch (e) {
+    console.warn('SpeechSynthesis failed:', e);
+  }
+}
+
+let wasPlayingBeforeComment = false;
+
+export function openCommentModal() {
+  const modal = $('#commentModal');
+  if (!modal) return;
+  
+  if (state.player && state.player.getPlayerState() === YT.PlayerState.PLAYING) {
+    wasPlayingBeforeComment = true;
+    state.player.pauseVideo();
+  } else {
+    wasPlayingBeforeComment = false;
+  }
+  
+  const curTime = state.player ? state.player.getCurrentTime() || 0 : 0;
+  $('#commentTime').value = (Math.round(curTime * 10) / 10).toFixed(1);
+  $('#commentText').value = '';
+  $('#commentName').value = localStorage.getItem('slaps_comment_name') || '';
+  $('#commentDo').disabled = true;
+  
+  modal.hidden = false;
+  $('#commentText').focus();
+}
+
+export function closeCommentModal() {
+  $('#commentModal').hidden = true;
+  if (wasPlayingBeforeComment && state.player) {
+    state.player.playVideo();
+  }
+}
+
+export function updateCommentTime() {
+  if (!state.player) return;
+  const curTime = state.player.getCurrentTime() || 0;
+  $('#commentTime').value = (Math.round(curTime * 10) / 10).toFixed(1);
+}
+
+export async function doSubmitComment() {
+  const text = $('#commentText').value.trim();
+  const time = parseFloat($('#commentTime').value);
+  const name = $('#commentName').value.trim();
+  const song = current();
+  if (!song || !text || text.length > 140) return;
+  
+  const commentBtn = $('#commentDo');
+  commentBtn.disabled = true;
+  
+  try {
+    const res = await fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        youtube_id: song.youtube_id,
+        time,
+        text,
+        user_name: name
+      })
+    });
+    
+    if (res.ok) {
+      const data = await res.json();
+      if (data.status === 'success' || data.status === 'mock_success') {
+        showToast(window.i18n.t('toastCommentAdded'));
+        if (name) {
+          localStorage.setItem('slaps_comment_name', name);
+        }
+        
+        state.comments.push(data.comment);
+        state.comments.sort((a, b) => a.time - b.time);
+        renderCommentDots();
+        
+        closeCommentModal();
+      } else {
+        throw new Error();
+      }
+    } else {
+      throw new Error();
+    }
+  } catch (e) {
+    showToast(window.i18n.t('toastCommentFail'));
+    commentBtn.disabled = false;
+  }
+}
+
+export function toggleTTS() {
+  state.ttsEnabled = !state.ttsEnabled;
+  const btn = $('#ttsBtn');
+  if (btn) {
+    btn.classList.toggle('is-active', state.ttsEnabled);
+    btn.setAttribute('aria-pressed', state.ttsEnabled ? 'true' : 'false');
+    if (state.ttsEnabled) {
+      showToast('音声読み上げ: ON');
+      if (window.speechSynthesis) {
+        const dummy = new SpeechSynthesisUtterance('');
+        window.speechSynthesis.speak(dummy);
+      }
+    } else {
+      showToast('音声読み上げ: OFF');
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    }
+  }
+}
+
+export function updatePromoBadge(song) {
+  const badge = $('#promoBadge');
+  if (!badge) return;
+  const promos = state.all.filter((s) => s.promo === true && !state.broken.has(s.youtube_id));
+  
+  if (song && song.promo) {
+    badge.hidden = true;
+  } else if (promos.length > 0) {
+    badge.hidden = false;
+  } else {
+    badge.hidden = true;
+  }
+}
+
+export function onPromoBadgeClick() {
+  const promos = state.all.filter((s) => s.promo === true && !state.broken.has(s.youtube_id));
+  if (!promos.length) return;
+  
+  const cur = current();
+  const available = promos.filter(p => p.youtube_id !== cur?.youtube_id);
+  const target = available.length ? available[Math.floor(Math.random() * available.length)] : promos[0];
+  
+  state.queue.splice(state.index + 1, 0, target);
+  next();
 }
 
 // Expose functions globally for i18n.js integration

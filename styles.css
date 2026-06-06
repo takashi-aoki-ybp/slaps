@@ -630,6 +630,139 @@ body.is-fill #yt {
   100% { transform: scale(3); opacity: 0; }
 }
 
+
+/* ===== コメンタリー機能 ＆ 音声読み上げ ===== */
+#ttsBtn[aria-pressed="true"] .tts-off-line {
+  display: none;
+}
+.progress__dots {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.progress__dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ff3366;
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px #ff3366;
+  transition: transform 0.2s ease;
+}
+.progress:hover .progress__dot {
+  transform: translate(-50%, -50%) scale(1.4);
+}
+.comment-overlay {
+  position: absolute;
+  bottom: 160px; /* dock の直上 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  pointer-events: none;
+  width: min(500px, 90vw);
+  display: flex;
+  justify-content: center;
+}
+.comment-card {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  text-align: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+.comment-card.is-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.comment-card__bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.comment-card__meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.comment-card__time {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.comment-card__user {
+  font-weight: 700;
+}
+.comment-card__text {
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 4px 0 0 0;
+  word-wrap: break-word;
+  font-weight: 400;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.time-selector {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+/* ===== プロモーションバッジ ===== */
+.promo-badge {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  background: rgba(255, 51, 102, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 51, 102, 0.4);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 15px rgba(255, 51, 102, 0.3);
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+}
+.promo-badge:hover {
+  background: rgba(255, 51, 102, 0.25);
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 51, 102, 0.5);
+}
+.promo-badge:active {
+  transform: translateX(-50%) scale(0.98);
+}
+.promo-badge__icon {
+  animation: promo-pulse 1.5s infinite alternate;
+}
+@keyframes promo-pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); filter: drop-shadow(0 0 4px #ff3366); }
+}
+
 /* ===== アクセシビリティ: モーション軽減 ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

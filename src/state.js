@@ -56,6 +56,9 @@ export const state = {
   broken: new Set(),
   played: loadPlayed(),   // デッキシャッフル: 再生済みID
   recent: loadRecent(),   // 直近再生曲のガード（最大10曲の配列）
+  comments: [],           // コメントデータ
+  ttsEnabled: false,      // 音声読み上げON/OFF
+  triggeredComments: new Set(), // すでにトリガーしたコメントID
 };
 
 export const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));
@@ -148,7 +151,42 @@ export function songTime(s) {
   return Number.isNaN(n) ? 0 : n;
 }
 
+export function injectPromoSongs(arr) {
+  const promos = arr.filter((s) => s.promo === true);
+  if (!promos.length) return;
+
+  const normals = arr.filter((s) => s.promo !== true);
+  shuffle(promos);
+
+  const result = [];
+  let promoIdx = 0;
+  let normalIdx = 0;
+
+  // 1曲目は必ずプロモーション曲（あれば）
+  if (promoIdx < promos.length) {
+    result.push(promos[promoIdx++]);
+  }
+
+  // 2曲目以降、5曲おきにプロモーション曲を挿入
+  let countSinceLastPromo = 0;
+  while (normalIdx < normals.length || promoIdx < promos.length) {
+    if (promoIdx < promos.length && countSinceLastPromo >= 4) {
+      result.push(promos[promoIdx++]);
+      countSinceLastPromo = 0;
+    } else if (normalIdx < normals.length) {
+      result.push(normals[normalIdx++]);
+      countSinceLastPromo++;
+    } else {
+      result.push(promos[promoIdx++]);
+    }
+  }
+
+  arr.length = 0;
+  arr.push(...result);
+}
+
 export function applyOrder(arr) {
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
   else deckShuffle(arr);
+  injectPromoSongs(arr);
 }

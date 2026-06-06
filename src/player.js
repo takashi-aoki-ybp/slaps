@@ -9,7 +9,8 @@ import {
   startProgress,
   stopProgress,
   setBalance,
-  showInfoGuide
+  showInfoGuide,
+  fetchComments
 } from './ui.js';
 
 let consecutiveErrors = 0;
@@ -114,6 +115,9 @@ export function loadCurrent() {
   if (state.muted) state.player.mute();
   renderMeta(song);
   resetProgress();
+
+  // コメントの取得
+  fetchComments(song.youtube_id);
 
   // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
   fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});

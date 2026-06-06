@@ -100,6 +100,19 @@ const I18N = {
     // tracks
     track: 'track',
     tracks: 'tracks',
+    // commentary
+    comment: '💬 Comment',
+    commentTitle: 'Post Commentary',
+    commentLead: 'Post thoughts, trivia, or lyric interpretations tied to the exact timing of this song.',
+    commentTimeLabel: 'Time (seconds)',
+    commentTimeSec: 'sec',
+    commentTimeFetch: 'Get current time',
+    commentNamePh: 'Name / Nickname',
+    commentTextReq: '*required (max 140 chars)',
+    commentDoBtn: 'Post Comment',
+    toastCommentAdded: 'Comment added!',
+    toastCommentFail: 'Failed to post comment.',
+    promoBadgeText: 'PROMO: New Arrival',
   },
   ja: {
     tagline: 'Nothing but slaps.',
@@ -185,6 +198,19 @@ const I18N = {
     vibeNotSet: '未設定',
     track: '曲',
     tracks: '曲',
+    // commentary
+    comment: '💬 コメント',
+    commentTitle: 'コメンタリーを投稿',
+    commentLead: '曲の再生タイミングに合わせた叫びやトリビアを投稿できます。',
+    commentTimeLabel: 'コメントする時間 (秒)',
+    commentTimeSec: '秒付近',
+    commentTimeFetch: '現在の再生秒数を取得',
+    commentNamePh: '名前 / ニックネーム',
+    commentTextReq: '*必須（140字以内）',
+    commentDoBtn: 'コメントを投稿',
+    toastCommentAdded: 'コメントを投稿しました！',
+    toastCommentFail: 'コメントの投稿に失敗しました。',
+    promoBadgeText: 'PROMO: 新曲が入荷しました',
   },
 };
 
@@ -340,12 +366,42 @@ const i18n = (() => {
       }
     }
 
+    // commentBtn
+    const commentBtn = $('#commentOpen');
+    if (commentBtn) commentBtn.textContent = t('comment');
+
+    // comment modal
+    const commentModal = $('#commentModal');
+    if (commentModal) {
+      commentModal.querySelector('.modal__h').textContent = t('commentTitle');
+      commentModal.querySelector('.modal__lead').innerHTML = t('commentLead');
+      commentModal.querySelector('.field span').textContent = t('commentTimeLabel');
+      commentModal.querySelector('.time-selector span').textContent = t('commentTimeSec');
+      commentModal.querySelector('#commentTimeFetch').textContent = t('commentTimeFetch');
+      
+      const commentNameField = commentModal.querySelector('#commentName')?.closest('.field');
+      if (commentNameField) {
+        commentNameField.querySelector(':scope > span').innerHTML = `${t('fieldName')} <span class="field__opt">${t('optional')}</span>`;
+      }
+      const commentTextField = commentModal.querySelector('#commentText')?.closest('.field');
+      if (commentTextField) {
+        commentTextField.querySelector(':scope > span').innerHTML = `${t('fieldComment')} <span class="field__req">${t('commentTextReq')}</span>`;
+      }
+      $('#commentDo').textContent = t('commentDoBtn');
+      $('#commentName').placeholder = t('fieldNamePh');
+      $('#commentText').placeholder = t('fieldCommentPh');
+    }
+
     // update posted-by label
     const metaUser = $('#metaUser');
     if (metaUser && typeof current === 'function') {
       const song = current();
       if (song && song.user_name) metaUser.textContent = `${t('postedBy')} ${song.user_name}`;
     }
+
+    // promo badge
+    const promoBadgeText = $('#promoBadgeText');
+    if (promoBadgeText) promoBadgeText.textContent = t('promoBadgeText');
   }
 
   return { t, getLang, setLang, applyAll };
