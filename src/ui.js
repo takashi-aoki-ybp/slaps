@@ -209,6 +209,8 @@ export function renderMeta(song) {
   meta.classList.remove('is-show');
   setTimeout(() => {
     $('#metaTitle').textContent = song.name;
+    const idleTitle = $('#idleTitle');
+    if (idleTitle) idleTitle.textContent = song.name;
     const descEl = $('#metaDesc');
     let desc = '';
     if (song.description) {
