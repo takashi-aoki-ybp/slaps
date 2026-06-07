@@ -692,6 +692,8 @@ body.is-fill #yt {
   line-height: 1;
   user-select: none;
   -webkit-user-select: none;
+  padding: 0 4px;
+  box-sizing: border-box;
 }
 
 .mpc-container__label-left {
