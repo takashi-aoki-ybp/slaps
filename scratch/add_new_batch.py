@@ -16,7 +16,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 2.0,
         "thumbnail": "https://img.youtube.com/vi/6awx5kmTONo/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "IRDoeQZ12-Y",
@@ -29,7 +29,7 @@ NEW_SONGS = [
         "era": "20s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/IRDoeQZ12-Y/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "vO2Su3erRIA",
@@ -42,7 +42,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 2.0,
         "thumbnail": "https://img.youtube.com/vi/vO2Su3erRIA/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "sevZEOUXpw4",
@@ -55,7 +55,7 @@ NEW_SONGS = [
         "era": "00s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/sevZEOUXpw4/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "8XK7nzAW_b0",
@@ -68,7 +68,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 4.0,
         "thumbnail": "https://img.youtube.com/vi/8XK7nzAW_b0/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "VC4ORS5n9Hg",
@@ -81,7 +81,7 @@ NEW_SONGS = [
         "era": "90s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/VC4ORS5n9Hg/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "qmj1q67NDAk",
@@ -94,7 +94,7 @@ NEW_SONGS = [
         "era": "90s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/qmj1q67NDAk/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "ithYB82y0Sk",
@@ -107,7 +107,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/ithYB82y0Sk/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "WCYy8jpp7R8",
@@ -120,7 +120,7 @@ NEW_SONGS = [
         "era": "90s",
         "conscious_turnt": 4.0,
         "thumbnail": "https://img.youtube.com/vi/WCYy8jpp7R8/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     }
 ]
 

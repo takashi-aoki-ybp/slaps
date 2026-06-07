@@ -16,7 +16,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 2.0,
         "thumbnail": "https://img.youtube.com/vi/7TfaU1ciA3g/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "k9kiy1Frn68",
@@ -29,7 +29,7 @@ NEW_SONGS = [
         "era": "00s",
         "conscious_turnt": 2.0,
         "thumbnail": "https://img.youtube.com/vi/k9kiy1Frn68/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "yEpKC0wXy4M",
@@ -42,7 +42,7 @@ NEW_SONGS = [
         "era": "90s",
         "conscious_turnt": 1.0,
         "thumbnail": "https://img.youtube.com/vi/yEpKC0wXy4M/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "KZZmR87QZZw",
@@ -55,7 +55,7 @@ NEW_SONGS = [
         "era": "20s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/KZZmR87QZZw/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "wbUkdjvokO0",
@@ -68,7 +68,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 2.0,
         "thumbnail": "https://img.youtube.com/vi/wbUkdjvokO0/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "5xALUzAYYTI",
@@ -81,7 +81,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 3.0,
         "thumbnail": "https://img.youtube.com/vi/5xALUzAYYTI/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     },
     {
         "youtube_id": "zv--cE_G7Y0",
@@ -94,7 +94,7 @@ NEW_SONGS = [
         "era": "10s",
         "conscious_turnt": 1.0,
         "thumbnail": "https://img.youtube.com/vi/zv--cE_G7Y0/mqdefault.jpg",
-        "user_name": "青木 喬"
+        "user_name": "青木 喬 takashi aoki"
     }
 ]
 
