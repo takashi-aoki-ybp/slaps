@@ -1,6 +1,6 @@
 import { state, REGION_LABELS, CT, current, getFilteredPool, playableCount, eligibleByBalance, applyOrder } from './state.js';
 import { db } from './db.js';
-import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy } from './player.js';
+import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy, setVolume } from './player.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -693,6 +693,39 @@ export function setupUIListeners() {
   });
   $('#favClose').addEventListener('click', closeFavs);
   $('#favPlayAll').addEventListener('click', () => playFavorites());
+
+  // 音量コントロールの初期化 (HOTFIX)
+  const volumeSlider = $('#volumeSlider');
+  const volumeValue = $('#volumeValue');
+  const volumeIcon = $('#volumeIcon');
+  if (volumeSlider && volumeValue && volumeIcon) {
+    volumeSlider.value = state.volume;
+    volumeValue.textContent = `${state.volume}%`;
+    volumeIcon.textContent = state.volume === 0 ? '🔇' : '🔊';
+
+    volumeSlider.addEventListener('input', () => {
+      const vol = parseInt(volumeSlider.value, 10);
+      setVolume(vol);
+      volumeValue.textContent = `${vol}%`;
+      volumeIcon.textContent = vol === 0 ? '🔇' : '🔊';
+    });
+
+    volumeIcon.addEventListener('click', () => {
+      if (state.volume > 0) {
+        state.preMuteVolume = state.volume;
+        setVolume(0);
+        volumeSlider.value = 0;
+        volumeValue.textContent = '0%';
+        volumeIcon.textContent = '🔇';
+      } else {
+        const restoreVol = state.preMuteVolume || 100;
+        setVolume(restoreVol);
+        volumeSlider.value = restoreVol;
+        volumeValue.textContent = `${restoreVol}%`;
+        volumeIcon.textContent = '🔊';
+      }
+    });
+  }
 
   // Modal backdrops
   $('#submitModal').addEventListener('click', (e) => { if (e.target === $('#submitModal')) closeModal(); });
