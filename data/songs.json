@@ -39,7 +39,13 @@
     "conscious_turnt": 2,
     "thumbnail": "https://img.youtube.com/vi/N1yMLZ_d1tI/mqdefault.jpg",
     "user_name": "Editor",
-    "status": "published"
+    "status": "published",
+    "sample_sources": [
+      {
+        "artist": "Christopher Cross",
+        "title": "Ride Like the Wind"
+      }
+    ]
   },
   {
     "youtube_id": "f0Tq1qS5z7k",

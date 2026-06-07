@@ -67,14 +67,11 @@ export default async function handler(req, res) {
     if (typeof time !== 'number' || time < 0) {
       return res.status(400).json({ error: 'Invalid time parameter' });
     }
-    if (!text || typeof text !== 'string' || text.trim().length === 0 || text.length > 140) {
-      return res.status(400).json({ error: 'Invalid text (1-140 chars)' });
-    }
 
     const finalComment = {
       id: Math.random().toString(36).slice(2, 11),
       time: Math.round(time * 10) / 10,
-      text: text.trim(),
+      text: (text && typeof text === 'string') ? text.trim().slice(0, 140) : '',
       user_name: (user_name && typeof user_name === 'string' && user_name.trim().slice(0, 50)) || 'Anonymous',
       created_at: new Date().toISOString()
     };

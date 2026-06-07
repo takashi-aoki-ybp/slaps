@@ -223,6 +223,19 @@ export function renderMeta(song) {
     }
     descEl.textContent = desc;
     descEl.hidden = !desc;
+    
+    // サンプリング元ネタの表示
+    const samplesEl = $('#metaSamples');
+    if (samplesEl) {
+      if (song.sample_sources && song.sample_sources.length > 0) {
+        const listStr = song.sample_sources.map(src => `"${src.title}" by ${src.artist}`).join(', ');
+        samplesEl.textContent = `🎤 Samples: ${listStr}`;
+        samplesEl.hidden = false;
+      } else {
+        samplesEl.hidden = true;
+      }
+    }
+    
     $('#metaUser').textContent = song.user_name ? `${window.i18n.t('postedBy')} ${song.user_name}` : '';
     $('#metaRegion').textContent = REGION_LABELS[song.region] || '';
     meta.classList.add('is-show');
@@ -799,28 +812,41 @@ export function setupUIListeners() {
     touchStartTarget = null;
   }, { passive: true });
 
-  // コメンタリー＆プロモーションリスナー
-  const commentModal = $('#commentModal');
-  if (commentModal) {
-    $('#commentOpen').addEventListener('click', openCommentModal);
-    $('#commentClose').addEventListener('click', closeCommentModal);
-    $('#commentDo').addEventListener('click', doSubmitComment);
-    $('#commentTimeFetch').addEventListener('click', updateCommentTime);
-    
-    commentModal.addEventListener('click', (e) => { if (e.target === commentModal) closeCommentModal(); });
-    
-    const commentText = $('#commentText');
-    commentText.addEventListener('input', () => {
-      const text = commentText.value.trim();
-      $('#commentDo').disabled = !text || text.length > 140;
+  // Vibe Toggle (Vibe同期 ON/OFF)
+  const vibeToggle = $('#vibeToggle');
+  if (vibeToggle) {
+    vibeToggle.addEventListener('click', () => {
+      const isCurrentlyOn = state.commentMode === 2;
+      const nextMode = isCurrentlyOn ? 0 : 2;
+      state.commentMode = nextMode;
+      localStorage.setItem('slaps_comment_mode', nextMode.toString());
+      
+      vibeToggle.textContent = nextMode === 2 ? '📢 VIBE: ON' : '📢 VIBE: OFF';
+      vibeToggle.classList.toggle('is-active', nextMode === 2);
+      showToast(nextMode === 2 ? 'VIBE SESSION: ON' : 'VIBE SESSION: OFF');
     });
   }
-  
-  $('#ttsBtn').addEventListener('click', () => toggleCommentMode());
+
+  // MPC Pad click listener
+  const mpcPad = $('#mpcPad');
+  if (mpcPad) {
+    mpcPad.addEventListener('click', () => {
+      // 1. 即座に発音と発光
+      playVibeSE();
+      triggerPadVisual();
+      
+      // 2. 現在の再生時間を取得してタップログをPOST
+      if (state.player && state.ready) {
+        const curTime = state.player.getCurrentTime() || 0;
+        sendTapLog(curTime);
+      }
+    });
+  }
+
   $('#promoBadge').addEventListener('click', onPromoBadgeClick);
 
   // Focus trap setup
-  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay', '#commentModal'].forEach((sel) => {
+  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay'].forEach((sel) => {
     const m = $(sel);
     if (m) trapFocus(m);
   });
@@ -833,33 +859,25 @@ export function setupUIListeners() {
   // Init favs and labels
   updateFavCount();
 
-  // コメンタリーモードの復元と初期設定
+  // Vibeモードの復元と初期設定
   let savedMode = localStorage.getItem('slaps_comment_mode');
   if (savedMode === null) {
-    savedMode = '2'; // デフォルトはフル機能 (2)
+    savedMode = '2'; // デフォルトは ON (2)
   }
-  state.commentMode = parseInt(savedMode, 10);
-  const ttsBtn = $('#ttsBtn');
-  if (ttsBtn) {
-    ttsBtn.setAttribute('data-mode', state.commentMode.toString());
-    ttsBtn.setAttribute('aria-pressed', state.commentMode > 0 ? 'true' : 'false');
-    if (state.commentMode === 2) {
-      ttsBtn.setAttribute('aria-label', 'コメンタリー: 字幕＋音声');
-      ttsBtn.setAttribute('title', 'コメンタリー: 字幕＋音声 (クリックでOFF)');
-    } else if (state.commentMode === 1) {
-      ttsBtn.setAttribute('aria-label', 'コメンタリー: 字幕のみ');
-      ttsBtn.setAttribute('title', 'コメンタリー: 字幕のみ (クリックで字幕＋音声)');
-    } else {
-      ttsBtn.setAttribute('aria-label', 'コメンタリー: OFF');
-      ttsBtn.setAttribute('title', 'コメンタリー: OFF (クリックで字幕のみ)');
-    }
+  let parsedMode = parseInt(savedMode, 10);
+  if (parsedMode === 1) parsedMode = 2; // 古い「字幕のみ」は「ON」に丸める
+  state.commentMode = parsedMode === 2 ? 2 : 0;
+  
+  if (vibeToggle) {
+    vibeToggle.textContent = state.commentMode === 2 ? '📢 VIBE: ON' : '📢 VIBE: OFF';
+    vibeToggle.classList.toggle('is-active', state.commentMode === 2);
   }
 
   // ダブルタップシークの有効化
   setupDoubleTapSeek();
 }
 
-// ---- コメンタリー機能 & プロモーション機能の追加ロジック ----
+// ---- Vibe Session & プロモーション機能の追加ロジック ----
 
 function escapeHTML(str) {
   if (!str) return '';
@@ -868,20 +886,10 @@ function escapeHTML(str) {
   );
 }
 
-function formatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  const ms = Math.floor((sec % 1) * 10);
-  return `${m}:${s.toString().padStart(2, '0')}.${ms}`;
-}
-
 export async function fetchComments(youtubeId) {
   state.comments = [];
   state.triggeredComments.clear();
-  clearSpeechQueue();
   
-  const overlay = $('#commentOverlay');
-  if (overlay) overlay.innerHTML = '';
   renderCommentDots();
   
   try {
@@ -892,7 +900,7 @@ export async function fetchComments(youtubeId) {
       renderCommentDots();
     }
   } catch (e) {
-    console.warn('Failed to fetch comments:', e);
+    console.warn('Failed to fetch vibe logs:', e);
   }
 }
 
@@ -908,316 +916,48 @@ export function renderCommentDots() {
       const dot = document.createElement('div');
       dot.className = 'progress__dot';
       dot.style.left = `${(c.time / dur) * 100}%`;
-      dot.title = `${c.user_name}: ${c.text}`;
+      dot.title = `VIBE: ${c.user_name || 'Anonymous'}`;
       container.appendChild(dot);
     });
   } catch (e) {
-    console.warn('Failed to render comment dots:', e);
+    console.warn('Failed to render vibe dots:', e);
   }
 }
 
-// 画面内のランダムな位置を計算する（簡易衝突回避付き）
-function calculateRandomPosition(overlay) {
-  const overlayWidth = overlay.clientWidth || window.innerWidth;
-  const overlayHeight = overlay.clientHeight || (window.innerHeight - 300);
-  
-  // 表示中の他のバブルの座標を取得
-  const existingBubbles = Array.from(overlay.querySelectorAll('.comment-card.is-show')).map(el => {
-    return {
-      left: parseFloat(el.style.left) || 0,
-      top: parseFloat(el.style.top) || 0
-    };
-  });
-  
-  let bestLeft = 0;
-  let bestTop = 0;
-  const maxAttempts = 10;
-  
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    // left: 5% ~ 65% (幅260px考慮)
-    // top: 5% ~ 65% (高さ制限)
-    const randomLeft = 5 + Math.random() * 60;
-    const randomTop = 5 + Math.random() * 60;
-    
-    let tooClose = false;
-    for (const b of existingBubbles) {
-      const distLeft = Math.abs(randomLeft - b.left);
-      const distTop = Math.abs(randomTop - b.top);
-      // 横20%、縦15%未満の場合は重なっているとみなす
-      if (distLeft < 20 && distTop < 15) {
-        tooClose = true;
-        break;
-      }
-    }
-    
-    if (!tooClose) {
-      bestLeft = randomLeft;
-      bestTop = randomTop;
-      break;
-    }
-    
-    if (attempt === maxAttempts - 1) {
-      bestLeft = randomLeft;
-      bestTop = randomTop;
-    }
-  }
-  
-  return { left: bestLeft, top: bestTop };
-}
-
+// 自動同期発光 ＆ 発音ロジック
 export function checkComments(curTime) {
   if (!state.comments || !state.comments.length) return;
-  if (state.commentMode === 0) return; // コメンタリー完全OFF
+  if (state.commentMode !== 2) return; // VIBE が ON でない場合はスルー
   
   state.comments.forEach((c) => {
-    if (curTime >= c.time && curTime < c.time + 5) {
+    // 再生時間がタップログのタイムスタンプに達した瞬間（0.25秒のウィンドウ内）にトリガー
+    if (curTime >= c.time && curTime < c.time + 0.25) {
       if (!state.triggeredComments.has(c.id)) {
         state.triggeredComments.add(c.id);
         
-        // 吹き出しを表示
-        showCommentCard(c);
-        
-        // 音声読み上げON（モード2）
-        if (state.commentMode === 2) {
-          speakComment(c);
-        }
+        // Vibe音の再生とパッドの発光
+        playVibeSE();
+        triggerPadVisual();
       }
     }
   });
 }
 
-function showCommentCard(c) {
-  const overlay = $('#commentOverlay');
-  if (!overlay) return;
-  
-  const card = document.createElement('div');
-  
-  // ネオンカラーのバリエーションをランダムに決定
-  const colorTypes = ['is-neon-pink', 'is-neon-green', 'is-neon-cyan'];
-  const randomColor = colorTypes[Math.floor(Math.random() * colorTypes.length)];
-  
-  card.className = `comment-card ${randomColor}`;
-  
-  const initialLikes = c.likes || 0;
-  
-  card.innerHTML = `
-    <div class="comment-card__bubble">
-      <div class="comment-card__meta">
-        <span class="comment-card__time">${formatTime(c.time)}</span>
-        <span class="comment-card__user">${escapeHTML(c.user_name)}</span>
-      </div>
-      <p class="comment-card__text">${escapeHTML(c.text)}</p>
-      <div class="comment-card__actions">
-        <button class="comment-card__respect-btn" data-comment-id="${c.id}" data-likes="${initialLikes}">
-          <span class="comment-card__respect-emoji">👊</span>
-          <span class="comment-card__respect-count">${initialLikes}</span>
-        </button>
-      </div>
-    </div>
-  `;
-  
-  // RESPECTボタンのクリックイベントを設定（連打可能・伝播防止）
-  const respectBtn = card.querySelector('.comment-card__respect-btn');
-  if (respectBtn) {
-    respectBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-      
-      // 1. 楽観的アップデート（いいねカウントの加算と表示更新）
-      const countEl = respectBtn.querySelector('.comment-card__respect-count');
-      let currentLikes = parseInt(respectBtn.getAttribute('data-likes') || '0', 10);
-      currentLikes++;
-      respectBtn.setAttribute('data-likes', currentLikes);
-      if (countEl) {
-        countEl.textContent = currentLikes;
-      }
-      
-      // クリック時のプニッとするアニメーションクラス適用
-      respectBtn.classList.add('is-clicked');
-      setTimeout(() => {
-        respectBtn.classList.remove('is-clicked');
-      }, 200);
-      
-      // 2. 音声の再生（Vibe判定 ➔ スクラッチ or エアホーン）
-      playVibeSE();
-      
-      // 3. APIリクエストを非同期送信してサーバーに永続化
-      sendLike(c.id);
-    });
-  }
-  
-  // カード自体のクリックも背後の動画プレイヤーにイベントが伝播しないようにストップする
-  card.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-  
-  // ランダムな位置を設定
-  const pos = calculateRandomPosition(overlay);
-  card.style.left = `${pos.left}%`;
-  card.style.top = `${pos.top}%`;
-  
-  // アニメーションの揺れにバリエーションを持たせるため、少しディレイとデュレーションをランダム化
-  const floatDelay = -(Math.random() * 4).toFixed(2);
-  const floatDuration = (3.5 + Math.random() * 2).toFixed(2);
-  card.style.animationDelay = `0s, ${floatDelay}s`;
-  card.style.animationDuration = `0.35s, ${floatDuration}s`;
-  
-  overlay.appendChild(card);
-  card.offsetHeight; // reflow
-  card.classList.add('is-show');
-  
-  // 最大6枚（お祭り感のために少し多めに許容）を超えたら古いカードを弾けさせて消去
-  const children = Array.from(overlay.querySelectorAll('.comment-card:not(.is-pop-out)'));
-  if (children.length > 6) {
-    const toRemove = children.slice(0, children.length - 6);
-    toRemove.forEach((child) => {
-      child.classList.add('is-pop-out');
-      setTimeout(() => {
-        if (child.parentNode) child.parentNode.removeChild(child);
-      }, 250);
-    });
-  }
-  
-  // 5秒後に自動的に弾けて消える
-  setTimeout(() => {
-    if (card.parentNode) {
-      card.classList.add('is-pop-out');
-      setTimeout(() => {
-        if (card.parentNode) card.parentNode.removeChild(card);
-      }, 250);
-    }
-  }, 5000);
-}
-
-let speechQueue = [];
-let isSpeaking = false;
-
-export function clearSpeechQueue() {
-  speechQueue = [];
-  isSpeaking = false;
-  if (window.speechSynthesis) {
-    window.speechSynthesis.cancel();
-  }
-}
-
-function processSpeechQueue() {
-  if (!window.speechSynthesis) return;
-  if (speechQueue.length === 0) {
-    isSpeaking = false;
-    return;
-  }
-  
-  isSpeaking = true;
-  const c = speechQueue.shift();
-  
-  try {
-    // 25文字制限（A案）
-    let textToSpeak = c.text;
-    if (textToSpeak.length > 25) {
-      textToSpeak = textToSpeak.substring(0, 25) + '...';
-    }
-    
-    const ut = new SpeechSynthesisUtterance(textToSpeak);
-    const isJapanese = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]/.test(textToSpeak);
-    ut.lang = isJapanese ? 'ja-JP' : 'en-US';
-    
-    // ガヤ感を出すためのピッチ揺らぎ
-    ut.pitch = parseFloat((0.85 + Math.random() * 0.3).toFixed(2)); // 0.85 ~ 1.15
-    
-    // 渋滞状況（キューの長さ）に応じて話速を動的に加速（A案）
-    const queueLen = speechQueue.length;
-    let baseRate = 1.05;
-    if (queueLen >= 3) {
-      baseRate = 1.45; // 大渋滞
-    } else if (queueLen >= 1) {
-      baseRate = 1.25; // 渋滞
-    }
-    ut.rate = parseFloat((baseRate + Math.random() * 0.15).toFixed(2));
-    
-    ut.onend = () => {
-      setTimeout(() => {
-        processSpeechQueue();
-      }, 100);
-    };
-    
-    ut.onerror = () => {
-      isSpeaking = false;
-      setTimeout(() => {
-        processSpeechQueue();
-      }, 100);
-    };
-    
-    window.speechSynthesis.speak(ut);
-  } catch (e) {
-    console.warn('SpeechSynthesis failed:', e);
-    isSpeaking = false;
+// パッドを視覚的に発光させる
+export function triggerPadVisual() {
+  const pad = $('#mpcPad');
+  if (pad) {
+    pad.classList.add('is-active');
     setTimeout(() => {
-      processSpeechQueue();
+      pad.classList.remove('is-active');
     }, 100);
   }
 }
 
-function speakComment(c) {
-  if (!window.speechSynthesis) return;
-  
-  // キューに追加
-  speechQueue.push(c);
-  
-  // 渋滞が酷すぎる場合（オーバーフロー対策：最新5件を残して古いものを捨てる）
-  if (speechQueue.length > 5) {
-    speechQueue.shift();
-  }
-  
-  if (!isSpeaking) {
-    processSpeechQueue();
-  }
-}
-
-let wasPlayingBeforeComment = false;
-
-export function openCommentModal() {
-  const modal = $('#commentModal');
-  if (!modal) return;
-  
-  if (state.player && state.player.getPlayerState() === YT.PlayerState.PLAYING) {
-    wasPlayingBeforeComment = true;
-    state.player.pauseVideo();
-  } else {
-    wasPlayingBeforeComment = false;
-  }
-  
-  const curTime = state.player ? state.player.getCurrentTime() || 0 : 0;
-  $('#commentTime').value = (Math.round(curTime * 10) / 10).toFixed(1);
-  $('#commentText').value = '';
-  $('#commentName').value = localStorage.getItem('slaps_comment_name') || '';
-  $('#commentDo').disabled = true;
-  
-  modal.hidden = false;
-  $('#commentText').focus();
-}
-
-export function closeCommentModal() {
-  $('#commentModal').hidden = true;
-  if (wasPlayingBeforeComment && state.player) {
-    state.player.playVideo();
-  }
-}
-
-export function updateCommentTime() {
-  if (!state.player) return;
-  const curTime = state.player.getCurrentTime() || 0;
-  $('#commentTime').value = (Math.round(curTime * 10) / 10).toFixed(1);
-}
-
-export async function doSubmitComment() {
-  const text = $('#commentText').value.trim();
-  const time = parseFloat($('#commentTime').value);
-  const name = $('#commentName').value.trim();
+// タップログをPOSTする
+export async function sendTapLog(time) {
   const song = current();
-  if (!song || !text || text.length > 140) return;
-  
-  const commentBtn = $('#commentDo');
-  commentBtn.disabled = true;
+  if (!song || !song.youtube_id) return;
   
   try {
     const res = await fetch('/api/comments', {
@@ -1226,75 +966,22 @@ export async function doSubmitComment() {
       body: JSON.stringify({
         youtube_id: song.youtube_id,
         time,
-        text,
-        user_name: name
+        text: '', // 空文字でタップログ扱い
+        user_name: 'Anonymous'
       })
     });
     
     if (res.ok) {
       const data = await res.json();
       if (data.status === 'success' || data.status === 'mock_success') {
-        showToast(window.i18n.t('toastCommentAdded'));
-        if (name) {
-          localStorage.setItem('slaps_comment_name', name);
-        }
-        
+        // ローカル配列にも追加して、ドット等をリアルタイム更新
         state.comments.push(data.comment);
         state.comments.sort((a, b) => a.time - b.time);
         renderCommentDots();
-        
-        closeCommentModal();
-      } else {
-        throw new Error();
       }
-    } else {
-      throw new Error();
     }
   } catch (e) {
-    showToast(window.i18n.t('toastCommentFail'));
-    commentBtn.disabled = false;
-  }
-}
-
-export function toggleCommentMode(customMode = null) {
-  if (customMode !== null) {
-    state.commentMode = customMode;
-  } else {
-    state.commentMode = (state.commentMode + 1) % 3;
-  }
-  
-  const btn = $('#ttsBtn');
-  if (btn) {
-    btn.setAttribute('data-mode', state.commentMode.toString());
-    btn.setAttribute('aria-pressed', state.commentMode > 0 ? 'true' : 'false');
-    
-    if (state.commentMode === 2) {
-      btn.setAttribute('aria-label', 'コメンタリー: 字幕＋音声');
-      btn.setAttribute('title', 'コメンタリー: 字幕＋音声 (クリックでOFF)');
-      showToast('コメンタリー: 字幕＋音声');
-      
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-        const dummy = new SpeechSynthesisUtterance('');
-        window.speechSynthesis.speak(dummy);
-      }
-    } else if (state.commentMode === 1) {
-      btn.setAttribute('aria-label', 'コメンタリー: 字幕のみ');
-      btn.setAttribute('title', 'コメンタリー: 字幕のみ (クリックで字幕＋音声)');
-      showToast('コメンタリー: 字幕のみ');
-      clearSpeechQueue();
-    } else {
-      btn.setAttribute('aria-label', 'コメンタリー: OFF');
-      btn.setAttribute('title', 'コメンタリー: OFF (クリックで字幕のみ)');
-      showToast('コメンタリー: OFF');
-      
-      const overlay = $('#commentOverlay');
-      if (overlay) overlay.innerHTML = '';
-      
-      clearSpeechQueue();
-    }
-    
-    localStorage.setItem('slaps_comment_mode', state.commentMode.toString());
+    console.warn('Failed to send vibe tap log:', e);
   }
 }
 
