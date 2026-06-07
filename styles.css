@@ -380,6 +380,7 @@ body.is-fill #yt {
 }
 .volume-control__slider {
   flex: 1;
+  min-width: 0;
   height: 4px;
   background: rgba(255,255,255,.2);
   border-radius: 999px;
