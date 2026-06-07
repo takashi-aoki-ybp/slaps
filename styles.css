@@ -672,7 +672,7 @@ body.is-fill #yt {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 76px;
+  width: 116px; /* 76px から 116px へ拡大 */
   /* 背景プレートを透明化し、ボタンと文字のみにする */
   background: transparent;
   padding: 8px 8px 10px 8px;
@@ -684,15 +684,15 @@ body.is-fill #yt {
   justify-content: space-between;
   width: 100%;
   font-family: 'Inter', monospace;
-  font-size: 8px;
+  font-size: 11px; /* 8px から 11px へ拡大 */
   font-weight: 700;
   color: rgba(255, 255, 255, 0.45); /* 透明背景での視認性のための半透明白 */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
-  margin-bottom: 5px;
+  margin-bottom: 7px; /* 5px から 7px へ調整 */
   line-height: 1;
   user-select: none;
   -webkit-user-select: none;
-  padding: 0 4px;
+  padding: 0 6px; /* 4px から 6px へ調整 */
   box-sizing: border-box;
 }
 
@@ -707,11 +707,11 @@ body.is-fill #yt {
 
 .mpc-pad {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 100px; /* 60px から 100px へ拡大 */
+  height: 100px; /* 60px から 100px へ拡大 */
   background: #3a3a3a; /* 非アクティブ時は黒に近い濃いグレーのゴム */
-  border: 4px solid #141414; /* パッド周囲の太く暗い境界の溝 */
-  border-radius: 3px;
+  border: 5px solid #141414; /* ボーダー幅を 4px から 5px へ太くして重厚感を付与 */
+  border-radius: 4px; /* サイズ拡大に伴い角丸も微調整 */
   box-shadow: 
     inset 1px 1px 2px rgba(255,255,255,0.12), 
     inset -1px -1px 2px rgba(0,0,0,0.6),
@@ -733,13 +733,13 @@ body.is-fill #yt {
   /* 叩き込んだ瞬間は遅延なく（0.02秒で）即座に光る */
   transition: all 0.02s ease-out;
   box-shadow: 
-    /* 隙間から漏れ出るマイルドなバックライトグロー */
-    0 0 4px rgba(255, 255, 255, 0.8),
-    0 0 10px rgba(255, 204, 0, 0.6),
-    0 0 20px rgba(255, 102, 0, 0.4),
-    0 0 30px rgba(255, 0, 0, 0.2),
+    /* 隙間から漏れ出るマイルドなバックライトグロー（サイズに合わせてボカシ幅を調整） */
+    0 0 6px rgba(255, 255, 255, 0.8),
+    0 0 16px rgba(255, 204, 0, 0.6),
+    0 0 32px rgba(255, 102, 0, 0.4),
+    0 0 48px rgba(255, 0, 0, 0.2),
     /* ボタン内側への光の回り込み */
-    inset 0 0 3px rgba(255, 204, 0, 0.4);
+    inset 0 0 4px rgba(255, 204, 0, 0.4);
 }
 
 /* スマホ表示（縦画面）での位置微調整 */
