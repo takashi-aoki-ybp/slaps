@@ -46,9 +46,15 @@ export default async function handler(req, res) {
           brokenVotes[rawBroken[i]] = parseInt(rawBroken[i+1], 10);
         }
       }
-      if (rawVibes && Array.isArray(rawVibes)) {
-        for (let i = 0; i < rawVibes.length; i += 2) {
-          vibeCounts[rawVibes[i]] = parseInt(rawVibes[i+1], 10);
+      if (rawVibes) {
+        if (Array.isArray(rawVibes)) {
+          for (let i = 0; i < rawVibes.length; i += 2) {
+            vibeCounts[rawVibes[i]] = parseInt(rawVibes[i+1], 10);
+          }
+        } else if (typeof rawVibes === 'object') {
+          for (const [key, val] of Object.entries(rawVibes)) {
+            vibeCounts[key] = parseInt(val, 10);
+          }
         }
       }
     }
