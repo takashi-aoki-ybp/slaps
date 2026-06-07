@@ -663,82 +663,86 @@ body.is-fill #yt {
   pointer-events: none;
   overflow: hidden; /* 画面外はみ出し防止 */
 }
-/* MPCパッドスタイル */
+/* ===== フローティング MPC パッド ===== */
+.mpc-container {
+  position: fixed;
+  right: 20px;
+  bottom: 96px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 76px;
+  background: #2b2b2b; /* MPCの筐体（濃いグレーの金属） */
+  padding: 8px 8px 10px 8px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 8px 16px rgba(0,0,0,0.6),
+    0 2px 4px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+}
+
+.mpc-container__header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: 'Inter', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  color: #777; /* 薄いグレーのシルク印刷 */
+  margin-bottom: 5px;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mpc-container__label-left {
+  text-align: left;
+}
+
+.mpc-container__label-right {
+  color: #ccc; /* 右上のYZは少し明るい白文字 */
+  text-align: right;
+}
+
 .mpc-pad {
   position: relative;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #2a2a2a 0%, #151515 100%);
-  border: 2px solid #333;
-  border-radius: 8px;
+  background: #8c8c8c; /* 添付画像のグレーのゴム素材 */
+  border: 4px solid #1a1a1a; /* 添付画像の太く黒い境界の溝 */
+  border-radius: 3px; /* 添付画像はわずかな角丸 */
   box-shadow: 
-    inset 0 1px 1px rgba(255,255,255,0.1),
-    0 4px 6px rgba(0,0,0,0.6),
-    0 1px 3px rgba(0,0,0,0.4);
+    inset 2px 2px 3px rgba(255,255,255,0.2), 
+    inset -2px -2px 3px rgba(0,0,0,0.4),
+    0 1px 2px rgba(0,0,0,0.4);
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  user-select: none;
-  -webkit-user-select: none;
   outline: none;
+  transition: all 0.05s ease-out;
+  box-sizing: border-box;
+  display: block;
 }
 
-/* MPCパッドの上部LEDランプ */
-.mpc-pad__led {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #444; /* 消灯時 */
-  transition: background 0.08s;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.5);
-}
-
-.mpc-pad__label {
-  font-size: 8px;
-  font-weight: 700;
-  color: #888;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: color 0.08s;
-}
-
-/* ホバー時の効果 */
-.mpc-pad:hover {
-  border-color: #444;
-  background: linear-gradient(135deg, #303030 0%, #1a1a1a 100%);
-}
-
-/* 叩き込んだ時（アクティブ）の発光エフェクト */
+/* 叩き込んだ時（アクティブ）または自動同期発光時の赤ネオンエフェクト */
 .mpc-pad:active,
 .mpc-pad.is-active {
-  transform: scale(0.94) translateY(1px);
+  background: #ff3366; /* 赤い発光 */
+  border-color: #0c0c0c;
+  transform: scale(0.95);
   box-shadow: 
-    0 1px 2px rgba(0,0,0,0.8),
-    inset 0 2px 5px rgba(0,0,0,0.8);
-  border-color: #ff3366; /* LED赤 */
-  background: #1a1a1a;
+    0 0 15px rgba(255, 51, 102, 0.85),
+    0 0 30px rgba(255, 51, 102, 0.6),
+    inset 0 0 8px rgba(255,255,255,0.7);
 }
 
-.mpc-pad:active .mpc-pad__led,
-.mpc-pad.is-active .mpc-pad__led {
-  background: #ff3366; /* LED点灯（赤） */
-  box-shadow: 0 0 8px #ff3366, 0 0 15px #ff3366;
-}
-
-.mpc-pad:active .mpc-pad__label,
-.mpc-pad.is-active .mpc-pad__label {
-  color: #ff3366;
-  text-shadow: 0 0 4px rgba(255, 51, 102, 0.5);
-}
-
-/* ボタングループ */
-.actions__btn-group {
-  display: flex;
-  gap: 8px;
+/* スマホ表示（縦画面）での位置微調整 */
+@media (max-width: 767px) {
+  .mpc-container {
+    right: 12px;
+    bottom: 96px; /* ドックの上に綺麗に収まる位置 */
+  }
 }
 
 /* 元ネタ表示用スタイル */
