@@ -1104,7 +1104,7 @@ function playAirhornSound(ctx) {
     source.buffer = airhornBuffer;
     
     const gainNode = ctx.createGain();
-    gainNode.gain.setValueAtTime(0.2, now); // 適度な音量に調整
+    gainNode.gain.setValueAtTime(0.08, now); // 音量を0.08に引き下げてBGMと調和
     
     source.connect(gainNode);
     gainNode.connect(ctx.destination);
