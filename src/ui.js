@@ -862,7 +862,7 @@ export function setupUIListeners() {
   // Vibeモードの復元と初期設定
   let savedMode = localStorage.getItem('slaps_comment_mode');
   if (savedMode === null) {
-    savedMode = '2'; // デフォルトは ON (2)
+    savedMode = '0'; // デフォルトは OFF (0)
   }
   let parsedMode = parseInt(savedMode, 10);
   if (parsedMode === 1) parsedMode = 2; // 古い「字幕のみ」は「ON」に丸める
