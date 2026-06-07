@@ -6,7 +6,7 @@ const I18N = {
     // brand
     tagline: 'Nothing but slaps.',
     // intro
-    introNote: 'A HIPHOP-only online jukebox.',
+    introNote: 'A HIPHOP-only online station.',
     introNoteSub: 'No algorithm. Just slaps.',
     introSub: 'The track the algorithm won\'t show you.',
     // buttons
@@ -31,7 +31,7 @@ const I18N = {
     fieldNamePh: 'Name / Nickname',
     fieldComment: 'Comment',
     fieldCommentPh: 'What slaps about this track?',
-    submitBtn: 'Add to Jukebox',
+    submitBtn: 'Add to Station',
     submitNote: '※ Added tracks are immediately public.',
     notSet: '-- Not set --',
     optional: 'optional',
@@ -116,7 +116,7 @@ const I18N = {
   },
   ja: {
     tagline: 'Nothing but slaps.',
-    introNote: 'HIPHOPに特化したオンラインジュークボックス。',
+    introNote: 'HIPHOPに特化したオンライン・ステーション。',
     introNoteSub: 'アルゴリズムなし。スラップだけ。',
     introSub: 'アルゴリズムじゃ出会えない一曲を。',
     addTrack: '＋ 曲を追加',
@@ -139,7 +139,7 @@ const I18N = {
     fieldNamePh: '名前 / ニックネーム',
     fieldComment: 'コメント',
     fieldCommentPh: 'この曲のヤバいポイントは？',
-    submitBtn: 'ジュークボックスに追加',
+    submitBtn: 'ステーションに追加',
     submitNote: '※ 追加した曲はすぐに公開されます。',
     notSet: '-- 未設定 --',
     optional: '任意',
@@ -187,7 +187,7 @@ const I18N = {
       '好きな曲はYouTubeのURLを貼るだけで誰でも追加OK',
     ],
     aboutEnTitle: 'About (English)',
-    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online jukebox. No recommendations, no history-based optimization — just tracks picked by real people, played at random. One feel axis: <span class="conscious">CONSCIOUS</span> ↔ <span class="turnt">TURNT</span>. Filter by region, save favorites locally, add your own track by pasting a YouTube URL. No rules. If it slaps, it belongs here.',
+    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization — just tracks picked by real people, played at random. One feel axis: <span class="conscious">CONSCIOUS</span> ↔ <span class="turnt">TURNT</span>. Filter by region, save favorites locally, add your own track by pasting a YouTube URL. No rules. If it slaps, it belongs here.',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
