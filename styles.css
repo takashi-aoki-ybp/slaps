@@ -419,7 +419,8 @@ body.is-fill #yt {
   left: 20px;
   bottom: 20px;
   z-index: 20;
-  font-size: 11px;
+  font-size: calc(clamp(16px, 4vw, 22px) * 0.8); /* 元のタイトルサイズの0.8倍 */
+  font-weight: 600;
   color: rgba(255, 255, 255, 0.45);
   font-family: inherit;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
@@ -435,8 +436,14 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   .idle-title {
     left: 16px;
     bottom: 16px;
-    font-size: 10px;
+    font-size: calc(16px * 0.8); /* 元のモバイルタイトルサイズの0.8倍 = 12.8px */
     color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+@media (max-width: 375px) {
+  .idle-title {
+    font-size: calc(15px * 0.8); /* 元のスマホタイトルサイズの0.8倍 = 12px */
   }
 }
 
