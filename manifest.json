@@ -1,7 +1,7 @@
 {
-  "name": "SLAPS — HIPHOP Jukebox",
+  "name": "SLAPS — HIPHOP Station",
   "short_name": "SLAPS",
-  "description": "Nothing but slaps. An online jukebox dedicated to HIPHOP.",
+  "description": "Nothing but slaps. An online station dedicated to HIPHOP.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
