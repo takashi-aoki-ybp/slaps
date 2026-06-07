@@ -37,6 +37,15 @@ export function saveRecent() {
   }
 }
 
+const loadVolume = () => {
+  try {
+    const v = localStorage.getItem('slaps_volume');
+    return v != null ? Math.max(0, Math.min(100, parseInt(v, 10))) : 100;
+  } catch {
+    return 100;
+  }
+};
+
 export const state = {
   all: [],
   balance: 2.5,       // CONSCIOUS(0) ↔ TURNT(5)
@@ -56,6 +65,8 @@ export const state = {
   broken: new Set(),
   played: loadPlayed(),   // デッキシャッフル: 再生済みID
   recent: loadRecent(),   // 直近再生曲のガード（最大10曲の配列）
+  volume: loadVolume(),   // 曲自体の音量（0 - 100）
+  preMuteVolume: loadVolume() || 100, // ミュート解除時の復帰用音量
 };
 
 export const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));

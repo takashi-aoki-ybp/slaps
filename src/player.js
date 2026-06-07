@@ -111,7 +111,12 @@ export function loadCurrent() {
   consecutiveErrors = 0;
   if (state.pinned) document.querySelector('#playBtn').style.display = 'none';
   state.player.loadVideoById(song.youtube_id);
-  if (state.muted) state.player.mute();
+  if (state.muted) {
+    state.player.mute();
+  } else {
+    state.player.unMute();
+    state.player.setVolume(state.volume);
+  }
   renderMeta(song);
   resetProgress();
 
@@ -197,9 +202,24 @@ export function prev() { step(-1); }
 
 export function unmute() {
   state.muted = false;
-  if (state.player) { state.player.unMute(); state.player.setVolume(100); state.player.playVideo(); }
+  if (state.player) { 
+    state.player.unMute(); 
+    state.player.setVolume(state.volume); 
+    state.player.playVideo(); 
+  }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
   wake();
   showInfoGuide();
+}
+
+// 音量コントロール用API (HOTFIX)
+export function setVolume(vol) {
+  state.volume = vol;
+  if (state.player && typeof state.player.setVolume === 'function') {
+    state.player.setVolume(vol);
+  }
+  try {
+    localStorage.setItem('slaps_volume', vol);
+  } catch (e) {}
 }

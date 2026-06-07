@@ -354,6 +354,65 @@ body.is-fill #yt {
 #favOpen.is-active { color: var(--fg); font-weight: 600; }
 #favOpen.is-active::before { content: "▶ "; }
 
+/* ===== 音量コントロール (HOTFIX) ===== */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 200px;
+  padding: 5px 12px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  backdrop-filter: blur(6px);
+}
+.volume-control__icon {
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s;
+}
+.volume-control__icon:hover {
+  transform: scale(1.15);
+}
+.volume-control__slider {
+  flex: 1;
+  min-width: 0;
+  height: 4px;
+  background: rgba(255,255,255,.2);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.volume-control__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--fg);
+  cursor: pointer;
+  transition: transform 0.1s;
+  border: none;
+}
+.volume-control__slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+.volume-control__value {
+  font-size: 11px;
+  color: var(--dim);
+  font-family: monospace;
+  width: 38px;
+  text-align: right;
+  user-select: none;
+  flex-shrink: 0;
+}
+
 /* ===== unmute (START) ===== */
 .unmute {
   position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 35;
