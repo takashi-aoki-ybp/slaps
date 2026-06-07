@@ -476,20 +476,6 @@
     "created_at": "2026-05-05T16:00:00Z"
   },
   {
-    "youtube_id": "ICBkHaMOPXs",
-    "name": "slowthai - Doorman ft. Mura Masa",
-    "description": {
-      "en": "slowthai's punk-rap rebellion with Mura Masa",
-      "ja": "イギリスの階級社会をぶっ壊すパンクラップ。"
-    },
-    "region": "uk",
-    "era": "10s",
-    "conscious_turnt": 3.5,
-    "thumbnail": "https://img.youtube.com/vi/ICBkHaMOPXs/mqdefault.jpg",
-    "user_name": "青木 喬",
-    "created_at": "2026-05-05T20:00:00Z"
-  },
-  {
     "youtube_id": "ifNfpzkoY9s",
     "name": "Ninho - Lettre à une femme",
     "description": {
@@ -2229,8 +2215,8 @@
     "youtube_id": "jgh10of6DKA",
     "name": "Raekwon - Ice Cream ft. Ghostface Killah, Method Man",
     "description": {
-      "en": "Cuban Linx's smoothest moment",
-      "ja": "Only Built 4 Cuban Linxの最もスムーズな瞬間"
+      "en": "Wu-Tang's sweetest anthem comparing women to ice cream flavors",
+      "ja": "女性をアイスクリームに例えた、Wu-Tang流の極上チル・アンセム"
     },
     "region": "us",
     "era": "90s",
