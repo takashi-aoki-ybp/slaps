@@ -28,12 +28,14 @@ export default async function handler(req, res) {
 
     let dbSongs = [];
     const brokenVotes = {};
+    const vibeCounts = {};
     const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
     if (kvEnabled) {
       const prefix = process.env.DB_PREFIX || '';
-      const [rawList, rawBroken] = await Promise.all([
+      const [rawList, rawBroken, rawVibes] = await Promise.all([
         kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
-        kvFetch(['HGETALL', `${prefix}slaps:broken`])
+        kvFetch(['HGETALL', `${prefix}slaps:broken`]),
+        kvFetch(['HGETALL', `${prefix}slaps:vibe_counts`])
       ]);
 
       if (rawList && Array.isArray(rawList)) {
@@ -42,6 +44,11 @@ export default async function handler(req, res) {
       if (rawBroken && Array.isArray(rawBroken)) {
         for (let i = 0; i < rawBroken.length; i += 2) {
           brokenVotes[rawBroken[i]] = parseInt(rawBroken[i+1], 10);
+        }
+      }
+      if (rawVibes && Array.isArray(rawVibes)) {
+        for (let i = 0; i < rawVibes.length; i += 2) {
+          vibeCounts[rawVibes[i]] = parseInt(rawVibes[i+1], 10);
         }
       }
     }
@@ -70,6 +77,11 @@ export default async function handler(req, res) {
     const filtered = merged.filter(song => {
       const votes = brokenVotes[song.youtube_id] || 0;
       return votes < 5;
+    });
+
+    // 各曲に vibe_count をマージ
+    filtered.forEach(song => {
+      song.vibe_count = vibeCounts[song.youtube_id] || 0;
     });
 
     res.status(200).json(filtered);

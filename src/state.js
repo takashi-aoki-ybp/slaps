@@ -187,6 +187,7 @@ export function injectPromoSongs(arr) {
 
 export function applyOrder(arr) {
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
+  else if (state.order === 'vibes') arr.sort((a, b) => (b.vibe_count || 0) - (a.vibe_count || 0));
   else deckShuffle(arr);
   // injectPromoSongs(arr);
 }

@@ -156,7 +156,7 @@ export function setEra(era) {
 }
 
 export async function setOrder(order) {
-  if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
+  if (order === state.order && order !== 'newest' && order !== 'vibes' && order !== 'shuffle') return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.order === order));
@@ -169,24 +169,25 @@ export async function setOrder(order) {
     else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
     if (state.ready) loadCurrent();
   } else {
-    // If LATEST (newest) or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
-    const shouldCutPlay = (order === 'newest' || order === 'shuffle');
+    // If LATEST (newest), VIBES (vibes), or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
+    const shouldCutPlay = (order === 'newest' || order === 'vibes' || order === 'shuffle');
     setBalance(state.balance, { keep: !shouldCutPlay });
   }
 
-  // 2. Fetch latest database songs in the background if LATEST is selected
-  if (order === 'newest') {
-    const btn = document.querySelector('[data-order="newest"]');
+  // 2. Fetch latest database songs in the background if LATEST or VIBES is selected
+  if (order === 'newest' || order === 'vibes') {
+    const btn = document.querySelector(`[data-order="${order}"]`);
     const originalHTML = btn ? btn.innerHTML : '';
+    const labelText = order === 'newest' ? 'LATEST' : 'VIBES';
     // Avoid backing up the loading "..." HTML on rapid double-clicks
-    const fixedOriginalHTML = (originalHTML && originalHTML.includes('...')) ? 'LATEST' : originalHTML;
+    const fixedOriginalHTML = (originalHTML && originalHTML.includes('...')) ? labelText : originalHTML;
     if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
     try {
       const res = await fetch(`/api/songs?t=${Date.now()}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
-        // Check if the user hasn't switched away from LATEST while waiting
-        if (Array.isArray(data) && state.order === 'newest') {
+        // Check if the user hasn't switched away from target order while waiting
+        if (Array.isArray(data) && state.order === order) {
           state.all = data;
           updateTrackCount();
           if (!state.favMode) {
@@ -196,7 +197,7 @@ export async function setOrder(order) {
         }
       }
     } catch (e) {
-      console.warn('Failed to refresh songs on LATEST click:', e);
+      console.warn(`Failed to refresh songs on ${labelText} click:`, e);
     } finally {
       if (btn) btn.innerHTML = fixedOriginalHTML;
     }
