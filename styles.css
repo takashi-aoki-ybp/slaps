@@ -406,9 +406,10 @@ body.is-fill #yt {
   font-size: 11px;
   color: var(--dim);
   font-family: monospace;
-  width: 32px;
+  width: 38px; /* 32px から 38px に拡張して 100% のはみ出しを防止 */
   text-align: right;
   user-select: none;
+  flex-shrink: 0;
 }
 
 /* ===== unmute (START) ===== */
