@@ -6990,5 +6990,117 @@
     "thumbnail": "https://img.youtube.com/vi/3tmd-ClpJKA/mqdefault.jpg",
     "conscious_turnt": 2.5,
     "created_at": "2026-06-05T11:45:48.870Z"
+  },
+  {
+    "youtube_id": "0N4N-Z3L1oA",
+    "name": "Nas - N.Y. State of Mind",
+    "description": {
+      "en": "Over DJ Premier's chilling piano loop, a 19-year-old Nas delivers hip-hop's ultimate gritty street storytelling.",
+      "ja": "DJ Premierが手がけた冷徹なピアノループの上で、19歳のNasがクイーンズの現実を描写したヒップホップ史上最高峰のストーリーテリング。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 2,
+    "thumbnail": "https://img.youtube.com/vi/0N4N-Z3L1oA/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "E7t8c-iRBFA",
+    "name": "Nas - The World Is Yours",
+    "description": {
+      "en": "Jazzy piano samples by Pete Rock and Nas's brilliant lyricism tell you that the world is yours.",
+      "ja": "Pete Rockプロデュースのジャジーなピアノサンプルと、Nasの知的でリリカルなフロウが「世界は君のものだ」とポジティブに語りかける名曲。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 1.5,
+    "thumbnail": "https://img.youtube.com/vi/E7t8c-iRBFA/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "52GgP4m_35Y",
+    "name": "Nas - Halftime",
+    "description": {
+      "en": "Nas's debut single under Nasty Nas, showcasing his raw, complex flow.",
+      "ja": "Nasty Nas名義で放たれた衝撃 of デビューシングル。若き天才の荒々しくも緻密なフロウの原点。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 2.5,
+    "thumbnail": "https://img.youtube.com/vi/52GgP4m_35Y/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "cO1t_gY65rI",
+    "name": "Nas - Represent",
+    "description": {
+      "en": "A rugged, DJ Premier-produced anthem where Nas represents Queensbridge.",
+      "ja": "DJ Premierによる粗削りなビートの上で、Nasがクイーンズブリッジ団地をレペゼンするタフな街のアンセム。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 2,
+    "thumbnail": "https://img.youtube.com/vi/cO1t_gY65rI/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "vVqFq5bQz8E",
+    "name": "Gang Starr - Code of the Streets",
+    "description": {
+      "en": "Guru's monotone delivery on street codes meets DJ Premier's razor-sharp beat.",
+      "ja": "ストリートの厳しい掟を語るGuruの淡々としたデリバリーと、DJ Premierの研ぎ澄まされたビートが融合したGang Starr屈指の名作。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 2,
+    "thumbnail": "https://img.youtube.com/vi/vVqFq5bQz8E/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "kYv9iD0-9k0",
+    "name": "Gang Starr - Step in the Arena",
+    "description": {
+      "en": "The title track of their 2nd album. Jazz loops, tight drums, and Guru's quiet confidence dominate the arena.",
+      "ja": "彼らの2ndアルバムの表題曲。ジャズネタのループとPremierのタイトなドラム、Guruの静かな自信が闘技場（シーン）を支配する。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 2.5,
+    "thumbnail": "https://img.youtube.com/vi/kYv9iD0-9k0/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "5V6mX0Zz6w0",
+    "name": "Gang Starr - Work",
+    "description": {
+      "en": "A signature DJ Premier production with Guru's timeless bars about dedication to the craft.",
+      "ja": "DJ Premierによる刻むようなスネアとスクラッチ、そして「職人技への情熱」を静かに語るGuruのリリックが光る代表作。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 2,
+    "thumbnail": "https://img.youtube.com/vi/5V6mX0Zz6w0/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "lH3hrtp1T84",
+    "name": "Gang Starr - You Know My Steez",
+    "description": {
+      "en": "The lead single of Moment of Truth, showcasing Gang Starr's signature East Coast style.",
+      "ja": "名盤『Moment of Truth』のリードシングル。「これが俺たちのスタイルだ」と宣言する、Premierの代名詞的なスクラッチが炸裂する傑作。"
+    },
+    "region": "us",
+    "era": "90s",
+    "conscious_turnt": 3,
+    "thumbnail": "https://img.youtube.com/vi/lH3hrtp1T84/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-06-08T14:30:00Z"
   }
 ]
