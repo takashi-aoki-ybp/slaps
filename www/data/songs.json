@@ -1,5 +1,81 @@
 [
   {
+    "youtube_id": "YjC0vvPGiKk",
+    "name": "BewhY - GOTTASADAE",
+    "region": "kr",
+    "era": "10s",
+    "description": {
+      "ja": "圧倒的なライムデリバリーと、合唱を取り入れたシアトリカルなビートが心揺さぶる韓国の傑作ラップ。",
+      "en": "Flawless rhyme delivery meets theatrical choral-driven production, showing the absolute peak of Korean hip-hop."
+    },
+    "conscious_turnt": 3.5,
+    "thumbnail": "https://img.youtube.com/vi/YjC0vvPGiKk/mqdefault.jpg",
+    "user_name": "Editor",
+    "status": "published"
+  },
+  {
+    "youtube_id": "2jTshYqJpG8",
+    "name": "Gazo ft. Freeze Corleone - Drill FR 4",
+    "region": "fr",
+    "era": "20s",
+    "description": {
+      "ja": "フランス独自のダークなドリルシーンを牽引する、強烈なベースと硬派なフローの掛け合い。",
+      "en": "Leading the dark French drill scene with hard-hitting bass and uncompromising flows."
+    },
+    "conscious_turnt": 4.5,
+    "thumbnail": "https://img.youtube.com/vi/2jTshYqJpG8/mqdefault.jpg",
+    "user_name": "Editor",
+    "status": "published"
+  },
+  {
+    "youtube_id": "N1yMLZ_d1tI",
+    "name": "Joey Bada$$ - Paper Trail$",
+    "region": "us",
+    "era": "10s",
+    "description": {
+      "ja": "90年代ゴールデンエラへの回帰を感じさせる、鋭いリリシズムとクラシックなブーンバップサウンド。",
+      "en": "A throw back to the 90s golden era boom-bap, featuring sharp lyricism and vintage production."
+    },
+    "conscious_turnt": 2,
+    "thumbnail": "https://img.youtube.com/vi/N1yMLZ_d1tI/mqdefault.jpg",
+    "user_name": "Editor",
+    "status": "published",
+    "sample_sources": [
+      {
+        "artist": "Christopher Cross",
+        "title": "Ride Like the Wind"
+      }
+    ]
+  },
+  {
+    "youtube_id": "f0Tq1qS5z7k",
+    "name": "Shing02 - Luv(sic) Part 2",
+    "region": "jp",
+    "era": "00s",
+    "description": {
+      "ja": "Nujabesのメロウなビートに乗せて語られる、普遍的な愛のメッセージ。ジャパニーズヒップホップの至宝。",
+      "en": "Spitting timeless messages of love over Nujabes' signature mellow beats. A cornerstone of Japanese hip-hop history."
+    },
+    "conscious_turnt": 1,
+    "thumbnail": "https://img.youtube.com/vi/f0Tq1qS5z7k/mqdefault.jpg",
+    "user_name": "Editor",
+    "status": "published"
+  },
+  {
+    "youtube_id": "h1cKt-1JzE0",
+    "name": "Little Simz - Introvert",
+    "region": "uk",
+    "era": "20s",
+    "description": {
+      "ja": "壮大なオーケストラと研ぎ澄まされたリリックが融合した、UKを代表する名作コンシャスラップ。",
+      "en": "A majestic orchestral arrangement paired with razor-sharp lyricism, establishing Little Simz at the forefront of UK conscious rap."
+    },
+    "conscious_turnt": 1.5,
+    "thumbnail": "https://img.youtube.com/vi/h1cKt-1JzE0/mqdefault.jpg",
+    "user_name": "Editor",
+    "status": "published"
+  },
+  {
     "youtube_id": "_CL6n0FJZpk",
     "name": "Dr. Dre ft. Snoop Dogg - Still D.R.E.",
     "description": {
@@ -558,6 +634,20 @@
     "thumbnail": "https://img.youtube.com/vi/7PBYGu4Az8s/mqdefault.jpg",
     "user_name": "青木 喬 takashi aoki",
     "created_at": "2026-05-07T16:00:00Z"
+  },
+  {
+    "youtube_id": "u36Zp_L2h4k",
+    "name": "Sexyy Red - Pound Town",
+    "description": {
+      "en": "Sexyy Red's unapologetic breakout banger",
+      "ja": "下品さを武器にした痛快なストリートアンセム"
+    },
+    "region": "us",
+    "era": "20s",
+    "conscious_turnt": 5,
+    "thumbnail": "https://img.youtube.com/vi/u36Zp_L2h4k/mqdefault.jpg",
+    "user_name": "青木 喬 takashi aoki",
+    "created_at": "2026-05-07T20:00:00Z"
   },
   {
     "youtube_id": "kZGvnI37mxk",
@@ -3456,6 +3546,20 @@
     "thumbnail": "https://img.youtube.com/vi/75L7L6zaNoQ/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
+  },
+  {
+    "youtube_id": "jTglS3RUSgA",
+    "name": "Time Machine - Personal Ads",
+    "description": {
+      "en": "A smooth underground classic by Time Machine.",
+      "ja": "Time Machineによる極上のアンダーグラウンド・クラシック。"
+    },
+    "user_name": "青木 喬 takashi aoki",
+    "region": "us",
+    "era": "00s",
+    "conscious_turnt": 1.5,
+    "thumbnail": "https://img.youtube.com/vi/jTglS3RUSgA/mqdefault.jpg",
+    "created_at": "2026-06-05T07:25:47Z"
   },
   {
     "youtube_id": "2WbSBLplJS0",
@@ -6538,6 +6642,20 @@
     "created_at": "2026-06-05T12:40:47.211Z"
   },
   {
+    "youtube_id": "A1B2C3D4E5J",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5J/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T12:38:58.089Z"
+  },
+  {
     "youtube_id": "TnJMBcQFNME",
     "name": "AKLO \"RGTO\" feat.SALU, 鋼田テフロン & Kダブシャイン",
     "region": "jp",
@@ -6606,6 +6724,34 @@
     "thumbnail": "https://img.youtube.com/vi/CAIWfSYelKI/mqdefault.jpg",
     "conscious_turnt": 1.5,
     "created_at": "2026-06-05T12:26:17.556Z"
+  },
+  {
+    "youtube_id": "A1B2C3D4E5I",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5I/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T12:19:17.049Z"
+  },
+  {
+    "youtube_id": "A1B2C3D4E5H",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5H/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T12:18:49.263Z"
   },
   {
     "youtube_id": "_BMo-1oc2ik",
@@ -6748,6 +6894,34 @@
     "created_at": "2026-06-05T12:06:37.503Z"
   },
   {
+    "youtube_id": "A1B2C3D4E5G",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5G/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T11:59:02.869Z"
+  },
+  {
+    "youtube_id": "3S1tP7S-uLg",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/3S1tP7S-uLg/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T11:57:17.037Z"
+  },
+  {
     "youtube_id": "-I4Eff4QVc0",
     "name": "BADSAIKUSH 舐達麻 feat. KENNY-G OUTLAW   (Official Music Video)",
     "region": "jp",
@@ -6760,6 +6934,20 @@
     "thumbnail": "https://img.youtube.com/vi/-I4Eff4QVc0/mqdefault.jpg",
     "conscious_turnt": 1.5,
     "created_at": "2026-06-05T11:54:31.714Z"
+  },
+  {
+    "youtube_id": "8V94XvDq_m8",
+    "name": "ZORN - Walk This Way",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "Test User 2",
+    "description": {
+      "ja": "空値テスト",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/8V94XvDq_m8/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-06-05T11:51:01.045Z"
   },
   {
     "youtube_id": "P8RHkesysqY",
@@ -6788,6 +6976,20 @@
     "thumbnail": "https://img.youtube.com/vi/5qap5aO4i9A/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-05T11:46:52.160Z"
+  },
+  {
+    "youtube_id": "3tmd-ClpJKA",
+    "name": "Test Song",
+    "region": "us",
+    "era": "20s",
+    "user_name": "Test User",
+    "description": {
+      "ja": "テスト",
+      "en": "test"
+    },
+    "thumbnail": "https://img.youtube.com/vi/3tmd-ClpJKA/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T11:45:48.870Z"
   },
   {
     "youtube_id": "hI8A14Qcv68",
