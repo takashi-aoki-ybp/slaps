@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
       import('./src/ui.js').then((ui) => {
         ui.showToast(window.i18n.t('toastYtFail'));
       });
+      // 強制起動フォールバック（黒画面で固まるのを防ぐ）
+      state.ready = true;
+      tryStart();
     }
   }, 10000);
   

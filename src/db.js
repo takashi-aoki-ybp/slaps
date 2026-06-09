@@ -21,7 +21,7 @@ export const db = {
       return data;
     } catch (e) {
       console.warn('API load failed, falling back to local JSON and localStorage:', e);
-      const songs = await fetch('./data/songs.json').then((r) => r.json());
+      const songs = await fetch('/data/songs.json').then((r) => r.json());
       const mine = lsGet('slaps_submissions');
       const brokenIds = new Set(lsGet('slaps_broken').map((b) => b.youtube_id));
       return [...mine, ...songs].filter((s) => !brokenIds.has(s.youtube_id));
