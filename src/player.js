@@ -23,14 +23,22 @@ let promoFadeInterval = null;
 
 export function createYTPlayer() {
   if (state.player || !(window.YT && window.YT.Player)) return;
-  state.player = new YT.Player('yt', {
-    playerVars: { autoplay: 1, mute: 1, rel: 0, controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1 },
-    events: {
-      onReady: () => { state.ready = true; state.player.mute(); tryStart(); },
-      onStateChange: onPlayerStateChange,
-      onError: onPlayerError,
-    },
-  });
+  try {
+    state.player = new YT.Player('yt', {
+      playerVars: { autoplay: 1, mute: 1, rel: 0, controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1 },
+      events: {
+        onReady: () => {
+          state.ready = true;
+          try { state.player.mute(); } catch (e) {}
+          tryStart();
+        },
+        onStateChange: onPlayerStateChange,
+        onError: onPlayerError,
+      },
+    });
+  } catch (err) {
+    console.warn('Failed to initialize YT.Player:', err);
+  }
 }
 
 // Global exposure for iframe API
@@ -116,19 +124,42 @@ export function runIntro() {
   // イントロの裏側で最初からボタンを表示状態にしておく
   document.querySelector('#unmute').hidden = false;
 
+  const finishIntro = () => {
+    if (intro) intro.remove();
+    state.ready = true;
+
+    // プロモモードの場合は自動起動（タップ待ちをスキップしミュート再生開始）
+    if (state.isPromo) {
+      document.body.classList.add('is-started');
+      const unmuteBtn = document.querySelector('#unmute');
+      if (unmuteBtn) unmuteBtn.hidden = true;
+      state.muted = true; // 自動再生のためミュート必須
+      if (state.player && typeof state.player.mute === 'function') {
+        try {
+          state.player.mute();
+          state.player.playVideo();
+        } catch (e) {
+          console.warn('Auto-play playVideo trigger failed:', e);
+        }
+      }
+      wake();
+      showInfoGuide();
+    }
+  };
+
   if (state.isPromo) {
     // プロモモードの場合は即座にイントロを終了する
     if (intro) {
       intro.classList.add('is-out');
-      setTimeout(() => { intro.remove(); }, 1000);
+      setTimeout(finishIntro, 1000);
+    } else {
+      finishIntro();
     }
     return;
   }
 
-  setTimeout(() => { intro.classList.add('is-out'); }, 4800);
-  setTimeout(() => {
-    intro.remove();
-  }, 6000);
+  setTimeout(() => { if (intro) intro.classList.add('is-out'); }, 4800);
+  setTimeout(finishIntro, 6000);
 }
 
 export function loadCurrent() {
