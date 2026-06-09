@@ -1,0 +1,6 @@
+{
+  "appId": "tokyo.slaps.app",
+  "appName": "SLAPS",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
