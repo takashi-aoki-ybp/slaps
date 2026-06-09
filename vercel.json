@@ -4,5 +4,8 @@
       "path": "/api/cron/auto-classify",
       "schedule": "0 20 * * *"
     }
+  ],
+  "rewrites": [
+    { "source": "/promo", "destination": "/index.html" }
   ]
 }

@@ -67,6 +67,8 @@ export const state = {
   recent: loadRecent(),   // 直近再生曲のガード（最大10曲の配列）
   volume: loadVolume(),   // 曲自体の音量（0 - 100）
   preMuteVolume: loadVolume() || 100, // ミュート解除時の復帰用音量
+  isPromo: false,         // プロモーション動画制作モード
+  promoFinished: false,   // プロモ動画終了フラグ
 };
 
 export const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));

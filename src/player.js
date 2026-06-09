@@ -14,6 +14,9 @@ import {
 
 let consecutiveErrors = 0;
 
+let promoTimer = null;
+let promoFadeInterval = null;
+
 export function createYTPlayer() {
   if (state.player || !(window.YT && window.YT.Player)) return;
   state.player = new YT.Player('yt', {
@@ -35,9 +38,22 @@ if (window.YT && window.YT.Player) {
 }
 
 export function onPlayerStateChange(e) {
-  if (e.data === YT.PlayerState.ENDED) { next(); return; }
-  if (e.data === YT.PlayerState.PLAYING) startProgress();
-  else stopProgress();
+  if (e.data === YT.PlayerState.ENDED) {
+    if (state.isPromo) clearPromoTimer();
+    next();
+    return;
+  }
+  if (e.data === YT.PlayerState.PLAYING) {
+    startProgress();
+    if (state.isPromo) {
+      startPromoTimer();
+    }
+  } else {
+    stopProgress();
+    if (state.isPromo && e.data === YT.PlayerState.PAUSED) {
+      clearPromoTimer();
+    }
+  }
   state.paused = (e.data === YT.PlayerState.PAUSED);
   const playBtn = document.querySelector('#playBtn');
   playBtn.classList.toggle('is-paused', state.paused);
@@ -80,6 +96,13 @@ export function tryStart() {
   state.started = true;
   const params = new URLSearchParams(window.location.search);
   const shareId = params.get('v');
+
+  // プロモーションモード判定 (パスが /promo またはクエリに promo=1)
+  if (window.location.pathname === '/promo' || params.get('promo') === '1') {
+    state.isPromo = true;
+    document.body.classList.add('is-promo-mode');
+  }
+
   setBalance(2.5, { shareId });
   runIntro();
 }
@@ -88,6 +111,16 @@ export function runIntro() {
   const intro = document.querySelector('#intro');
   // イントロの裏側で最初からボタンを表示状態にしておく
   document.querySelector('#unmute').hidden = false;
+
+  if (state.isPromo) {
+    // プロモモードの場合は即座にイントロを終了する
+    if (intro) {
+      intro.classList.add('is-out');
+      setTimeout(() => { intro.remove(); }, 1000);
+    }
+    return;
+  }
+
   setTimeout(() => { intro.classList.add('is-out'); }, 4800);
   setTimeout(() => {
     intro.remove();
@@ -222,4 +255,84 @@ export function setVolume(vol) {
   try {
     localStorage.setItem('slaps_volume', vol);
   } catch (e) {}
+}
+
+// プロモ用タイマーとフェードアウトの実装
+function startPromoTimer() {
+  state.promoFinished = false; // 再生開始時にフラグをリセット
+  clearPromoTimer();
+
+  // 音量を初期設定値に戻す
+  if (state.player && typeof state.player.setVolume === 'function') {
+    state.player.setVolume(state.volume);
+  }
+
+  const totalDuration = 20000; // 合計動画時間: 20秒
+  const fadeDuration = 3000;   // フェードアウトとロゴ表示の時間: 3秒
+  const playDuration = totalDuration - fadeDuration; // 通常再生時間: 17秒
+
+  promoTimer = setTimeout(() => {
+    // 1. エンディングロゴ画面の表示
+    const outro = document.querySelector('#promoOutro');
+    if (outro) {
+      outro.hidden = false;
+      requestAnimationFrame(() => {
+        outro.classList.add('is-active');
+      });
+    }
+
+    // 2. 音楽のフェードアウト
+    const startVolume = state.volume;
+    const fadeInterval = 50; // 50msごとに音量を下げる
+    let elapsed = 0;
+
+    promoFadeInterval = setInterval(() => {
+      elapsed += fadeInterval;
+      const progress = Math.min(elapsed / fadeDuration, 1);
+      const currentVolume = startVolume * (1 - progress);
+
+      if (state.player && typeof state.player.setVolume === 'function') {
+        state.player.setVolume(currentVolume);
+      }
+
+      if (progress >= 1) {
+        clearInterval(promoFadeInterval);
+        promoFadeInterval = null;
+        
+        state.promoFinished = true; // 完走フラグをセット
+        
+        if (state.player && typeof state.player.pauseVideo === 'function') {
+          state.player.pauseVideo();
+        }
+        // 次回再生のために音量を元に戻しておく
+        if (state.player && typeof state.player.setVolume === 'function') {
+          state.player.setVolume(startVolume);
+        }
+      }
+    }, fadeInterval);
+
+  }, playDuration);
+}
+
+function clearPromoTimer() {
+  if (promoTimer) {
+    clearTimeout(promoTimer);
+    promoTimer = null;
+  }
+  if (promoFadeInterval) {
+    clearInterval(promoFadeInterval);
+    promoFadeInterval = null;
+  }
+  
+  // 完走している場合は、ロゴ画面を非表示に戻さない
+  if (state.promoFinished) {
+    return;
+  }
+
+  // ロゴ画面を非表示に戻す
+  const outro = document.querySelector('#promoOutro');
+  if (outro) {
+    outro.classList.remove('is-active');
+    outro.hidden = true;
+  }
 }

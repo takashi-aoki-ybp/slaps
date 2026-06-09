@@ -734,3 +734,33 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
     backdrop-filter: none !important;
   }
 }
+
+/* ===== プロモ動画用エンディング (Promo Mode Outro) ===== */
+.promo-outro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease;
+}
+.promo-outro.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.promo-outro__logo {
+  animation: introLogo 1.7s ease both;
+}
+.promo-outro__tag {
+  font-size: clamp(11px, 3vw, 14px);
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .6);
+  padding-left: .34em;
+  animation: introFade 1.2s ease .9s both;
+}
