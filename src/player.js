@@ -282,6 +282,13 @@ export function setVolume(vol) {
   state.volume = vol;
   if (state.player && typeof state.player.setVolume === 'function') {
     state.player.setVolume(vol);
+    if (vol > 0) {
+      state.muted = false;
+      try { state.player.unMute(); } catch (e) {}
+    } else {
+      state.muted = true;
+      try { state.player.mute(); } catch (e) {}
+    }
   }
   try {
     localStorage.setItem('slaps_volume', vol);

@@ -685,9 +685,10 @@ export function setupUIListeners() {
   const volumeValue = $('#volumeValue');
   const volumeIcon = $('#volumeIcon');
   if (volumeSlider && volumeValue && volumeIcon) {
-    volumeSlider.value = state.volume;
-    volumeValue.textContent = `${state.volume}%`;
-    volumeIcon.textContent = state.volume === 0 ? '🔇' : '🔊';
+    const initVol = state.muted ? 0 : state.volume;
+    volumeSlider.value = initVol;
+    volumeValue.textContent = `${initVol}%`;
+    volumeIcon.textContent = initVol === 0 ? '🔇' : '🔊';
 
     volumeSlider.addEventListener('input', () => {
       const vol = parseInt(volumeSlider.value, 10);
@@ -697,7 +698,7 @@ export function setupUIListeners() {
     });
 
     volumeIcon.addEventListener('click', () => {
-      if (state.volume > 0) {
+      if (state.volume > 0 && !state.muted) {
         state.preMuteVolume = state.volume;
         setVolume(0);
         volumeSlider.value = 0;
