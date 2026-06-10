@@ -294,6 +294,16 @@ export function unmute() {
   document.body.classList.add('is-started');
   wake();
   showInfoGuide();
+
+  // ミュート解除に伴う音量コントロールUIの同期
+  const volumeSlider = document.querySelector('#volumeSlider');
+  const volumeValue = document.querySelector('#volumeValue');
+  const volumeIcon = document.querySelector('#volumeIcon');
+  if (volumeSlider && volumeValue && volumeIcon) {
+    volumeSlider.value = state.volume;
+    volumeValue.textContent = `${state.volume}%`;
+    volumeIcon.textContent = state.volume === 0 ? '🔇' : '🔊';
+  }
   
   // ユーザーの最初のアクションでAudioContextを有効化し、即座に効果音MP3のロード＆デコードを開始
   try {
