@@ -273,6 +273,17 @@ export function unmute() {
   }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
+  
+  // ミュート解除時にUI側の音量表示とスライダーをstate.volume同期させる
+  const volumeSlider = document.querySelector('#volumeSlider');
+  const volumeValue = document.querySelector('#volumeValue');
+  const volumeIcon = document.querySelector('#volumeIcon');
+  if (volumeSlider && volumeValue && volumeIcon) {
+    volumeSlider.value = state.volume;
+    volumeValue.textContent = `${state.volume}%`;
+    volumeIcon.textContent = state.volume === 0 ? '🔇' : '🔊';
+  }
+
   wake();
   showInfoGuide();
 }
