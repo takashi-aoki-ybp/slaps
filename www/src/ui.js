@@ -1403,8 +1403,8 @@ export function renderRecommendations() {
   
   if (titleEl) {
     titleEl.textContent = isJa
-      ? '🔍 DIG SLAPS (未登録曲の推薦)'
-      : '🔍 DIG SLAPS (Unregistered recommendations)';
+      ? '🔍 DIG SLAPS (未登録曲をステーションに追加)'
+      : '🔍 DIG SLAPS (Add unregistered track to station)';
   }
   if (overlayTitle) {
     overlayTitle.textContent = isJa
@@ -1417,8 +1417,8 @@ export function renderRecommendations() {
     <div class="recommend-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" role="button" tabindex="0">
       <img class="recommend-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
       <div class="recommend-item__info">
-        <span class="recommend-item__plus">＋</span>
         <span class="recommend-item__name">${escapeHtml(r.title)}</span>
+        <span class="recommend-item__action-btn">${isJa ? '＋ 登録' : '＋ ADD'}</span>
       </div>
     </div>
   `).join('');
