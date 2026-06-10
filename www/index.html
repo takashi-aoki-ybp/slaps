@@ -199,12 +199,14 @@
         <div class="actions__links">
           <button type="button" class="report-link" id="favOpen">♡ 保存した曲を再生 (<span id="favCount">0</span>)</button>
           <button type="button" class="report-link" id="vibeToggle">📢 VIBE: OFF</button>
+          <button type="button" class="report-link" id="digOpen">🔍 DIG</button>
           <button type="button" class="report-link" id="shareBtn">🔗 共有</button>
           <button type="button" class="report-link" id="reportBtn">⚐ 報告</button>
         </div>
       </div>
       
-      <!-- フローティング MPC パッド -->
+      <!-- フローティング MPC パッド (未リリースのため非表示) -->
+      <!--
       <div class="mpc-container chrome">
         <div class="mpc-container__header">
           <span class="mpc-container__label-left">PAD 13</span>
@@ -212,6 +214,7 @@
         </div>
         <button type="button" class="mpc-pad" id="mpcPad" aria-label="叩いてホーンを鳴らす"></button>
       </div>
+      -->
     </div>
   </main>
 
@@ -326,6 +329,17 @@
       <button type="button" class="modal__submit" id="favPlayAll" hidden>▶ 保存した曲だけ再生</button>
       <div class="fav-list" id="favList"></div>
       <p class="modal__note" id="favEmpty">まだ保存した曲はありません。気に入った曲で ♡ をタップしてください。</p>
+    </div>
+  </div>
+
+  <!-- ===== DIG SLAPS スマホ用透過オーバーレイ ===== -->
+  <div class="about-ov" id="digOverlay" hidden>
+    <button type="button" class="about-ov__close" id="digClose" aria-label="閉じる">×</button>
+    <div class="about-ov__inner">
+      <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
+      <p class="tag">DIG SLAPS</p>
+      <h2 class="dig-overlay-title" id="digOverlayTitle">💡 このアーティストの未登録曲 (DIG)</h2>
+      <div class="dig-overlay-list" id="digOverlayList"></div>
     </div>
   </div>
 

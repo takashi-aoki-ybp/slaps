@@ -351,6 +351,12 @@ export async function doSubmit() {
     lastSubmitTime = Date.now();
     closeModal();
     showToast(db.live ? window.i18n.t('toastAdded') : window.i18n.t('toastAddedLocal'));
+    
+    // 即時割り込み再生：現在のキューの直後に挿入し、1.5秒後に自動で次曲へ遷移
+    state.queue.splice(state.index + 1, 0, entry);
+    setTimeout(() => {
+      next();
+    }, 1500);
   } catch (error) {
     if (error && error.message && error.message !== 'Submit failed') {
       if (error.message.includes('already exists')) {
@@ -365,6 +371,9 @@ export async function doSubmit() {
     inputs.forEach((el) => { if (el) el.disabled = false; });
   }
 }
+
+export function openDig() { $('#digOverlay').hidden = false; document.body.style.overflow = 'hidden'; }
+export function closeDig() { $('#digOverlay').hidden = true; document.body.style.overflow = ''; }
 
 export function openModal() { $('#submitModal').hidden = false; }
 export function closeModal() {
@@ -701,9 +710,10 @@ export function setupUIListeners() {
   const volumeValue = $('#volumeValue');
   const volumeIcon = $('#volumeIcon');
   if (volumeSlider && volumeValue && volumeIcon) {
-    volumeSlider.value = state.volume;
-    volumeValue.textContent = `${state.volume}%`;
-    volumeIcon.textContent = state.volume === 0 ? '🔇' : '🔊';
+    const initVol = state.muted ? 0 : state.volume;
+    volumeSlider.value = initVol;
+    volumeValue.textContent = `${initVol}%`;
+    volumeIcon.textContent = initVol === 0 ? '🔇' : '🔊';
 
     volumeSlider.addEventListener('input', () => {
       const vol = parseInt(volumeSlider.value, 10);
@@ -713,7 +723,7 @@ export function setupUIListeners() {
     });
 
     volumeIcon.addEventListener('click', () => {
-      if (state.volume > 0) {
+      if (state.volume > 0 && !state.muted) {
         state.preMuteVolume = state.volume;
         setVolume(0);
         volumeSlider.value = 0;
@@ -729,50 +739,61 @@ export function setupUIListeners() {
     });
   }
 
-  // 推薦曲の追加アクション
-  const recommendList = $('#recommendList');
-  if (recommendList) {
-    recommendList.addEventListener('click', async (e) => {
-      const item = e.target.closest('.recommend-item');
-      if (!item || item.classList.contains('is-loading')) return;
+  // 推薦曲の追加アクション (PCホバー / スマホオーバーレイ共通)
+  const handleRecommendClick = async (e) => {
+    const item = e.target.closest('.recommend-item');
+    if (!item || item.classList.contains('is-loading')) return;
 
-      const artist = item.dataset.artist;
-      const title = item.dataset.title;
+    const artist = item.dataset.artist;
+    const title = item.dataset.title;
 
-      item.classList.add('is-loading');
-      try {
-        // 1. バックエンドの検索プロキシを叩いて YouTube ID を取得
-        const searchQ = `${artist} - ${title}`;
-        const res = await fetch(`/api/youtube-search?q=${encodeURIComponent(searchQ)}`);
-        if (!res.ok) throw new Error('Search failed');
-        const data = await res.json();
-        
-        if (!data.videoId) throw new Error('No video found');
+    item.classList.add('is-loading');
+    try {
+      // 1. バックエンドの検索プロキシを叩いて YouTube ID を取得
+      const searchQ = `${artist} - ${title}`;
+      const res = await fetch(`/api/youtube-search?q=${encodeURIComponent(searchQ)}`);
+      if (!res.ok) throw new Error('Search failed');
+      const data = await res.json();
+      
+      if (!data.videoId) throw new Error('No video found');
 
-        // 2. 登録モーダルを開いてプリフィル
-        openModal();
-        
-        // URLを入力
-        const urlInput = $('#ytUrl');
-        urlInput.value = `https://www.youtube.com/watch?v=${data.videoId}`;
-        
-        // input イベントを手動で発火させて重複チェックとサムネイル取得を走らせる
-        onUrlInput();
+      // スマホ用のオーバーレイを閉じる
+      closeDig();
 
-        // 登録モーダル内の各フィールドに事前入力可能な情報をセット
-        $('#ytName').value = '';
-        $('#ytComment').value = '';
-        
-        // URL欄にフォーカスを合わせる
-        urlInput.focus();
+      // 2. 登録モーダルを開いてプリフィル
+      openModal();
+      
+      // URLを入力
+      const urlInput = $('#ytUrl');
+      urlInput.value = `https://www.youtube.com/watch?v=${data.videoId}`;
+      
+      // input イベントを手動で発火させて重複チェックとサムネイル取得を走らせる
+      onUrlInput();
 
-      } catch (err) {
-        console.warn('Failed to prefill recommendation:', err);
-        showToast(window.i18n.t('toastAddFail') || 'Failed to fetch YouTube link.');
-      } finally {
-        item.classList.remove('is-loading');
-      }
-    });
+      // 登録モーダル内の各フィールドに事前入力可能な情報をセット
+      $('#ytName').value = '';
+      $('#ytComment').value = '';
+      
+      // URL欄にフォーカスを合わせる
+      urlInput.focus();
+
+    } catch (err) {
+      console.warn('Failed to prefill recommendation:', err);
+      showToast(window.i18n.t('toastAddFail') || 'Failed to fetch YouTube link.');
+    } finally {
+      item.classList.remove('is-loading');
+    }
+  };
+
+  if ($('#recommendList')) $('#recommendList').addEventListener('click', handleRecommendClick);
+  if ($('#digOverlayList')) $('#digOverlayList').addEventListener('click', handleRecommendClick);
+
+  // DIG SLAPS スマホ用透過オーバーレイ開閉
+  const digOverlay = $('#digOverlay');
+  if ($('#digOpen')) $('#digOpen').addEventListener('click', openDig);
+  if ($('#digClose')) $('#digClose').addEventListener('click', closeDig);
+  if (digOverlay) {
+    digOverlay.addEventListener('click', (e) => { if (e.target === digOverlay) closeDig(); });
   }
 
   // Modal backdrops
@@ -1365,28 +1386,57 @@ async function sendLike(commentId) {
 export function renderRecommendations() {
   const container = $('#metaRecommendations');
   const list = $('#recommendList');
+  const overlayList = $('#digOverlayList');
+  const overlayTitle = $('#digOverlayTitle');
   if (!container || !list) return;
 
   const recs = state.recommendations || [];
   if (recs.length === 0) {
     container.hidden = true;
     list.innerHTML = '';
+    if (overlayList) overlayList.innerHTML = '';
     return;
   }
 
   const titleEl = $('#recommendTitle');
+  const isJa = window.i18n.getLang() === 'ja';
+  
   if (titleEl) {
-    titleEl.textContent = window.i18n.getLang() === 'ja'
-      ? '💡 この曲もSLAPSに登録しませんか？ (未登録)'
-      : '💡 Add these tracks to the station: (Unregistered)';
+    titleEl.textContent = isJa
+      ? '🔍 DIG SLAPS (未登録曲の推薦)'
+      : '🔍 DIG SLAPS (Unregistered recommendations)';
+  }
+  if (overlayTitle) {
+    overlayTitle.textContent = isJa
+      ? '💡 このアーティストの未登録曲 (DIG)'
+      : '💡 Unregistered tracks by this artist (DIG)';
   }
 
+  // PC版リスト描画 (ホバー対応)
   list.innerHTML = recs.map(r => `
     <div class="recommend-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" role="button" tabindex="0">
-      <span class="recommend-item__plus">＋</span>
-      <span class="recommend-item__name">${escapeHtml(r.title)}</span>
+      <img class="recommend-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
+      <div class="recommend-item__info">
+        <span class="recommend-item__plus">＋</span>
+        <span class="recommend-item__name">${escapeHtml(r.title)}</span>
+      </div>
     </div>
   `).join('');
+
+  // スマホ版オーバーレイリスト描画
+  if (overlayList) {
+    overlayList.innerHTML = recs.map(r => `
+      <div class="recommend-item dig-overlay-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" role="button" tabindex="0">
+        <img class="dig-overlay-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
+        <div class="dig-overlay-item__info">
+          <span class="dig-overlay-item__name">${escapeHtml(r.title)}</span>
+          <span class="dig-overlay-item__artist">${escapeHtml(r.artist)}</span>
+        </div>
+        <button type="button" class="dig-overlay-item__add-btn">＋ ADD</button>
+      </div>
+    `).join('');
+  }
+
   container.hidden = false;
 }
 

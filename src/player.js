@@ -463,7 +463,8 @@ export async function fetchRecommendations(artist) {
       seenTitles.add(lowerName);
       unexpressed.push({
         artist: track.artistName || artist,
-        title: trackName
+        title: trackName,
+        artwork: track.artworkUrl100 || ''
       });
 
       if (unexpressed.length >= 3) break;
