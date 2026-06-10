@@ -449,7 +449,10 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 
 /* ===== unmute (START) ===== */
 .unmute {
-  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 35;
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(0); z-index: 35;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   display: flex; align-items: center; gap: 12px;
   background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(8px);
