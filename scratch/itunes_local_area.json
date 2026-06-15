@@ -1,0 +1,11 @@
+
+
+
+{
+ "resultCount":1,
+ "results": [
+{"wrapperType":"track", "kind":"song", "artistId":1162080117, "collectionId":1481408325, "trackId":1481408333, "artistName":"KANDYTOWN", "collectionName":"ADVISORY", "trackName":"Local Area (feat. Gottz, Neetz & KEIJU)", "collectionCensoredName":"ADVISORY", "trackCensoredName":"Local Area (feat. Gottz, Neetz & KEIJU)", "artistViewUrl":"https://music.apple.com/jp/artist/kandytown/1162080117?uo=4", "collectionViewUrl":"https://music.apple.com/jp/album/local-area-feat-gottz-neetz-keiju/1481408325?i=1481408333&uo=4", "trackViewUrl":"https://music.apple.com/jp/album/local-area-feat-gottz-neetz-keiju/1481408325?i=1481408333&uo=4", 
+"previewUrl":"https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/2e/f9/b9/2ef9b9bd-78a4-2394-c266-fa275b74c58e/mzaf_3379654882757086611.plus.aac.p.m4a", "artworkUrl30":"https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/86/92/52/8692529f-6b1f-096e-7dca-b5af58be2c1c/190295340285.jpg/30x30bb.jpg", "artworkUrl60":"https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/86/92/52/8692529f-6b1f-096e-7dca-b5af58be2c1c/190295340285.jpg/60x60bb.jpg", "artworkUrl100":"https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/86/92/52/8692529f-6b1f-096e-7dca-b5af58be2c1c/190295340285.jpg/100x100bb.jpg", "collectionPrice":1833.00, "trackPrice":255.00, "releaseDate":"2019-10-23T12:00:00Z", "collectionExplicitness":"explicit", "trackExplicitness":"notExplicit", "discCount":1, "discNumber":1, "trackCount":15, "trackNumber":5, "trackTimeMillis":179501, "country":"JPN", "currency":"JPY", "primaryGenreName":"ヒップホップ／ラップ", "isStreamable":true}]
+}
+
+

@@ -58,7 +58,7 @@
   {
     "youtube_id": "T15S4RnJYMc",
     "name": "CA7RIEL & Paco Amoroso - COSAS RICAS (Official Loop)",
-    "region": "other",
+    "region": "us",
     "era": "20s",
     "user_name": "summer",
     "description": {
@@ -72,7 +72,7 @@
   {
     "youtube_id": "klMGDp6eeow",
     "name": "CA7RIEL & Paco Amoroso - LA QUE PUEDE, PUEDE (Official Loop)",
-    "region": "other",
+    "region": "us",
     "era": "20s",
     "user_name": "summer",
     "description": {
@@ -86,7 +86,7 @@
   {
     "youtube_id": "6wyVVWIZojw",
     "name": "CA7RIEL & Paco Amoroso - BABY GANGSTA (Official Loop)",
-    "region": "other",
+    "region": "us",
     "era": "20s",
     "user_name": "summer",
     "description": {
@@ -96,6 +96,34 @@
     "thumbnail": "https://img.youtube.com/vi/6wyVVWIZojw/mqdefault.jpg",
     "conscious_turnt": 5,
     "created_at": "2026-06-11T07:44:45.515Z"
+  },
+  {
+    "youtube_id": "1Wl1B7DPegc",
+    "name": "The 1975 - Love It If We Made It (Official Video)",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1Wl1B7DPegc/mqdefault.jpg",
+    "conscious_turnt": 0,
+    "created_at": "2026-06-11T07:38:55.680Z"
+  },
+  {
+    "youtube_id": "kdvce-9H_HU",
+    "name": "Novel Core, SHUNTO, RYOKI / MF (Prod. SUNNY BOY) -Music Video-",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/kdvce-9H_HU/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-06-11T07:35:31.744Z"
   },
   {
     "youtube_id": "YWyHZNBz6FE",
@@ -114,7 +142,7 @@
   {
     "youtube_id": "1Vf4mMCpNY0",
     "name": "Lil Wayne - A Milli",
-    "region": "us",
+    "region": "jp",
     "era": "00s",
     "user_name": "覚",
     "description": {
@@ -168,6 +196,20 @@
     "created_at": "2026-06-11T07:00:20.075Z"
   },
   {
+    "youtube_id": "-XpAW0jXA10",
+    "name": "KUROMI「KUROMI♡Profile」Official Music Video",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/-XpAW0jXA10/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T06:58:05.581Z"
+  },
+  {
     "youtube_id": "83d0AJjpt1s",
     "name": "何もない日に (feat. SQUASH SQUAD)",
     "region": "jp",
@@ -180,6 +222,20 @@
     "thumbnail": "https://img.youtube.com/vi/83d0AJjpt1s/mqdefault.jpg",
     "conscious_turnt": 4,
     "created_at": "2026-06-11T06:57:12.297Z"
+  },
+  {
+    "youtube_id": "QLEc84xQRQM",
+    "name": "女王蜂『ハイになんてなりたくない(No, I don't want to get High)』Official MV",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/QLEc84xQRQM/mqdefault.jpg",
+    "conscious_turnt": 0,
+    "created_at": "2026-06-11T06:55:52.193Z"
   },
   {
     "youtube_id": "pkHlze-Pg3g",
@@ -196,10 +252,38 @@
     "created_at": "2026-06-11T06:51:48.152Z"
   },
   {
+    "youtube_id": "AaMmSNBt_O8",
+    "name": "KID PHENOMENON｜\"Party Over There\" Music Video",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "LDHの異色グループのぶち上げ曲",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/AaMmSNBt_O8/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T06:40:52.115Z"
+  },
+  {
+    "youtube_id": "iR5vQeUQ32Q",
+    "name": "ShowMinorSavage / ROMEO -Special Dance Performance-",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "BE:FIRSTのメンバーが参加しているユニット",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/iR5vQeUQ32Q/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T06:34:28.658Z"
+  },
+  {
     "youtube_id": "Edthfw5Pbxk",
     "name": "Yves Tumor - Noid",
     "region": "us",
-    "era": "10s",
+    "era": "20s",
     "user_name": "summer",
     "description": {
       "ja": "人種問題に対する天才的なリリックとトラック",
@@ -266,6 +350,20 @@
     "created_at": "2026-06-11T06:24:09.715Z"
   },
   {
+    "youtube_id": "0izBEKMf-3Q",
+    "name": "Number_i - LAVALAVA (Official Visualizer)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/0izBEKMf-3Q/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-06-11T06:22:14.050Z"
+  },
+  {
     "youtube_id": "D0W_4pHDBTo",
     "name": "GADORO - あっかんべぇ (Pro. DJ PMX)",
     "region": "jp",
@@ -294,6 +392,20 @@
     "created_at": "2026-06-11T06:21:16.921Z"
   },
   {
+    "youtube_id": "JPQqPJqY_Lo",
+    "name": "Number_i - ATAMI (Official Live Performance M/V)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/JPQqPJqY_Lo/mqdefault.jpg",
+    "conscious_turnt": 3.5,
+    "created_at": "2026-06-11T06:21:02.890Z"
+  },
+  {
     "youtube_id": "ueq2QFIIpu0",
     "name": "不可思議/wonderboy - Pellicule (Official Music Video)",
     "region": "jp",
@@ -308,6 +420,20 @@
     "created_at": "2026-06-11T06:19:16.506Z"
   },
   {
+    "youtube_id": "IoDViKwXqjw",
+    "name": "Number_i - i-mode (Live at Number_i LIVE TOUR 2025 “No.Ⅱ”)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/IoDViKwXqjw/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-06-11T06:15:55.527Z"
+  },
+  {
     "youtube_id": "_gyultVTesk",
     "name": "BTS (방탄소년단) '2.0' Official MV",
     "region": "kr",
@@ -320,6 +446,20 @@
     "thumbnail": "https://img.youtube.com/vi/_gyultVTesk/mqdefault.jpg",
     "conscious_turnt": 0.5,
     "created_at": "2026-06-11T05:44:23.570Z"
+  },
+  {
+    "youtube_id": "Zv6JKobJyFY",
+    "name": "BTS (방탄소년단) 'Hooligan' Official Performance Video",
+    "region": "kr",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "BTSの新境地",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Zv6JKobJyFY/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-06-11T05:41:36.386Z"
   },
   {
     "youtube_id": "St6UOLqRAGY",
@@ -1538,7 +1678,7 @@
       "en": "Falz's sharp Nigerian social commentary",
       "ja": "ナイジェリアの社会問題を風刺するChildish Gambinoへの回答"
     },
-    "region": "other",
+    "region": "us",
     "era": "10s",
     "conscious_turnt": 0,
     "thumbnail": "https://img.youtube.com/vi/CdvY-tfI3ME/mqdefault.jpg",
@@ -1580,7 +1720,7 @@
       "en": "Kwesi Arthur's Ghanaian grind anthem remix with Sarkodie",
       "ja": "ガーナの新世代ラッパーのアフリカンヒップホップの逸品"
     },
-    "region": "other",
+    "region": "us",
     "era": "10s",
     "conscious_turnt": 4.5,
     "thumbnail": "https://img.youtube.com/vi/QLg8lPWnuHk/mqdefault.jpg",
@@ -3132,7 +3272,7 @@
     "name": "Xzibit - Paparazzi",
     "description": {
       "en": "Xzibit's breakout — West Coast lyricist",
-      "ja": "イグジビットの出世作。ウエストコーストのリリシスト"
+      "ja": "ジビットの出世作。ウエストコーストのリリシスト"
     },
     "region": "us",
     "era": "90s",
@@ -4221,17 +4361,17 @@
   },
   {
     "youtube_id": "8nc6EgF5WX4",
-    "name": "Time Machine - Personal Ads",
+    "name": "Time Machine - On the Moon",
     "description": {
-      "en": "A smooth underground classic by Time Machine.",
-      "ja": "Time Machineによる極上のアンダーグラウンド・クラシック。"
+      "en": "Time Machine — On the Moon",
+      "ja": "Time MachineのOn the Moon"
     },
     "user_name": "青木 喬 takashi aoki",
     "region": "us",
     "era": "00s",
-    "conscious_turnt": 1.5,
     "thumbnail": "https://img.youtube.com/vi/8nc6EgF5WX4/mqdefault.jpg",
-    "created_at": "2026-06-05T07:25:47Z"
+    "conscious_turnt": 1.5,
+    "created_at": "2026-06-05T07:11:16Z"
   },
   {
     "youtube_id": "75L7L6zaNoQ",
@@ -4246,6 +4386,20 @@
     "thumbnail": "https://img.youtube.com/vi/75L7L6zaNoQ/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
+  },
+  {
+    "youtube_id": "8nc6EgF5WX4",
+    "name": "Time Machine - Personal Ads",
+    "description": {
+      "en": "A smooth underground classic by Time Machine.",
+      "ja": "Time Machineによる極上のアンダーグラウンド・クラシック。"
+    },
+    "user_name": "青木 喬 takashi aoki",
+    "region": "us",
+    "era": "00s",
+    "conscious_turnt": 1.5,
+    "thumbnail": "https://img.youtube.com/vi/8nc6EgF5WX4/mqdefault.jpg",
+    "created_at": "2026-06-05T07:25:47Z"
   },
   {
     "youtube_id": "2WbSBLplJS0",
@@ -7328,6 +7482,20 @@
     "created_at": "2026-06-05T12:40:47.211Z"
   },
   {
+    "youtube_id": "A1B2C3D4E5J",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5J/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T12:38:58.089Z"
+  },
+  {
     "youtube_id": "TnJMBcQFNME",
     "name": "AKLO \"RGTO\" feat.SALU, 鋼田テフロン & Kダブシャイン",
     "region": "jp",
@@ -7398,6 +7566,34 @@
     "created_at": "2026-06-05T12:26:17.556Z"
   },
   {
+    "youtube_id": "A1B2C3D4E5I",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5I/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T12:19:17.049Z"
+  },
+  {
+    "youtube_id": "A1B2C3D4E5H",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5H/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T12:18:49.263Z"
+  },
+  {
     "youtube_id": "_BMo-1oc2ik",
     "name": "LANA - Still Young More Rich feat. Watson (Official Music Video)",
     "region": "jp",
@@ -7428,7 +7624,7 @@
   {
     "youtube_id": "KrkZOLj26TE",
     "name": "LANA - Diamonds in the Sky (Official Music Video)",
-    "region": "jp",
+    "region": "fr",
     "era": "20s",
     "user_name": "hrk",
     "description": {
@@ -7538,6 +7734,34 @@
     "created_at": "2026-06-05T12:06:37.503Z"
   },
   {
+    "youtube_id": "A1B2C3D4E5G",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5G/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T11:59:02.869Z"
+  },
+  {
+    "youtube_id": "3S1tP7S-uLg",
+    "name": "Untitled",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/3S1tP7S-uLg/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T11:57:17.037Z"
+  },
+  {
     "youtube_id": "-I4Eff4QVc0",
     "name": "BADSAIKUSH 舐達麻 feat. KENNY-G OUTLAW   (Official Music Video)",
     "region": "jp",
@@ -7552,7 +7776,7 @@
     "created_at": "2026-06-05T11:54:31.714Z"
   },
   {
-    "youtube_id": "tOS-Yx4Qb_M",
+    "youtube_id": "8V94XvDq_m8",
     "name": "ZORN - Walk This Way",
     "region": "jp",
     "era": "10s",
@@ -7561,7 +7785,7 @@
       "ja": "空値テスト",
       "en": ""
     },
-    "thumbnail": "https://img.youtube.com/vi/tOS-Yx4Qb_M/mqdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/8V94XvDq_m8/mqdefault.jpg",
     "conscious_turnt": 1.5,
     "created_at": "2026-06-05T11:51:01.045Z"
   },
@@ -7592,6 +7816,20 @@
     "thumbnail": "https://img.youtube.com/vi/5qap5aO4i9A/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-05T11:46:52.160Z"
+  },
+  {
+    "youtube_id": "3tmd-ClpJKA",
+    "name": "Test Song",
+    "region": "us",
+    "era": "20s",
+    "user_name": "Test User",
+    "description": {
+      "ja": "テスト",
+      "en": "test"
+    },
+    "thumbnail": "https://img.youtube.com/vi/3tmd-ClpJKA/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-05T11:45:48.870Z"
   },
   {
     "youtube_id": "hI8A14Qcv68",

@@ -75,13 +75,10 @@ const I18N = {
     aboutP2: '<strong>SLAPS</strong> was born from that frustration. Open it up, and a track hand-picked by someone who thought "this is fire" starts playing at random.',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
     aboutPalgo: 'No recommendations. No history-based optimization. We don\'t track what you listen to. Discovery is completely random. <strong>Because stumbling upon music by chance is the best part.</strong>',
-    aboutH2ct: 'CONSCIOUS ↔ TURNT',
-    aboutPct: 'Even within HIPHOP, moods vary. Sometimes you want introspective, lyrical vibes. Sometimes you just want to go off. So instead of genres, we placed a single feel axis: <strong><span class="conscious">CONSCIOUS</span> (introspective) ↔ <span class="turnt">TURNT</span> (hype)</strong>. Center for everything, left for deep cuts, right for bangers.',
     aboutH2how: 'How to Use',
     aboutHow: [
       'Random play starts on open (muted at first — tap to unmute)',
       'Skip tracks with side buttons / arrow keys / swipe',
-      '<span class="conscious">CONSCIOUS</span>↔<span class="turnt">TURNT</span> slider to filter by mood',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> to filter by country (US / JP / UK / FR / KR …)',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> to zoom the video to fill the screen (aspect ratio crop)',
       '<span class="about-badge">UI</span> to keep the UI visible (turn OFF to focus on the MV)',
@@ -184,13 +181,10 @@ const I18N = {
     aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。アクセスしたら、誰かが「これヤバい」と思い、選んだ曲がランダムで流れだす。',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
     aboutPalgo: 'レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
-    aboutH2ct: 'CONSCIOUS ↔ TURNT',
-    aboutPct: 'HIPHOPの中でも気分は色々。内省的でリリカルな気分の時もあれば、とにかくアガりたい時もある。だからジャンルじゃなく、<strong><span class="conscious">CONSCIOUS</span>（内省的）↔ <span class="turnt">TURNT</span>（アッパー）</strong>という感覚軸だけ置いた。真ん中で全部、左で深い曲、右で上がる曲。',
     aboutH2how: '使い方',
     aboutHow: [
       '開いた瞬間にランダム再生',
       '左右のボタン／キー／スワイプで曲送り',
-      '<span class="conscious">CONSCIOUS</span>↔<span class="turnt">TURNT</span> のバーで気分を絞る',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> で国を絞る（US / JP / UK / FR / KR …）',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> で映像を画面いっぱいに拡大（縦横比をフィット）',
       '<span class="about-badge">UI</span> でUIを常時表示（MVに集中したい時はOFF）',
@@ -198,7 +192,7 @@ const I18N = {
       '好きな曲はYouTubeのURLを貼るだけで誰でも追加OK',
     ],
     aboutEnTitle: 'About (English)',
-    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization — just tracks picked by real people, played at random. One feel axis: <span class="conscious">CONSCIOUS</span> ↔ <span class="turnt">TURNT</span>. Filter by region, save favorites locally, add your own track by pasting a YouTube URL. No rules. If it slaps, it belongs here.',
+    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization — just tracks picked by real people, played at random. Filter by region, save favorites locally, add your own track by pasting a YouTube URL. No rules. If it slaps, it belongs here.',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
@@ -340,9 +334,7 @@ const i18n = (() => {
       if (h2s[0]) h2s[0].textContent = t('aboutH2algo');
       const paras = ov.querySelectorAll('p:not(.lead):not(.tag):not(.about-ov__logo)');
       if (paras[0]) paras[0].innerHTML = t('aboutPalgo');
-      if (h2s[1]) h2s[1].textContent = t('aboutH2ct');
-      if (paras[1]) paras[1].innerHTML = t('aboutPct');
-      if (h2s[2]) h2s[2].textContent = t('aboutH2how');
+      if (h2s[1]) h2s[1].textContent = t('aboutH2how');
       const ul = ov.querySelector('ul');
       if (ul) ul.innerHTML = t('aboutHow').map(li => `<li>${li}</li>`).join('');
       // English section

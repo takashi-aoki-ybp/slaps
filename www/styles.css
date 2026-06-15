@@ -560,7 +560,7 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   border-radius: 18px !important;
   margin: auto 16px;
   width: calc(100% - 32px);
-  max-width: 400px;
+  max-width: 420px;
 }
 .modal__actions {
   display: flex;
@@ -573,10 +573,11 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   max-width: 180px;
   justify-content: center;
   font-family: inherit;
-  font-size: 13.5px;
-  padding: 10px 12px;
+  font-size: 13px;
+  padding: 10px 8px;
   cursor: pointer;
   text-align: center;
+  white-space: nowrap;
 }
 .pill--primary {
   color: #000 !important;

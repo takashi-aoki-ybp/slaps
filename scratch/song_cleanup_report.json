@@ -1,0 +1,3396 @@
+{
+  "timestamp": "2026-06-09T22:32:37.560Z",
+  "totalSongs": 506,
+  "cleanSongsCount": 350,
+  "deletedSongs": [
+    {
+      "song": {
+        "youtube_id": "YjC0vvPGiKk",
+        "name": "BewhY - GOTTASADAE",
+        "region": "kr",
+        "era": "10s",
+        "description": {
+          "ja": "圧倒的なライムデリバリーと、合唱を取り入れたシアトリカルなビートが心揺さぶる韓国の傑作ラップ。",
+          "en": "Flawless rhyme delivery meets theatrical choral-driven production, showing the absolute peak of Korean hip-hop."
+        },
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/YjC0vvPGiKk/mqdefault.jpg",
+        "user_name": "Editor",
+        "status": "published"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 6
+    },
+    {
+      "song": {
+        "youtube_id": "2jTshYqJpG8",
+        "name": "Gazo ft. Freeze Corleone - Drill FR 4",
+        "region": "fr",
+        "era": "20s",
+        "description": {
+          "ja": "フランス独自のダークなドリルシーンを牽引する、強烈なベースと硬派なフローの掛け合い。",
+          "en": "Leading the dark French drill scene with hard-hitting bass and uncompromising flows."
+        },
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/2jTshYqJpG8/mqdefault.jpg",
+        "user_name": "Editor",
+        "status": "published"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "N1yMLZ_d1tI",
+        "name": "Joey Bada$$ - Paper Trail$",
+        "region": "us",
+        "era": "10s",
+        "description": {
+          "ja": "90年代ゴールデンエラへの回帰を感じさせる、鋭いリリシズムとクラシックなブーンバップサウンド。",
+          "en": "A throw back to the 90s golden era boom-bap, featuring sharp lyricism and vintage production."
+        },
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/N1yMLZ_d1tI/mqdefault.jpg",
+        "user_name": "Editor",
+        "status": "published",
+        "sample_sources": [
+          {
+            "artist": "Christopher Cross",
+            "title": "Ride Like the Wind"
+          }
+        ]
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "f0Tq1qS5z7k",
+        "name": "Shing02 - Luv(sic) Part 2",
+        "region": "jp",
+        "era": "00s",
+        "description": {
+          "ja": "Nujabesのメロウなビートに乗せて語られる、普遍的な愛のメッセージ。ジャパニーズヒップホップの至宝。",
+          "en": "Spitting timeless messages of love over Nujabes' signature mellow beats. A cornerstone of Japanese hip-hop history."
+        },
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/f0Tq1qS5z7k/mqdefault.jpg",
+        "user_name": "Editor",
+        "status": "published"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 6
+    },
+    {
+      "song": {
+        "youtube_id": "h1cKt-1JzE0",
+        "name": "Little Simz - Introvert",
+        "region": "uk",
+        "era": "20s",
+        "description": {
+          "ja": "壮大なオーケストラと研ぎ澄まされたリリックが融合した、UKを代表する名作コンシャスラップ。",
+          "en": "A majestic orchestral arrangement paired with razor-sharp lyricism, establishing Little Simz at the forefront of UK conscious rap."
+        },
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/h1cKt-1JzE0/mqdefault.jpg",
+        "user_name": "Editor",
+        "status": "published"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "u36Zp_L2h4k",
+        "name": "Sexyy Red - Pound Town",
+        "description": {
+          "en": "Sexyy Red's unapologetic breakout banger",
+          "ja": "下品さを武器にした痛快なストリートアンセム"
+        },
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 5,
+        "thumbnail": "https://img.youtube.com/vi/u36Zp_L2h4k/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-07T20:00:00Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "jTglS3RUSgA",
+        "name": "Time Machine - Personal Ads",
+        "description": {
+          "en": "A smooth underground classic by Time Machine.",
+          "ja": "Time Machineによる極上のアンダーグラウンド・クラシック。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/jTglS3RUSgA/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "A1B2C3D4E5J",
+        "name": "Untitled",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5J/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T12:38:58.089Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "A1B2C3D4E5I",
+        "name": "Untitled",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5I/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T12:19:17.049Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "A1B2C3D4E5H",
+        "name": "Untitled",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5H/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T12:18:49.263Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "A1B2C3D4E5G",
+        "name": "Untitled",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5G/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T11:59:02.869Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "3S1tP7S-uLg",
+        "name": "Untitled",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/3S1tP7S-uLg/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T11:57:17.037Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    },
+    {
+      "song": {
+        "youtube_id": "8V94XvDq_m8",
+        "name": "ZORN - Walk This Way",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "Test User 2",
+        "description": {
+          "ja": "空値テスト",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/8V94XvDq_m8/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T11:51:01.045Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 4
+    },
+    {
+      "song": {
+        "youtube_id": "3tmd-ClpJKA",
+        "name": "Test Song",
+        "region": "us",
+        "era": "20s",
+        "user_name": "Test User",
+        "description": {
+          "ja": "テスト",
+          "en": "test"
+        },
+        "thumbnail": "https://img.youtube.com/vi/3tmd-ClpJKA/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T11:45:48.870Z"
+      },
+      "reason": "oEmbed 404/Bad Request (Deleted/Private)",
+      "kvBrokenCount": 5
+    }
+  ],
+  "highlyBrokenSongs": [
+    {
+      "song": {
+        "youtube_id": "_CL6n0FJZpk",
+        "name": "Dr. Dre ft. Snoop Dogg - Still D.R.E.",
+        "description": {
+          "en": "The beat that defined West Coast — Dre and Snoop ride again",
+          "ja": "HIPHOPの教科書。このピアノリフを知らない人間はいない。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/_CL6n0FJZpk/mqdefault.jpg",
+        "created_at": "2026-05-01T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Dr. Dre - Still D.R.E. ft. Snoop Dogg",
+        "author": "DrDreVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "tvTRZJ-4EyI",
+        "name": "Kendrick Lamar - HUMBLE.",
+        "description": {
+          "en": "Sit down. Be humble. Kendrick's knockout punch",
+          "ja": "Kendrickが全てを黙らせた一曲。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/tvTRZJ-4EyI/mqdefault.jpg",
+        "created_at": "2026-05-01T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Kendrick Lamar - HUMBLE.",
+        "author": "KendrickLamarVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "PsO6ZnUZI0g",
+        "name": "Kanye West - Stronger",
+        "description": {
+          "en": "Kanye samples Daft Punk and conquers the world",
+          "ja": "Daft Punkサンプリングの最高到達点。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/PsO6ZnUZI0g/mqdefault.jpg",
+        "created_at": "2026-05-01T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Kanye West - Stronger",
+        "author": "KanyeWestVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "5qm8PH4xAss",
+        "name": "50 Cent - In Da Club",
+        "description": {
+          "en": "Go shorty, it's your birthday — 50's club anthem",
+          "ja": "クラブの定番中の定番。Go shawty, it's your birthday."
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/5qm8PH4xAss/mqdefault.jpg",
+        "created_at": "2026-05-01T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "50 Cent - In Da Club (Official Music Video)",
+        "author": "50CentVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "VYOjWnS4cMY",
+        "name": "Childish Gambino - This Is America",
+        "description": {
+          "en": "Gambino's jarring commentary on American violence",
+          "ja": "アメリカの矛盾を突きつけた衝撃のMV。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/VYOjWnS4cMY/mqdefault.jpg",
+        "created_at": "2026-05-02T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Childish Gambino - This Is America (Official Video)",
+        "author": "ChildishGambinoVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "S-sJp1FfG7Q",
+        "name": "Migos - Bad and Boujee ft. Lil Uzi Vert",
+        "description": {
+          "en": "Raindrop, drop top — the Migos anthem",
+          "ja": "Trap全盛期の象徴。Rain drop, drop top."
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 5,
+        "thumbnail": "https://img.youtube.com/vi/S-sJp1FfG7Q/mqdefault.jpg",
+        "created_at": "2026-05-02T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Migos - Bad and Boujee ft Lil Uzi Vert [Official Video]",
+        "author": "Migos ATL"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "L3R3y9PqvKA",
+        "name": "¥ellow Bucks - Yessir ft. Eric.B.Jr.",
+        "description": {
+          "en": "¥ellow Bucks' breakout trap anthem",
+          "ja": "日本のTurnup代表。これがスラップ。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/L3R3y9PqvKA/mqdefault.jpg",
+        "created_at": "2026-05-03T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "¥ellow Bucks - “Yessir” feat. Eric.B. Jr. [Official Video]",
+        "author": "¥ellow Bucks"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "mXLS2IzZSdg",
+        "name": "Dave - Black",
+        "description": {
+          "en": "Dave's legendary BRITs performance — UK's finest lyricist",
+          "ja": "BRITsでの伝説のパフォーマンス。UK最高のリリシスト。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "uk",
+        "era": "10s",
+        "conscious_turnt": 0.5,
+        "thumbnail": "https://img.youtube.com/vi/mXLS2IzZSdg/mqdefault.jpg",
+        "created_at": "2026-05-03T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Dave - Black (Live at The BRITs 2020)",
+        "author": "Santan Dave"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "DPC9erC5WqU",
+        "name": "Keith Ape - IT G MA",
+        "description": {
+          "en": "Korean trap goes global — IT G MA!",
+          "ja": "韓国発、世界を揺らしたTrap Anthem。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "kr",
+        "era": "10s",
+        "conscious_turnt": 5,
+        "thumbnail": "https://img.youtube.com/vi/DPC9erC5WqU/mqdefault.jpg",
+        "created_at": "2026-05-04T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Keith Ape - 잊지마 (It G Ma) (feat. JayAllDay, Loota, Okasian & Kohh) [Official Video]",
+        "author": "Hi-Lite Records 하이라이트레코즈"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "DawrlSwHUiM",
+        "name": "Pusha T - Numbers on the Boards",
+        "description": {
+          "en": "Pusha T spits drug rap over Pharrell's icy beat, every word a blade",
+          "ja": "Pharrellの氷のようなビートの上で吐く麻薬ラップ、一語一語が鋭い刃。"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/DawrlSwHUiM/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-04T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Pusha T - Numbers On The Boards (Explicit)",
+        "author": "PushaTVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "SsKT0s5J8ko",
+        "name": "Mac Miller - Self Care",
+        "description": {
+          "en": "Mac Miller's introspective gem — tragically prophetic",
+          "ja": "Macの内省と希望が交差する美しいトラック。"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/SsKT0s5J8ko/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-05T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Mac Miller - Self Care",
+        "author": "Mac Miller"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "v6HBZC9pZHQ",
+        "name": "Baby Keem - family ties ft. Kendrick Lamar",
+        "description": {
+          "en": "The torch-passing anthem — Keem and Kendrick ignite",
+          "ja": "次世代の覚醒を告げるアンセム。"
+        },
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/v6HBZC9pZHQ/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-05T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Baby Keem, Kendrick Lamar - family ties (Official Video)",
+        "author": "BabyKeemVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "IxFfn2oHBl4",
+        "name": "般若 - やっちゃった",
+        "description": {
+          "en": "Hannya's raw confessional — it's already done",
+          "ja": "般若のぶっ飛んだキャラとリリカルな実力が共存する中毒性MAXの一曲。"
+        },
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/IxFfn2oHBl4/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-06T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "般若 / やっちゃった / Official Music Video",
+        "author": "HANNYA OFFICIAL"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "kZGvnI37mxk",
+        "name": "Dizzee Rascal - Fix Up, Look Sharp",
+        "description": {
+          "en": "Dizzee's grime classic — fix up, look sharp",
+          "ja": "東ロンドンの天才が叩きつけた、グライムの誕生を告げる攻撃的な原点"
+        },
+        "region": "uk",
+        "era": "00s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/kZGvnI37mxk/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-08T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Fix up, Look sharp-by dizzee rascal",
+        "author": "Ashantib"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "mxl22OsRjF8",
+        "name": "Giggs - Whippin Excursion",
+        "description": {
+          "en": "Giggs' menacing UK rap anthem",
+          "ja": "ペッカムの重鎮、UKロードラップの威圧感を体感せよ"
+        },
+        "region": "uk",
+        "era": "10s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/mxl22OsRjF8/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-08T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Giggs - Whippin Excursion (Official Video)",
+        "author": "sn1giggs1"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Qu6ydRWZuDg",
+        "name": "KANDYTOWN - Until The End Of Time",
+        "description": {
+          "en": "KANDYTOWN's smooth collective anthem",
+          "ja": "世田谷の仲間たちの絆を映し出すエモーショナルなグループアンセム"
+        },
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/Qu6ydRWZuDg/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-09T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KANDYTOWN「Until The End Of Time」Official Music Video",
+        "author": "KANDYTOWN"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "NHTbrrf6W8c",
+        "name": "Anuel AA - Brindemos feat. Ozuna",
+        "description": {
+          "en": "Anuel and Ozuna toast to the trap life",
+          "ja": "ストリートからの成功を祝うラテントラップアンセム"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/NHTbrrf6W8c/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-10T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Anuel AA - Brindemos feat. Ozuna (Audio)",
+        "author": "AnuelVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "weeI1G46q0o",
+        "name": "DJ Khaled - I'm The One",
+        "description": {
+          "en": "Khaled assembles the all-star squad",
+          "ja": "超豪華メンツを招集した夏を制するオールスター・パーティーアンセム"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 5,
+        "thumbnail": "https://img.youtube.com/vi/weeI1G46q0o/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-10T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "DJ Khaled - I'm The One ft. Justin Bieber, Quavo, Chance the Rapper, Lil Wayne",
+        "author": "DJKhaledVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "XQGfe9SFVBg",
+        "name": "JP THE WAVY - Cho Wavy De Gomenne",
+        "description": {
+          "en": "Japan's trap breakout — sorry for being too wavy",
+          "ja": "日本トラップを世界に知らしめたバイラルヒット"
+        },
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/XQGfe9SFVBg/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-11T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "JP THE WAVY - Cho Wavy De Gomenne",
+        "author": "JP THE WAVY"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "yoYZf-lBF_U",
+        "name": "Mobb Deep - Shook Ones, Part II",
+        "description": {
+          "en": "Queensbridge's darkest anthem — the beat that defined hardcore",
+          "ja": "クイーンズブリッジ最凶のビート。ハードコアの定義を変えた一曲"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/yoYZf-lBF_U/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-11T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Mobb Deep - Shook Ones, Pt. II (Official HD Video)",
+        "author": "MobbDeepVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "xpVfcZ0ZcFM",
+        "name": "Drake - God's Plan",
+        "description": {
+          "en": "Drake gives away a million in the video — pure vibes",
+          "ja": "MV内で100万ドルを配る、Drake流チャリティーアンセム"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/xpVfcZ0ZcFM/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-12T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Drake - God's Plan",
+        "author": "DrakeVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "6swmTBVI83k",
+        "name": "Lil Nas X - MONTERO (Call Me By Your Name)",
+        "description": {
+          "en": "Lil Nas X slides to hell in the most iconic MV of the decade",
+          "ja": "地獄に滑り落ちる10年代最強MV"
+        },
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/6swmTBVI83k/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-12T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Lil Nas X - MONTERO (Call Me By Your Name) (Official Video)",
+        "author": "LilNasXVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "8mEWF2gEGA0",
+        "name": "ZORN - Life Story feat. ILL-BOSSTINO",
+        "description": {
+          "en": "ZORN x ILL-BOSSTINO — two legends share life stories",
+          "ja": "二人のレジェンドが人生を語り合う重厚な一曲"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/8mEWF2gEGA0/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-13T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "ZORN / Life Story feat. ILL-BOSSTINO",
+        "author": "ZORN Official"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "tjPQVvUHi3g",
+        "name": "ZORN - Rep feat. MACCHO",
+        "description": {
+          "en": "ZORN x MACCHO — two kings rep their blocks",
+          "ja": "ZORN×MACCHO、二人の王が地元を背負う"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/tjPQVvUHi3g/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-13T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "ZORN / Rep feat. MACCHO",
+        "author": "ZORN Official"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "-o-zH8hn1kQ",
+        "name": "BAD HOP - Hood Gospel feat. T-Pablow, Bark & YZERR",
+        "description": {
+          "en": "Street gospel from BAD HOP's core members",
+          "ja": "BAD HOPコアメンバーによるストリートゴスペル"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/-o-zH8hn1kQ/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-14T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "BAD HOP - Hood Gospel feat. T-Pablow, Bark & YZERR (Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "g64XTCydu9c",
+        "name": "KID FRESINO - hikari",
+        "description": {
+          "en": "KID FRESINO's introspective light in the darkness",
+          "ja": "KID FRESINOが闇の中に見つけた光"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/g64XTCydu9c/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-14T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KID FRESINO - hikari (Official Music Video)",
+        "author": "KID FRESINO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "c1UaGJlsw5g",
+        "name": "千葉雄喜 - チーム友達",
+        "description": {
+          "en": "Chiba Yuki's viral friendship anthem that broke Japan",
+          "ja": "日本を席巻したバイラルフレンドシップアンセム"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/c1UaGJlsw5g/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-15T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "千葉雄喜 - チーム友達 (Official Music Video)",
+        "author": "Eillyhustlehard Films"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "GFEqa3DZoxk",
+        "name": "般若 - あの頃じゃねえ",
+        "description": {
+          "en": "Hannya declares it's not the old days anymore",
+          "ja": "般若が「あの頃じゃねえ」と宣言する硬派な一曲"
+        },
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/GFEqa3DZoxk/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-15T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "般若 / あの頃じゃねえ / Official Music Video",
+        "author": "hotmuzik1989"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "glEiPXAYE-U",
+        "name": "The Notorious B.I.G. - Hypnotize",
+        "description": {
+          "en": "Biggie's last hit — slick, confident, unstoppable",
+          "ja": "ビギーの最後のヒット。洗練され、自信に満ち、止められない"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/glEiPXAYE-U/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-15T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "The Notorious B.I.G. - Hypnotize (Official Music Video) [4K]",
+        "author": "The Notorious B.I.G."
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Mb1ZvUDvLDY",
+        "name": "2Pac - Dear Mama",
+        "description": {
+          "en": "Pac's tribute to his mother — the most emotional rap song ever",
+          "ja": "パックの母への賛歌。ラップ史上最も感動的な一曲"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/Mb1ZvUDvLDY/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-15T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "2Pac - Dear Mama",
+        "author": "2PacVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "QFcv5Ma8u8k",
+        "name": "Dr. Dre - Forgot About Dre ft. Eminem",
+        "description": {
+          "en": "Dre and Em remind you who's boss",
+          "ja": "DreとEmが誰がボスか思い出させる"
+        },
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/QFcv5Ma8u8k/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-16T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Eminem, Dr. Dre - Forgot About Dre (Explicit) (Official Music Video) ft. Hittman",
+        "author": "DrDreVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "RijB8wnJCN0",
+        "name": "Cypress Hill - Insane in the Brain",
+        "description": {
+          "en": "Insane in the membrane — Cypress Hill's biggest hit",
+          "ja": "脳内狂気。サイプレスヒル最大のヒット"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/RijB8wnJCN0/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-16T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Cypress Hill - Insane In The Brain (Official HD Video)",
+        "author": "CypressHillVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "fPO76Jlnz6c",
+        "name": "Coolio - Gangsta's Paradise ft. L.V.",
+        "description": {
+          "en": "The most iconic rap song of the 90s",
+          "ja": "90年代で最もアイコニックなラップソング"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/fPO76Jlnz6c/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-16T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Coolio - Gangsta's Paradise (feat. L.V.) [Official Music Video]",
+        "author": "Tommy Boy"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "idx3GSL2KWs",
+        "name": "Naughty by Nature - O.P.P.",
+        "description": {
+          "en": "You down with O.P.P.? Yeah you know me!",
+          "ja": "O.P.P.に乗る？もちろん知ってるぜ！"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/idx3GSL2KWs/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-16T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Naughty by Nature - O.P.P. (Official Music Video)",
+        "author": "Tommy Boy"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "cM4kqL13jGM",
+        "name": "Digable Planets - Rebirth of Slick (Cool Like Dat)",
+        "description": {
+          "en": "Jazz rap coolness personified — we're cool like dat",
+          "ja": "ジャズラップのクールさの化身。俺たちはクールだ"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/cM4kqL13jGM/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-18T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Digable Planets - Rebirth of Slick (Cool Like Dat) (Official Music Video)",
+        "author": "DigablePlanetsVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "phaJXp_zMYM",
+        "name": "The Notorious B.I.G. - Big Poppa",
+        "description": {
+          "en": "Biggie at his smoothest — love the dough",
+          "ja": "ビギーの最もスムーズな一面"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/phaJXp_zMYM/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-18T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "The Notorious B.I.G. - Big Poppa (Official Music Video)",
+        "author": "The Notorious B.I.G."
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "hHcyJPTTn9w",
+        "name": "Missy Elliott - The Rain (Supa Dupa Fly)",
+        "description": {
+          "en": "Missy's debut — Hype Williams visuals meet Timbaland beats",
+          "ja": "ミッシーのデビュー。ハイプの映像×ティンバランドのビート"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/hHcyJPTTn9w/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-18T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Missy Elliott - The Rain (Supa Dupa Fly) [Official Music Video]",
+        "author": "Missy Elliott"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "oKOtzIo-uYw",
+        "name": "Fugees - Killing Me Softly",
+        "description": {
+          "en": "Fugees' haunting Roberta Flack cover",
+          "ja": "Fugeesの名カバー"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/oKOtzIo-uYw/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-19T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Fugees - Killing Me Softly With His Song (Official Video)",
+        "author": "TheFugeesVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "drsQLEU0N1Y",
+        "name": "OutKast - Rosa Parks",
+        "description": {
+          "en": "Hush that fuss — OutKast's Southern anthem",
+          "ja": "黙れ。アウトキャストの南部アンセム"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/drsQLEU0N1Y/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-19T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Outkast - Rosa Parks (Official HD Video)",
+        "author": "OutkastVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Fw02U0Kca6M",
+        "name": "Wu-Tang Clan - C.R.E.A.M.",
+        "description": {
+          "en": "Cash Rules Everything Around Me",
+          "ja": "金が全てを支配する"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/Fw02U0Kca6M/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-20T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Wu-Tang Clan - C.R.E.A.M. (Official Video - Japanese Subtitles)",
+        "author": "Wu-Tang Clan"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "8GliyDgAGQI",
+        "name": "Dr. Dre - Nuthin' but a G Thang ft. Snoop Dogg",
+        "description": {
+          "en": "G-Funk's defining moment",
+          "ja": "Gファンクの決定的瞬間"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/8GliyDgAGQI/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-20T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Dr Dre - Nuthin' But A \"G\" Thang [Official Music Video]",
+        "author": "Dr. Dre"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "9ZrAYxWPN6c",
+        "name": "KRS-One - Sound of da Police",
+        "description": {
+          "en": "Woop woop — police brutality called out",
+          "ja": "ウープウープ。警察の暴力を告発"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/9ZrAYxWPN6c/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-22T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KRS-One - Sound of da Police (Official Video)",
+        "author": "KRSOneVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "uqB_UVlhlPA",
+        "name": "OutKast - Elevators (Me & You)",
+        "description": {
+          "en": "OutKast going up — Dungeon Family",
+          "ja": "上昇するアウトキャスト"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/uqB_UVlhlPA/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-22T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Outkast - Elevators (Me & You) (Official HD Video)",
+        "author": "OutkastVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "YqJAnQTwmJs",
+        "name": "2Pac - I Get Around",
+        "description": {
+          "en": "Pac and Digital Underground vibing",
+          "ja": "パックのバイブス"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/YqJAnQTwmJs/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-23T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "2Pac - I Get Around",
+        "author": "2PacVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "mlp-IIG9ApU",
+        "name": "Nas - If I Ruled the World ft. Lauryn Hill",
+        "description": {
+          "en": "Nas and Lauryn imagine a better world",
+          "ja": "NasとLaurynが理想の世界を描く"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/mlp-IIG9ApU/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-23T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Nas - If I Ruled the World (Imagine That) (Official HD Video) ft. Lauryn Hill",
+        "author": "NasVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "PArF9k2SbQk",
+        "name": "Bone Thugs-N-Harmony - 1st of tha Month",
+        "description": {
+          "en": "First of the month — wake up, get paid",
+          "ja": "月初。起きろ、金を手に入れろ"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/PArF9k2SbQk/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-24T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Bone Thugs-n-Harmony - 1st of tha Month",
+        "author": "BoneThugsHarmonyVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "cPRKsKwEdUQ",
+        "name": "Wu-Tang Clan - Triumph",
+        "description": {
+          "en": "Wu-Tang's magnum opus — no hook",
+          "ja": "Wu-Tangの最高傑作"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/cPRKsKwEdUQ/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-24T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Wu-Tang Clan - Triumph (Official HD Video) ft. Cappadonna",
+        "author": "WuTangClanVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Ww9VlmXKYgs",
+        "name": "Juvenile - Ha",
+        "description": {
+          "en": "Cash Money's Southern bounce",
+          "ja": "キャッシュマネーの南部バウンス"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/Ww9VlmXKYgs/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-24T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Juvenile - Ha",
+        "author": "JuvenileVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "WHRnvjCkTsw",
+        "name": "A Tribe Called Quest - Electric Relaxation",
+        "description": {
+          "en": "ATCQ's smoothest vibe — relax yourself girl",
+          "ja": "ATCQの最もスムーズなバイブス"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/WHRnvjCkTsw/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-25T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "A Tribe Called Quest - Electric Relaxation (Official HD Video)",
+        "author": "TribeCalledQuestVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "3hOZaTGnHU4",
+        "name": "Nas - It Ain't Hard to Tell",
+        "description": {
+          "en": "Illmatic's opening statement to the world",
+          "ja": "Illmaticの世界への宣言"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/3hOZaTGnHU4/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-27T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Nas - It Ain't Hard To Tell (Official Video)",
+        "author": "NasVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "eJO5HU_7_1w",
+        "name": "Eminem - The Real Slim Shady",
+        "description": {
+          "en": "Please stand up — Em's pop culture invasion",
+          "ja": "立ち上がれ。Emのポップカルチャー侵略"
+        },
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/eJO5HU_7_1w/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-27T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Eminem - The Real Slim Shady (Official Video - Clean Version)",
+        "author": "EminemVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "xn-IsIhJS1c",
+        "name": "Tha Dogg Pound - Let's Play House",
+        "description": {
+          "en": "Death Row's smooth G-Funk joint",
+          "ja": "デスロウのスムーズGファンク"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/xn-IsIhJS1c/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-27T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Tha Dogg Pound - Lets Play House",
+        "author": "Death Row Records"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "NiZMqVXVZgA",
+        "name": "Redman - Time 4 Sum Aksion",
+        "description": {
+          "en": "Redman's raw debut — pure energy",
+          "ja": "レッドマンのデビュー。純粋なエネルギー"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/NiZMqVXVZgA/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-28T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Redman - Time 4 Sum Aksion (Uncut)",
+        "author": "UPROXX"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "WWSLM2lFjvg",
+        "name": "DJ Quik - Tonite",
+        "description": {
+          "en": "Compton's funkiest — tonight's the night",
+          "ja": "コンプトン最ファンキー。今夜がその夜"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/WWSLM2lFjvg/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-28T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "DJ Quik - Tonite (Official Video)",
+        "author": "DJQuikVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "EuJaStSL0xM",
+        "name": "Black Star - Definition",
+        "description": {
+          "en": "Mos Def & Talib Kweli define HIPHOP",
+          "ja": "モスデフとタリブがHIPHOPを定義する"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/EuJaStSL0xM/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-29T00:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Black Star (Mos Def & Talib Kweli) - Definition",
+        "author": "UPROXX"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "NGbn6eaZmCY",
+        "name": "MC Lyte - Ruffneck",
+        "description": {
+          "en": "MC Lyte's gold-certified banger",
+          "ja": "MC Lyteのゴールド認定バンガー"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/NGbn6eaZmCY/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-29T08:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "MC Lyte - Ruffneck (Official Video) [Explicit]",
+        "author": "UPROXX"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "lOWKGXpl9E0",
+        "name": "Three 6 Mafia - Sippin' on Some Syrup",
+        "description": {
+          "en": "Memphis syrup sipping anthem",
+          "ja": "メンフィスのシロップシッピングアンセム"
+        },
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/lOWKGXpl9E0/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-30T16:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Sippin On Some Syrup (Official Video)",
+        "author": "Three6MafiaVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "uuWQyfGa1yI",
+        "name": "Run The Jewels - Blockbuster Night Part 1",
+        "description": {
+          "en": "El-P and Killer Mike trade bars over bone-crushing production",
+          "ja": "El-PとKiller Mikeが骨を砕くビートの上でバースを交換する"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/uuWQyfGa1yI/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-31T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Run The Jewels - Blockbuster Night Part 1 (Official Video)",
+        "author": "Mass Appeal"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "4388-q-XiYk",
+        "name": "Company Flow - Vital Nerve",
+        "description": {
+          "en": "Funcrusher Plus era Co Flow — El-P's indie rap blueprint that birthed Def Jux",
+          "ja": "Def Juxの原点。El-Pが描いたインディーラップの設計図"
+        },
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/4388-q-XiYk/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-05-31T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Company Flow - Vital Nerve",
+        "author": "FUZATl"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "WPETSdp-dBo",
+        "name": "Amon Tobin - Four Ton Mantis",
+        "description": {
+          "en": "Brazilian-born Ninja Tune producer's heavy breakbeat masterwork",
+          "ja": "ブラジル出身のNinja Tuneプロデューサーによる重厚ブレイクビーツの傑作"
+        },
+        "region": "uk",
+        "era": "00s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/WPETSdp-dBo/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-06-02T12:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Amon Tobin - Four Ton Mantis (Original got deleted. Link in description)",
+        "author": "foxwolf92"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Jlx2Lx0e_QM",
+        "name": "PUNPEE - Hero",
+        "description": {
+          "en": "PUNPEE's ode to everyday heroes — uplifting and introspective",
+          "ja": "日常のヒーローに捧げるPUNPEEの名曲"
+        },
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/Jlx2Lx0e_QM/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-06-03T20:00:00Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Hero",
+        "author": "PUNPEE - Topic"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "FCvBsjFaRCg",
+        "name": "JINMENUSAGI - うそさ",
+        "description": {
+          "en": "Jinmenusagi's raw confession — it's all lies, including this",
+          "ja": "ジメサギの剥き出しの告白。ALXVEからの切り札"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/FCvBsjFaRCg/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "created_at": "2026-06-04T04:00:00Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Jinmenusagi - うそさ (Official Video)",
+        "author": "Jinmenusagi"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "G2o5N1kIQ-I",
+        "name": "Life Goes On (あんじょうやっとります) feat. OMSB [SESSION VIDEO]",
+        "description": {
+          "en": "OMSB's introspective session about keeping on",
+          "ja": "OMSBの内省的なセッション。あんじょうやっとります"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/G2o5N1kIQ-I/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Life Goes On (あんじょうやっとります) feat. OMSB [SESSION VIDEO]",
+        "author": "PUNPEE"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "987JwJ9iYtk",
+        "name": "【MV】NORIKIYO / オレナラココ feat.STICKY",
+        "description": {
+          "en": "NORIKIYO x STICKY — pure lyrical craft",
+          "ja": "NORIKIYOとSTICKYの純粋なリリシズム"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "10s",
+        "thumbnail": "https://img.youtube.com/vi/987JwJ9iYtk/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "【MV】NORIKIYO / オレナラココ feat.STICKY",
+        "author": "NORIKIYO JPN"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "ehjeUKgF_Io",
+        "name": "幽体離脱 feat.チャンチョ & ぽんぽこ (Official Lyric Video) / Album \"False Memory Syndrome\"",
+        "description": {
+          "en": "Out-of-body experience — ピーナッツくん's wild concept",
+          "ja": "ピーナッツくんの攻めたコンセプトトラック"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/ehjeUKgF_Io/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "幽体離脱 feat.チャンチョ & ぽんぽこ (Official Lyric Video) / Album \"False Memory Syndrome\"",
+        "author": "ぽんぽこちゃんねる"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "QXtU-AqGnL8",
+        "name": "【MV】NORIKIYO あの〜",
+        "description": {
+          "en": "NORIKIYO at his most vulnerable",
+          "ja": "NORIKIYOの最も素直な一面"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "10s",
+        "thumbnail": "https://img.youtube.com/vi/QXtU-AqGnL8/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "【MV】NORIKIYO あの〜",
+        "author": "NORIKIYO JPN"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "BRmlKNdSc9g",
+        "name": "“欲張 feat. Jin Dogg” / CHICO CARLITO",
+        "description": {
+          "en": "CHICO CARLITO x Jin Dogg — greedy flow",
+          "ja": "CHICO CARLITOとJin Doggの欲張りフロー"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/BRmlKNdSc9g/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "“欲張 feat. Jin Dogg” / CHICO CARLITO",
+        "author": "CHICO CARLITO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "iXxDWpdtJTI",
+        "name": "BAD HOP / No New Friends feat. YZERR & Bark (Official Video)",
+        "description": {
+          "en": "BAD HOP — YZERR & Bark hold it down",
+          "ja": "BAD HOPのYZERRとBarkが最高にキメる"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "10s",
+        "thumbnail": "https://img.youtube.com/vi/iXxDWpdtJTI/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "BAD HOP / No New Friends feat. YZERR & Bark (Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "S7BT_tEx7BA",
+        "name": "ALI - FUNKIN’BEAUTIFUL feat. ZORN",
+        "description": {
+          "en": "ALI x ZORN — funkin' beautiful groove",
+          "ja": "ALIとZORNのファンキーでビューティフルなグルーヴ"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/S7BT_tEx7BA/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T06:52:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "ALI - FUNKIN’BEAUTIFUL feat. ZORN",
+        "author": "ALI"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "woRY9Jtvmm0",
+        "name": "Masato Hayashi - B.O.S.S (prod. dubby bunny) [Official Music Video]",
+        "description": {
+          "en": "Masato Hayashi — boss energy",
+          "ja": "Masato Hayashiのボス感溢れるトラック"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/woRY9Jtvmm0/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T07:11:16Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Masato Hayashi - B.O.S.S (prod. dubby bunny) [Official Music Video]",
+        "author": "Masato Hayashi"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "O03p3rfb1nA",
+        "name": "IO – 6 In Da Morning feat. Jin Dogg, MELRAW (Pro. GooDee, The Anticipation Illicit Tsuboi)",
+        "description": {
+          "en": "IO x Jin Dogg x MELRAW — early morning heat",
+          "ja": "IO, Jin Dogg, MELRAWの早朝ヒート"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/O03p3rfb1nA/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T07:11:16Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "IO – 6 In Da Morning feat. Jin Dogg, MELRAW (Pro. GooDee, The Anticipation Illicit Tsuboi)",
+        "author": "IO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "281RNSp6g_U",
+        "name": "A REPORT From D.L.i.P. Page 17 「DINARY DELTA FORCE × TAKESABURO (XXX-LARGE) - KOREA CORNER'S CYPHER」",
+        "description": {
+          "en": "DINARY DELTA FORCE x TAKESABURO — raw cypher",
+          "ja": "DINARY DELTA FORCE×TAKESABUROの生サイファー"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "10s",
+        "thumbnail": "https://img.youtube.com/vi/281RNSp6g_U/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T07:11:16Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "A REPORT From D.L.i.P. Page 17 「DINARY DELTA FORCE × TAKESABURO (XXX-LARGE) - KOREA CORNER'S CYPHER」",
+        "author": "DLiP RECORDS"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "JPpqTlUxGVg",
+        "name": "OMSB - 大衆",
+        "description": {
+          "en": "OMSB — 大衆. For the people",
+          "ja": "OMSBの大衆。人々へ向けたリリック"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "thumbnail": "https://img.youtube.com/vi/JPpqTlUxGVg/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T07:11:16Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "OMSB - 大衆",
+        "author": "OMSB"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "2WbSBLplJS0",
+        "name": "De La Soul - Breakadawn (Official Music Video) [HD]",
+        "description": {
+          "en": "Jazzy 90s classic sampling Michael Jackson, capturing the pure essence of Native Tongues movement.",
+          "ja": "Michael Jackson 'Remember the Time'のサンプリングが光る、90sネイティブ・タングを代表する極上クラシック。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/2WbSBLplJS0/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "De La Soul - Breakadawn (Official Music Video) [HD]",
+        "author": "DeLaSoulVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "jBKJbedSrA0",
+        "name": "Doechii - girl, get up. (Feat. SZA)",
+        "description": {
+          "en": "TDE labelmates Doechii and SZA join forces in a soulful, deeply personal anthem.",
+          "ja": "TDEの新生DoechiiとSZAによるコラボ。女性としての葛藤や生き方をソウルフルに紡ぐ。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/jBKJbedSrA0/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Doechii, SZA - girl, get up.",
+        "author": "IamdoechiiVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "z2GYJua09F0",
+        "name": "Cordae - Saturday Mornings (feat. Lil Wayne) [Official Music Video]",
+        "description": {
+          "en": "Cordae and Lil Wayne trade heavyweight bars over a soulful, production-heavy loop.",
+          "ja": "ソウルフルなサンプルにのせて、CordaeとLil Wayneが圧倒的なワードプレイを披露する一曲。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/z2GYJua09F0/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Cordae - Saturday Mornings (feat. Lil Wayne) [Official Music Video]",
+        "author": "Cordae"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "urCaQVhA39E",
+        "name": "Chance the Rapper ft. Do or Die & Twista - Ride Remix (2025) | STAR LINE [Official Music Video]",
+        "description": {
+          "en": "Chicago royalty unites for a smooth G-funk vibe, featuring Twista's legendary double-time flow.",
+          "ja": "シカゴのレジェンド達が集結。滑らかでソウルフルなGファンク・バイブスと、Twistaの高速フロウ。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/urCaQVhA39E/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Chance the Rapper ft. Do or Die & Twista - Ride Remix (2025) | STAR LINE [Official Music Video]",
+        "author": "Chance The Rapper"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "y7FUEOld6U4",
+        "name": "Shordie Shordie - P*ssy Playground (Official Music Video)",
+        "description": {
+          "en": "Melodic West Coast bounce defined by Shordie Shordie's signature sing-song delivery.",
+          "ja": "Shordie Shordie特有の、歌うようなメロディックなフロウが際立つ西海岸メロウ・トラップ。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/y7FUEOld6U4/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Shordie Shordie - P*ssy Playground (Official Music Video)",
+        "author": "Shordie Shordie"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "O1pPc1UyFEk",
+        "name": "Lupe Fiasco - SOS (Official Lyric Video)",
+        "description": {
+          "en": "Lupe Fiasco delivers dense, complex metaphors in a raw showcase of pure lyricism.",
+          "ja": "Lupe Fiascoならではの極めて高度な比喩表現とリリシズムが炸裂する、コンシャスな一曲。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 1.8,
+        "thumbnail": "https://img.youtube.com/vi/O1pPc1UyFEk/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Lupe Fiasco - SOS (Official Lyric Video)",
+        "author": "LupeFiascoVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "FeoPeBgbLEY",
+        "name": "Joey Bada$$ - SUPAFLEE (Official Video)",
+        "description": {
+          "en": "Joey Bada$$ rides a classic, dusty boom-bap loop with sharp lyricism and effortless flow.",
+          "ja": "Joey Bada$$が卓越したスキルで魅せる、クラシックな90s回帰型のタイトなブーンバップ。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 1.8,
+        "thumbnail": "https://img.youtube.com/vi/FeoPeBgbLEY/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Joey Bada$$ - SUPAFLEE (Official Video)",
+        "author": "Joey Bada$$"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "e-1sBIuHZ1g",
+        "name": "2 Chainz, Lil Wayne, Benny The Butcher - Oprah & Gayle (Official Video)",
+        "description": {
+          "en": "A gritty ColleGrove highlight, featuring hard-nosed verses alongside Benny The Butcher.",
+          "ja": "Benny The Butcherが合流したColleGrove。緊迫感のあるループの上でベテランが重厚なバースを交換する。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/e-1sBIuHZ1g/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "2 Chainz, Lil Wayne, Benny The Butcher - Oprah & Gayle (Official Video)",
+        "author": "2 Chainz"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "UaApvR07_w4",
+        "name": "Dear Silas - Mikolton (Dat's My Dawg) [Official Video]",
+        "description": {
+          "en": "Bouncy, high-energy Southern rap track repping loyalty and homies with a unique delivery.",
+          "ja": "バウンシーでキャッチーなサザン・ヒップホップ。仲間との絆をユニークなデリバリーで歌う。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/UaApvR07_w4/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Dear Silas - Mikolton (Dat's My Dawg) [Official Video]",
+        "author": "DEAR SILAS"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "qb-MVzNoscM",
+        "name": "JID - Sk8 (feat. Ciara & Earthgang) (Official Video)",
+        "description": {
+          "en": "Funk-heavy bounce featuring JID, Earthgang, and Ciara in a tight, high-energy collaboration.",
+          "ja": "ファンキーで軽快なビートの上で、JID、Earthgang、Ciaraが最高にポップでタイトな掛け合いを魅せる。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/qb-MVzNoscM/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "JID - Sk8 (feat. Ciara & Earthgang) (Official Video)",
+        "author": "JIDVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "mjJ-GywwR2I",
+        "name": "JJJ - Kids Return (Prod by SCRATCH NICE)【Official Music Video】",
+        "description": {
+          "en": "Produced by SCRATCH NICE. JJJ delivers raw, sharp lyricism over a soulful sample.",
+          "ja": "SCRATCH NICEプロデュース。JJJが研ぎ澄まされたライムで葛藤と決意を乗せる、ソウルフルなクラシック。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/mjJ-GywwR2I/mqdefault.jpg",
+        "created_at": "2026-06-05T07:25:47Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "JJJ - Kids Return (Prod by SCRATCH NICE)【Official Music Video】",
+        "author": "JJJ"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Y19q-7VN2WI",
+        "name": "J.I.D - Surround Sound (feat. 21 Savage & Baby Tate) [Official Music Video]",
+        "description": {
+          "en": "JID's massive hit featuring 21 Savage and Baby Tate — smooth sample switch.",
+          "ja": "JIDの圧倒的なスキルが光る大ヒット曲。21 SavageとBaby Tateを迎え、中盤のビートスイッチも極上。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/Y19q-7VN2WI/mqdefault.jpg",
+        "created_at": "2026-06-05T07:28:11Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "J.I.D - Surround Sound (feat. 21 Savage & Baby Tate) [Official Music Video]",
+        "author": "JIDVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "sLYaNZqgGQk",
+        "name": "Elisha La'Verne - I'm Not Dreaming (N43°Reimx)",
+        "description": {
+          "en": "A classic 90s R&B/hip-hop remix featuring smooth vocals and head-nodding ground beats.",
+          "ja": "心地よいグラウンドビートと温かいメロディが美しく融合した90s R&B/ヒップホップ・クラシック。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/sLYaNZqgGQk/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Elisha La'Verne - I'm Not Dreaming (N43°Reimx)",
+        "author": "mexxasakaxx"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Wlq2Vb6mkcE",
+        "name": "Sha'dasious - U Kant Play Me",
+        "description": {
+          "en": "A gritty 90s underground boom-bap track with tough basslines and confident female delivery.",
+          "ja": "重厚なベースラインと力強い女性ラップのデリバリーが映える、90sアンダーグラウンド・ブーンバップ。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 3.8,
+        "thumbnail": "https://img.youtube.com/vi/Wlq2Vb6mkcE/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Sha'dasious - U Kant Play Me",
+        "author": "tHeMeLeK"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "Ptiz0KtR16E",
+        "name": "Monica - Before You Walk Out Of My Life (Official HD Video)",
+        "description": {
+          "en": "A soulful and mellow 90s R&B classic showcasing young Monica's powerful vocals.",
+          "ja": "若きモニカの圧倒的な歌唱力と哀愁漂うメロウなビートが耳に残る、90sスロウ・ジャムの決定盤。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "90s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/Ptiz0KtR16E/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Monica - Before You Walk Out Of My Life (Official HD Video)",
+        "author": "MonicaVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "5t71DEU6y2I",
+        "name": "Craig David - Rendezvous (Blacksmith RnB Re-Rub)",
+        "description": {
+          "en": "Craig David's smooth R&B hit remixed into a tight, urban UK R&B vibe by Blacksmith.",
+          "ja": "Craig Davidの艶やかな歌声をBlacksmithがメロウかつタイトなR&B/ヒップホップに再構築した良作。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/5t71DEU6y2I/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Craig David - Rendezvous (Blacksmith RnB Re-Rub)",
+        "author": "TH"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "PA5uuBCtZ5k",
+        "name": "Jorja Smith X Preditah - On My Mind",
+        "description": {
+          "en": "A modern UK garage anthem featuring Jorja Smith's bluesy, sultry vocals over a bumpy Preditah beat.",
+          "ja": "高速で跳ねるUKガラージ/2stepビートに、Jorja Smithの気だるくソウルフルな歌声が溶け合うクラブアンセム。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 3.8,
+        "thumbnail": "https://img.youtube.com/vi/PA5uuBCtZ5k/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Jorja Smith X Preditah - On My Mind",
+        "author": "JorjaSmithVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "eRf82JFCYpQ",
+        "name": "Kooley High - All Day",
+        "description": {
+          "en": "A warm and nostalgic boom-bap track heavily influenced by the Soul Council production style.",
+          "ja": "9th Wonder直系の温かみのあるサンプリングビートと、ノスタルジックな雰囲気が心地良いブーンバップ・トラック。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/eRf82JFCYpQ/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Kooley High - All Day",
+        "author": "chacal0x"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "nxuzYWcY2O0",
+        "name": "Childish Gambino|Redbone Official Audio",
+        "description": {
+          "en": "A Grammy-winning psychedelic soul masterpiece heavily reminiscent of Bootsy Collins and Parliament-Funkadelic.",
+          "ja": "70年代のサイケデリックファンクへの壮大なリスペクトを捧げた、艶やかでソウルフルなグラミー受賞作。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/nxuzYWcY2O0/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Childish Gambino|Redbone Official Audio",
+        "author": "SirSoloDolo"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "X2xmQthQwcw",
+        "name": "GENERATIONS from EXILE TRIBE / My Turn feat. JP THE WAVY (Music Video)",
+        "description": {
+          "en": "An upbeat dance-rap track paying homage to New Jack Swing, produced by JP THE WAVY.",
+          "ja": "JP THE WAVYプロデュース。90sニュージャックスイングをベースに、現代のトラップ感覚を取り入れたダンスチューン。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/X2xmQthQwcw/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "GENERATIONS from EXILE TRIBE / My Turn feat. JP THE WAVY (Music Video)",
+        "author": "GENERATIONS from EXILE TRIBE"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "3rkF24Lqc-4",
+        "name": "hokuto - Cheep Sunday feat. 唾奇",
+        "description": {
+          "en": "A melancholic and laid-back Japanese chill-hop track featuring the emotional lyrics of Tsubaki over hokuto's jazzy beat.",
+          "ja": "hokutoによる哀愁漂う美しいビートと、唾奇の休日の情景を切り取ったブルージーなリリックが心に染みるチル・クラシック。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 1.2,
+        "thumbnail": "https://img.youtube.com/vi/3rkF24Lqc-4/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "hokuto - Cheep Sunday feat. 唾奇",
+        "author": "Shintaro Kunieda"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "QgX6jSomfC0",
+        "name": "S7ICK CHICKs  - SBY_MORNING (BLACK FILE exclusive MV “NEIGHBORHOOD”)",
+        "description": {
+          "en": "An upbeat track from female rap group S7ICK CHICKs describing Shibuya's night/club culture and transition into morning.",
+          "ja": "渋谷のクラブカルチャーや夜明けの情景を女性ならではのタフな視点で描いた、S7ICK CHICKsのアッパーな名作。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/QgX6jSomfC0/mqdefault.jpg",
+        "created_at": "2026-06-05T08:43:48Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "S7ICK CHICKs  - SBY_MORNING (BLACK FILE exclusive MV “NEIGHBORHOOD”)",
+        "author": "blackfilesstv"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "ZJM4AQSbZDk",
+        "name": "Mura Masa - Love$ick ft. A$AP Rocky",
+        "description": {
+          "en": "Steel pan driven production by Mura Masa layered with ASAP Rocky's smooth flow.",
+          "ja": "Mura Masaのスチールパンを取り入れた爽快なビートに、A$AP Rockyのスムースなフローが映える名曲。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "uk",
+        "era": "10s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/ZJM4AQSbZDk/mqdefault.jpg",
+        "created_at": "2026-06-05T09:40:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Mura Masa - Love$ick (Official Video) ft. A$AP Rocky",
+        "author": "MuraMasaVEVO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "U1D9oV6zKgU",
+        "name": "Opp Otaku [Remix] feat. トップハムハット狂 & らっぷびと",
+        "description": {
+          "en": "Internet rap legends join Jinmenusagi for a high-speed remix.",
+          "ja": "Jinmenusagiのオリジナルに、インターネットラップシーンの猛者2人が加わった破壊力抜群の高速マイクリレー。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 4.5,
+        "thumbnail": "https://img.youtube.com/vi/U1D9oV6zKgU/mqdefault.jpg",
+        "created_at": "2026-06-05T09:40:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Opp Otaku [Remix] feat. トップハムハット狂 & らっぷびと (Lyric Video)",
+        "author": "Jinmenusagi"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "LSTfHJ9llYY",
+        "name": "Jinmenusagi - Anata Watashi Remix (feat. JUMADIBA)",
+        "description": {
+          "en": "An alternative vibe remix featuring JUMADIBA's distinct groove.",
+          "ja": "オルタナティブなメロディの上で、JinmenusagiとJUMADIBAの独特のグルーヴが交錯する極上リミックス。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/LSTfHJ9llYY/mqdefault.jpg",
+        "created_at": "2026-06-05T09:40:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Anata Watashi Remix (feat. JUMADIBA) [Official Visualizer]",
+        "author": "Jinmenusagi"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "I_qVgDnYx9k",
+        "name": "Reichi - MACHIGAINAI",
+        "description": {
+          "en": "Reichi states her confidence over Fezbeatz and J-Vert's hard-hitting trap production.",
+          "ja": "ReichiがFEZBEATZ & J-VERTのタフなトラップビートの上で、自らのアイデンティティとスキルを叩きつける。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/I_qVgDnYx9k/mqdefault.jpg",
+        "created_at": "2026-06-05T09:40:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Reichi-MACHIGAINAI (Prod.FEZBEATZ&J-VERT)Official Video",
+        "author": "Reichi"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "W0nhOV_M23M",
+        "name": "PUNPEE & BIM - MUSEIGEN feat. C6ix, Bonbero, ANI",
+        "description": {
+          "en": "A cross-generational Tokyo connection featuring Bonbero, C6ix, and ANI.",
+          "ja": "PUNPEEとBIMを中心に、世代やスタイルを超えた豪華メンバーが無限の遊び心を表現する東京HIPHOP。"
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 2,
+        "thumbnail": "https://img.youtube.com/vi/W0nhOV_M23M/mqdefault.jpg",
+        "created_at": "2026-06-05T09:40:54Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "PUNPEE & BIM - MUSEIGEN feat. C6ix, Bonbero, ANI",
+        "author": "BIM"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "XvzD7D4VcSc",
+        "name": "T.I. - 24's",
+        "description": {
+          "en": "The definitive early Southern Trap anthem, dedicated to spinning 24-inch rims over a thunderous beat.",
+          "ja": "2000年代南部アトランタのトラップ前夜を代表するアンセム。24インチホイールへの偏愛を歌い上げた爆音仕様サウンド。"
+        },
+        "user_name": "お友達",
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 4,
+        "thumbnail": "https://img.youtube.com/vi/XvzD7D4VcSc/mqdefault.jpg",
+        "created_at": "2026-06-05T11:33:32Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "T.I. - 24's (Official Video)",
+        "author": "Atlantic Records"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "yEpKC0wXy4M",
+        "name": "LIBRO - 雨降りの月曜",
+        "description": {
+          "ja": "日本語ラップ史に残る金字塔。憂鬱な月曜日を優しく彩るクラシック",
+          "en": "A monumental jazz-rap masterpiece that beautifully colors a gloomy rainy Monday"
+        },
+        "region": "jp",
+        "era": "90s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/yEpKC0wXy4M/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "publish_at": "2026-06-05T13:49:49.762715+00:00",
+        "created_at": "2026-06-05T13:49:49.762715+00:00"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "LIBRO \"雨降りの月曜\" (Official Video)",
+        "author": "P-VINE CHANNEL"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "zv--cE_G7Y0",
+        "name": "小林勝行 - 108 bars",
+        "description": {
+          "ja": "神戸の鬼才・小林勝行が自己を剥き出しにし、狂気と魂をぶつける圧巻の108小節",
+          "en": "A breathtaking 108-bar self-exposure by Kobe's genius Kobayashi Katsuyuki, bursting with raw soul"
+        },
+        "region": "jp",
+        "era": "10s",
+        "conscious_turnt": 1,
+        "thumbnail": "https://img.youtube.com/vi/zv--cE_G7Y0/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "publish_at": "2026-06-05T13:49:49.762731+00:00",
+        "created_at": "2026-06-05T13:49:49.762731+00:00"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "108 bars/小林勝行（ex.神戸薔薇尻）",
+        "author": "Stanfocus"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "IRDoeQZ12-Y",
+        "name": "STUTS & 松たか子 with 3exes - Presence I feat. KID FRESINO",
+        "description": {
+          "ja": "STUTSの絶妙なトラックメイクに松たか子のボーカル、そしてKID FRESINOの極上なフローが絡み合う大ヒット曲",
+          "en": "A hit track blending STUTS's exquisite beat production, Matsu Takako's vocals, and KID FRESINO's brilliant flow"
+        },
+        "region": "jp",
+        "era": "20s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/IRDoeQZ12-Y/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "publish_at": "2026-06-05T14:01:26.681312+00:00",
+        "created_at": "2026-06-05T14:01:26.681312+00:00"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "STUTS & 松たか子 with 3exes - Presence I feat. KID FRESINO (Official Music Video)",
+        "author": "Sony Music (Japan)"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "sevZEOUXpw4",
+        "name": "Dilated Peoples - Worst Comes To Worst",
+        "description": {
+          "ja": "Alchemistプロデュースのクラシックビートに乗せ、ウィリアム・ベルのサンプリングが光るアンダーグラウンドの金字塔",
+          "en": "An underground monument featuring William Bell samples on Alchemist's legendary production"
+        },
+        "region": "us",
+        "era": "00s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/sevZEOUXpw4/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "publish_at": "2026-06-05T14:01:26.681323+00:00",
+        "created_at": "2026-06-05T14:01:26.681323+00:00"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Dilated Peoples - Worst Comes To Worst (Official Video)",
+        "author": "Mass Appeal"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "ithYB82y0Sk",
+        "name": "Black Eyed Peas - Yesterday",
+        "description": {
+          "ja": "初期Black Eyed Peasへの回帰。往年のHIPHOP黄金期の名曲たちをサンプリングした愛溢れる一曲",
+          "en": "A return to BEP's hiphop roots, sampling various golden-era classics with deep respect"
+        },
+        "region": "us",
+        "era": "10s",
+        "conscious_turnt": 1.5,
+        "thumbnail": "https://img.youtube.com/vi/ithYB82y0Sk/mqdefault.jpg",
+        "user_name": "青木 喬 takashi aoki",
+        "publish_at": "2026-06-05T14:01:26.681337+00:00",
+        "created_at": "2026-06-05T14:01:26.681337+00:00"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Black Eyed Peas - Yesterday (Official Video)",
+        "author": "Pedro Dévora"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "vn9xLph8KwQ",
+        "name": "JID (feat. Lil Durk) - Bruddanem (Official Audio)",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "user_name": "青木 喬 takashi aoki",
+        "region": "us",
+        "era": "20s",
+        "conscious_turnt": 3.5,
+        "thumbnail": "https://img.youtube.com/vi/vn9xLph8KwQ/mqdefault.jpg",
+        "created_at": "2026-06-07T12:10:11.000Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "JID (feat. Lil Durk) - Bruddanem (Official Audio)",
+        "author": "JID"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "ho7IONtgNCg",
+        "name": "International Connects",
+        "region": "us",
+        "era": "00s",
+        "user_name": "redmannothle",
+        "description": {
+          "ja": "えるだせんせい",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/ho7IONtgNCg/mqdefault.jpg",
+        "conscious_turnt": 4.5,
+        "created_at": "2026-06-06T08:53:56.087Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "International Connects",
+        "author": "Mike Zoot - Topic"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "KfnQhtwp_c4",
+        "name": "Phonex",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "redmannothle",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/KfnQhtwp_c4/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-06T08:36:12.654Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Phonex",
+        "author": "Fugenn & The White Elephants - Topic"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "8-ncTsVSNqU",
+        "name": "DJ Krush - Toki No Tabiji (Official Music Video)",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "redmannothle",
+        "description": {
+          "ja": "doooooooop\n\nいんでーーーーーーーん",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/8-ncTsVSNqU/mqdefault.jpg",
+        "conscious_turnt": 1,
+        "created_at": "2026-06-06T08:22:18.532Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "DJ Krush - Toki No Tabiji (Official Music Video)",
+        "author": "Babes Papes"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "nYKGF93XByU",
+        "name": "BAD HOP - 4L feat. Bark, Benjazzy, C.O.S.A. & IO(Official Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/nYKGF93XByU/mqdefault.jpg",
+        "conscious_turnt": 4.5,
+        "created_at": "2026-06-05T13:59:41.888Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "BAD HOP - 4L feat. Bark, Benjazzy, C.O.S.A. & IO(Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "vLOJvyvdIR0",
+        "name": "BAD HOP - KAWASAKI SONG feat. DJ TY-KOH,Bark, T-Pablow, Benjazzy, JJJ, BIM & A-THUG(Official Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/vLOJvyvdIR0/mqdefault.jpg",
+        "conscious_turnt": 4,
+        "created_at": "2026-06-05T13:57:46.683Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "BAD HOP - KAWASAKI SONG feat. DJ TY-KOH,Bark, T-Pablow, Benjazzy, JJJ, BIM & A-THUG(Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "0yCXvGj0l-8",
+        "name": "YZERR - Wet Skin feat. IO (Official Music Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/0yCXvGj0l-8/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:51:13.256Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "YZERR - Wet Skin feat. IO (Official Music Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "qhHqnVu9J2A",
+        "name": "YZERR - South Side (Official Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/qhHqnVu9J2A/mqdefault.jpg",
+        "conscious_turnt": 4.5,
+        "created_at": "2026-06-05T13:50:40.049Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "YZERR - South Side (Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "kkqtTRZyKb0",
+        "name": "YZERR - Miss Luxury feat. LANA, JP THE WAVY, ¥ellow Bucks Prod. DJ PMX  (Official Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/kkqtTRZyKb0/mqdefault.jpg",
+        "conscious_turnt": 4,
+        "created_at": "2026-06-05T13:49:32.710Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "YZERR - Miss Luxury feat. LANA, JP THE WAVY, ¥ellow Bucks Prod. DJ PMX  (Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "F9ZyiTQjO1o",
+        "name": "YZERR - カリスマ feat. LEX & Awich(Official Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/F9ZyiTQjO1o/mqdefault.jpg",
+        "conscious_turnt": 4.5,
+        "created_at": "2026-06-05T13:49:00.726Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "YZERR - カリスマ feat. LEX & Awich(Official Video)",
+        "author": "BAD HOP"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "7-4aU-0sF1k",
+        "name": "DJ TATSUKI - TOKYO KIDS feat. IO & MonyHorse (prod by MET as MTHA2)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/7-4aU-0sF1k/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:43:31.452Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "DJ TATSUKI - TOKYO KIDS feat. IO & MonyHorse (prod by MET as MTHA2)",
+        "author": "DJ TATSUKI OFFICIAL"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "JYDsh8OezwQ",
+        "name": "DJ TATSUKI - City of Dreams feat. IO & MonyHorse",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/JYDsh8OezwQ/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:42:35.452Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "DJ TATSUKI - City of Dreams feat. IO & MonyHorse",
+        "author": "DJ TATSUKI OFFICIAL"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "iY340Z3BTdA",
+        "name": "KANDYTOWN - One More Dance",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/iY340Z3BTdA/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:33:40.188Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KANDYTOWN - One More Dance",
+        "author": "KANDYTOWN"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "sozmNUDLPqg",
+        "name": "MACCHO , NORIKIYO , 般若& DABO / Beats&Rhyme",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/sozmNUDLPqg/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T13:30:23.658Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "MACCHO , NORIKIYO , 般若& DABO / Beats&Rhyme",
+        "author": "ghettohollywood"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "MBoSNof1G8A",
+        "name": "真夏のJAM / STERUSS",
+        "region": "jp",
+        "era": "00s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/MBoSNof1G8A/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:30:22.625Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "真夏のJAM / STERUSS",
+        "author": "FxUxKxU"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "MYwndYSA6-U",
+        "name": "Blackalicious - Make You Feel That Way [HD]",
+        "region": "us",
+        "era": "00s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/MYwndYSA6-U/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:30:08.558Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Blackalicious - Make You Feel That Way [HD]",
+        "author": "HipHopLivesToday"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "WPzQh8ml900",
+        "name": "Young Fathers - \"Sister\"",
+        "region": "uk",
+        "era": "10s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/WPzQh8ml900/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T13:30:06.191Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Young Fathers - \"Sister\"",
+        "author": "anticon."
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "NJY85XaUfuY",
+        "name": "Beans - Blue Movie",
+        "region": "us",
+        "era": "00s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/NJY85XaUfuY/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:30:03.941Z"
+      },
+      "reason": "KV Broken Count is 5 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Beans - Blue Movie",
+        "author": "anticon."
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "axZ6lMlLQZ4",
+        "name": "8 steps to perfection ( Better Audio ) - Company Flow",
+        "region": "us",
+        "era": "90s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/axZ6lMlLQZ4/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:30:02.688Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "8 steps to perfection ( Better Audio ) - Company Flow",
+        "author": "MaStA8LaStA"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "QU7K7qw0yso",
+        "name": "KANDYTOWN - Paper Chase",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/QU7K7qw0yso/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:25:30.207Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KANDYTOWN - Paper Chase",
+        "author": "KANDYTOWN"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "ZdlctCtcYJw",
+        "name": "KANDYTOWN - Skweeze Me",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/ZdlctCtcYJw/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:23:09.471Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KANDYTOWN - Skweeze Me",
+        "author": "KANDYTOWN LIFE"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "DYMxaUr8R-Y",
+        "name": "KEIJU – Remy Up feat. IO (Official Audio) / Album \"T.A.T.O.\"",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/DYMxaUr8R-Y/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:17:05.916Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KEIJU – Remy Up feat. IO (Official Audio) / Album \"T.A.T.O.\"",
+        "author": "KEIJU"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "3NQquyBn-jw",
+        "name": "KEIJU – I Get Lonely (Official Video) / Album \"T.A.T.O.\"",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/3NQquyBn-jw/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:15:26.795Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KEIJU – I Get Lonely (Official Video) / Album \"T.A.T.O.\"",
+        "author": "KEIJU"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "eT8_YynTCdM",
+        "name": "KEIJU – Mama's Boy ft. LEX & 7  (Official Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/eT8_YynTCdM/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T13:14:38.756Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KEIJU – Mama's Boy ft. LEX & 7  (Official Video)",
+        "author": "KEIJU"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "q47IW5Jkew4",
+        "name": "KEIJU - K2 (Official Music Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/q47IW5Jkew4/mqdefault.jpg",
+        "conscious_turnt": 4,
+        "created_at": "2026-06-05T13:13:36.525Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KEIJU - K2 (Official Music Video)",
+        "author": "KEIJU"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "aUFBuC9JdFw",
+        "name": "KEIJU - 412 (Official Music Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/aUFBuC9JdFw/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:13:05.546Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "KEIJU - 412 (Official Music Video)",
+        "author": "KEIJU"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "xrizNyOr548",
+        "name": "Kohjiya - Never Disappoint (Official Music Video)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/xrizNyOr548/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T13:10:41.314Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Kohjiya - Never Disappoint (Official Music Video)",
+        "author": "Kohjiya"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "HdBUn10k7H8",
+        "name": "IO – 左利きのBenz (Prod. Chaki Zulu)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/HdBUn10k7H8/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:06:47.942Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "IO – 左利きのBenz (Prod. Chaki Zulu)",
+        "author": "IO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "1u6wqZdgYxo",
+        "name": "IO - Spotlight (Prod. KORK)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/1u6wqZdgYxo/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T13:04:44.921Z"
+      },
+      "reason": "KV Broken Count is 4 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "IO - Spotlight (Prod. KORK)",
+        "author": "IO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "uuT4d7Tdmk8",
+        "name": "IO - 1942 feat. YZERR (Prod. llouis)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "匿名",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/uuT4d7Tdmk8/mqdefault.jpg",
+        "conscious_turnt": 4,
+        "created_at": "2026-06-05T13:02:58.316Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "IO - 1942 feat. YZERR (Prod. llouis)",
+        "author": "IO"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "dDJw8yJVY5g",
+        "name": "(sic)boy,KM - Heaven's Drive feat.vividboooy",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "hrk",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/dDJw8yJVY5g/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T12:32:49.378Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "(sic)boy,KM - Heaven's Drive feat.vividboooy",
+        "author": "(sic)boy"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "CAIWfSYelKI",
+        "name": "vividboooy - RELAXING [Official Video]",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "hrk",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/CAIWfSYelKI/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T12:26:17.556Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "vividboooy - RELAXING [Official Video]",
+        "author": "vividboooy"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "KrkZOLj26TE",
+        "name": "LANA - Diamonds in the Sky (Official Music Video)",
+        "region": "fr",
+        "era": "20s",
+        "user_name": "hrk",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/KrkZOLj26TE/mqdefault.jpg",
+        "conscious_turnt": 3.5,
+        "created_at": "2026-06-05T12:17:05.046Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "LANA - Diamonds in the Sky (Official Music Video)",
+        "author": "LANA"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "xk8Tp2AQSxw",
+        "name": "Yo-Sea - WithoutYou【Official Audio】",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "hrk",
+        "description": {
+          "ja": "",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/xk8Tp2AQSxw/mqdefault.jpg",
+        "conscious_turnt": 1.5,
+        "created_at": "2026-06-05T12:15:17.196Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "Yo-Sea - WithoutYou【Official Audio】",
+        "author": "Yo-Sea"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "7i_SmaFmM90",
+        "name": "FEEL OR BEEF BADPOP IS DEAD / 舐達麻(prod. GREEN ASSASSIN DOLLAR & 7SEEDS)",
+        "region": "jp",
+        "era": "20s",
+        "user_name": "青木 喬 takashi aoki",
+        "description": {
+          "ja": "かわいい",
+          "en": ""
+        },
+        "thumbnail": "https://img.youtube.com/vi/7i_SmaFmM90/mqdefault.jpg",
+        "conscious_turnt": 1,
+        "created_at": "2026-06-05T12:06:37.503Z"
+      },
+      "reason": "KV Broken Count is 3 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "FEEL OR BEEF BADPOP IS DEAD / 舐達麻(prod. GREEN ASSASSIN DOLLAR & 7SEEDS)",
+        "author": "APHRODITE GANG"
+      }
+    },
+    {
+      "song": {
+        "youtube_id": "5qap5aO4i9A",
+        "name": "T-Pablow - Only One",
+        "region": "jp",
+        "era": "10s",
+        "user_name": "Test User",
+        "description": {
+          "ja": "テスト投稿",
+          "en": "Test submit"
+        },
+        "thumbnail": "https://img.youtube.com/vi/5qap5aO4i9A/mqdefault.jpg",
+        "conscious_turnt": 2,
+        "created_at": "2026-06-05T11:46:52.160Z"
+      },
+      "reason": "KV Broken Count is 5 (Likely embedding block/country restriction)",
+      "oembed": {
+        "valid": true,
+        "title": "lofi hip hop radio - beats to relax/study to",
+        "author": "Lofi Girl"
+      }
+    }
+  ]
+}
