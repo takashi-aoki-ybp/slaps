@@ -192,18 +192,251 @@ export function loadCurrent() {
   fetchComments(song.youtube_id);
 
   // 推薦曲の取得
-  if (song.name && song.name.includes(' - ')) {
-    const parts = song.name.split(' - ');
-    const artist = parts[0].trim();
+  const artist = getArtistNameFromSong(song);
+
+  if (artist) {
     fetchRecommendations(artist);
   } else {
-    state.recommendations = [];
-    renderRecommendations();
+    // アーティスト名が抽出できない場合、曲名単体で iTunes API 逆引きを試みる
+    fetchArtistAndRecommendationsBySongName(song);
   }
 
   // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
   fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
 }
+
+// アーティスト名を柔軟に抽出するヘルパー
+export function getArtistNameFromSong(song) {
+  if (!song || !song.name) return '';
+  
+  let artist = '';
+
+  const dashSeparators = [
+    ' - ', ' -', '- ', 
+    ' – ', ' –', '– ', '–', // ENダッシュ (\u2013)
+    ' — ', ' —', '— ', '—', // EMダッシュ (\u2014)
+    ' 〜 ', '〜', ' ~ ', '~' // 波ダッシュ等
+  ];
+  
+  let foundSep = false;
+  for (const sep of dashSeparators) {
+    if (song.name.includes(sep)) {
+      artist = song.name.split(sep)[0];
+      foundSep = true;
+      break;
+    }
+  }
+
+  if (!foundSep) {
+    if (song.name.includes(' / ')) {
+      artist = song.name.split(' / ')[0];
+    } else if (song.name.includes(' ／ ')) {
+      artist = song.name.split(' ／ ')[0];
+    } else if (song.name.includes('／')) {
+      artist = song.name.split('／')[0];
+    } else if (song.name.includes('「')) {
+      artist = song.name.split('「')[0];
+    } else if (song.name.includes('『')) {
+      artist = song.name.split('『')[0];
+    }
+    // 引用符による曲名の囲みがある場合（例: H//PE Princess (하입프린세스) 'Stolen' MV）
+    else if (song.name.includes("'")) {
+      artist = song.name.split("'")[0];
+    } else if (song.name.includes('"')) {
+      artist = song.name.split('"')[0];
+    }
+  }
+
+  // セパレーターがなくアーティスト名が空の場合、feat./ft./featuring の記述から抽出を試みる
+  if (!artist) {
+    const featRegex = /(?:feat\.?|ft\.?|featuring)\s+([^()\[\]\-_~—–]+)/i;
+    const match = song.name.match(featRegex);
+    if (match && match[1]) {
+      artist = match[1].trim();
+    }
+  }
+
+  if (!artist) return '';
+
+  artist = artist.trim();
+
+  // 誤って曲名囲み記号が残ってしまっている場合のさらなる分離救済
+  if (artist.includes('『')) artist = artist.split('『')[0];
+  if (artist.includes('「')) artist = artist.split('「')[0];
+
+  // 括弧内のサブテキスト・翻訳表記を除去（例: "H//PE Princess (하입프린세스)" -> "H//PE Princess"）
+  artist = artist.replace(/\(.*?\)/g, '').replace(/（.*?）/g, '').trim();
+
+  return artist;
+}
+
+// 元の曲名と逆引き結果のタイトルが一致または類似しているか検証するヘルパー (アーティスト一致は客演部分一致を防ぐため廃止)
+function isTitleArtistMatch(originalName, reversedArtist, reversedTitle) {
+  const clean = (str) => {
+    if (!str) return '';
+    return str.toLowerCase()
+      .replace(/\(.*?\)/g, '')
+      .replace(/\[.*?\]/g, '')
+      // 英数字と日本語のみを残し、特殊文字を削除
+      .replace(/[^a-z0-9\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/gi, '')
+      .trim();
+  };
+
+  const origClean = clean(originalName);
+  const revTitleClean = clean(reversedTitle);
+
+  if (!origClean || !revTitleClean) return false;
+
+  // 1. 逆引きタイトルが元の曲名に含まれているか、またはその逆
+  if (origClean.includes(revTitleClean) || revTitleClean.includes(origClean)) {
+    return true;
+  }
+
+  // 2. 元の曲名に含まれる主要単語（英単語等）が逆引きタイトルに含まれているか
+  const origWords = originalName.toLowerCase().split(/[^a-z0-9]+/i).filter(w => w.length > 2);
+  const revTitleLower = reversedTitle.toLowerCase();
+  for (const word of origWords) {
+    if (['official', 'video', 'audio', 'music', 'feat', 'featuring', 'remix', 'version'].includes(word)) {
+      continue;
+    }
+    if (revTitleLower.includes(word)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// すでにステーションに登録されている同アーティストの曲を探すヘルパー
+function getRegisteredRecommendations(artist, currentSong) {
+  const splitArtists = (name) => {
+    return name
+      .split(/,|\s+&\s+|&|\s+and\s+|\s+feat\.?\s+|\s+featuring\s+|\s+ft\.?\s+|\/|／|\s+vs\.?\s+|\s+x\s+|\s+×\s+|と|・|\+/gi)
+      .map(a => a.trim().toLowerCase())
+      .filter(Boolean);
+  };
+  const searchArtists = splitArtists(artist);
+
+  const registered = [];
+  for (const song of state.all) {
+    if (song.youtube_id === currentSong.youtube_id) {
+      continue;
+    }
+
+    const dashSeparators = [' - ', ' -', '- ', ' – ', ' –', '– ', '–', ' — ', ' —', '— ', '—', ' 〜 ', '〜', ' ~ ', '~'];
+    let songArtist = '';
+    for (const sep of dashSeparators) {
+      if (song.name.includes(sep)) {
+        songArtist = song.name.split(sep)[0];
+        break;
+      }
+    }
+    if (!songArtist) {
+      if (song.name.includes(' / ')) songArtist = song.name.split(' / ')[0];
+      else if (song.name.includes(' ／ ')) songArtist = song.name.split(' ／ ')[0];
+      else if (song.name.includes('／')) songArtist = song.name.split('／')[0];
+    }
+    
+    if (!songArtist) {
+      const featRegex = /(?:feat\.?|ft\.?|featuring)\s+([^()\[\]\-_~—–]+)/i;
+      const match = song.name.match(featRegex);
+      if (match && match[1]) {
+        songArtist = match[1].trim();
+      }
+    }
+
+    if (!songArtist) continue;
+
+    const trackArtists = splitArtists(songArtist);
+    
+    // 一致判定
+    const isMatch = trackArtists.some(ta => searchArtists.includes(ta)) || 
+                    searchArtists.some(sa => trackArtists.includes(sa));
+
+    if (isMatch) {
+      const parts = song.name.split(/ - | – | — /);
+      const title = parts[1] || song.name;
+      const artistName = parts[0] || songArtist;
+
+      registered.push({
+        artist: artistName.trim(),
+        title: title.trim(),
+        artwork: song.thumbnail || './assets/logo.png',
+        youtube_id: song.youtube_id,
+        registered: true
+      });
+      if (registered.length >= 3) {
+        break;
+      }
+    }
+  }
+  return registered;
+}
+
+// アーティスト名が抽出できなかった場合、曲名単体で iTunes API からアーティスト名を逆引きして推薦を取得する
+export async function fetchArtistAndRecommendationsBySongName(song) {
+  try {
+    // 不要な動画関連のワードをクリーンアップして iTunes API のヒット率を向上させる
+    const query = song.name
+      .replace(/\(official.*?\)/gi, '')
+      .replace(/\[official.*?\]/gi, '')
+      .replace(/mv/gi, '')
+      .replace(/video/gi, '')
+      .replace(/audio/gi, '')
+      .replace(/music video/gi, '')
+      .trim();
+
+    const isJpRegion = song && (song.region === 'jp');
+    const country = isJpRegion ? 'JP' : 'US';
+    const langParam = isJpRegion ? '&lang=ja_jp' : '';
+
+    const term = encodeURIComponent(query);
+    const url = `https://itunes.apple.com/search?term=${term}&entity=song&limit=5&country=${country}${langParam}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('iTunes API error');
+    const data = await res.json();
+    
+    if (data.results && data.results.length > 0) {
+      const track = data.results[0];
+      const reversedArtist = track.artistName;
+      const reversedTitle = track.trackName;
+      if (reversedArtist && reversedTitle) {
+        // 逆引きした結果が元の曲情報とマッチするか検証（誤書き換え防止）
+        if (!isTitleArtistMatch(song.name, reversedArtist, reversedTitle)) {
+          console.log(`Ignoring mismatching reverse-lookup result: "${reversedArtist} - ${reversedTitle}" for original: "${song.name}"`);
+          if (current() && current().youtube_id === song.youtube_id) {
+            state.recommendations = [];
+            renderRecommendations();
+          }
+          return;
+        }
+
+        // 非同期競合チェック（現在再生中の動画IDが元の曲と同じか）
+        if (current() && current().youtube_id === song.youtube_id) {
+          console.log(`Reversed artist name for "${song.name}": "${reversedArtist} - ${reversedTitle}"`);
+          
+          // 曲名を公式の「アーティスト - 曲名」の形式に完全上書きしてクレンジング
+          song.name = `${reversedArtist} - ${reversedTitle}`;
+          
+          // UI の曲情報表示を更新
+          renderMeta(song);
+          
+          await fetchRecommendations(reversedArtist, true);
+          return;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('Failed to reverse-lookup artist name:', err);
+  }
+
+  // 逆引きに失敗した場合、または結果がない場合は空で表示
+  if (current() && current().youtube_id === song.youtube_id) {
+    state.recommendations = [];
+    renderRecommendations();
+  }
+}
+
 
 
 
@@ -430,57 +663,195 @@ function clearPromoTimer() {
   }
 }
 
+// アーティスト名と一致する楽曲を検証しフィルタするヘルパー
+function filterTracksByArtist(results, artist, registeredTitles, cleanTitle) {
+  const unexpressed = [];
+  const seenTitles = new Set();
+  
+  const searchArtist = artist.trim().toLowerCase();
+  
+  const splitArtists = (name) => {
+    return name
+      .split(/,|\s+&\s+|&|\s+and\s+|\s+feat\.?\s+|\s+featuring\s+|\s+ft\.?\s+|\/|／|\s+vs\.?\s+|\s+x\s+|\s+×\s+|と|×|・|\+/gi)
+      .map(a => a.trim().toLowerCase())
+      .filter(Boolean);
+  };
+  const searchArtists = splitArtists(searchArtist);
+
+  for (const track of results) {
+    const trackName = track.trackName;
+    if (!trackName) continue;
+    
+    // アーティスト名の一致チェック (メイン名でのチェック)
+    const trackArtist = (track.artistName || '').trim().toLowerCase();
+    const trackArtists = splitArtists(trackArtist);
+    
+    // 曲名（trackName）の中の客演アーティスト（feat/ft/withなど）もチェック対象にする
+    const trackNameLower = trackName.toLowerCase();
+    const isFeatured = searchArtists.some(sa => {
+      if (trackNameLower.includes(sa)) {
+        return trackNameLower.includes(`feat. ${sa}`) || 
+               trackNameLower.includes(`feat.${sa}`) || 
+               trackNameLower.includes(`ft. ${sa}`) || 
+               trackNameLower.includes(`ft.${sa}`) || 
+               trackNameLower.includes(`featuring ${sa}`) || 
+               trackNameLower.includes(`with ${sa}`) || 
+               trackNameLower.includes(`& ${sa}`) || 
+               trackNameLower.includes(`and ${sa}`);
+      }
+      return false;
+    });
+    
+    const isArtistMatch = trackArtists.some(ta => searchArtists.includes(ta)) || 
+                          searchArtists.some(sa => trackArtists.includes(sa)) ||
+                          isFeatured;
+                          
+    if (!isArtistMatch) {
+      continue;
+    }
+    
+    const cleanTrackName = cleanTitle(trackName);
+    if (!cleanTrackName) continue;
+    
+    // 重複チェック (登録済みリストのいずれかとクリーン化タイトルが完全一致するか)
+    const isDuplicate = registeredTitles.some(reg => cleanTrackName === reg);
+    if (seenTitles.has(cleanTrackName) || isDuplicate) {
+      continue;
+    }
+    
+    // 除外キーワード
+    const lowerName = trackName.trim().toLowerCase();
+    if (lowerName.includes('remix') || lowerName.includes('instrumental') || lowerName.includes('live') || lowerName.includes('version') || lowerName.includes('edited') || lowerName.includes('karaoke') || lowerName.includes('cover')) {
+      continue;
+    }
+
+    seenTitles.add(cleanTrackName);
+    unexpressed.push({
+      artist: track.artistName || artist,
+      title: trackName,
+      // 解像度を 100x100 から 400x400 に上げる
+      artwork: (track.artworkUrl100 || '').replace('100x100bb.jpg', '400x400bb.jpg')
+    });
+
+    if (unexpressed.length >= 3) break;
+  }
+  return unexpressed;
+}
+
 // iTunes Search API から未登録推薦曲を取得する
-export async function fetchRecommendations(artist) {
+export async function fetchRecommendations(artist, isFallback = false) {
   try {
-    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(artist)}&entity=song&limit=25`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('iTunes API error');
-    const data = await res.json();
+    // すでに登録済みの曲リスト（小文字の曲名配列、かつfeatや括弧を削除したクリーンなタイトル）
+    const cleanTitle = (str) => {
+      if (!str) return '';
+      return str.toLowerCase()
+        .replace(/\(feat\..*?\)/g, '')
+        .replace(/feat\..*/g, '')
+        .replace(/\(featuring.*?\)/g, '')
+        .replace(/featuring.*/g, '')
+        .replace(/\(ft\..*?\)/g, '')
+        .replace(/ft\..*/g, '')
+        .replace(/[\(\)\[\]]/g, '')
+        .trim();
+    };
+
+    const registeredTitles = state.all.map(s => {
+      if (!s.name) return '';
+      const parts = s.name.split(' - ');
+      return cleanTitle(parts[1] || s.name);
+    }).filter(Boolean);
+
+    const song = current();
     
-    if (!data.results || data.results.length === 0) {
-      state.recommendations = [];
-      renderRecommendations();
-      return;
+    // 1. まずはすでに登録済みの曲（映像あり）を最優先で取得
+    let registeredRecs = [];
+    if (song) {
+      registeredRecs = getRegisteredRecommendations(artist, song);
+    }
+    
+    let filtered = [...registeredRecs];
+
+    // もし登録曲が3曲未満なら、残りの枠を iTunes API の未登録曲で補完する
+    if (filtered.length < 3) {
+      // 検索用のクエリキーとして、最初のアーティスト名（メイン）を抽出
+      const splitArtistsForQuery = (name) => {
+        return name
+          .split(/,|\s+&\s+|&|\s+and\s+|\s+feat\.?\s+|\s+featuring\s+|\s+ft\.?\s+|\/|／|\s+vs\.?\s+|\s+x\s+|\s+×\s+|と|・|\+/gi)
+          .map(a => a.trim())
+          .filter(Boolean);
+      };
+      const artistParts = splitArtistsForQuery(artist);
+      const searchKey = artistParts[0] || artist;
+
+      const isJpRegion = song && (song.region === 'jp');
+      let itunesRecs = [];
+
+      if (isJpRegion) {
+        const urlJp = `https://itunes.apple.com/search?term=${encodeURIComponent(searchKey)}&entity=song&limit=25&country=JP&lang=ja_jp`;
+        const resJp = await fetch(urlJp);
+        if (resJp.ok) {
+          const dataJp = await resJp.json();
+          if (dataJp.results && dataJp.results.length > 0) {
+            itunesRecs = filterTracksByArtist(dataJp.results, artist, registeredTitles, cleanTitle);
+          }
+        }
+
+        if (itunesRecs.length === 0) {
+          const urlGlobal = `https://itunes.apple.com/search?term=${encodeURIComponent(searchKey)}+hiphop&entity=song&limit=25&country=US`;
+          const resGlobal = await fetch(urlGlobal);
+          if (resGlobal.ok) {
+            const dataGlobal = await resGlobal.json();
+            if (dataGlobal.results && dataGlobal.results.length > 0) {
+              itunesRecs = filterTracksByArtist(dataGlobal.results, artist, registeredTitles, cleanTitle);
+            }
+          }
+        }
+      } else {
+        const urlGlobal = `https://itunes.apple.com/search?term=${encodeURIComponent(searchKey)}+hiphop&entity=song&limit=25&country=US`;
+        const resGlobal = await fetch(urlGlobal);
+        if (resGlobal.ok) {
+          const dataGlobal = await resGlobal.json();
+          if (dataGlobal.results && dataGlobal.results.length > 0) {
+            itunesRecs = filterTracksByArtist(dataGlobal.results, artist, registeredTitles, cleanTitle);
+          }
+        }
+
+        if (itunesRecs.length === 0) {
+          const urlJp = `https://itunes.apple.com/search?term=${encodeURIComponent(searchKey)}&entity=song&limit=25&country=JP&lang=ja_jp`;
+          const resJp = await fetch(urlJp);
+          if (resJp.ok) {
+            const dataJp = await resJp.json();
+            if (dataJp.results && dataJp.results.length > 0) {
+              itunesRecs = filterTracksByArtist(dataJp.results, artist, registeredTitles, cleanTitle);
+            }
+          }
+        }
+      }
+
+      // iTunes の結果を、現在 filtered に入っている（登録済み関連曲）タイトルと重複しないように追加
+      for (const ir of itunesRecs) {
+        if (filtered.length >= 3) break;
+        const cleanIrTitle = cleanTitle(ir.title);
+        const isDuplicate = filtered.some(f => cleanTitle(f.title) === cleanIrTitle);
+        if (!isDuplicate) {
+          filtered.push({
+            ...ir,
+            registered: false
+          });
+        }
+      }
     }
 
-    // すでに登録済みの曲リスト（小文字の曲名Set）
-    const registeredTitles = new Set(
-      state.all.map(s => {
-        if (!s.name) return '';
-        const parts = s.name.split(' - ');
-        return (parts[1] || s.name).trim().toLowerCase();
-      }).filter(Boolean)
-    );
-
-    const unexpressed = [];
-    const seenTitles = new Set();
-    
-    for (const track of data.results) {
-      const trackName = track.trackName;
-      if (!trackName) continue;
-      const lowerName = trackName.trim().toLowerCase();
-      
-      if (seenTitles.has(lowerName) || registeredTitles.has(lowerName)) {
-        continue;
+    // 推薦が0件だった場合、かつまだ逆引きを実行していないなら、曲名全体での逆引きフォールバックを試みる
+    if (filtered.length === 0 && !isFallback) {
+      if (song) {
+        console.log(`No recommendations found for "${artist}". Attempting reverse lookup fallback...`);
+        await fetchArtistAndRecommendationsBySongName(song);
+        return;
       }
-      
-      // 除外キーワード
-      if (lowerName.includes('remix') || lowerName.includes('instrumental') || lowerName.includes('live') || lowerName.includes('version') || lowerName.includes('edited') || lowerName.includes('karaoke') || lowerName.includes('cover')) {
-        continue;
-      }
-
-      seenTitles.add(lowerName);
-      unexpressed.push({
-        artist: track.artistName || artist,
-        title: trackName,
-        artwork: track.artworkUrl100 || ''
-      });
-
-      if (unexpressed.length >= 3) break;
     }
 
-    state.recommendations = unexpressed;
+    state.recommendations = filtered.slice(0, 3);
   } catch (err) {
     console.warn('Failed to fetch recommendations:', err);
     state.recommendations = [];

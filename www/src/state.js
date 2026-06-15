@@ -73,6 +73,9 @@ export const state = {
   isPromo: false,         // プロモーション動画制作モード
   promoFinished: false,   // プロモ動画終了フラグ
   recommendations: [],    // 未登録曲の推薦候補
+  fromDig: false,         // DIG（自動推薦）経由での追加フラグ
+  digArtwork: null,       // DIG経由で追加される曲のアルバムアートURL
+  digVideoId: null,       // DIG経由で取得されたYouTubeの動画ID
 };
 
 export const CT = (s) => (s.conscious_turnt == null ? 2.5 : Number(s.conscious_turnt));
@@ -201,7 +204,6 @@ export function injectPromoSongs(arr) {
 
 export function applyOrder(arr) {
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
-  else if (state.order === 'vibes') arr.sort((a, b) => (b.vibe_count || 0) - (a.vibe_count || 0));
   else deckShuffle(arr);
   // injectPromoSongs(arr);
 }

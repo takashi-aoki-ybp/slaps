@@ -156,7 +156,7 @@ export function setEra(era) {
 }
 
 export async function setOrder(order) {
-  if (order === state.order && order !== 'newest' && order !== 'vibes' && order !== 'shuffle') return;
+  if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.order === order));
@@ -169,16 +169,16 @@ export async function setOrder(order) {
     else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
     if (state.ready) loadCurrent();
   } else {
-    // If LATEST (newest), VIBES (vibes), or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
-    const shouldCutPlay = (order === 'newest' || order === 'vibes' || order === 'shuffle');
+    // If LATEST (newest) or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
+    const shouldCutPlay = (order === 'newest' || order === 'shuffle');
     setBalance(state.balance, { keep: !shouldCutPlay });
   }
 
-  // 2. Fetch latest database songs in the background if LATEST or VIBES is selected
-  if (order === 'newest' || order === 'vibes') {
+  // 2. Fetch latest database songs in the background if LATEST is selected
+  if (order === 'newest') {
     const btn = document.querySelector(`[data-order="${order}"]`);
     const originalHTML = btn ? btn.innerHTML : '';
-    const labelText = order === 'newest' ? 'LATEST' : 'VIBES';
+    const labelText = 'LATEST';
     // Avoid backing up the loading "..." HTML on rapid double-clicks
     const fixedOriginalHTML = (originalHTML && originalHTML.includes('...')) ? labelText : originalHTML;
     if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
@@ -288,7 +288,11 @@ export async function onUrlInput() {
       return;
     }
     
-    $('#previewThumb').src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    if (state.fromDig && state.digArtwork && id === state.digVideoId) {
+      $('#previewThumb').src = state.digArtwork;
+    } else {
+      $('#previewThumb').src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    }
     $('#previewTitle').textContent = 'Loading...';
     preview.hidden = false;
     $('#submitDo').disabled = false;
@@ -325,7 +329,9 @@ export async function doSubmit() {
     name: rawName,
     description: rawDesc,
     user_name: rawUser,
-    thumbnail: `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
+    thumbnail: (state.fromDig && state.digArtwork && id === state.digVideoId)
+      ? state.digArtwork
+      : `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
     conscious_turnt: ytCtTouched ? Number($('#ytConsTurnt').value) : null,
@@ -349,14 +355,47 @@ export async function doSubmit() {
     if (!state.all.some((s) => s.youtube_id === entry.youtube_id)) state.all.unshift(entry);
     updateTrackCount();
     lastSubmitTime = Date.now();
+    const wasFromDig = state.fromDig;
     closeModal();
-    showToast(db.live ? window.i18n.t('toastAdded') : window.i18n.t('toastAddedLocal'));
-    
-    // 即時割り込み再生：現在のキューの直後に挿入し、1.5秒後に自動で次曲へ遷移
-    state.queue.splice(state.index + 1, 0, entry);
-    setTimeout(() => {
-      next();
-    }, 1500);
+    if (wasFromDig) {
+      $('#confirmTitle').textContent = window.i18n.t('confirmPlayTitle');
+      $('#confirmDesc').textContent = window.i18n.t('confirmPlayDesc');
+      $('#confirmYes').textContent = window.i18n.t('confirmPlayYes');
+      $('#confirmNo').textContent = window.i18n.t('confirmPlayNo');
+      
+      const confirmModal = $('#confirmModal');
+      confirmModal.hidden = false;
+      
+      const handleYes = () => {
+        confirmModal.hidden = true;
+        state.queue.splice(state.index + 1, 0, entry);
+        setTimeout(() => {
+          next();
+        }, 500);
+        cleanup();
+      };
+      
+      const handleNo = () => {
+        confirmModal.hidden = true;
+        showToast(window.i18n.t('toastAddedNoPlay'));
+        cleanup();
+      };
+      
+      const cleanup = () => {
+        $('#confirmYes').removeEventListener('click', handleYes);
+        $('#confirmNo').removeEventListener('click', handleNo);
+        state.fromDig = false;
+      };
+      
+      $('#confirmYes').addEventListener('click', handleYes);
+      $('#confirmNo').addEventListener('click', handleNo);
+    } else {
+      showToast(db.live ? window.i18n.t('toastAdded') : window.i18n.t('toastAddedLocal'));
+      state.queue.splice(state.index + 1, 0, entry);
+      setTimeout(() => {
+        next();
+      }, 1500);
+    }
   } catch (error) {
     if (error && error.message && error.message !== 'Submit failed') {
       if (error.message.includes('already exists')) {
@@ -375,13 +414,19 @@ export async function doSubmit() {
 export function openDig() { $('#digOverlay').hidden = false; document.body.style.overflow = 'hidden'; }
 export function closeDig() { $('#digOverlay').hidden = true; document.body.style.overflow = ''; }
 
-export function openModal() { $('#submitModal').hidden = false; }
+export function openModal() {
+  $('#submitModal').hidden = false;
+  closeDig(); // スマホ用オーバーレイが開いていれば同時に閉じる
+}
 export function closeModal() {
   $('#submitModal').hidden = true;
   $('#ytUrl').value = ''; $('#ytComment').value = ''; $('#ytName').value = '';
   $('#ytRegion').value = ''; $('#ytEra').value = '';
   $('#preview').hidden = true; $('#submitDo').disabled = true;
   ytCtTouched = false; $('#ytConsTurnt').value = '2.5'; $('#ytConsTurntVal').textContent = window.i18n.t('vibeNotSet');
+  state.fromDig = false;
+  state.digArtwork = null;
+  state.digVideoId = null;
 }
 
 // ---- 報告 ----
@@ -744,10 +789,40 @@ export function setupUIListeners() {
     const item = e.target.closest('.recommend-item');
     if (!item || item.classList.contains('is-loading')) return;
 
+    const isRegistered = item.dataset.registered === 'true';
+    const youtubeId = item.dataset.youtubeId;
+
+    if (isRegistered && youtubeId) {
+      closeDig();
+      const targetSong = state.all.find(s => s.youtube_id === youtubeId);
+      if (targetSong) {
+        const filtered = state.queue.filter(s => s.youtube_id !== youtubeId);
+        state.queue = [targetSong, ...filtered];
+        state.index = 0;
+        loadCurrent();
+      }
+      return;
+    }
+
     const artist = item.dataset.artist;
     const title = item.dataset.title;
+    const artwork = item.dataset.artwork;
 
     item.classList.add('is-loading');
+    state.fromDig = true;
+
+    // 透過オーバーレイを表示して検索中の状態を明示する
+    const overlay = $('#recommendOverlay');
+    const overlayText = $('#recommendOverlayText');
+    const isJa = window.i18n.getLang() === 'ja';
+    
+    if (overlay && overlayText) {
+      overlayText.textContent = isJa
+        ? `「${title}」の音源をYouTubeから検索しています...`
+        : `Searching YouTube for "${title}"...`;
+      overlay.hidden = false;
+    }
+
     try {
       // 1. バックエンドの検索プロキシを叩いて YouTube ID を取得
       const searchQ = `${artist} - ${title}`;
@@ -757,7 +832,10 @@ export function setupUIListeners() {
       
       if (!data.videoId) throw new Error('No video found');
 
-      // スマホ用のオーバーレイを閉じる
+      state.digArtwork = artwork || null;
+      state.digVideoId = data.videoId || null;
+
+      // 検索完了後に初めてスマホ用のオーバーレイを閉じる
       closeDig();
 
       // 2. 登録モーダルを開いてプリフィル
@@ -779,9 +857,12 @@ export function setupUIListeners() {
 
     } catch (err) {
       console.warn('Failed to prefill recommendation:', err);
-      showToast(window.i18n.t('toastAddFail') || 'Failed to fetch YouTube link.');
+      showToast(isJa ? 'YouTube音源の検索に失敗しました。' : 'Failed to find YouTube link.');
     } finally {
       item.classList.remove('is-loading');
+      if (overlay) {
+        overlay.hidden = true;
+      }
     }
   };
 
@@ -915,20 +996,7 @@ export function setupUIListeners() {
     touchStartTarget = null;
   }, { passive: true });
 
-  // Vibe Toggle (Vibe同期 ON/OFF)
-  const vibeToggle = $('#vibeToggle');
-  if (vibeToggle) {
-    vibeToggle.addEventListener('click', () => {
-      const isCurrentlyOn = state.commentMode === 2;
-      const nextMode = isCurrentlyOn ? 0 : 2;
-      state.commentMode = nextMode;
-      localStorage.setItem('slaps_comment_mode', nextMode.toString());
-      
-      vibeToggle.textContent = nextMode === 2 ? '📢 VIBE: ON' : '📢 VIBE: OFF';
-      vibeToggle.classList.toggle('is-active', nextMode === 2);
-      showToast(nextMode === 2 ? 'VIBE SESSION: ON' : 'VIBE SESSION: OFF');
-    });
-  }
+
 
   // MPC Pad click listener
   const mpcPad = $('#mpcPad');
@@ -971,13 +1039,13 @@ export function setupUIListeners() {
   if (parsedMode === 1) parsedMode = 2; // 古い「字幕のみ」は「ON」に丸める
   state.commentMode = parsedMode === 2 ? 2 : 0;
   
-  if (vibeToggle) {
-    vibeToggle.textContent = state.commentMode === 2 ? '📢 VIBE: ON' : '📢 VIBE: OFF';
-    vibeToggle.classList.toggle('is-active', state.commentMode === 2);
-  }
+
 
   // ダブルタップシークの有効化
   setupDoubleTapSeek();
+
+  // スマホ版 DIG ボタンの波紋ガイド演出
+  setupDigGuidePulse();
 }
 
 // ---- Vibe Session & プロモーション機能の追加ロジック ----
@@ -1390,60 +1458,118 @@ export function renderRecommendations() {
   const overlayTitle = $('#digOverlayTitle');
   if (!container || !list) return;
 
-  const recs = state.recommendations || [];
-  if (recs.length === 0) {
-    container.hidden = true;
-    list.innerHTML = '';
-    if (overlayList) overlayList.innerHTML = '';
-    return;
-  }
-
   const titleEl = $('#recommendTitle');
   const isJa = window.i18n.getLang() === 'ja';
   
   if (titleEl) {
     titleEl.textContent = isJa
-      ? '🔍 DIG SLAPS (未登録曲をステーションに追加)'
-      : '🔍 DIG SLAPS (Add unregistered track to station)';
+      ? '🔍 DIG SLAPS (関連曲・未登録曲)'
+      : '🔍 DIG SLAPS (Related & unregistered tracks)';
   }
   if (overlayTitle) {
     overlayTitle.textContent = isJa
-      ? '💡 このアーティストの未登録曲 (DIG)'
-      : '💡 Unregistered tracks by this artist (DIG)';
+      ? '💡 このアーティストの関連曲 (DIG)'
+      : '💡 Related tracks by this artist (DIG)';
   }
 
+  const recs = state.recommendations || [];
+  const digOpenBtn = $('#digOpen');
+  if (recs.length === 0) {
+    container.hidden = true;
+    if (digOpenBtn) digOpenBtn.style.display = 'none';
+    return;
+  }
+
+  if (digOpenBtn) digOpenBtn.style.display = '';
+
   // PC版リスト描画 (ホバー対応)
-  list.innerHTML = recs.map(r => `
-    <div class="recommend-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" role="button" tabindex="0">
-      <img class="recommend-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
-      <div class="recommend-item__info">
-        <span class="recommend-item__name">${escapeHtml(r.title)}</span>
-        <span class="recommend-item__action-btn">${isJa ? '＋ 登録' : '＋ ADD'}</span>
+  list.innerHTML = recs.map(r => {
+    const isRegistered = !!r.registered;
+    const actionText = isRegistered 
+      ? (isJa ? '▶ 再生' : '▶ PLAY') 
+      : (isJa ? '＋ 登録' : '＋ ADD');
+    const actionClass = isRegistered ? 'recommend-item__action-btn--play' : '';
+    
+    return `
+      <div class="recommend-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="button" tabindex="0">
+        <img class="recommend-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
+        <div class="recommend-item__info">
+          <span class="recommend-item__name">${escapeHtml(r.title)}</span>
+          <span class="recommend-item__artist">${escapeHtml(r.artist)}</span>
+        </div>
+        <span class="recommend-item__action-btn ${actionClass}">${actionText}</span>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   // スマホ版オーバーレイリスト描画
   if (overlayList) {
-    overlayList.innerHTML = recs.map(r => `
-      <div class="recommend-item dig-overlay-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" role="button" tabindex="0">
-        <img class="dig-overlay-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
-        <div class="dig-overlay-item__info">
-          <span class="dig-overlay-item__name">${escapeHtml(r.title)}</span>
-          <span class="dig-overlay-item__artist">${escapeHtml(r.artist)}</span>
+    overlayList.innerHTML = recs.map(r => {
+      const isRegistered = !!r.registered;
+      const actionText = isRegistered 
+        ? 'PLAY' 
+        : '＋ ADD';
+      const actionClass = isRegistered ? 'dig-overlay-item__add-btn--play' : '';
+      
+      return `
+        <div class="recommend-item dig-overlay-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="button" tabindex="0">
+          <img class="dig-overlay-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
+          <div class="dig-overlay-item__info">
+            <span class="dig-overlay-item__name">${escapeHtml(r.title)}</span>
+            <span class="dig-overlay-item__artist">${escapeHtml(r.artist)}</span>
+          </div>
+          <button type="button" class="dig-overlay-item__add-btn ${actionClass}">${actionText}</button>
         </div>
-        <button type="button" class="dig-overlay-item__add-btn">＋ ADD</button>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   container.hidden = false;
 }
 
 // Expose functions globally for i18n.js integration
+window.openModal = openModal;
 window.renderFavBtn = renderFavBtn;
 window.updateTrackCount = updateTrackCount;
 window.current = current;
 window.playVibeSE = playVibeSE;
 window.state = state;
 window.renderRecommendations = renderRecommendations;
+
+function setupDigGuidePulse() {
+  const digBtn = $('#digOpen');
+  if (!digBtn) return;
+
+  let savedCountVal = 0;
+  try {
+    const savedCount = localStorage.getItem('slaps_visit_count');
+    savedCountVal = savedCount ? parseInt(savedCount, 10) : 0;
+    localStorage.setItem('slaps_visit_count', (savedCountVal + 1).toString());
+  } catch (e) {
+    console.warn('Failed to access localStorage for visit count:', e);
+    return;
+  }
+
+  let digClicked = false;
+  try {
+    digClicked = !!localStorage.getItem('slaps_dig_clicked');
+  } catch (e) {
+    /* ignore */
+  }
+
+  // リリース後（本バージョン適用後）、2回目以上の訪問（前回の訪問カウントが1以上）かつ未クリックの場合
+  if (savedCountVal >= 1 && !digClicked) {
+    setTimeout(() => {
+      digBtn.classList.add('guide-pulse');
+      
+      const clearPulse = () => {
+        digBtn.classList.remove('guide-pulse');
+        try {
+          localStorage.setItem('slaps_dig_clicked', '1');
+        } catch (e) { /* ignore */ }
+        digBtn.removeEventListener('click', clearPulse);
+      };
+      digBtn.addEventListener('click', clearPulse);
+    }, 3000);
+  }
+}

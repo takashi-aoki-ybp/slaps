@@ -139,12 +139,24 @@ body.is-fill #yt {
   white-space: nowrap; display: flex; align-items: center; gap: 2px;
 }
 .lang-toggle:hover { background: rgba(0,0,0,.7); }
+.lang-toggle:focus,
+.lang-toggle:focus-visible,
+.icon-btn:focus,
+.icon-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
 .lang-opt { color: rgba(255,255,255,.35); transition: color .2s; }
 .lang-opt.is-active { color: #fff; }
 .lang-sep { color: rgba(255,255,255,.25); font-weight: 400; margin: 0 1px; }
 .icon-btn--text {
   font-size: 13px; font-weight: 700; font-family: 'Inter', -apple-system, sans-serif;
   letter-spacing: .02em; line-height: 1;
+}
+#infoLink {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 /* ピン留めON状態 */
 .icon-btn.is-pinned { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.4); color: var(--turnt); text-shadow: 0 0 4px var(--turnt); }
@@ -249,6 +261,15 @@ body.is-fill #yt {
   transform: scale(1.18);
 }
 
+/* フィルター用のVibeスライダーおよびALLテキストを非表示化 */
+#balanceZone,
+#balance .balance__row {
+  display: none !important;
+}
+#balance {
+  margin-top: 2px !important; /* スライダー非表示に伴い上部の余白を調整 */
+}
+
 /* 再生順トグル */
 .order {
   margin-top: 8px; display: flex; width: 108%; gap: 2px; padding: 2px;
@@ -298,6 +319,9 @@ body.is-fill #yt {
 .stage__nav.is-play .ic-play { display: none; }
 .stage__nav.is-play.is-paused .ic-pause { display: none; }
 .stage__nav.is-play.is-paused .ic-play { display: block; }
+.stage__nav.is-prev:focus { transform: translateY(-50%) scale(1.04) !important; }
+.stage__nav.is-next:focus { transform: translateY(-50%) scale(1.04) !important; }
+.stage__nav.is-play:focus { transform: translate(-50%, -50%) scale(1.04) !important; }
 
 /* ===== ピンON時タップフィードバック ===== */
 .tap-indicator {
@@ -464,6 +488,9 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   animation: unmutePulse 2s ease-in-out infinite;
   transition: background .2s, border-color .2s;
 }
+.unmute:focus {
+  transform: translate(-50%, -50%) scale(1.04) translateZ(0) !important;
+}
 .unmute:hover {
   background: rgba(0, 0, 0, 0.88);
   border-color: rgba(255, 255, 255, 0.45);
@@ -523,6 +550,52 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 .modal__submit { width: 100%; margin-top: 20px; background: var(--fg); color: #000; font-weight: 600; border-radius: 999px; padding: 12px; }
 .modal__submit:disabled { opacity: .4; cursor: default; }
 .modal__note { margin-top: 10px; color: #666; font-size: 11px; line-height: 1.6; }
+
+/* ===== confirm modal ===== */
+.modal:has(.modal__panel--confirm) {
+  align-items: center;
+}
+.modal__panel--confirm {
+  text-align: center;
+  border-radius: 18px !important;
+  margin: auto 16px;
+  width: calc(100% - 32px);
+  max-width: 400px;
+}
+.modal__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: center;
+}
+.modal__actions .pill {
+  flex: 1;
+  max-width: 180px;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 13.5px;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: center;
+}
+.pill--primary {
+  color: #000 !important;
+  background: var(--fg) !important;
+  border-color: var(--fg) !important;
+  font-weight: 600;
+}
+.pill--primary:hover {
+  background: rgba(255,255,255,0.85) !important;
+  border-color: rgba(255,255,255,0.85) !important;
+}
+.pill--secondary {
+  color: var(--fg);
+  background: rgba(0,0,0,.4);
+  border: 1px solid var(--line);
+}
+.pill--secondary:hover {
+  background: rgba(255,255,255,0.1) !important;
+}
 
 /* ===== About overlay ===== */
 .about-ov {
@@ -982,35 +1055,47 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 
 /* ===== テレビ向けフォーカス（Spatial Navigation）の視覚効果 ===== */
 /* フォーカス可能要素に目立つカスタムフォーカスを設定 */
-button:focus,
-a:focus,
-input[type="range"]:focus,
-select:focus,
-textarea:focus,
-[tabindex="0"]:focus {
+button:focus-visible,
+a:focus-visible,
+input[type="range"]:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex="0"]:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px #ffffff, 0 0 14px rgba(0, 255, 102, 0.85); /* 蛍光グリーンのネオングロー */
   border-color: #00ff66 !important;
-  transform: scale(1.04);
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+  scale: 1.04;
+  transition: scale 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
   z-index: 10;
 }
 
+/* 通常のマウスクリック時などはフォーカス外枠（ネオングロー）を表示させない */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input[type="range"]:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+[tabindex="0"]:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none !important;
+  scale: 1 !important;
+}
+
 /* スライダーノブにフォーカスが当たったときの見栄えを調整 */
-.balance__range:focus::-webkit-slider-thumb,
-.volume-control__slider:focus::-webkit-slider-thumb {
+.balance__range:focus-visible::-webkit-slider-thumb,
+.volume-control__slider:focus-visible::-webkit-slider-thumb {
   background: #00ff66;
   box-shadow: 0 0 10px #00ff66;
 }
 
 /* モーション軽減時はフォーカス時のスケールアップを無効化 */
 @media (prefers-reduced-motion: reduce) {
-  button:focus,
-  a:focus,
-  input[type="range"]:focus,
-  select:focus,
-  textarea:focus,
-  [tabindex="0"]:focus {
+  button:focus-visible,
+  a:focus-visible,
+  input[type="range"]:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex="0"]:focus-visible {
     transform: none !important;
   }
 }
@@ -1046,13 +1131,13 @@ textarea:focus,
 }
 
 /* ===== 未登録推薦曲 (Unregistered Track Recommendations) ===== */
-/* ===== 未登録推薦曲 (Unregistered Track Recommendations / DIG SLAPS) ===== */
 .meta__recommendations {
-  margin-top: 12px;
-  margin-bottom: 4px;
+  margin-top: 4px;
+  margin-bottom: 12px;
   animation: fadeIn 0.5s ease forwards;
   opacity: 0.85;
   transition: opacity 0.3s ease;
+  width: 100%;
 }
 .meta__recommendations:hover {
   opacity: 1;
@@ -1065,45 +1150,67 @@ textarea:focus,
   margin-bottom: 8px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
 }
 .recommend-list {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
+  width: 100%;
 }
 .recommend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(18, 18, 18, 0.85); /* 描画負荷低減のため磨りガラスを廃止し透過率を下げた暗い背景に変更 */
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 6px 12px 6px 6px;
   border-radius: 999px;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 220px;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 .recommend-item__artwork {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease;
 }
 .recommend-item__info {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+  text-align: left;
 }
 .recommend-item__name {
-  font-weight: 500;
-  max-width: 140px;
+  font-weight: 600;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
+}
+.recommend-item__artist {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 .recommend-item__action-btn {
   font-size: 10px;
@@ -1119,14 +1226,14 @@ textarea:focus,
 
 /* ホバー時のマイクロアニメーション */
 .recommend-item:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   border-color: #00ff66; /* ネオン枠線 */
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   color: #fff;
-  box-shadow: 0 6px 16px rgba(0, 255, 102, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 255, 102, 0.15);
 }
 .recommend-item:hover .recommend-item__artwork {
-  transform: scale(1.1);
+  transform: scale(1.05);
   border-color: #00ff66;
 }
 .recommend-item:hover .recommend-item__action-btn {
@@ -1138,24 +1245,57 @@ textarea:focus,
   transform: translateY(0);
 }
 
-/* ローディング表示 */
-.recommend-item.is-loading {
-  opacity: 0.7;
-  pointer-events: none;
+/* 推薦曲検索中の透過オーバーレイ */
+.recommend-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease forwards;
 }
-.recommend-item.is-loading::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  border: 2px solid rgba(255,255,255,0.2);
-  border-top-color: #fff;
+.recommend-overlay__content {
+  text-align: center;
+  color: #fff;
+  padding: 30px;
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-width: 320px;
+  width: 90%;
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.recommend-overlay__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #00ff66;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  display: inline-block;
-  margin-left: 6px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
 }
+.recommend-overlay__text {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 /* モバイル表示での出し分け */
@@ -1198,6 +1338,7 @@ textarea:focus,
   border-radius: 16px;
   padding: 12px 18px;
   width: 100%;
+  max-width: none !important;
   box-sizing: border-box;
   text-align: left;
   backdrop-filter: blur(10px);
@@ -1257,3 +1398,56 @@ textarea:focus,
   border-color: #00ff66;
   color: #000;
 }
+
+/* スマホ版 DIG ボタン用パルスガイドの個別調整 */
+#digOpen.guide-pulse::before,
+#digOpen.guide-pulse::after {
+  border-radius: 8px;
+  inset: -4px -8px;
+}
+
+/* 推薦候補0件時のUI用スタイル */
+.recommend-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+.recommend-empty__text {
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+.dig-overlay-list .recommend-empty {
+  align-items: center;
+  text-align: center;
+  padding: 24px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  gap: 12px;
+}
+.dig-overlay-list .recommend-empty__text {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* スマホ表示での確認モーダルのボタン縦並び化 */
+@media (max-width: 480px) {
+  .modal__panel--confirm .modal__actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .modal__panel--confirm .modal__actions .pill {
+    max-width: none;
+    width: 100%;
+  }
+}
+

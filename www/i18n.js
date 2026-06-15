@@ -62,7 +62,12 @@ const I18N = {
     toastNetwork: 'Connection issues. Please check your network.',
     toastBackToAll: 'Returned to all tracks.',
     toastYtFail: 'YouTube connection failed. Please check your network or try again.',
-    toastWait: 'Please wait a moment before trying again.',
+    toastWait: 'Thank you!',
+    confirmPlayTitle: 'Track Added!',
+    confirmPlayDesc: 'Would you like to play this track right now?',
+    confirmPlayYes: 'Play Now',
+    confirmPlayNo: 'Keep Listening',
+    toastAddedNoPlay: 'Thank you! Available to listen from LATEST! 🎉',
     tryBroaderFilters: ' Try broadening your filters.',
     // about
     aboutH1: 'Stumble upon tracks you never knew existed.',
@@ -113,6 +118,7 @@ const I18N = {
     toastCommentAdded: 'Comment added!',
     toastCommentFail: 'Failed to post comment.',
     promoBadgeText: 'PROMO: New Arrival',
+    recommendEmpty: 'No other unregistered tracks found for this artist. Share your favorite with us!',
   },
   ja: {
     tagline: 'Nothing but slaps.',
@@ -166,7 +172,12 @@ const I18N = {
     toastNetwork: '接続に問題があります。ネットワークを確認してください。',
     toastBackToAll: '全体再生に戻りました。',
     toastYtFail: 'YouTube接続に失敗しました。ネットワークを確認するか、もう一度お試しください。',
-    toastWait: '少しお待ちください。',
+    toastWait: 'ありがとうございます！',
+    confirmPlayTitle: '追加完了しました！',
+    confirmPlayDesc: 'すぐにこの曲を再生しますか？',
+    confirmPlayYes: '今すぐ再生する',
+    confirmPlayNo: 'このまま今の曲を聴く',
+    toastAddedNoPlay: 'ありがとうございます。LATESTから聴けます！ 🎉',
     tryBroaderFilters: ' フィルターを広げてみてください。',
     aboutH1: '知らなかった曲に、偶然ぶつかる場所。',
     aboutP1: 'アルゴリズムが勧めてくる曲はもう聴き飽きた。サブスクのプレイリストは同じような曲ばっかり。もっと良い曲が世界中にあるはずなのに、なかなか出会えない。',
@@ -211,6 +222,7 @@ const I18N = {
     toastCommentAdded: 'コメントを投稿しました！',
     toastCommentFail: 'コメントの投稿に失敗しました。',
     promoBadgeText: 'PROMO: 新曲が入荷しました',
+    recommendEmpty: 'このアーティストの他の未登録曲が見つかりませんでした。君の知っているおすすめを登録してね！',
   },
 };
 
