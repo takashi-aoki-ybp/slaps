@@ -1,5 +1,705 @@
 [
   {
+    "youtube_id": "8cEdndsuzSE",
+    "name": "XG - GALA (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/8cEdndsuzSE/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:59:15.052Z"
+  },
+  {
+    "youtube_id": "tjiWuJDIJzE",
+    "name": "Peterparker69,野田洋次郎 - Hey phone (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/tjiWuJDIJzE/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T07:55:51.866Z"
+  },
+  {
+    "youtube_id": "2kxeWRh8PzU",
+    "name": "どんぐりず(DONGURIZU) - NO WAY",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/2kxeWRh8PzU/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:50:40.321Z"
+  },
+  {
+    "youtube_id": "44aROsnoK9M",
+    "name": "どんぐりず(DONGURIZU) - E-jan",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/44aROsnoK9M/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T07:50:06.981Z"
+  },
+  {
+    "youtube_id": "T15S4RnJYMc",
+    "name": "CA7RIEL & Paco Amoroso - COSAS RICAS (Official Loop)",
+    "region": "other",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/T15S4RnJYMc/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T07:47:02.363Z"
+  },
+  {
+    "youtube_id": "klMGDp6eeow",
+    "name": "CA7RIEL & Paco Amoroso - LA QUE PUEDE, PUEDE (Official Loop)",
+    "region": "other",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/klMGDp6eeow/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:45:37.789Z"
+  },
+  {
+    "youtube_id": "6wyVVWIZojw",
+    "name": "CA7RIEL & Paco Amoroso - BABY GANGSTA (Official Loop)",
+    "region": "other",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/6wyVVWIZojw/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:44:45.515Z"
+  },
+  {
+    "youtube_id": "YWyHZNBz6FE",
+    "name": "Chief Keef - Love Sosa",
+    "region": "us",
+    "era": "00s",
+    "user_name": "覚",
+    "description": {
+      "ja": "俺がSosaだ。おしまい。",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/YWyHZNBz6FE/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:09:38.994Z"
+  },
+  {
+    "youtube_id": "1Vf4mMCpNY0",
+    "name": "Lil Wayne - A Milli",
+    "region": "us",
+    "era": "00s",
+    "user_name": "覚",
+    "description": {
+      "ja": "俺のスキルをお前たちに見せてあげるね",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1Vf4mMCpNY0/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:04:57.703Z"
+  },
+  {
+    "youtube_id": "87U_l3AvyX0",
+    "name": "hard life - skeletons (official video)",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/87U_l3AvyX0/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T07:02:51.001Z"
+  },
+  {
+    "youtube_id": "-t-DW8unM7w",
+    "name": "hard life - tears",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/-t-DW8unM7w/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T07:01:08.690Z"
+  },
+  {
+    "youtube_id": "-dQnXExTp2w",
+    "name": "hard life - nightmares (official video)",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "チル",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/-dQnXExTp2w/mqdefault.jpg",
+    "conscious_turnt": 0,
+    "created_at": "2026-06-11T07:00:20.075Z"
+  },
+  {
+    "youtube_id": "83d0AJjpt1s",
+    "name": "何もない日に (feat. SQUASH SQUAD)",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "覚",
+    "description": {
+      "ja": "スーパーで買い物するときに聴く曲",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/83d0AJjpt1s/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-06-11T06:57:12.297Z"
+  },
+  {
+    "youtube_id": "pkHlze-Pg3g",
+    "name": "Mile High feat. Travis Scott and Metro Boomin (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "覚",
+    "description": {
+      "ja": "浮遊感と孤独",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/pkHlze-Pg3g/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-11T06:51:48.152Z"
+  },
+  {
+    "youtube_id": "Edthfw5Pbxk",
+    "name": "Yves Tumor - Noid",
+    "region": "us",
+    "era": "10s",
+    "user_name": "summer",
+    "description": {
+      "ja": "人種問題に対する天才的なリリックとトラック",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Edthfw5Pbxk/mqdefault.jpg",
+    "conscious_turnt": 1,
+    "created_at": "2026-06-11T06:32:08.363Z"
+  },
+  {
+    "youtube_id": "eeQZ93f2qNw",
+    "name": "Yves Tumor - Applaud ft. Hirakish & Napolian (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "ダークな雰囲気",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/eeQZ93f2qNw/mqdefault.jpg",
+    "conscious_turnt": 3.5,
+    "created_at": "2026-06-11T06:29:34.966Z"
+  },
+  {
+    "youtube_id": "-9c7Obpspv0",
+    "name": "Yurufuwa Gang - Ying Yang (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/-9c7Obpspv0/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T06:27:06.341Z"
+  },
+  {
+    "youtube_id": "2P1po37ztQI",
+    "name": "Nozomi Kitay & GAL D - MOSHI MOSHI feat 百足",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/2P1po37ztQI/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T06:26:39.238Z"
+  },
+  {
+    "youtube_id": "7k5vpyUwhcg",
+    "name": "UZUMAKI feat. ゆるふわギャング, OZworld & Masayoshi Iimori 【Official Video】/ DJ CHARI & DJ SHINTARO",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "トラックのサイケ感がたまらん",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/7k5vpyUwhcg/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T06:24:09.715Z"
+  },
+  {
+    "youtube_id": "D0W_4pHDBTo",
+    "name": "GADORO - あっかんべぇ (Pro. DJ PMX)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/D0W_4pHDBTo/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T06:22:09.342Z"
+  },
+  {
+    "youtube_id": "1tkU9v_Tidw",
+    "name": "GADORO - ここにいよう (Prod.DJ RYU-G)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1tkU9v_Tidw/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T06:21:16.921Z"
+  },
+  {
+    "youtube_id": "ueq2QFIIpu0",
+    "name": "不可思議/wonderboy - Pellicule (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ueq2QFIIpu0/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T06:19:16.506Z"
+  },
+  {
+    "youtube_id": "_gyultVTesk",
+    "name": "BTS (방탄소년단) '2.0' Official MV",
+    "region": "kr",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_gyultVTesk/mqdefault.jpg",
+    "conscious_turnt": 0.5,
+    "created_at": "2026-06-11T05:44:23.570Z"
+  },
+  {
+    "youtube_id": "St6UOLqRAGY",
+    "name": "HANA / NON STOP -Music Video-",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "summer",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/St6UOLqRAGY/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T05:40:34.635Z"
+  },
+  {
+    "youtube_id": "drwha7bpD4o",
+    "name": "SEEDA, Junkman, kZm - BUSSIN (Prod. Chaki Zulu)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "覚",
+    "description": {
+      "ja": "全員やばい",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/drwha7bpD4o/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-06-11T03:54:53.272Z"
+  },
+  {
+    "youtube_id": "tcgDirYDNss",
+    "name": "Yin And Yang - Roll Up feat.Lil Mesh191 & Pool (OfficialMusicVideo)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "覚",
+    "description": {
+      "ja": "栃木からやってきた",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/tcgDirYDNss/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-06-11T03:51:49.605Z"
+  },
+  {
+    "youtube_id": "6Bsee5vaBos",
+    "name": "Fireworks",
+    "region": "us",
+    "era": "10s",
+    "user_name": "覚",
+    "description": {
+      "ja": "打ち上げ花火、下から見るか？横から見るか？ドレイクと一緒に見るか？",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/6Bsee5vaBos/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T03:43:08.582Z"
+  },
+  {
+    "youtube_id": "gCG45B5ZiKs",
+    "name": "Daichi Yamamoto, MIKADO, NENE - 違う (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/gCG45B5ZiKs/mqdefault.jpg",
+    "conscious_turnt": 0,
+    "created_at": "2026-06-11T03:39:10.887Z"
+  },
+  {
+    "youtube_id": "jURytYCnYAE",
+    "name": "BE:FIRST / Rondo -Special Dance Performance-",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/jURytYCnYAE/mqdefault.jpg",
+    "conscious_turnt": 0,
+    "created_at": "2026-06-11T03:27:51.514Z"
+  },
+  {
+    "youtube_id": "V7v6_E9vk7E",
+    "name": "STUTS & ZOT on the WAVE - Perfect Blue feat. Tiji Jojo, Daichi Yamamoto, RYO-Z(Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/V7v6_E9vk7E/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T02:39:27.475Z"
+  },
+  {
+    "youtube_id": "BTRROLIlAWw",
+    "name": "AK-69 - ONE SHOT feat. Watson, Eric.B.Jr (Prod. by タイプライター) [Official Video]",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/BTRROLIlAWw/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T02:31:52.557Z"
+  },
+  {
+    "youtube_id": "0yABMeJzk-8",
+    "name": "BIM - Bonita",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/0yABMeJzk-8/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-11T02:24:21.293Z"
+  },
+  {
+    "youtube_id": "o-l7qR6BFKQ",
+    "name": "SugLawd Familiar - \"SADISTIC FURAAMAN\" (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/o-l7qR6BFKQ/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T15:09:27.192Z"
+  },
+  {
+    "youtube_id": "QRaH6oR4YOc",
+    "name": "DJ RYOW - Factor feat. Kaneee, C.O.S.A. (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/QRaH6oR4YOc/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T15:06:50.973Z"
+  },
+  {
+    "youtube_id": "ocwnR3uTFLI",
+    "name": "OZROSAURUS / Players' Player feat. KREVA",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ocwnR3uTFLI/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:30:53.830Z"
+  },
+  {
+    "youtube_id": "gLS_4iPoZ40",
+    "name": "お嫁においで 2015 / 加山雄三 feat. PUNPEE",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/gLS_4iPoZ40/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:27:23.495Z"
+  },
+  {
+    "youtube_id": "NGG0erXdZR4",
+    "name": "¥ellow Bucks - Big Shit Trouble (feat. eyden) [Official Video]",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/NGG0erXdZR4/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:24:32.505Z"
+  },
+  {
+    "youtube_id": "Z4QgNDsCQ2M",
+    "name": "MC TYSON \"Make It Rain\" feat. eyden & Watson (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Z4QgNDsCQ2M/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:20:16.912Z"
+  },
+  {
+    "youtube_id": "I4t8Fuk-SCQ",
+    "name": "BAD HOP / Kawasaki Drift (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/I4t8Fuk-SCQ/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:17:11.660Z"
+  },
+  {
+    "youtube_id": "xgMT-6O0U8c",
+    "name": "eyden - HOUSE PARTY (Prod.ZOT on the WAVE)【Official Video】",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/xgMT-6O0U8c/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:14:54.110Z"
+  },
+  {
+    "youtube_id": "K2lMDBEzkQg",
+    "name": "eyden - HOT BOYZ feat. ¥ellow Bucks (Prod. JIGG) 【Official Video】",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/K2lMDBEzkQg/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:12:48.085Z"
+  },
+  {
+    "youtube_id": "CGY-gE_e_Og",
+    "name": "Kvi Baba / BPM feat. KREVA (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/CGY-gE_e_Og/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:07:13.920Z"
+  },
+  {
+    "youtube_id": "a-EW9rkB0tA",
+    "name": "Tee - Asian Flow (feat. ¥ellow Bucks) [Official Video]",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/a-EW9rkB0tA/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T14:02:04.497Z"
+  },
+  {
+    "youtube_id": "h9Gsa-8MgTs",
+    "name": "BANTY FOOT / Light It Up feat. RUDEBWOY FACE & ¥ellow Bucks 【OFFICIAL MV】",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/h9Gsa-8MgTs/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T13:57:28.001Z"
+  },
+  {
+    "youtube_id": "Qpyr2q3roWY",
+    "name": "YENTOWN - 不幸中の幸い feat. kZm, PETZ, JNKMN, Awich, MonyHorse & U-Lee (Prod. Chaki Zulu)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Qpyr2q3roWY/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T13:48:00.535Z"
+  },
+  {
+    "youtube_id": "KjUeXQatA44",
+    "name": "KOWICHI - Rockstar feat. JP THE WAVY, T-Pablow (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/KjUeXQatA44/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T13:43:18.709Z"
+  },
+  {
+    "youtube_id": "kVFPu7MRyMg",
+    "name": "SugLawd Familiar, CHICO CARLITO, Awich - LONGINESS REMIX",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/kVFPu7MRyMg/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T13:40:42.616Z"
+  },
+  {
+    "youtube_id": "OpEnxwDW1c8",
+    "name": "eyden - Family 【Official Video】",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/OpEnxwDW1c8/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T13:36:55.860Z"
+  },
+  {
+    "youtube_id": "pyi7KdQQ8T0",
+    "name": "STUTS & 松たか子 with 3exes - Presence Remix feat. T-Pablow, Daichi Yamamoto, NENE, BIM, KID FRESINO",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "Chii",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/pyi7KdQQ8T0/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T13:21:48.984Z"
+  },
+  {
+    "youtube_id": "TEuKtf8OEPY",
+    "name": "SPARTA - Player feat. KID FRESINO (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TEuKtf8OEPY/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-10T12:28:28.393Z"
+  },
+  {
     "youtube_id": "ckZor7HRU1E",
     "name": "BewhY - GOTTASADAE",
     "region": "kr",
@@ -838,7 +1538,7 @@
       "en": "Falz's sharp Nigerian social commentary",
       "ja": "ナイジェリアの社会問題を風刺するChildish Gambinoへの回答"
     },
-    "region": "us",
+    "region": "other",
     "era": "10s",
     "conscious_turnt": 0,
     "thumbnail": "https://img.youtube.com/vi/CdvY-tfI3ME/mqdefault.jpg",
@@ -880,7 +1580,7 @@
       "en": "Kwesi Arthur's Ghanaian grind anthem remix with Sarkodie",
       "ja": "ガーナの新世代ラッパーのアフリカンヒップホップの逸品"
     },
-    "region": "us",
+    "region": "other",
     "era": "10s",
     "conscious_turnt": 4.5,
     "thumbnail": "https://img.youtube.com/vi/QLg8lPWnuHk/mqdefault.jpg",
@@ -3521,17 +4221,17 @@
   },
   {
     "youtube_id": "8nc6EgF5WX4",
-    "name": "Time Machine - On the Moon",
+    "name": "Time Machine - Personal Ads",
     "description": {
-      "en": "Time Machine — On the Moon",
-      "ja": "Time MachineのOn the Moon"
+      "en": "A smooth underground classic by Time Machine.",
+      "ja": "Time Machineによる極上のアンダーグラウンド・クラシック。"
     },
     "user_name": "青木 喬 takashi aoki",
     "region": "us",
     "era": "00s",
-    "thumbnail": "https://img.youtube.com/vi/8nc6EgF5WX4/mqdefault.jpg",
     "conscious_turnt": 1.5,
-    "created_at": "2026-06-05T07:11:16Z"
+    "thumbnail": "https://img.youtube.com/vi/8nc6EgF5WX4/mqdefault.jpg",
+    "created_at": "2026-06-05T07:25:47Z"
   },
   {
     "youtube_id": "75L7L6zaNoQ",
@@ -3546,20 +4246,6 @@
     "thumbnail": "https://img.youtube.com/vi/75L7L6zaNoQ/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-05T07:11:16Z"
-  },
-  {
-    "youtube_id": "8nc6EgF5WX4",
-    "name": "Time Machine - Personal Ads",
-    "description": {
-      "en": "A smooth underground classic by Time Machine.",
-      "ja": "Time Machineによる極上のアンダーグラウンド・クラシック。"
-    },
-    "user_name": "青木 喬 takashi aoki",
-    "region": "us",
-    "era": "00s",
-    "conscious_turnt": 1.5,
-    "thumbnail": "https://img.youtube.com/vi/8nc6EgF5WX4/mqdefault.jpg",
-    "created_at": "2026-06-05T07:25:47Z"
   },
   {
     "youtube_id": "2WbSBLplJS0",
@@ -4403,10 +5089,10 @@
   },
   {
     "youtube_id": "BLL6bA2X4Ek",
-    "name": "BAKU - DEVIL APPROACH",
+    "name": "DEVIL APPROACH",
     "description": {
-      "en": "An instrumental track from DJ BAKU's 2006 album 'SPINHEDDZ', featuring a heavy and hard-hitting breakbeat that creates a tense and cold atmosphere.",
-      "ja": "DJ BAKUが2006年にリリースしたアルバム『SPINHEDDZ』収録の、重厚で硬質なブレイクビーツが緊迫感を漂わせるハードコアなインストゥルメンタル曲。"
+      "en": "A heavy and cold-styled Japanese trap track with aggressive vocal deliveries.",
+      "ja": "BAD HOPならではの冷徹で攻撃的なトラップビートと、タイトなデリバリーが冴え渡るハードな1曲。"
     },
     "user_name": "青木 喬 takashi aoki",
     "region": "jp",
@@ -6642,20 +7328,6 @@
     "created_at": "2026-06-05T12:40:47.211Z"
   },
   {
-    "youtube_id": "A1B2C3D4E5J",
-    "name": "Untitled",
-    "region": "jp",
-    "era": "20s",
-    "user_name": "匿名",
-    "description": {
-      "ja": "",
-      "en": ""
-    },
-    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5J/mqdefault.jpg",
-    "conscious_turnt": 2,
-    "created_at": "2026-06-05T12:38:58.089Z"
-  },
-  {
     "youtube_id": "TnJMBcQFNME",
     "name": "AKLO \"RGTO\" feat.SALU, 鋼田テフロン & Kダブシャイン",
     "region": "jp",
@@ -6726,34 +7398,6 @@
     "created_at": "2026-06-05T12:26:17.556Z"
   },
   {
-    "youtube_id": "A1B2C3D4E5I",
-    "name": "Untitled",
-    "region": "jp",
-    "era": "20s",
-    "user_name": "匿名",
-    "description": {
-      "ja": "",
-      "en": ""
-    },
-    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5I/mqdefault.jpg",
-    "conscious_turnt": 2,
-    "created_at": "2026-06-05T12:19:17.049Z"
-  },
-  {
-    "youtube_id": "A1B2C3D4E5H",
-    "name": "Untitled",
-    "region": "jp",
-    "era": "20s",
-    "user_name": "匿名",
-    "description": {
-      "ja": "",
-      "en": ""
-    },
-    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5H/mqdefault.jpg",
-    "conscious_turnt": 2,
-    "created_at": "2026-06-05T12:18:49.263Z"
-  },
-  {
     "youtube_id": "_BMo-1oc2ik",
     "name": "LANA - Still Young More Rich feat. Watson (Official Music Video)",
     "region": "jp",
@@ -6784,7 +7428,7 @@
   {
     "youtube_id": "KrkZOLj26TE",
     "name": "LANA - Diamonds in the Sky (Official Music Video)",
-    "region": "fr",
+    "region": "jp",
     "era": "20s",
     "user_name": "hrk",
     "description": {
@@ -6894,34 +7538,6 @@
     "created_at": "2026-06-05T12:06:37.503Z"
   },
   {
-    "youtube_id": "A1B2C3D4E5G",
-    "name": "Untitled",
-    "region": "jp",
-    "era": "20s",
-    "user_name": "匿名",
-    "description": {
-      "ja": "",
-      "en": ""
-    },
-    "thumbnail": "https://img.youtube.com/vi/A1B2C3D4E5G/mqdefault.jpg",
-    "conscious_turnt": 2,
-    "created_at": "2026-06-05T11:59:02.869Z"
-  },
-  {
-    "youtube_id": "3S1tP7S-uLg",
-    "name": "Untitled",
-    "region": "jp",
-    "era": "20s",
-    "user_name": "匿名",
-    "description": {
-      "ja": "",
-      "en": ""
-    },
-    "thumbnail": "https://img.youtube.com/vi/3S1tP7S-uLg/mqdefault.jpg",
-    "conscious_turnt": 2,
-    "created_at": "2026-06-05T11:57:17.037Z"
-  },
-  {
     "youtube_id": "-I4Eff4QVc0",
     "name": "BADSAIKUSH 舐達麻 feat. KENNY-G OUTLAW   (Official Music Video)",
     "region": "jp",
@@ -6936,7 +7552,7 @@
     "created_at": "2026-06-05T11:54:31.714Z"
   },
   {
-    "youtube_id": "8V94XvDq_m8",
+    "youtube_id": "tOS-Yx4Qb_M",
     "name": "ZORN - Walk This Way",
     "region": "jp",
     "era": "10s",
@@ -6945,7 +7561,7 @@
       "ja": "空値テスト",
       "en": ""
     },
-    "thumbnail": "https://img.youtube.com/vi/8V94XvDq_m8/mqdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/tOS-Yx4Qb_M/mqdefault.jpg",
     "conscious_turnt": 1.5,
     "created_at": "2026-06-05T11:51:01.045Z"
   },
@@ -6976,20 +7592,6 @@
     "thumbnail": "https://img.youtube.com/vi/5qap5aO4i9A/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-05T11:46:52.160Z"
-  },
-  {
-    "youtube_id": "3tmd-ClpJKA",
-    "name": "Test Song",
-    "region": "us",
-    "era": "20s",
-    "user_name": "Test User",
-    "description": {
-      "ja": "テスト",
-      "en": "test"
-    },
-    "thumbnail": "https://img.youtube.com/vi/3tmd-ClpJKA/mqdefault.jpg",
-    "conscious_turnt": 2,
-    "created_at": "2026-06-05T11:45:48.870Z"
   },
   {
     "youtube_id": "hI8A14Qcv68",
