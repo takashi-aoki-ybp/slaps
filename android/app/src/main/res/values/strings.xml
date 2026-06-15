@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SLAPS</string>
+    <string name="title_activity_main">SLAPS</string>
+    <string name="package_name">tokyo.slaps.app</string>
+    <string name="custom_url_scheme">tokyo.slaps.app</string>
+</resources>

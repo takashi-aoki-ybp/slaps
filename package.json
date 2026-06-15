@@ -3,7 +3,13 @@
   "version": "1.1.0",
   "description": "Nothing but slaps. — HIPHOP Station",
   "main": "script.js",
+  "scripts": {
+    "build": "node build.js"
+  },
   "dependencies": {
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0",
     "jimp": "^0.16.13"
   }
 }
