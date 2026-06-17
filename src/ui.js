@@ -61,6 +61,7 @@ export function updateTrackCount() {
 
 // ---- Vibeネオンカラー更新 ----
 export function updateVibeColor(p, element = balanceRange) {
+  if (!element) return;
   let color;
   if (p < 2.5) {
     const ratio = p / 2.5;
@@ -80,7 +81,8 @@ export function updateVibeColor(p, element = balanceRange) {
 
 export function updateBalanceLabel(p) {
   function zoneLabel(v) { if (v <= 2) return 'CONSCIOUS'; if (v >= 4) return 'TURNT'; return 'ALL'; }
-  $('#balanceZone').textContent = zoneLabel(p);
+  const el = $('#balanceZone');
+  if (el) el.textContent = zoneLabel(p);
 }
 
 // ---- バランス（Conscious/Turnt）設定 ----
@@ -334,7 +336,7 @@ export async function doSubmit() {
       : `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
-    conscious_turnt: ytCtTouched ? Number($('#ytConsTurnt').value) : null,
+    conscious_turnt: (ytCtTouched && $('#ytConsTurnt')) ? Number($('#ytConsTurnt').value) : null,
     status: 'published',
   };
   const btn = $('#submitDo');
@@ -423,7 +425,9 @@ export function closeModal() {
   $('#ytUrl').value = ''; $('#ytComment').value = ''; $('#ytName').value = '';
   $('#ytRegion').value = ''; $('#ytEra').value = '';
   $('#preview').hidden = true; $('#submitDo').disabled = true;
-  ytCtTouched = false; $('#ytConsTurnt').value = '2.5'; $('#ytConsTurntVal').textContent = window.i18n.t('vibeNotSet');
+  ytCtTouched = false;
+  const ytCtEl = $('#ytConsTurnt'); if (ytCtEl) { ytCtEl.value = '2.5'; }
+  const ytCtValEl = $('#ytConsTurntVal'); if (ytCtValEl) { ytCtValEl.textContent = window.i18n.t('vibeNotSet'); }
   state.fromDig = false;
   state.digArtwork = null;
   state.digVideoId = null;
@@ -674,33 +678,41 @@ export function setupUIListeners() {
 
   // Form Vibe slider
   const ytCt = $('#ytConsTurnt');
-  ytCt.addEventListener('input', () => {
-    ytCtTouched = true;
-    const v = Number(ytCt.value);
-    $('#ytConsTurntVal').textContent = `${v.toFixed(1)} ${zoneLabel(v)}`;
-    updateVibeColor(v, ytCt);
-  });
+  if (ytCt) {
+    ytCt.addEventListener('input', () => {
+      ytCtTouched = true;
+      const v = Number(ytCt.value);
+      const ytCtValEl = $('#ytConsTurntVal');
+      if (ytCtValEl) ytCtValEl.textContent = `${v.toFixed(1)} ${zoneLabel(v)}`;
+      updateVibeColor(v, ytCt);
+    });
+  }
 
   // Vibe slider
-  balanceRange.addEventListener('input', () => {
-    const v = Number(balanceRange.value);
-    updateBalanceLabel(v);
-    updateVibeColor(v);
-  });
-  balanceRange.addEventListener('change', () => {
-    state.favMode = false;
-    $('#favOpen').classList.remove('is-active');
-    updateFavCount();
-    setBalance(Number(balanceRange.value));
-  });
-  ['touchstart', 'touchend'].forEach((ev) =>
-    balanceRange.addEventListener(ev, (e) => e.stopPropagation(), { passive: true }));
+  if (balanceRange) {
+    balanceRange.addEventListener('input', () => {
+      const v = Number(balanceRange.value);
+      updateBalanceLabel(v);
+      updateVibeColor(v);
+    });
+    balanceRange.addEventListener('change', () => {
+      state.favMode = false;
+      $('#favOpen').classList.remove('is-active');
+      updateFavCount();
+      setBalance(Number(balanceRange.value));
+    });
+    ['touchstart', 'touchend'].forEach((ev) =>
+      balanceRange.addEventListener(ev, (e) => e.stopPropagation(), { passive: true }));
+  }
 
   // Playback order
-  $('#order').addEventListener('click', (e) => {
-    const btn = e.target.closest('.order__btn');
-    if (btn) setOrder(btn.dataset.order);
-  });
+  const orderEl = $('#order');
+  if (orderEl) {
+    orderEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.order__btn');
+      if (btn) setOrder(btn.dataset.order);
+    });
+  }
 
   // Regions
   $('#regions').addEventListener('click', (e) => {
