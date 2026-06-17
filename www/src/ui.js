@@ -706,13 +706,10 @@ export function setupUIListeners() {
   }
 
   // Playback order
-  const orderEl = $('#order');
-  if (orderEl) {
-    orderEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('.order__btn');
-      if (btn) setOrder(btn.dataset.order);
-    });
-  }
+  $('#order').addEventListener('click', (e) => {
+    const btn = e.target.closest('.order__btn');
+    if (btn) setOrder(btn.dataset.order);
+  });
 
   // Regions
   $('#regions').addEventListener('click', (e) => {
