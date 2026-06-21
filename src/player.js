@@ -210,6 +210,12 @@ export function getArtistNameFromSong(song) {
   if (!song || !song.name) return '';
   
   let artist = '';
+  
+  // 動画タグプレフィックスを除去（例: 【MV】NORIKIYO あの〜 → NORIKIYO あの〜）
+  let cleanedName = song.name
+    .replace(/^【[^】]*】\s*/g, '')   // 【MV】、【Official Video】等
+    .replace(/^\[(?:MV|PV|Official[^\]]*|Music Video)\]\s*/i, '')  // [MV]、[Official Video]等
+    .trim();
 
   const dashSeparators = [
     ' - ', ' -', '- ', 
@@ -220,39 +226,52 @@ export function getArtistNameFromSong(song) {
   
   let foundSep = false;
   for (const sep of dashSeparators) {
-    if (song.name.includes(sep)) {
-      artist = song.name.split(sep)[0];
+    if (cleanedName.includes(sep)) {
+      artist = cleanedName.split(sep)[0];
       foundSep = true;
       break;
     }
   }
 
   if (!foundSep) {
-    if (song.name.includes(' / ')) {
-      artist = song.name.split(' / ')[0];
-    } else if (song.name.includes(' ／ ')) {
-      artist = song.name.split(' ／ ')[0];
-    } else if (song.name.includes('／')) {
-      artist = song.name.split('／')[0];
-    } else if (song.name.includes('「')) {
-      artist = song.name.split('「')[0];
-    } else if (song.name.includes('『')) {
-      artist = song.name.split('『')[0];
+    if (cleanedName.includes(' / ')) {
+      artist = cleanedName.split(' / ')[0];
+    } else if (cleanedName.includes(' ／ ')) {
+      artist = cleanedName.split(' ／ ')[0];
+    } else if (cleanedName.includes('／')) {
+      artist = cleanedName.split('／')[0];
+    } else if (cleanedName.includes('「')) {
+      artist = cleanedName.split('「')[0];
+    } else if (cleanedName.includes('『')) {
+      artist = cleanedName.split('『')[0];
     }
     // 引用符による曲名の囲みがある場合（例: H//PE Princess (하입프린세스) 'Stolen' MV）
-    else if (song.name.includes("'")) {
-      artist = song.name.split("'")[0];
-    } else if (song.name.includes('"')) {
-      artist = song.name.split('"')[0];
+    else if (cleanedName.includes("'")) {
+      artist = cleanedName.split("'")[0];
+    } else if (cleanedName.includes('"')) {
+      artist = cleanedName.split('"')[0];
     }
   }
 
   // セパレーターがなくアーティスト名が空の場合、feat./ft./featuring の記述から抽出を試みる
   if (!artist) {
     const featRegex = /(?:feat\.?|ft\.?|featuring)\s+([^()\[\]\-_~—–]+)/i;
-    const match = song.name.match(featRegex);
+    const match = cleanedName.match(featRegex);
     if (match && match[1]) {
       artist = match[1].trim();
+    }
+  }
+
+  // まだ見つからない場合、cleanedNameのスペース区切りで最初のトークンをアーティスト名とする
+  // （例: "NORIKIYO あの〜" → "NORIKIYO"）
+  if (!artist && cleanedName) {
+    const spaceTokens = cleanedName.split(/\s+/);
+    if (spaceTokens.length >= 2) {
+      // 最初のトークンが英字または日本語アーティスト名の場合のみ
+      const firstToken = spaceTokens[0];
+      if (/^[A-Za-z0-9_.]+$/i.test(firstToken) || /^[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]+$/.test(firstToken)) {
+        artist = firstToken;
+      }
     }
   }
 
@@ -270,35 +289,57 @@ export function getArtistNameFromSong(song) {
   return artist;
 }
 
-// 元の曲名と逆引き結果のタイトルが一致または類似しているか検証するヘルパー (アーティスト一致は客演部分一致を防ぐため廃止)
+// 元の曲名と逆引き結果のタイトルが一致または類似しているか検証するヘルパー
+// 厳格判定: reversedArtistが元の曲名のメインアーティストと一致する必要がある
 function isTitleArtistMatch(originalName, reversedArtist, reversedTitle) {
   const clean = (str) => {
     if (!str) return '';
     return str.toLowerCase()
       .replace(/\(.*?\)/g, '')
       .replace(/\[.*?\]/g, '')
-      // 英数字と日本語のみを残し、特殊文字を削除
+      .replace(/【.*?】/g, '')
       .replace(/[^a-z0-9\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/gi, '')
       .trim();
   };
 
   const origClean = clean(originalName);
+  const revArtistClean = clean(reversedArtist);
   const revTitleClean = clean(reversedTitle);
 
-  if (!origClean || !revTitleClean) return false;
+  if (!origClean || !revTitleClean || !revArtistClean) return false;
 
-  // 1. 逆引きタイトルが元の曲名に含まれているか、またはその逆
+  // 1. 逆引きアーティスト名が元の曲名に含まれているか
+  //    ただし feat./ft. の中にしか含まれていない場合は除外
+  const origLower = originalName.toLowerCase();
+  const revArtistLower = reversedArtist.toLowerCase();
+  
+  if (!origLower.includes(revArtistLower)) {
+    return false; // アーティスト名が元の曲名に一切含まれていない → 不一致
+  }
+  
+  // feat./ft./featuring の後ろにしかアーティスト名が出現しないか確認
+  const featPattern = /(?:feat\.?|ft\.?|featuring)\s+/i;
+  const featMatch = origLower.match(featPattern);
+  if (featMatch) {
+    const beforeFeat = origLower.substring(0, featMatch.index);
+    const afterFeat = origLower.substring(featMatch.index);
+    // メイン部分にアーティスト名が含まれていない場合は不一致
+    if (!beforeFeat.includes(revArtistLower) && afterFeat.includes(revArtistLower)) {
+      return false;
+    }
+  }
+
+  // 2. 逆引きタイトルが元の曲名に含まれているか、またはその逆
   if (origClean.includes(revTitleClean) || revTitleClean.includes(origClean)) {
     return true;
   }
 
-  // 2. 元の曲名に含まれる主要単語（英単語等）が逆引きタイトルに含まれているか
+  // 3. アーティスト名は一致しているので、曲タイトルの主要単語の一致もチェック
   const origWords = originalName.toLowerCase().split(/[^a-z0-9]+/i).filter(w => w.length > 2);
   const revTitleLower = reversedTitle.toLowerCase();
+  const skipWords = ['official', 'video', 'audio', 'music', 'feat', 'featuring', 'remix', 'version', 'the', 'and'];
   for (const word of origWords) {
-    if (['official', 'video', 'audio', 'music', 'feat', 'featuring', 'remix', 'version'].includes(word)) {
-      continue;
-    }
+    if (skipWords.includes(word)) continue;
     if (revTitleLower.includes(word)) {
       return true;
     }
