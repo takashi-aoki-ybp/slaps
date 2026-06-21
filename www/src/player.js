@@ -415,11 +415,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
         if (current() && current().youtube_id === song.youtube_id) {
           console.log(`Reversed artist name for "${song.name}": "${reversedArtist} - ${reversedTitle}"`);
           
-          // 曲名を公式の「アーティスト - 曲名」の形式に完全上書きしてクレンジング
-          song.name = `${reversedArtist} - ${reversedTitle}`;
-          
-          // UI の曲情報表示を更新
-          renderMeta(song);
+          // 曲名はDBの正式データを維持（iTunes逆引き結果で上書きしない）
           
           await fetchRecommendations(reversedArtist, true);
           return;
