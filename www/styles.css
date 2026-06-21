@@ -800,8 +800,98 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   100% { transform: scale(3); opacity: 0; }
 }
 
+/* ==========================================================================
+   Live Vibe (Online Badge & Ticker)
+   ========================================================================== */
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.online-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+.online-badge .online-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #00e676;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00e676;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
 
-.progress__dots {
+.vibe-ticker {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 99;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+  width: max-content;
+}
+.vibe-ticker:not([hidden]) {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.vibe-ticker:hover {
+  background: rgba(20, 20, 20, 0.95);
+  transform: translateX(-50%) translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.vibe-ticker__icon {
+  font-size: 14px;
+}
+.vibe-ticker__text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vibe-ticker__text strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .vibe-ticker {
+    bottom: 120px;
+    padding: 8px 16px;
+  }
+}.progress__dots {
   position: absolute;
   left: 0;
   top: 0;
