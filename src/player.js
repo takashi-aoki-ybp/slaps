@@ -406,7 +406,7 @@ function getRegisteredRecommendations(artist, currentSong) {
         youtube_id: song.youtube_id,
         registered: true
       });
-      if (registered.length >= 3) {
+      if (registered.length >= 1) {
         break;
       }
     }
@@ -809,8 +809,8 @@ export async function fetchRecommendations(artist, isFallback = false) {
     
     let filtered = [...registeredRecs];
 
-    // もし登録曲が3曲未満なら、残りの枠を iTunes API の未登録曲で補完する
-    if (filtered.length < 3) {
+    // 登録済み曲が枠を埋めないようにし、iTunes未登録曲を常に補完する（新曲発見の機能を活かす）
+    {
       // 検索用のクエリキーとして、最初のアーティスト名（メイン）を抽出
       const splitArtistsForQuery = (name) => {
         return name
