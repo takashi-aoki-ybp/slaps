@@ -2,6 +2,7 @@ import { state } from './src/state.js';
 import { db } from './src/db.js';
 import { tryStart, createYTPlayer } from './src/player.js';
 import { setupUIListeners, updateTrackCount } from './src/ui.js';
+import { initPresence } from './src/presence.js';
 
 // ---- データ読み込み ----
 async function loadData() {
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.i18n.applyAll();
   setupUIListeners();
   loadData();
+  initPresence();
   
   // Watchdog for YT player
   createYTPlayer();

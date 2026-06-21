@@ -7552,20 +7552,6 @@
     "created_at": "2026-06-05T11:54:31.714Z"
   },
   {
-    "youtube_id": "tOS-Yx4Qb_M",
-    "name": "ZORN - Walk This Way",
-    "region": "jp",
-    "era": "10s",
-    "user_name": "Test User 2",
-    "description": {
-      "ja": "空値テスト",
-      "en": ""
-    },
-    "thumbnail": "https://img.youtube.com/vi/tOS-Yx4Qb_M/mqdefault.jpg",
-    "conscious_turnt": 1.5,
-    "created_at": "2026-06-05T11:51:01.045Z"
-  },
-  {
     "youtube_id": "P8RHkesysqY",
     "name": "WILYWNKA & Brasstracks - Our Style (Official Visualizer 歌詞付き)",
     "region": "jp",
@@ -7704,5 +7690,47 @@
     "thumbnail": "https://img.youtube.com/vi/r0DwBybR0L8/mqdefault.jpg",
     "user_name": "青木 喬 takashi aoki",
     "created_at": "2026-06-08T14:30:00Z"
+  },
+  {
+    "youtube_id": "dbbRrNHJ4Lg",
+    "name": "Common - Come Close (Official Music Video) ft. Mary J. Blige",
+    "description": {
+      "en": "Common & Mary J. Blige — soulful hip-hop love letter",
+      "ja": "CommonとMary J. Bligeの極上ソウルフルHIPHOPラブソング"
+    },
+    "region": "us",
+    "era": "00s",
+    "user_name": "青木 喬 takashi aoki",
+    "thumbnail": "https://img.youtube.com/vi/dbbRrNHJ4Lg/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-06-17T01:50:27.070Z"
+  },
+  {
+    "youtube_id": "0gG1UFrnGsE",
+    "name": "ScHoolboy Q - Yeern 101 (Official Music Video)",
+    "description": {
+      "en": "ScHoolboy Q — raw Hoover Street energy",
+      "ja": "ScHoolboy Qのストリート全開な一曲"
+    },
+    "region": "us",
+    "era": "20s",
+    "user_name": "takashi aoki",
+    "thumbnail": "https://img.youtube.com/vi/0gG1UFrnGsE/mqdefault.jpg",
+    "conscious_turnt": 3.5,
+    "created_at": "2026-06-15T12:47:21.755Z"
+  },
+  {
+    "youtube_id": "tWo1NrwYdCs",
+    "name": "Chance The Rapper - I Got You (Always and Forever) [ft. En Vogue, Ari Lennox and Kierra Sheard]",
+    "description": {
+      "en": "Chance x En Vogue x Ari Lennox — uplifting gospel-infused feel-good anthem",
+      "ja": "Chance The Rapperとレジェンドたちによるゴスペル感溢れるフィールグッドアンセム"
+    },
+    "region": "us",
+    "era": "20s",
+    "user_name": "青木 喬 Takashi Aoki",
+    "thumbnail": "https://img.youtube.com/vi/tWo1NrwYdCs/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-06-15T12:16:17.204Z"
   }
 ]
