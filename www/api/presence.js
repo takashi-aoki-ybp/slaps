@@ -41,50 +41,15 @@ export default async function handler(req, res) {
   const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 
   try {
+    // KVが有効な場合のみリアルタイムプレゼンスを処理（未実装のためスキップ）
+    // TODO: KV接続時にSortedSetでクライアント管理を実装する
     if (kvEnabled) {
-      // 1. 本番(KV)環境ロジック
-      const prefix = process.env.DB_PREFIX || '';
-      const now = Date.now();
-      const cutoff = now - 30000; // 30秒をアクティブとみなす
-
-      // クライアントの情報を登録
-      if (youtubeId) {
-        await kvFetch(['ZADD', `${prefix}slaps:presence`, now.toString(), JSON.stringify({ clientId, youtubeId })]);
-      } else {
-        // IDのみ登録 (ZADD ではスコアを時刻にして重複を上書きする...がRedisでは同じメンバ名でないと上書きされない)
-        // 厳密なパブサブではなく、clientIdをキーにしてHSETで時刻を管理するのが楽
-      }
-
-      // 簡易実装のため、ここではKVへの本格的なSortedSet管理は将来的なTODOとし、
-      // ひとまず "オンライン人数" は固定またはランダムに返すモックを混ぜます
-      // (完全なKV実装は長くなるため、今回は割愛しモックに近い動作を本番でもさせます)
-    }
-
-    // --- ここから下はローカル/モック動作のロジック ---
-    // ランダムなダミー人数 (12〜45人) を生成
-    const onlineCount = Math.floor(Math.random() * 34) + 12;
-
-    // ローカルの songs.json を読み込み、適当な曲を「他人が聴いている」として返す
-    const jsonPath = path.join(process.cwd(), 'data', 'songs.json');
-    let someoneListeningTo = null;
-
-    if (fs.existsSync(jsonPath)) {
-      const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-      if (localSongs && localSongs.length > 0) {
-        // 自分が聴いている曲を除外
-        const othersSongs = localSongs.filter(s => s.youtube_id !== youtubeId);
-        if (othersSongs.length > 0) {
-          // 30%の確率で「他人が曲を聴いている」通知を返す (頻度を下げるため)
-          if (Math.random() < 0.3) {
-            someoneListeningTo = othersSongs[Math.floor(Math.random() * othersSongs.length)];
-          }
-        }
-      }
+      // 将来的な実装エリア
+      // ZADD slaps:presence <timestamp> <clientId> → 30秒以内のメンバー数をカウント
     }
 
     return res.status(200).json({
-      onlineCount,
-      someoneListeningTo
+      // onlineCount は KV 実装完了まで返さない（フロントのバッジを非表示のままにする）
     });
 
   } catch (error) {
