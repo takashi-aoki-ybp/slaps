@@ -711,7 +711,8 @@
     "conscious_turnt": 3.5,
     "thumbnail": "https://img.youtube.com/vi/ckZor7HRU1E/mqdefault.jpg",
     "user_name": "Editor",
-    "status": "published"
+    "status": "published",
+    "created_at": "2026-06-11T08:30:00.000Z"
   },
   {
     "youtube_id": "lbeUyW6axeA",
@@ -725,7 +726,8 @@
     "conscious_turnt": 4.5,
     "thumbnail": "https://img.youtube.com/vi/lbeUyW6axeA/mqdefault.jpg",
     "user_name": "Editor",
-    "status": "published"
+    "status": "published",
+    "created_at": "2026-06-11T08:31:00.000Z"
   },
   {
     "youtube_id": "t5Ps8Nw-TWI",
@@ -745,7 +747,8 @@
         "artist": "Christopher Cross",
         "title": "Ride Like the Wind"
       }
-    ]
+    ],
+    "created_at": "2026-06-11T08:32:00.000Z"
   },
   {
     "youtube_id": "orZdl3KqgzU",
@@ -759,7 +762,8 @@
     "conscious_turnt": 1,
     "thumbnail": "https://img.youtube.com/vi/orZdl3KqgzU/mqdefault.jpg",
     "user_name": "Editor",
-    "status": "published"
+    "status": "published",
+    "created_at": "2026-06-11T08:33:00.000Z"
   },
   {
     "youtube_id": "hxfGQ2AJHGk",
@@ -773,7 +777,8 @@
     "conscious_turnt": 1.5,
     "thumbnail": "https://img.youtube.com/vi/hxfGQ2AJHGk/mqdefault.jpg",
     "user_name": "Editor",
-    "status": "published"
+    "status": "published",
+    "created_at": "2026-06-11T08:34:00.000Z"
   },
   {
     "youtube_id": "_CL6n0FJZpk",
@@ -7732,5 +7737,943 @@
     "thumbnail": "https://img.youtube.com/vi/tWo1NrwYdCs/mqdefault.jpg",
     "conscious_turnt": 2,
     "created_at": "2026-06-15T12:16:17.204Z"
+  },
+  {
+    "youtube_id": "x35cDDp-NE4",
+    "name": "In the Flesh",
+    "region": "us",
+    "era": "90s",
+    "user_name": "覚",
+    "description": {
+      "ja": "ほんといい曲",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/x35cDDp-NE4/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-07-14T02:11:39.547Z"
+  },
+  {
+    "youtube_id": "G02wDz8wI_A",
+    "name": "Ju Kaia - Womandatory (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "takashi aoki",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/G02wDz8wI_A/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-27T00:15:32.587Z"
+  },
+  {
+    "youtube_id": "TjWAWcx4xdE",
+    "name": "Clipse - Grindin' (Official HD Video)",
+    "region": "us",
+    "era": "00s",
+    "user_name": "覚",
+    "description": {
+      "ja": "ハモネプ2",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TjWAWcx4xdE/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:53:26.522Z"
+  },
+  {
+    "youtube_id": "so5XDNmFtd4",
+    "name": "Ludacris - Southern Hospitality",
+    "region": "us",
+    "era": "90s",
+    "user_name": "覚",
+    "description": {
+      "ja": "ハモネプ",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/so5XDNmFtd4/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:52:49.620Z"
+  },
+  {
+    "youtube_id": "nG8o_9RliwU",
+    "name": "JAŸ-Z - I Just Wanna Love U (Give It 2 Me)",
+    "region": "us",
+    "era": "00s",
+    "user_name": "覚",
+    "description": {
+      "ja": "たかし classics",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/nG8o_9RliwU/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:51:36.785Z"
+  },
+  {
+    "youtube_id": "d1iS897QGkQ",
+    "name": "日付変更線  /  SCARS",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "覚",
+    "description": {
+      "ja": "scarsを歌いな",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/d1iS897QGkQ/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:37:33.521Z"
+  },
+  {
+    "youtube_id": "2ib4butj0b0",
+    "name": "Carmel City",
+    "region": "us",
+    "era": "90s",
+    "user_name": "覚",
+    "description": {
+      "ja": "utopia",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/2ib4butj0b0/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:34:12.658Z"
+  },
+  {
+    "youtube_id": "cZKvE52SkDI",
+    "name": "四街道 NATURE  \"既に早まる死期 (四季)(手記)\"",
+    "region": "jp",
+    "era": "90s",
+    "user_name": "覚",
+    "description": {
+      "ja": "懐メロ　ヒットソング",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/cZKvE52SkDI/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:30:50.767Z"
+  },
+  {
+    "youtube_id": "NFshaFXrfTQ",
+    "name": "MAXO KREAM - \"ROACHES\"",
+    "region": "us",
+    "era": "20s",
+    "user_name": "覚",
+    "description": {
+      "ja": "maxoい",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/NFshaFXrfTQ/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:27:53.365Z"
+  },
+  {
+    "youtube_id": "DmWWqogr_r8",
+    "name": "21 Savage - a lot (Official Video) ft. J. Cole",
+    "region": "us",
+    "era": "20s",
+    "user_name": "覚",
+    "description": {
+      "ja": "savageい",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/DmWWqogr_r8/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:25:47.654Z"
+  },
+  {
+    "youtube_id": "lXVZyRV_bOg",
+    "name": "Dancing In The Rain",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "覚",
+    "description": {
+      "ja": "雨",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/lXVZyRV_bOg/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:24:53.821Z"
+  },
+  {
+    "youtube_id": "PlysExnO3UA",
+    "name": "It-Works - Feet On The Ground (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "覚",
+    "description": {
+      "ja": "かっけえ",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/PlysExnO3UA/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-26T12:21:23.575Z"
+  },
+  {
+    "youtube_id": "E_i0iVloA18",
+    "name": "Wet Bed Gang - Devia ir (Áudio Oficial) . Prod. Charlie Beats",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "マナブ",
+    "description": {
+      "ja": "ポルトガル本土のラッパ・トゥーガ（Rap Tuga)\n切ないメロディと流れるようなフロウが絶妙にマッチした一曲",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/E_i0iVloA18/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-25T09:04:54.026Z"
+  },
+  {
+    "youtube_id": "TKqa-ZXGKYA",
+    "name": "Matuê, Teto & WIU - VAMPiro 🧛🏽‍♀️",
+    "region": "us",
+    "era": "20s",
+    "user_name": "マナブ",
+    "description": {
+      "ja": "ブラジリアントラップのトップスター🇧🇷 Matuê（マトゥエ）ポルトガル語がこんなに気持ちいいなんて。。",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TKqa-ZXGKYA/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-25T08:55:21.778Z"
+  },
+  {
+    "youtube_id": "b6-JNeXxN3s",
+    "name": "mgk & Jelly Roll - Lonely Road (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "マナブ",
+    "description": {
+      "ja": "日本人には馴染みのあるメロディ。からのエミネムにbeefをふっかけたmgkのカントリーソング。",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/b6-JNeXxN3s/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-25T07:56:10.814Z"
+  },
+  {
+    "youtube_id": "rEMsjeq43_U",
+    "name": "ScHoolboy Q - Man Of The Year (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/ee/32/da/ee32da78-b3cd-b230-6308-13b97ec80f38/14UMGIM01054.rgb.jpg/400x400bb.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-22T12:13:14.269Z"
+  },
+  {
+    "youtube_id": "8PLifPUIuic",
+    "name": "MACKLEMORE & RYAN LEWIS - WHITE WALLS - FEAT. SCHOOLBOY Q AND HOLLIS (OFFICIAL MUSIC VIDEO)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "匿名",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/44/40/83/44408300-636f-8cae-d508-9dd96db48cea/707541528191.jpg/400x400bb.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-06-22T12:10:56.692Z"
+  },
+  {
+    "youtube_id": "pDddlvCfTiw",
+    "name": "Central Cee ft. Lil Baby - BAND4BAND (Official Music Video)",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "UKドリル界を牽引するCentral CeeとアトランタのスターLil Babyによる2024年の話題作。札束とプライベートジェドが飛び交う圧倒的なバガーチューン。",
+      "en": "UK rap powerhouse Central Cee teams up with Atlanta star Lil Baby for a high-energy 2024 global anthem filled with heavy flexes and rapid-fire flows."
+    },
+    "thumbnail": "https://img.youtube.com/vi/pDddlvCfTiw/mqdefault.jpg",
+    "conscious_turnt": 4.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "bBbdsM42VTk",
+    "name": "Headie One ft. Stormzy - Cry No More (Official Music Video)",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Headie OneとStormzyが手を組み、困難からの脱却とストリートのリアルを力強くラップした2024年のリリカルなコンシャス・ヒップホップ。",
+      "en": "Headie One and Stormzy deliver an introspective 2024 collaboration, reflecting on perseverance, pain, and street reality over a soulful production."
+    },
+    "thumbnail": "https://img.youtube.com/vi/bBbdsM42VTk/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "xfqBQ2XhBCg",
+    "name": "ZICO - SPOT! (feat. JENNIE) (Official Music Video)",
+    "region": "kr",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "韓国ヒップホップの重鎮ZICOとBLACKPINKのJENNIEによる2024年春の大ヒット曲。深夜のパーティームードを象徴するキャッチーでノリのいいトラック。",
+      "en": "Korean hip-hop trendsetter ZICO joins forces with BLACKPINK’s JENNIE for a catchy, upbeat 2024 anthem capturing late-night party vibes."
+    },
+    "thumbnail": "https://img.youtube.com/vi/xfqBQ2XhBCg/mqdefault.jpg",
+    "conscious_turnt": 4.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "11iZcYbq_is",
+    "name": "Lee Young Ji - Small girl (feat. D.O.) (Official Music Video)",
+    "region": "kr",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "女性ラッパーLee Young JiがEXOのD.O.をフィーチャーした2024年話題のコンシャスソング。自分らしさと恋愛における素直な感情をエモーショナルに歌い上げる。",
+      "en": "Korean rapper Lee Young Ji delivers a soulful, introspective 2024 track featuring D.O., exploring personal insecurities and honest romantic feelings."
+    },
+    "thumbnail": "https://img.youtube.com/vi/11iZcYbq_is/mqdefault.jpg",
+    "conscious_turnt": 1.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "EXYj9wecau4",
+    "name": "Werenoi - Pyramide (feat. Damso) (Official Music Video)",
+    "region": "fr",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "フランスのトップラッパーWerenoiとベルギーの重鎮Damsoによる2024年の重厚なヒップホップバンガー。フレンチラップ特有のダークでアグレッシブな世界観。",
+      "en": "French rap sensation Werenoi joins Damso for a heavyweight 2024 French hip-hop banger driven by intense delivery and hypnotic beats."
+    },
+    "thumbnail": "https://img.youtube.com/vi/EXYj9wecau4/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "eYsldLTYyrM",
+    "name": "Rema & Shallipopi - BENIN BOYS (Official Music Video)",
+    "region": "other",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "ナイジェリア出身のRemaとShallipopiが地元ベニンシティへの誇りを爆発させた2024年のアフロヒップホップチューン。圧倒的なエネルギーとグルーヴが漂う。",
+      "en": "Nigerian powerhouses Rema and Shallipopi team up for an energetic 2024 Afro-hip-hop anthem celebrating their Benin City heritage with infectious bounce."
+    },
+    "thumbnail": "https://img.youtube.com/vi/eYsldLTYyrM/mqdefault.jpg",
+    "conscious_turnt": 4.6,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "VBThuVuCKPM",
+    "name": "ZORN - 声 (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "ZORNがBACHLOGICプロデュースのもと、力強くも温かい言葉を紡ぐ情緒あふれる楽曲。",
+      "en": "A powerful and heartfelt track by ZORN produced by BACHLOGIC, delivering deeply emotional and introspective lyrics."
+    },
+    "thumbnail": "https://img.youtube.com/vi/VBThuVuCKPM/mqdefault.jpg",
+    "conscious_turnt": 0.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "bcJMJtPQ9SA",
+    "name": "KEIJU - Money Baby ft. Awich (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "KEIJUとAwichがタッグを組んだ、ラグジュアリーかつエネルギッシュなクラブヒットナンバー。",
+      "en": "A luxurious and high-energy club anthem bringing together KEIJU and Awich."
+    },
+    "thumbnail": "https://img.youtube.com/vi/bcJMJtPQ9SA/mqdefault.jpg",
+    "conscious_turnt": 4.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "SgU5Jk0-G9E",
+    "name": "kZm - ADHD feat. Benjazzy (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "kZmとBenjazzyによるド派手なビートと疾走感あふれるラップが交錯するハイエナジートラック。",
+      "en": "A high-octane trap banger featuring explosive rap flows from kZm and Benjazzy."
+    },
+    "thumbnail": "https://img.youtube.com/vi/SgU5Jk0-G9E/mqdefault.jpg",
+    "conscious_turnt": 4.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "R9-7U4rJ27g",
+    "name": "WILYWNKA - Gorgeous feat. ¥ellow Bucks & Nephew (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "WILYWNKAと¥ellow Bucks、Nephewが魅せるゴージャスでエネルギッシュなヒップホップチューン。",
+      "en": "A lavish and high-energy hip-hop joint bringing WILYWNKA together with ¥ellow Bucks and Nephew."
+    },
+    "thumbnail": "https://img.youtube.com/vi/R9-7U4rJ27g/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "dSACN1302S4",
+    "name": "WILYWNKA - RICHMAN feat. VIGORMAN (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "変態紳士クラブの相方VIGORMANを迎えた、ストリートから成し遂げた豊かさとアティチュードを歌う一曲。",
+      "en": "Featuring VIGORMAN, WILYWNKA celebrates success, street culture, and financial freedom with catchy melodic flows."
+    },
+    "thumbnail": "https://img.youtube.com/vi/dSACN1302S4/mqdefault.jpg",
+    "conscious_turnt": 3.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "x7tq1WJ5t_g",
+    "name": "OZworld - MIKOTO 〜SUN NO KUNI〜 feat. 唾奇 & Awich (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "沖縄を代表するOZworld, 唾奇, Awichが集結し、神秘的かつ幻想的な世界観を描いたメッセージソング。",
+      "en": "Okinawa rap heavyweights OZworld, Tsubaki, and Awich unite for a spiritual and mystical track celebrating their roots."
+    },
+    "thumbnail": "https://img.youtube.com/vi/x7tq1WJ5t_g/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "bZIxxKoGtA4",
+    "name": "Daichi Yamamoto, JJJ - OTO (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Daichi YamamotoとJJJが織りなす極上のサウンドプロダクションとメロウで深みのあるラップ。",
+      "en": "A refined collaboration between Daichi Yamamoto and JJJ featuring smooth production and intricate lyrical flows."
+    },
+    "thumbnail": "https://img.youtube.com/vi/bZIxxKoGtA4/mqdefault.jpg",
+    "conscious_turnt": 1.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "bny0nFyA-Mw",
+    "name": "JUMADIBA - 神田川 (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "JUMADIBA独自の詩的でノスタルジックな感性が光る、東京の空気感を切り取った一曲。",
+      "en": "A poetic and nostalgic track by JUMADIBA capturing the unique atmosphere and emotional texture of Tokyo."
+    },
+    "thumbnail": "https://img.youtube.com/vi/bny0nFyA-Mw/mqdefault.jpg",
+    "conscious_turnt": 1.0,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "pY16g_cNGgA",
+    "name": "ralph - Get Back feat. JUMADIBA & Watson (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "ralph, JUMADIBA, Watsonによる重厚かつアグレッシブなラインが激突するハードコア・ヒップホップ。",
+      "en": "A heavy and aggressive grime/drill joint where ralph, JUMADIBA, and Watson spit sharp, relentless bars."
+    },
+    "thumbnail": "https://img.youtube.com/vi/pY16g_cNGgA/mqdefault.jpg",
+    "conscious_turnt": 4.6,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "8OYWQSaCVVU",
+    "name": "NENE - Honey Buns ft. Awich (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "ゆるふわギャングのNENEとAwichによる、グラマラスでアグレッシブな次世代ヒップホップアンセム。",
+      "en": "NENE from Yurufuwa Gang joins forces with Awich for a bold, glamorous, and high-octane hip-hop anthem."
+    },
+    "thumbnail": "https://img.youtube.com/vi/8OYWQSaCVVU/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "MuVC9Gz0YRU",
+    "name": "Kaneee, STUTS - Canvas (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "POP YOURSで一躍脚光を浴びたKaneeeとSTUTSによる、フレッシュで前向きなエネルギーに満ちた話題曲。",
+      "en": "Breakout artist Kaneee teams up with producer STUTS for an inspiring, soul-lifting hip-hop track."
+    },
+    "thumbnail": "https://img.youtube.com/vi/MuVC9Gz0YRU/mqdefault.jpg",
+    "conscious_turnt": 1.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "k9te4OuSJyA",
+    "name": "Bonbero - Naked Eyes (feat. Kohjiya) (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Bonberoのテクニカルな高速ラップとKohjiyaのメロディックなスタイルが融合した圧倒的スキルのコラボ。",
+      "en": "An explosive showcasing of speed and technical flow from Bonbero combined with Kohjiya's infectious melody."
+    },
+    "thumbnail": "https://img.youtube.com/vi/k9te4OuSJyA/mqdefault.jpg",
+    "conscious_turnt": 4.6,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "B7Semcd7oUM",
+    "name": "Jinmenusagi - PEEKABOO (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Jinmenusagiによる鋭いスキルと言語感覚が炸裂する、疾走感あふれるモダン・トラップナンバー。",
+      "en": "Jinmenusagi showcases his top-tier rhyming skills and relentless flow in this high-energy modern trap single."
+    },
+    "thumbnail": "https://img.youtube.com/vi/B7Semcd7oUM/mqdefault.jpg",
+    "conscious_turnt": 4.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "ED1nCTvtdgo",
+    "name": "DJ CHARI & DJ TATSUKI - GOKU VIBES feat. Tohji, Elle Teresa, UNEDUCATED KID & Futuristic Swaver (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "TohjiとElle Teresa、韓国勢が参戦したフロア爆発必至のキャッチー＆ハイエナジートラック。",
+      "en": "An explosive club anthem featuring Tohji, Elle Teresa, and Korean rappers UNEDUCATED KID and Futuristic Swaver."
+    },
+    "thumbnail": "https://img.youtube.com/vi/ED1nCTvtdgo/mqdefault.jpg",
+    "conscious_turnt": 4.9,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "r5nTnhuXgzM",
+    "name": "Bark - All in for One feat. SEEDA (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "BAD HOPのBarkが尊敬するレジェンドSEEDAを客演に迎えた、エモーショナルで熱いストリートストーリー。",
+      "en": "BAD HOP member Bark links up with legendary rapper SEEDA for a passionate and emotional street narrative."
+    },
+    "thumbnail": "https://img.youtube.com/vi/r5nTnhuXgzM/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "1JeNRyMeVpc",
+    "name": "Eric.B.Jr - Against feat. Jin Dogg (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Eric.B.JrとJin Doggによる、圧倒的な威圧感とハードコアなリアルを叩きつけるドリルナンバー。",
+      "en": "A brutal street drill banger where Eric.B.Jr and Jin Dogg unleash raw aggression and intense presence."
+    },
+    "thumbnail": "https://img.youtube.com/vi/1JeNRyMeVpc/mqdefault.jpg",
+    "conscious_turnt": 4.7,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "LSTz4tRLRzE",
+    "name": "GADORO - もういちど feat. 紅桜 (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "GADOROと紅桜が苦難を超えて再び魂の言葉をぶつけ合う、圧倒的な哀愁と説得力を誇る名曲。",
+      "en": "GADORO and Beni-Zakura deliver a deeply moving, soulful rap piece reflecting on struggles and redemption."
+    },
+    "thumbnail": "https://img.youtube.com/vi/LSTz4tRLRzE/mqdefault.jpg",
+    "conscious_turnt": 0.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "H58vbez_m4E",
+    "name": "Kendrick Lamar - Not Like Us (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "2024年のヒップホップ界を揺るがしたケンドリック・ラマーによる歴史的ディストラック。コンプトンでの撮影による圧倒的な地域性とカルチャーの勝利を象徴する映像。",
+      "en": "Kendrick Lamar's game-changing 2024 West Coast anthem that dominated the culture. Shot on location in Compton, the music video celebrates West Coast hip-hop unity."
+    },
+    "thumbnail": "https://img.youtube.com/vi/H58vbez_m4E/mqdefault.jpg",
+    "conscious_turnt": 1.0,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "fuV4yQWdn_4",
+    "name": "Kendrick Lamar - squabble up (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『GNX』からシングルカットされた西海岸バウンス全開のアッパーチューン。ダンサーたちの躍動感あふれるパフォーマンスと高エネルギーな映像が印象的。",
+      "en": "A high-energy West Coast bounce track from Kendrick Lamar's 'GNX'. The official video showcases vibrant street dancing and relentless energy."
+    },
+    "thumbnail": "https://img.youtube.com/vi/fuV4yQWdn_4/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "Qer3lwd5hyA",
+    "name": "Tyler, The Creator - NOID (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『CHROMAKOPIA』の主軸をなす、有名税やパラノイアを題材にした心理的サスペンス溢れる楽曲。俳優アヨ・エデビリが出演するシネマティックなMVが話題。",
+      "en": "A paranoid, introspective single from Tyler, The Creator's 'CHROMAKOPIA'. The cinematic visual stars Ayo Edebiri alongside Tyler exploring celebrity anxiety."
+    },
+    "thumbnail": "https://img.youtube.com/vi/Qer3lwd5hyA/mqdefault.jpg",
+    "conscious_turnt": 1.0,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "gkZ4dLMH-B8",
+    "name": "Tyler, The Creator - ST. CHROMA (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "『CHROMAKOPIA』時代の幕開けを告げたモノクロからカラーへと変貌を遂げる芸術的なティザーMV。足音のマーチングビートとダニエル・シーザーのコーラスが重厚感を醸し出す。",
+      "en": "The striking opener to the 'CHROMAKOPIA' era, building from rhythmic marching footsteps into an explosive color transformation."
+    },
+    "thumbnail": "https://img.youtube.com/vi/gkZ4dLMH-B8/mqdefault.jpg",
+    "conscious_turnt": 1.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "_RuuRU0bGLc",
+    "name": "Tyler, The Creator - THOUGHT I WAS DEAD (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "豪快なホーンセクションと力強いフローで自身の健在ぶりを誇示するアグレッシブなバンガー。軍用機の上で繰り広げられるダイナミックな映像美が目を引く。",
+      "en": "An aggressive horn-heavy banger featuring Tyler rapping atop a vintage military aircraft, asserting his artistic longevity and dominance."
+    },
+    "thumbnail": "https://img.youtube.com/vi/_RuuRU0bGLc/mqdefault.jpg",
+    "conscious_turnt": 4.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "RdeqdPZK2Lw",
+    "name": "Denzel Curry - HOT ONE Feat. TiaCorine & ASAP Ferg (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "『King of the Mischievous South Vol. 2』を代表する重厚なサザン・トラップ。デンゼル・カリー、TiaCorine、ASAP Fergの激しいマイクリレーが圧巻。",
+      "en": "A blazing Southern trap anthem from Denzel Curry featuring raw, fast-paced verses alongside TiaCorine and ASAP Ferg."
+    },
+    "thumbnail": "https://img.youtube.com/vi/RdeqdPZK2Lw/mqdefault.jpg",
+    "conscious_turnt": 4.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "uTU2-Sa5I60",
+    "name": "Denzel Curry - BLACK FLAG FREESTYLE Feat. That Mexican OT (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "テキサスの新星That Mexican OTを迎えたハードコアなフリースタイル。圧倒的な高速滑舌と重いベースラインがフロアを沸かせる。",
+      "en": "Denzel Curry teams up with Texas sensation That Mexican OT for a hard-hitting freestyle bursting with rapid-fire flows."
+    },
+    "thumbnail": "https://img.youtube.com/vi/uTU2-Sa5I60/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "rVcb9A1FrbA",
+    "name": "Vince Staples - Shame On The Devil (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『Dark Times』に収録された、精神的な内省とロングビーチでの生い立ちを静かに紡ぐコンシャスな楽曲。シックなモノクロ映像が深みを与える。",
+      "en": "An introspective track from Vince Staples' 'Dark Times' album, offering quiet reflection on faith, survival, and identity."
+    },
+    "thumbnail": "https://img.youtube.com/vi/rVcb9A1FrbA/mqdefault.jpg",
+    "conscious_turnt": 0.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "tJkPh2vluFQ",
+    "name": "Doechii & JT - ALTER EGO (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "DoechiiとJT（City Girls）によるハウス・ダンスビートとヒップホップが融合したセンセーショナルなクラブトラック。エネルギッシュでスタイリッシュな映像。",
+      "en": "Doechii and JT combine house-infused dance beats with rapid rap verses in this vibrant, fashionable club hit."
+    },
+    "thumbnail": "https://img.youtube.com/vi/tJkPh2vluFQ/mqdefault.jpg",
+    "conscious_turnt": 4.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "zP6eqCOM7tk",
+    "name": "GloRilla - TGIF (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "メンフィス出身のGloRillaによる2024年のバイラル・パーティーアンセム。週末の開放感とパワフルなラップスタイルが世界中のリスナーを魅了。",
+      "en": "GloRilla's viral 2024 weekend anthem packed with her signature Memphis energy and unapologetic delivery."
+    },
+    "thumbnail": "https://img.youtube.com/vi/zP6eqCOM7tk/mqdefault.jpg",
+    "conscious_turnt": 4.7,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "BT_83vSP1es",
+    "name": "GloRilla & Megan Thee Stallion - Wanna Be (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "女性ラップシーンのトップを走るGloRillaとMegan Thee Stallionによるタッグ曲。重厚なベースと大胆なリリックが炸裂するコラボ。",
+      "en": "A fierce, chart-topping collaboration between GloRilla and Megan Thee Stallion driven by booming 808s and bold bars."
+    },
+    "thumbnail": "https://img.youtube.com/vi/BT_83vSP1es/mqdefault.jpg",
+    "conscious_turnt": 4.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "hUE6Haw_3zg",
+    "name": "Sexyy Red - Get It Sexyy (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "キャッチーなフレーズとストリートでの躍動的なダンスで話題をさらったSexyy Redの代表的パーティーソング。",
+      "en": "Sexyy Red's viral hit that captivated summer 2024 with its infectious hook and playful, upbeat trap production."
+    },
+    "thumbnail": "https://img.youtube.com/vi/hUE6Haw_3zg/mqdefault.jpg",
+    "conscious_turnt": 4.9,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "I0fgkcTbBoI",
+    "name": "Future, Metro Boomin, Travis Scott, Playboi Carti - Type Shit (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Future、Metro Boomin、Travis Scott、Playboi Cartiというトラップ界のオールスターが集結した壮大なアトランタ・トラップの到達点。",
+      "en": "An all-star trap spectacle reuniting Future, Metro Boomin, Travis Scott, and Playboi Carti over dark, moody production."
+    },
+    "thumbnail": "https://img.youtube.com/vi/I0fgkcTbBoI/mqdefault.jpg",
+    "conscious_turnt": 4.6,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "B9synWjqBn8",
+    "name": "Travis Scott - FE!N ft. Playboi Carti (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "カメラが回転し続ける独特な撮影技法とレイジ・ビートが融合したトラヴィス・スコットとPlayboi Cartiの超エネルギー・アンセム。",
+      "en": "A mesmerizing, continuously spinning visual paired with high-voltage rage beats featuring Playboi Carti."
+    },
+    "thumbnail": "https://img.youtube.com/vi/B9synWjqBn8/mqdefault.jpg",
+    "conscious_turnt": 4.9,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "FauDn2LkeQ4",
+    "name": "Don Toliver - BANDIT (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Tame Impalaのサンプルを用いたハードロックとトラップの融合。バイカーカルチャーを前面に出したDon ToliverのスタイリッシュなMV。",
+      "en": "Sampling Tame Impala, Don Toliver fuses psych-rock sensibilities with heavy trap 808s and biker-aesthetic visuals."
+    },
+    "thumbnail": "https://img.youtube.com/vi/FauDn2LkeQ4/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "IgoxNaN2GlU",
+    "name": "Don Toliver - DEEP IN THE WATER (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "メロディックで幻想的なサウンドに乗せてパートナーへの献身や内面を描いた、アルバム『Hardstone Psycho』のエモーショナルな一面を示す楽曲。",
+      "en": "An atmospheric, melodic track where Don Toliver explores emotional depth and personal dedication over lush production."
+    },
+    "thumbnail": "https://img.youtube.com/vi/IgoxNaN2GlU/mqdefault.jpg",
+    "conscious_turnt": 1.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "w_JtBYqMgk8",
+    "name": "Gunna - one of wun (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバムタイトル曲でもあるGunnaの滑らかなフローとラグジュアリーな雰囲気が詰まったアトランタ・トラップ。",
+      "en": "The title track of Gunna's 2024 album showcasing his effortless flow and luxurious melodic style."
+    },
+    "thumbnail": "https://img.youtube.com/vi/w_JtBYqMgk8/mqdefault.jpg",
+    "conscious_turnt": 3.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "bY1kLt4iz94",
+    "name": "Gunna - whatsapp (wassam) (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "日常のコミュニケーションやストリートの熱気を軽快なビートで描写したガンナの2024年ヒットトラック。",
+      "en": "A rhythmic, smooth trap single from Gunna highlighting his signature cadences and relaxed confidence."
+    },
+    "thumbnail": "https://img.youtube.com/vi/bY1kLt4iz94/mqdefault.jpg",
+    "conscious_turnt": 4.0,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "kn3GZHjHPjM",
+    "name": "ScHoolboy Q - THank god 4 me (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『BLUE LIPS』からのグラマラスかつ硬派なトラック。曲中で転調する展開とシネマティックなMVが高い評価を獲得。",
+      "en": "ScHoolboy Q delivers a dynamic multi-part track from 'BLUE LIPS', shifting tones alongside striking cinematic visuals."
+    },
+    "thumbnail": "https://img.youtube.com/vi/kn3GZHjHPjM/mqdefault.jpg",
+    "conscious_turnt": 1.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "CdqEe3k1ohc",
+    "name": "A$AP Rocky - HIGHJACK feat. Jessica Pratt (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "フォークシンガーJessica Prattのボーカルをフィーチャーしたエイサップ・ロッキーの実験的サイケデリック・ヒップホップ。アート性の高いMVが秀逸。",
+      "en": "A$AP Rocky blends psych-folk harmonies with sharp rap verses in this artistic, visionary music video featuring Jessica Pratt."
+    },
+    "thumbnail": "https://img.youtube.com/vi/CdqEe3k1ohc/mqdefault.jpg",
+    "conscious_turnt": 1.0,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "5URefVYaJrA",
+    "name": "A$AP Rocky - Tailor Swif (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "キエフで撮影されたシュールでカオスな映像が強烈なインパクトを与えるエイサップ・ロッキーのアップテンポ・トラック。",
+      "en": "Shot in Kyiv, this wild and surreal visual accompanies A$AP Rocky's bouncy, energetic experimental single."
+    },
+    "thumbnail": "https://img.youtube.com/vi/5URefVYaJrA/mqdefault.jpg",
+    "conscious_turnt": 4.2,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "XVgCLQ_JQfU",
+    "name": "Megan Thee Stallion - HISS (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Billboard Hot 100で初登場1位を獲得したミーガン・ザ・スタリオンの鋭い言葉遣いと圧倒的カリスマ性が溢れる話題作。",
+      "en": "Megan Thee Stallion's Billboard-topping single packed with razor-sharp bars and unmatched rap authority."
+    },
+    "thumbnail": "https://img.youtube.com/vi/XVgCLQ_JQfU/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "OdxSbc0ap-s",
+    "name": "Megan Thee Stallion - MAMUSHI feat. Yuki Chiba (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "千葉雄喜（KOHH）を迎えて日本語と英語が交差するグローバル・ヒット曲。日本の映画やカルチャーへのオマージュが詰まったMV。",
+      "en": "A monumental US-Japan cross-cultural hit featuring Yuki Chiba, blending Japanese and English lyrics with cinematic aesthetics."
+    },
+    "thumbnail": "https://img.youtube.com/vi/OdxSbc0ap-s/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "DBfpm5FrsHI",
+    "name": "Big Sean - Precision (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『Better Me Than You』の復帰作となる、ビッグ・ショーンの正確無比なテクニカル・ラップと躍動感あるビートが光るナンバー。",
+      "en": "Big Sean showcases his tight, intricate flow and relentless lyricism over a brass-infused, upbeat trap beat."
+    },
+    "thumbnail": "https://img.youtube.com/vi/DBfpm5FrsHI/mqdefault.jpg",
+    "conscious_turnt": 4.0,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "zWaVz9m3S_k",
+    "name": "Yeat - Breathe (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『2093』のフューチャリスティックな世界観を凝縮したYeatの人気トラック。重厚なシンセとレイヴ要素を含んだ独創的ビート。",
+      "en": "Yeat brings his futuristic '2093' soundscape to life with pulsating synth rhythms and hypnotic cadences."
+    },
+    "thumbnail": "https://img.youtube.com/vi/zWaVz9m3S_k/mqdefault.jpg",
+    "conscious_turnt": 4.7,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "lccI0Hp_7PY",
+    "name": "Key Glock - Let's Go (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "メンフィス・トラップの旗手Key Glockによるエネルギッシュなアンセム。アクション映画のようなハードボイルドなMVが話題。",
+      "en": "Memphis rap powerhouse Key Glock delivers a high-potency trap banger backed by cinematic, movie-like visuals."
+    },
+    "thumbnail": "https://img.youtube.com/vi/lccI0Hp_7PY/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-07-25T14:00:00.000Z"
+  },
+  {
+    "youtube_id": "xEYqvgF-XnE",
+    "name": "JID - Sk8 feat. Ciara & EARTHGANG (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "JIDがCiaraとEARTHGANGを迎えた2025年リリースのスケーターアンセム。軽快なビートに乗せた遊び心あふれるフロウが光る。",
+      "en": "JID teams up with Ciara and EARTHGANG for a playful 2025 skater anthem with bouncy production and effortless flows from his album 'God Does Like Ugly'."
+    },
+    "thumbnail": "https://img.youtube.com/vi/xEYqvgF-XnE/mqdefault.jpg",
+    "conscious_turnt": 3.8,
+    "created_at": "2026-07-25T14:00:00.000Z"
   }
 ]
