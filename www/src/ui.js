@@ -336,13 +336,11 @@ export async function doSubmit() {
       : `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
-    conscious_turnt: (ytCtTouched && $('#ytConsTurnt')) ? Number($('#ytConsTurnt').value) : null,
     status: 'published',
   };
   const btn = $('#submitDo');
   const inputs = [
     $('#ytUrl'),
-    $('#ytConsTurnt'),
     $('#ytRegion'),
     $('#ytEra'),
     $('#ytName'),
@@ -425,9 +423,6 @@ export function closeModal() {
   $('#ytUrl').value = ''; $('#ytComment').value = ''; $('#ytName').value = '';
   $('#ytRegion').value = ''; $('#ytEra').value = '';
   $('#preview').hidden = true; $('#submitDo').disabled = true;
-  ytCtTouched = false;
-  const ytCtEl = $('#ytConsTurnt'); if (ytCtEl) { ytCtEl.value = '2.5'; }
-  const ytCtValEl = $('#ytConsTurntVal'); if (ytCtValEl) { ytCtValEl.textContent = window.i18n.t('vibeNotSet'); }
   state.fromDig = false;
   state.digArtwork = null;
   state.digVideoId = null;
@@ -486,7 +481,7 @@ export function toggleFav() {
     favs.unshift({
       youtube_id: song.youtube_id, name: song.name, description: song.description || '',
       user_name: song.user_name || '', thumbnail: song.thumbnail || `https://img.youtube.com/vi/${song.youtube_id}/mqdefault.jpg`,
-      region: song.region || null, era: song.era || null, conscious_turnt: CT(song),
+      region: song.region || null, era: song.era || null,
     });
     showFavToast();
   }
@@ -540,7 +535,7 @@ export function openFavs() {
       <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
       <div class="fav-item__body">
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
-        <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
+        <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''}</span>
       </div>
       <button type="button" class="fav-item__btn" data-fav-play aria-label="Play" tabindex="-1">▶</button>
       <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="0">×</button>
@@ -641,7 +636,6 @@ export function showInfoGuide() {
 
 // ---- イベントバインディングと初期セットアップ ----
 export const balanceRange = $('#balanceRange');
-let ytCtTouched = false;
 
 export function setupUIListeners() {
   const aboutOverlay = $('#aboutOverlay');
@@ -675,18 +669,6 @@ export function setupUIListeners() {
   $('#reportBtn').addEventListener('click', openReport);
   $('#reportClose').addEventListener('click', closeReport);
   $('#reportDo').addEventListener('click', doReport);
-
-  // Form Vibe slider
-  const ytCt = $('#ytConsTurnt');
-  if (ytCt) {
-    ytCt.addEventListener('input', () => {
-      ytCtTouched = true;
-      const v = Number(ytCt.value);
-      const ytCtValEl = $('#ytConsTurntVal');
-      if (ytCtValEl) ytCtValEl.textContent = `${v.toFixed(1)} ${zoneLabel(v)}`;
-      updateVibeColor(v, ytCt);
-    });
-  }
 
   // Vibe slider
   if (balanceRange) {

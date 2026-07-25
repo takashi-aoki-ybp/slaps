@@ -79,10 +79,10 @@ export default async function handler(req, res) {
       }
     }
 
-    // 5票以上の報告がある曲を除外
+    // 50票以上の報告がある曲を除外
     const filtered = merged.filter(song => {
       const votes = brokenVotes[song.youtube_id] || 0;
-      return votes < 5;
+      return votes < 50;
     });
 
     // 各曲に vibe_count をマージ
@@ -92,12 +92,13 @@ export default async function handler(req, res) {
 
     res.status(200).json(filtered);
   } catch (error) {
-    console.error('Failed to load songs:', error);
+    console.error('Failed to load songs (outer catch):', error);
     try {
       const jsonPath = path.join(process.cwd(), 'data', 'songs.json');
       const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
       res.status(200).json(localSongs);
     } catch (e) {
+      console.error('Failed to load local fallback (inner catch):', e);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
