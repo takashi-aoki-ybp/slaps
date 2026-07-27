@@ -270,11 +270,18 @@ body.is-fill #yt {
   margin-top: 2px !important; /* スライダー非表示に伴い上部の余白を調整 */
 }
 
-/* 再生順トグル */
+/* 再生順トグル — .eras と幅を合わせる */
 .order {
-  margin-top: 8px; display: flex; width: 108%; gap: 2px; padding: 2px;
+  margin-top: 8px; display: inline-flex; gap: 2px; padding: 2px;
   background: rgba(0,0,0,.4); border: 1px solid var(--line); border-radius: 999px;
   backdrop-filter: blur(6px);
+  /* .erasの自然幅（ボタン5個+gap）に一致させる */
+  width: calc(
+    /* era__btn: font-size 13px × 約3文字 + padding 4px 10px × 5個 + gap 4px × 4 + border 2px × 5 */
+    /* 実測: .eras = 290.9px → border+padding込みで合わせる */
+    291px
+  );
+  box-sizing: border-box;
 }
 .order__btn {
   font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
@@ -683,7 +690,7 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   .balance__end { font-size: 9px; }
 
   /* 再生順: 小さく */
-  .order { margin-top: 7px; width: 96%; }
+  .order { margin-top: 7px; }
   .order__btn { font-size: 10px; padding: 4px 10px; letter-spacing: .15em; }
 
   /* 曲数 */
@@ -742,7 +749,7 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   .icon-btn { width: 26px; height: 26px; }
   .icon-btn--text { font-size: 11px; }
   .lang-toggle { height: 26px; padding: 0 10px; font-size: 11px; }
-  .order { width: 96%; }
+  .order { }
   .dock { bottom: calc(8px + env(safe-area-inset-bottom)); gap: 6px; }
   .meta { min-height: 0; }
   .meta__title { font-size: 15px; }
