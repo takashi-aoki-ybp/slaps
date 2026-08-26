@@ -32,7 +32,7 @@ const I18N = {
     fieldComment: 'Comment',
     fieldCommentPh: 'What slaps about this track?',
     submitBtn: 'Add to Station',
-    submitNote: '※ Submissions are reviewed by SLAPS before publication.',
+    submitNote: '※ Published immediately after automatic video and duplicate checks.',
     notSet: '-- Not set --',
     optional: 'optional',
     // report modal
@@ -53,7 +53,6 @@ const I18N = {
     favToastDismiss: "Don't show again",
     // toast messages
     toastAdded: 'Track added!<br>Try listening from LATEST! 🎉',
-    toastPending: 'Submitted for SLAPS review. Thank you! 🎧',
     toastAddedLocal: 'Added! (saved to this device)',
     toastAddFail: 'Failed to add. Please try again later.',
     toastDuplicate: 'Thank you! This track is already registered!',
@@ -144,7 +143,7 @@ const I18N = {
     fieldComment: 'コメント',
     fieldCommentPh: 'この曲のヤバいポイントは？',
     submitBtn: 'ステーションに追加',
-    submitNote: '※ 投稿曲はSLAPSで確認後に公開されます。',
+    submitNote: '※ 動画の存在・重複を自動確認後、すぐ公開されます。',
     notSet: '-- 未設定 --',
     optional: '任意',
     reportTitle: '曲を報告',
@@ -161,7 +160,6 @@ const I18N = {
     favToastMsg: '♥ この端末にのみ保存されました。<br>サーバーには送信されません。ブラウザデータを消去すると削除されます。',
     favToastDismiss: '今後表示しない',
     toastAdded: '曲を追加しました！<br>LATEST（新着順）から聴いてみてください！ 🎉',
-    toastPending: 'SLAPSへの審査待ちとして受け付けました。ありがとう！ 🎧',
     toastAddedLocal: '追加しました！（この端末に保存）',
     toastAddFail: '追加に失敗しました。もう一度お試しください。',
     toastDuplicate: 'ありがとう！この曲はすでに登録されています！',

@@ -351,10 +351,13 @@ export async function doSubmit() {
   inputs.forEach((el) => { if (el) el.disabled = true; });
   try {
     const result = await db.submit(song);
-    if (!result || result.status !== 'pending') throw new Error('Submit failed');
+    if (!result || result.status !== 'published' || !result.song) throw new Error('Submit failed');
+    state.all = [result.song, ...state.all.filter((item) => item.youtube_id !== result.song.youtube_id)];
+    setBalance(state.balance, { keep: true });
+    updateTrackCount();
     lastSubmitTime = Date.now();
     closeModal();
-    showToast(window.i18n.t('toastPending'));
+    showToast(window.i18n.t('toastAdded'));
   } catch (error) {
     if (error && error.message && error.message !== 'Submit failed') {
       if (error.message.includes('already exists')) {
