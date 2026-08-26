@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+const PRESENCE_WINDOW_MS = 30000;
+
 // KVのフェッチ用関数
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -19,6 +21,37 @@ async function kvFetch(command) {
   return data.result;
 }
 
+async function kvPipeline(commands) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+
+  const res = await fetch(`${url.replace(/\/$/, '')}/pipeline`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(commands),
+  });
+  if (!res.ok) throw new Error(`KV pipeline error: ${res.statusText}`);
+
+  const results = await res.json();
+  const failed = results.find(item => item?.error);
+  if (failed) throw new Error(`KV command error: ${failed.error}`);
+  return results.map(item => item?.result);
+}
+
+function isValidClientId(value) {
+  return typeof value === 'string' && /^[A-Za-z0-9_-]{8,128}$/.test(value);
+}
+
+function normalizeYoutubeId(value) {
+  return typeof value === 'string' && /^[A-Za-z0-9_-]{6,20}$/.test(value)
+    ? value
+    : '';
+}
+
 export default async function handler(req, res) {
   // CORS とキャッシュ無効化
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,57 +67,72 @@ export default async function handler(req, res) {
   }
 
   const { clientId, youtubeId } = req.body || {};
-  if (!clientId) {
-    return res.status(400).json({ error: 'clientId is required' });
+  if (!isValidClientId(clientId)) {
+    return res.status(400).json({ error: 'valid clientId is required' });
   }
 
   const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 
   try {
-    if (kvEnabled) {
-      // 1. 本番(KV)環境ロジック
-      const prefix = process.env.DB_PREFIX || '';
-      const now = Date.now();
-      const cutoff = now - 30000; // 30秒をアクティブとみなす
-
-      // クライアントの情報を登録
-      if (youtubeId) {
-        await kvFetch(['ZADD', `${prefix}slaps:presence`, now.toString(), JSON.stringify({ clientId, youtubeId })]);
-      } else {
-        // IDのみ登録 (ZADD ではスコアを時刻にして重複を上書きする...がRedisでは同じメンバ名でないと上書きされない)
-        // 厳密なパブサブではなく、clientIdをキーにしてHSETで時刻を管理するのが楽
-      }
-
-      // 簡易実装のため、ここではKVへの本格的なSortedSet管理は将来的なTODOとし、
-      // ひとまず "オンライン人数" は固定またはランダムに返すモックを混ぜます
-      // (完全なKV実装は長くなるため、今回は割愛しモックに近い動作を本番でもさせます)
+    if (!kvEnabled) {
+      return res.status(503).json({
+        error: 'Presence storage unavailable',
+        onlineCount: null,
+        someoneListeningTo: null,
+      });
     }
 
-    // --- ここから下はローカル/モック動作のロジック ---
-    // ランダムなダミー人数 (12〜45人) を生成
-    const onlineCount = Math.floor(Math.random() * 34) + 12;
+    const prefix = process.env.DB_PREFIX || '';
+    const presenceKey = `${prefix}slaps:presence:v2`;
+    const tracksKey = `${prefix}slaps:presence:tracks:v2`;
+    const now = Date.now();
+    const cutoff = now - PRESENCE_WINDOW_MS;
+    const currentYoutubeId = normalizeYoutubeId(youtubeId);
+    const staleClientIds = await kvFetch([
+      'ZRANGEBYSCORE', presenceKey, '-inf', cutoff.toString(),
+    ]);
 
-    // ローカルの songs.json を読み込み、適当な曲を「他人が聴いている」として返す
+    if (Array.isArray(staleClientIds) && staleClientIds.length > 0) {
+      await kvFetch(['HDEL', tracksKey, ...staleClientIds]);
+    }
+
+    // clientIdをmemberに固定するため、同じブラウザーのheartbeatは常に上書きされる。
+    const results = await kvPipeline([
+      ['ZADD', presenceKey, now.toString(), clientId],
+      currentYoutubeId
+        ? ['HSET', tracksKey, clientId, currentYoutubeId]
+        : ['HDEL', tracksKey, clientId],
+      ['ZREMRANGEBYSCORE', presenceKey, '-inf', cutoff.toString()],
+      ['ZCARD', presenceKey],
+      ['ZRANGE', presenceKey, '0', '-1'],
+    ]);
+
+    const onlineCount = Number(results?.[3] || 0);
+    const activeClientIds = Array.isArray(results?.[4]) ? results[4] : [];
+
     const jsonPath = path.join(process.cwd(), 'data', 'songs.json');
     let someoneListeningTo = null;
+    const otherClientIds = activeClientIds.filter(id => id !== clientId);
 
-    if (fs.existsSync(jsonPath)) {
+    if (otherClientIds.length > 0 && fs.existsSync(jsonPath)) {
+      const otherYoutubeIds = await kvFetch(['HMGET', tracksKey, ...otherClientIds]);
       const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-      if (localSongs && localSongs.length > 0) {
-        // 自分が聴いている曲を除外
-        const othersSongs = localSongs.filter(s => s.youtube_id !== youtubeId);
-        if (othersSongs.length > 0) {
-          // 30%の確率で「他人が曲を聴いている」通知を返す (頻度を下げるため)
-          if (Math.random() < 0.3) {
-            someoneListeningTo = othersSongs[Math.floor(Math.random() * othersSongs.length)];
-          }
-        }
+      const activeYoutubeIds = Array.isArray(otherYoutubeIds)
+        ? otherYoutubeIds.filter(id => id && id !== currentYoutubeId)
+        : [];
+      const actualListeningSongs = localSongs.filter(song => activeYoutubeIds.includes(song.youtube_id));
+
+      // 通知頻度は抑えるが、表示する場合は実際のアクティブ接続が再生中の曲だけを使う。
+      if (actualListeningSongs.length > 0 && Math.random() < 0.3) {
+        someoneListeningTo = actualListeningSongs[Math.floor(Math.random() * actualListeningSongs.length)];
       }
     }
 
     return res.status(200).json({
       onlineCount,
-      someoneListeningTo
+      someoneListeningTo,
+      source: 'realtime',
+      windowSeconds: PRESENCE_WINDOW_MS / 1000,
     });
 
   } catch (error) {

@@ -1,4 +1,7 @@
 import { classifySong } from './utils/classifier.js';
+import fs from 'fs';
+import path from 'path';
+import { randomUUID } from 'crypto';
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -49,6 +52,10 @@ export default async function handler(req, res) {
   if (!['90s', '00s', '10s', '20s'].includes(era)) {
     return res.status(400).json({ error: 'Invalid era' });
   }
+  if (conscious_turnt != null &&
+      (typeof conscious_turnt !== 'number' || !Number.isFinite(conscious_turnt) || conscious_turnt < 0 || conscious_turnt > 5)) {
+    return res.status(400).json({ error: 'Invalid conscious_turnt (0-5)' });
+  }
 
   // description (文字列またはオブジェクト) のパース
   let jaDesc = '';
@@ -62,7 +69,7 @@ export default async function handler(req, res) {
     }
   }
 
-  const finalSong = {
+  const song = {
     youtube_id,
     name: name.trim(),
     region,
@@ -73,35 +80,47 @@ export default async function handler(req, res) {
       en: enDesc
     },
     thumbnail: thumbnail || `https://img.youtube.com/vi/${youtube_id}/mqdefault.jpg`,
-    conscious_turnt: typeof conscious_turnt === 'number' ? conscious_turnt : 2.5,
-    created_at: new Date().toISOString()
+    conscious_turnt: conscious_turnt == null ? 2.5 : conscious_turnt,
   };
 
   const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
   if (!kvEnabled) {
-    return res.status(200).json({
-      status: 'mock_success',
-      song: finalSong
-    });
+    return res.status(503).json({ error: 'Submission storage unavailable' });
   }
 
   try {
     const prefix = process.env.DB_PREFIX || '';
-    const isDup = await kvFetch(['SISMEMBER', `${prefix}slaps:existing_ids`, youtube_id]);
-    if (isDup === 1) {
+    const localSongs = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'songs.json'), 'utf8'));
+    const [isPublished, isPending] = await Promise.all([
+      kvFetch(['SISMEMBER', `${prefix}slaps:existing_ids`, youtube_id]),
+      kvFetch(['SISMEMBER', `${prefix}slaps:submission_ids`, youtube_id]),
+    ]);
+    if (isPublished === 1 || localSongs.some(item => item.youtube_id === youtube_id)) {
       return res.status(400).json({ error: 'This song already exists on SLAPS.' });
     }
+    if (isPending === 1) {
+      return res.status(409).json({ error: 'This song is already awaiting review.' });
+    }
 
-    // LPUSH & SADD
-    await kvFetch(['LPUSH', `${prefix}slaps:songs`, JSON.stringify(finalSong)]);
-    await kvFetch(['SADD', `${prefix}slaps:existing_ids`, youtube_id]);
+    const submission = {
+      ...song,
+      submission_id: randomUUID(),
+      status: 'pending',
+      submitted_at: new Date().toISOString(),
+    };
 
-    // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
-    const host = req.headers.host || 'slaps.tokyo';
-    const protocol = req.headers.host && req.headers.host.includes('localhost') ? 'http' : 'https';
-    fetch(`${protocol}://${host}/api/og-image?v=${youtube_id}`).catch(() => {});
+    const reserved = await kvFetch(['SADD', `${prefix}slaps:submission_ids`, youtube_id]);
+    if (reserved !== 1) {
+      return res.status(409).json({ error: 'This song is already awaiting review.' });
+    }
+    try {
+      await kvFetch(['LPUSH', `${prefix}slaps:submissions`, JSON.stringify(submission)]);
+    } catch (error) {
+      await kvFetch(['SREM', `${prefix}slaps:submission_ids`, youtube_id]).catch(() => {});
+      throw error;
+    }
 
-    return res.status(200).json({ status: 'success', song: finalSong });
+    return res.status(202).json({ status: 'pending', submission });
   } catch (error) {
     console.error('Failed to submit song:', error);
     return res.status(500).json({ error: 'Internal Server Error' });

@@ -79,10 +79,10 @@ export default async function handler(req, res) {
       }
     }
 
-    // 5票以上の報告がある曲を除外
+    // 50票以上の報告がある曲を除外
     const filtered = merged.filter(song => {
       const votes = brokenVotes[song.youtube_id] || 0;
-      return votes < 5;
+      return votes < 50;
     });
 
     // 各曲に vibe_count をマージ

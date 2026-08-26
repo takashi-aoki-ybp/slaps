@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
   const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
   if (!kvEnabled) {
-    return res.status(200).json({ status: 'mock_success' });
+    return res.status(503).json({ error: 'Report storage unavailable' });
   }
 
   try {

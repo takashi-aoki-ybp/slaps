@@ -4,7 +4,12 @@
   "description": "Nothing but slaps. — HIPHOP Station",
   "main": "script.js",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "audit:songs": "node scripts/audit-songs.js",
+    "audit:youtube": "node scripts/audit-youtube.js",
+    "submissions": "node scripts/review-submissions.js",
+    "verify": "npm test && npm run build && git diff --check",
+    "test": "npm run audit:songs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.0",

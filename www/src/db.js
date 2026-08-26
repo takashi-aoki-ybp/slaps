@@ -7,6 +7,16 @@ const lsPush = (k, v) => {
   try { localStorage.setItem(k, JSON.stringify(a)); } catch { /* quota exceeded — silently drop */ }
 };
 
+const fetchWithTimeout = async (url, options = {}, timeoutMs = 5000) => {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+};
+
 export const db = {
   live: true,
   lsGet,
@@ -14,14 +24,16 @@ export const db = {
 
   async loadSongs() {
     try {
-      const res = await fetch('/api/songs');
+      const res = await fetchWithTimeout('/api/songs');
       if (!res.ok) throw new Error('API response not OK');
       const data = await res.json();
       if (!Array.isArray(data)) throw new Error('API returned invalid data format');
       return data;
     } catch (e) {
       console.warn('API load failed, falling back to local JSON and localStorage:', e);
-      const songs = await fetch('/data/songs.json').then((r) => r.json());
+      const localRes = await fetchWithTimeout('/data/songs.json');
+      if (!localRes.ok) throw new Error('Local songs response not OK');
+      const songs = await localRes.json();
       const mine = lsGet('slaps_submissions');
       const brokenIds = new Set(lsGet('slaps_broken').map((b) => b.youtube_id));
       return [...mine, ...songs].filter((s) => !brokenIds.has(s.youtube_id));
@@ -29,57 +41,33 @@ export const db = {
   },
 
   async submit(song) {
-    let errRes = null;
-    try {
-      const res = await fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(song)
-      });
-      if (!res.ok) {
-        errRes = await res.json().catch(() => null);
-        throw new Error((errRes && errRes.error) || 'Submit failed');
-      }
-      const data = await res.json();
-      return data.song || song;
-    } catch (e) {
-      if (errRes) {
-        throw new Error((errRes && errRes.error) || 'Submit failed');
-      }
-      console.warn('API submit failed, falling back to localStorage:', e);
-      lsPush('slaps_submissions', song);
-      return song;
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(song)
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+      throw new Error((data && data.error) || 'Submit failed');
     }
+    return data;
   },
 
   async report(r) {
-    try {
-      const res = await fetch('/api/report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(r)
-      });
-      if (!res.ok) throw new Error('Report failed');
-    } catch (e) {
-      console.warn('API report failed, falling back to localStorage:', e);
-      lsPush('slaps_reports', r);
-    }
+    const res = await fetch('/api/report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(r)
+    });
+    if (!res.ok) throw new Error('Report failed');
   },
 
   async markBroken(id, code) {
-    try {
-      const res = await fetch('/api/mark_broken', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ youtube_id: id, code })
-      });
-      if (!res.ok) throw new Error('Mark broken failed');
-    } catch (e) {
-      console.warn('API markBroken failed, falling back to localStorage:', e);
-      const arr = lsGet('slaps_broken');
-      arr.push({ youtube_id: id, code, at: new Date().toISOString() });
-      try { localStorage.setItem('slaps_broken', JSON.stringify(arr)); } catch { /* quota exceeded */ }
-    }
+    const res = await fetch('/api/mark_broken', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ youtube_id: id, code })
+    });
+    if (!res.ok) throw new Error('Mark broken failed');
   },
 };
-

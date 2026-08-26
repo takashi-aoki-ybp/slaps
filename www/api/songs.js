@@ -92,13 +92,12 @@ export default async function handler(req, res) {
 
     res.status(200).json(filtered);
   } catch (error) {
-    console.error('Failed to load songs (outer catch):', error);
+    console.error('Failed to load songs:', error);
     try {
       const jsonPath = path.join(process.cwd(), 'data', 'songs.json');
       const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
       res.status(200).json(localSongs);
     } catch (e) {
-      console.error('Failed to load local fallback (inner catch):', e);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }

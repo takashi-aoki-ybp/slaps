@@ -17,23 +17,66 @@ import {
 } from './ui.js';
 
 let consecutiveErrors = 0;
+let introStarted = false;
+let introFinished = false;
 
 let promoTimer = null;
 let promoFadeInterval = null;
+
+function disableCaptions() {
+  if (!state.player) return;
+  try {
+    state.player.setOption('captions', 'track', {});
+  } catch (e) {}
+  try {
+    if (typeof state.player.unloadModule === 'function') {
+      state.player.unloadModule('captions');
+    }
+  } catch (e) {}
+}
+
+function startPromoPlayback() {
+  document.body.classList.add('is-started');
+  const unmuteBtn = document.querySelector('#unmute');
+  if (unmuteBtn) unmuteBtn.hidden = true;
+  state.muted = true;
+  if (state.player && state.ready && typeof state.player.mute === 'function') {
+    try {
+      state.player.mute();
+      state.player.playVideo();
+    } catch (e) {
+      console.warn('Auto-play playVideo trigger failed:', e);
+    }
+  }
+  wake();
+  showInfoGuide();
+}
 
 export function createYTPlayer() {
   if (state.player || !(window.YT && window.YT.Player)) return;
   try {
     state.player = new YT.Player('yt', {
-      playerVars: { autoplay: 1, mute: 1, rel: 0, controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1 },
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        rel: 0,
+        controls: 0,
+        disablekb: 1,
+        modestbranding: 1,
+        playsinline: 1,
+        cc_load_policy: 0,
+        iv_load_policy: 3,
+      },
       events: {
         onReady: () => {
           state.ready = true;
           try { state.player.mute(); } catch (e) {}
+          disableCaptions();
           tryStart();
         },
         onStateChange: onPlayerStateChange,
         onError: onPlayerError,
+        onApiChange: disableCaptions,
       },
     });
   } catch (err) {
@@ -56,6 +99,7 @@ export function onPlayerStateChange(e) {
     return;
   }
   if (e.data === YT.PlayerState.PLAYING) {
+    disableCaptions();
     startProgress();
     if (state.isPromo) {
       startPromoTimer();
@@ -117,49 +161,62 @@ export function tryStart() {
 
   setBalance(2.5, { shareId });
   runIntro();
+  if (state.isPromo && introFinished) startPromoPlayback();
 }
 
 export function runIntro() {
+  if (introStarted || introFinished) return;
+  introStarted = true;
+
+  const params = new URLSearchParams(window.location.search);
+  if (window.location.pathname === '/promo' || params.get('promo') === '1') {
+    state.isPromo = true;
+    document.body.classList.add('is-promo-mode');
+  }
+
   const intro = document.querySelector('#intro');
   // イントロの裏側で最初からボタンを表示状態にしておく
-  document.querySelector('#unmute').hidden = false;
+  const unmuteBtn = document.querySelector('#unmute');
+  if (unmuteBtn) unmuteBtn.hidden = false;
+
+  let fadeTimer = null;
+  let finishTimer = null;
 
   const finishIntro = () => {
+    if (introFinished) return;
+    introFinished = true;
+    clearTimeout(fadeTimer);
+    clearTimeout(finishTimer);
+    if (intro) intro.removeEventListener('pointerdown', skipIntro);
+    window.removeEventListener('keydown', skipIntro);
     if (intro) intro.remove();
-    state.ready = true;
 
     // プロモモードの場合は自動起動（タップ待ちをスキップしミュート再生開始）
-    if (state.isPromo) {
-      document.body.classList.add('is-started');
-      const unmuteBtn = document.querySelector('#unmute');
-      if (unmuteBtn) unmuteBtn.hidden = true;
-      state.muted = true; // 自動再生のためミュート必須
-      if (state.player && typeof state.player.mute === 'function') {
-        try {
-          state.player.mute();
-          state.player.playVideo();
-        } catch (e) {
-          console.warn('Auto-play playVideo trigger failed:', e);
-        }
-      }
-      wake();
-      showInfoGuide();
-    }
+    if (state.isPromo) startPromoPlayback();
   };
 
-  if (state.isPromo) {
-    // プロモモードの場合は即座にイントロを終了する
-    if (intro) {
-      intro.classList.add('is-out');
-      setTimeout(finishIntro, 1000);
-    } else {
-      finishIntro();
-    }
+  function skipIntro() {
+    if (intro) intro.classList.add('is-out');
+    setTimeout(finishIntro, 120);
+  }
+
+  if (!intro) {
+    finishIntro();
     return;
   }
 
-  setTimeout(() => { if (intro) intro.classList.add('is-out'); }, 4800);
-  setTimeout(finishIntro, 6000);
+  intro.addEventListener('pointerdown', skipIntro, { once: true });
+  window.addEventListener('keydown', skipIntro, { once: true });
+
+  if (state.isPromo) {
+    // プロモモードの場合は即座にイントロを終了する
+    intro.classList.add('is-out');
+    finishTimer = setTimeout(finishIntro, 600);
+    return;
+  }
+
+  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 1200);
+  finishTimer = setTimeout(finishIntro, 2000);
 }
 
 export function loadCurrent() {
@@ -179,6 +236,8 @@ export function loadCurrent() {
   consecutiveErrors = 0;
   if (state.pinned) document.querySelector('#playBtn').style.display = 'none';
   state.player.loadVideoById(song.youtube_id);
+  disableCaptions();
+  setTimeout(disableCaptions, 300);
   if (state.muted) {
     state.player.mute();
   } else {

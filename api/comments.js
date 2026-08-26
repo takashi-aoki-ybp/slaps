@@ -78,6 +78,9 @@ export default async function handler(req, res) {
 
     try {
       const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+      if (!kvEnabled) {
+        return res.status(503).json({ error: 'Comment storage unavailable' });
+      }
       await Promise.all([
         kvFetch(['RPUSH', `${prefix}slaps:comments:${youtube_id}`, JSON.stringify(finalComment)]),
         kvFetch(['HINCRBY', `${prefix}slaps:vibe_counts`, youtube_id, 1])

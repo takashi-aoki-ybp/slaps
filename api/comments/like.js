@@ -36,8 +36,7 @@ export default async function handler(req, res) {
   try {
     const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
     if (!kvEnabled) {
-      // Mock environment (local dev without KV config)
-      return res.status(200).json({ status: 'mock_success', likes: 1 });
+      return res.status(503).json({ error: 'Like storage unavailable' });
     }
 
     const key = `${prefix}slaps:likes:${youtube_id}:${comment_id}`;

@@ -1,0 +1,40 @@
+name: YouTube availability audit
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+    inputs:
+      audit_all:
+        description: Audit all registered videos
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Check YouTube availability
+        run: |
+          if [ "${{ inputs.audit_all }}" = "true" ]; then
+            npm run audit:youtube -- --all
+          else
+            npm run audit:youtube
+          fi
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-audit-${{ github.run_id }}
+          path: outputs/youtube-audit.json
+          if-no-files-found: error

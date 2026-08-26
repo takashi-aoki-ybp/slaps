@@ -337,7 +337,6 @@ export async function doSubmit() {
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
     conscious_turnt: (ytCtTouched && $('#ytConsTurnt')) ? Number($('#ytConsTurnt').value) : null,
-    status: 'published',
   };
   const btn = $('#submitDo');
   const inputs = [
@@ -351,53 +350,11 @@ export async function doSubmit() {
   ];
   inputs.forEach((el) => { if (el) el.disabled = true; });
   try {
-    const saved = await db.submit(song);
-    const entry = saved || song;
-    if (!entry.created_at && !entry.publish_at) entry.created_at = new Date().toISOString();
-    if (!state.all.some((s) => s.youtube_id === entry.youtube_id)) state.all.unshift(entry);
-    updateTrackCount();
+    const result = await db.submit(song);
+    if (!result || result.status !== 'pending') throw new Error('Submit failed');
     lastSubmitTime = Date.now();
-    const wasFromDig = state.fromDig;
     closeModal();
-    if (wasFromDig) {
-      $('#confirmTitle').textContent = window.i18n.t('confirmPlayTitle');
-      $('#confirmDesc').textContent = window.i18n.t('confirmPlayDesc');
-      $('#confirmYes').textContent = window.i18n.t('confirmPlayYes');
-      $('#confirmNo').textContent = window.i18n.t('confirmPlayNo');
-      
-      const confirmModal = $('#confirmModal');
-      confirmModal.hidden = false;
-      
-      const handleYes = () => {
-        confirmModal.hidden = true;
-        state.queue.splice(state.index + 1, 0, entry);
-        setTimeout(() => {
-          next();
-        }, 500);
-        cleanup();
-      };
-      
-      const handleNo = () => {
-        confirmModal.hidden = true;
-        showToast(window.i18n.t('toastAddedNoPlay'));
-        cleanup();
-      };
-      
-      const cleanup = () => {
-        $('#confirmYes').removeEventListener('click', handleYes);
-        $('#confirmNo').removeEventListener('click', handleNo);
-        state.fromDig = false;
-      };
-      
-      $('#confirmYes').addEventListener('click', handleYes);
-      $('#confirmNo').addEventListener('click', handleNo);
-    } else {
-      showToast(db.live ? window.i18n.t('toastAdded') : window.i18n.t('toastAddedLocal'));
-      state.queue.splice(state.index + 1, 0, entry);
-      setTimeout(() => {
-        next();
-      }, 1500);
-    }
+    showToast(window.i18n.t('toastPending'));
   } catch (error) {
     if (error && error.message && error.message !== 'Submit failed') {
       if (error.message.includes('already exists')) {
@@ -1153,7 +1110,7 @@ export async function sendTapLog(time) {
     
     if (res.ok) {
       const data = await res.json();
-      if (data.status === 'success' || data.status === 'mock_success') {
+      if (data.status === 'success') {
         // ローカル配列にも追加して、ドット等をリアルタイム更新
         state.comments.push(data.comment);
         state.comments.sort((a, b) => a.time - b.time);

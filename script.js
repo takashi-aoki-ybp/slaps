@@ -1,6 +1,6 @@
 import { state } from './src/state.js';
 import { db } from './src/db.js';
-import { tryStart, createYTPlayer } from './src/player.js';
+import { tryStart, createYTPlayer, runIntro } from './src/player.js';
 import { setupUIListeners, updateTrackCount } from './src/ui.js';
 import { initPresence } from './src/presence.js';
 
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.__state = state;
   window.i18n.applyAll();
   setupUIListeners();
+  runIntro();
   loadData();
   initPresence();
   
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Service Worker
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
-      .then(() => {})
+      .then((registration) => registration.update())
       .catch(() => {});
   }
 });

@@ -4,6 +4,11 @@ import { loadCurrent } from './player.js';
 let presenceInterval = null;
 let currentClientId = null;
 
+function hidePresence() {
+  const badge = document.getElementById('onlineBadge');
+  if (badge) badge.hidden = true;
+}
+
 // 簡単なUUID生成
 function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -44,17 +49,22 @@ async function updatePresence() {
       }),
     });
 
-    if (!res.ok) return;
+    if (!res.ok) {
+      hidePresence();
+      return;
+    }
 
     const data = await res.json();
     
     // オンライン人数の更新
-    if (data.onlineCount !== undefined) {
+    if (Number.isInteger(data.onlineCount) && data.onlineCount >= 0) {
       const badge = document.getElementById('onlineBadge');
       if (badge) {
         badge.innerHTML = `<span class="online-dot"></span> ${data.onlineCount} online`;
         badge.hidden = false;
       }
+    } else {
+      hidePresence();
     }
 
     // 他人が聴いている曲の通知 (トースト/ティッカー)
@@ -64,6 +74,7 @@ async function updatePresence() {
     
   } catch (err) {
     // サイレントエラー (機能しなくてもメインに影響させない)
+    hidePresence();
     console.debug('Presence update failed', err);
   }
 }
