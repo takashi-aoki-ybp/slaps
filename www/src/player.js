@@ -57,7 +57,7 @@ export function createYTPlayer() {
   try {
     state.player = new YT.Player('yt', {
       playerVars: {
-        autoplay: 1,
+        autoplay: 0,
         mute: 1,
         rel: 0,
         controls: 0,
@@ -93,6 +93,13 @@ if (window.YT && window.YT.Player) {
 }
 
 export function onPlayerStateChange(e) {
+  // The opening screen is a real playback gate, not just a visual overlay.
+  // Guard against browser/YouTube autoplay quirks until START is pressed.
+  if (e.data === YT.PlayerState.PLAYING && !state.isPromo && !document.body.classList.contains('is-started')) {
+    state.player.pauseVideo();
+    stopProgress();
+    return;
+  }
   if (e.data === YT.PlayerState.ENDED) {
     if (state.isPromo) clearPromoTimer();
     next();
@@ -235,7 +242,12 @@ export function loadCurrent() {
 
   consecutiveErrors = 0;
   if (state.pinned) document.querySelector('#playBtn').style.display = 'none';
-  state.player.loadVideoById(song.youtube_id);
+  const playbackStarted = state.isPromo || document.body.classList.contains('is-started');
+  if (playbackStarted) {
+    state.player.loadVideoById(song.youtube_id);
+  } else {
+    state.player.cueVideoById(song.youtube_id);
+  }
   disableCaptions();
   setTimeout(disableCaptions, 300);
   if (state.muted) {
