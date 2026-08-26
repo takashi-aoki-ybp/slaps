@@ -74,11 +74,47 @@ export default async function handler(req, res) {
     }
 
     const { action, youtube_id, reason = '' } = req.body || {};
-    if (!['approve', 'reject', 'unpublish'].includes(action)) {
-      return res.status(400).json({ error: 'action must be approve, reject, or unpublish' });
+    if (!['approve', 'reject', 'unpublish', 'update_description'].includes(action)) {
+      return res.status(400).json({ error: 'action must be approve, reject, unpublish, or update_description' });
     }
     if (!youtube_id || !/^[A-Za-z0-9_-]{11}$/.test(youtube_id)) {
       return res.status(400).json({ error: 'Invalid YouTube ID' });
+    }
+
+    if (action === 'update_description') {
+      const songsKey = `${prefix}slaps:songs`;
+      const rawSongs = await kvFetch(['LRANGE', songsKey, '0', '-1']);
+      const matchedSongs = (rawSongs || []).flatMap(raw => {
+        try {
+          const song = JSON.parse(raw);
+          return song.youtube_id === youtube_id ? [{ raw, song }] : [];
+        } catch {
+          return [];
+        }
+      });
+      if (!matchedSongs.length) {
+        return res.status(404).json({ error: 'Published KV song not found' });
+      }
+      const description = req.body?.description || {};
+      const ja = typeof description.ja === 'string' ? description.ja.trim().slice(0, 250) : '';
+      const en = typeof description.en === 'string' ? description.en.trim().slice(0, 250) : '';
+      if (!ja && !en) {
+        return res.status(400).json({ error: 'At least one description is required' });
+      }
+      const updatedSongs = matchedSongs.map(item => ({
+        oldRaw: item.raw,
+        song: { ...item.song, description: { ja, en }, updated_at: new Date().toISOString() },
+      }));
+      for (const item of updatedSongs) {
+        await kvFetch(['LREM', songsKey, '0', item.oldRaw]);
+        await kvFetch(['LPUSH', songsKey, JSON.stringify(item.song)]);
+      }
+      await kvFetch(['LPUSH', `${prefix}slaps:submission_reviews`, JSON.stringify({
+        action,
+        youtube_id,
+        reviewed_at: new Date().toISOString(),
+      })]);
+      return res.status(200).json({ status: 'description_updated', song: updatedSongs[0].song });
     }
 
     if (action === 'unpublish') {
