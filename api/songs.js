@@ -70,8 +70,17 @@ export default async function handler(req, res) {
       if (dbMap.has(id)) {
         const dbSong = dbMap.get(id);
         const localSong = localMap.get(id);
-        if (localSong && localSong.promo) {
-          dbSong.promo = true;
+        if (localSong) {
+          if (localSong.promo) {
+            dbSong.promo = true;
+          }
+
+          // Keep user-submitted DB metadata authoritative, but let the curated
+          // catalogue fill description fields that predate bilingual copy.
+          dbSong.description = {
+            ja: dbSong.description?.ja || localSong.description?.ja || '',
+            en: dbSong.description?.en || localSong.description?.en || '',
+          };
         }
         merged.push(dbSong);
       } else {
