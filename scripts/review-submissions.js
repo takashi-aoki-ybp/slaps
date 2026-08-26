@@ -6,8 +6,8 @@ if (!token) {
   console.error('SLAPS_ADMIN_TOKEN is required.');
   process.exit(1);
 }
-if (!['list', 'approve', 'reject'].includes(action)) {
-  console.error('Usage: npm run submissions -- list | approve <youtube_id> | reject <youtube_id> [reason]');
+if (!['list', 'approve', 'reject', 'unpublish'].includes(action)) {
+  console.error('Usage: npm run submissions -- list | approve <youtube_id> | reject <youtube_id> [reason] | unpublish <youtube_id> [reason]');
   process.exit(1);
 }
 if (action !== 'list' && !/^[A-Za-z0-9_-]{11}$/.test(youtubeId)) {

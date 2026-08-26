@@ -74,11 +74,41 @@ export default async function handler(req, res) {
     }
 
     const { action, youtube_id, reason = '' } = req.body || {};
-    if (!['approve', 'reject'].includes(action)) {
-      return res.status(400).json({ error: 'action must be approve or reject' });
+    if (!['approve', 'reject', 'unpublish'].includes(action)) {
+      return res.status(400).json({ error: 'action must be approve, reject, or unpublish' });
     }
     if (!youtube_id || !/^[A-Za-z0-9_-]{11}$/.test(youtube_id)) {
       return res.status(400).json({ error: 'Invalid YouTube ID' });
+    }
+
+    if (action === 'unpublish') {
+      const songsKey = `${prefix}slaps:songs`;
+      const rawSongs = await kvFetch(['LRANGE', songsKey, '0', '-1']);
+      const matchedSongs = (rawSongs || []).flatMap(raw => {
+        try {
+          const song = JSON.parse(raw);
+          return song.youtube_id === youtube_id ? [{ raw, song }] : [];
+        } catch {
+          return [];
+        }
+      });
+      if (!matchedSongs.length) {
+        return res.status(404).json({ error: 'Published community song not found' });
+      }
+      if (matchedSongs.some(item => item.song.source !== 'community')) {
+        return res.status(409).json({ error: 'Only community submissions can be unpublished here' });
+      }
+      await Promise.all([
+        ...matchedSongs.map(item => kvFetch(['LREM', songsKey, '0', item.raw])),
+        kvFetch(['SREM', `${prefix}slaps:existing_ids`, youtube_id]),
+        kvFetch(['LPUSH', `${prefix}slaps:submission_reviews`, JSON.stringify({
+          action,
+          youtube_id,
+          reason: String(reason).trim().slice(0, 300),
+          reviewed_at: new Date().toISOString(),
+        })]),
+      ]);
+      return res.status(200).json({ status: 'unpublished', youtube_id, removed: matchedSongs.length });
     }
 
     const matched = items.find(item => item.submission.youtube_id === youtube_id);
