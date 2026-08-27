@@ -35,6 +35,57 @@ async function loadTile(id, width, height) {
   }
 }
 
+const GLYPHS = {
+  A: ['01110','10001','10001','11111','10001','10001','10001'],
+  C: ['01111','10000','10000','10000','10000','10000','01111'],
+  D: ['11110','10001','10001','10001','10001','10001','11110'],
+  E: ['11111','10000','10000','11110','10000','10000','11111'],
+  H: ['10001','10001','10001','11111','10001','10001','10001'],
+  I: ['11111','00100','00100','00100','00100','00100','11111'],
+  K: ['10001','10010','10100','11000','10100','10010','10001'],
+  L: ['10000','10000','10000','10000','10000','10000','11111'],
+  N: ['10001','11001','11001','10101','10011','10011','10001'],
+  O: ['01110','10001','10001','10001','10001','10001','01110'],
+  P: ['11110','10001','10001','11110','10000','10000','10000'],
+  R: ['11110','10001','10001','11110','10100','10010','10001'],
+  S: ['01111','10000','10000','01110','00001','00001','11110'],
+  T: ['11111','00100','00100','00100','00100','00100','00100'],
+  Y: ['10001','10001','01010','00100','00100','00100','00100'],
+  '0': ['01110','10001','10011','10101','11001','10001','01110'],
+  '1': ['00100','01100','00100','00100','00100','00100','01110'],
+  '2': ['01110','10001','00001','00010','00100','01000','11111'],
+  '3': ['11110','00001','00001','01110','00001','00001','11110'],
+  '4': ['00010','00110','01010','10010','11111','00010','00010'],
+  '5': ['11111','10000','10000','11110','00001','00001','11110'],
+  '6': ['01110','10000','10000','11110','10001','10001','01110'],
+  '7': ['11111','00001','00010','00100','01000','01000','01000'],
+  '8': ['01110','10001','10001','01110','10001','10001','01110'],
+  '9': ['01110','10001','10001','01111','00001','00001','01110'],
+  '.': ['00000','00000','00000','00000','00000','00110','00110'],
+  '/': ['00001','00010','00100','01000','10000','00000','00000'],
+};
+
+function drawText(image, text, x, y, scale, color = 0xffffffff) {
+  let cursor = x;
+  for (const character of String(text).toUpperCase()) {
+    if (character === ' ') {
+      cursor += scale * 4;
+      continue;
+    }
+    const glyph = GLYPHS[character];
+    if (!glyph) {
+      cursor += scale * 6;
+      continue;
+    }
+    glyph.forEach((row, rowIndex) => {
+      [...row].forEach((pixel, columnIndex) => {
+        if (pixel === '1') image.scan(cursor + columnIndex * scale, y + rowIndex * scale, scale, scale, function draw(pixelX, pixelY) { this.setPixelColor(color, pixelX, pixelY); });
+      });
+    });
+    cursor += scale * 6;
+  }
+}
+
 export default async function handler(req, res) {
   const ids = validIds(req.query.crate);
   if (!ids.length) return res.status(400).send('Missing or invalid crate IDs');
@@ -75,13 +126,10 @@ export default async function handler(req, res) {
     logo.contain(390, 138, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE);
     canvas.composite(logo, 62, 58);
 
-    const font64 = await Jimp.loadFont(Jimp.FONT_SANS_64_WHITE);
-    const font32 = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
-    const font16 = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
-    canvas.print(font64, 64, 230, 'CRATE', 410);
-    canvas.print(font32, 68, 340, `${ids.length} TRACK${ids.length === 1 ? '' : 'S'}`, 400);
-    canvas.print(font16, 68, 420, 'A SELECTION SHARED ON SLAPS', 410);
-    canvas.print(font16, 68, 520, 'OPEN THE CRATE  /  SLAPS.TOKYO', 420);
+    drawText(canvas, 'CRATE', 68, 230, 11);
+    drawText(canvas, `${ids.length} TRACK${ids.length === 1 ? '' : 'S'}`, 70, 340, 5);
+    drawText(canvas, 'A SELECTION SHARED ON SLAPS', 70, 420, 2, 0xbdbdbdff);
+    drawText(canvas, 'OPEN THE CRATE / SLAPS.TOKYO', 70, 520, 2, 0xd8d8d8ff);
 
     canvas.quality(88);
     const buffer = await canvas.getBufferAsync(Jimp.MIME_JPEG);
