@@ -47,6 +47,10 @@ const I18N = {
     favTitle: 'Saved Tracks',
     favLead: 'Saved to this device only. Not sent to any server.',
     favPlayAll: '▶ Play Saved Only',
+    crateShare: '🔗 Share SLAPS CRATE',
+    crateNote: 'The shared URL contains YouTube IDs only. Saved tracks and listening history are never sent to a server.',
+    crateExit: 'Exit CRATE',
+    crateLoaded: 'SLAPS CRATE loaded: {count} tracks.',
     favEmpty: 'No saved tracks yet. Hit ♡ Save on a track you like.',
     // fav toast
     favToastMsg: '♥ Saved to this device only.<br>Not sent to server. Cleared if you clear browser data.',
@@ -77,12 +81,13 @@ const I18N = {
     aboutPalgo: 'No recommendations. No history-based optimization. We don\'t track what you listen to. Discovery is completely random. <strong>Because stumbling upon music by chance is the best part.</strong>',
     aboutH2how: 'How to Use',
     aboutHow: [
-      'Random play starts on open (muted at first — tap to unmute)',
+      'Tap START to begin random play',
       'Skip tracks with side buttons / arrow keys / swipe',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> to filter by country (US / JP / UK / FR / KR …)',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> to zoom the video to fill the screen (aspect ratio crop)',
       '<span class="about-badge">UI</span> to keep the UI visible (turn OFF to focus on the MV)',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> to save (stored on this device only)',
+      'Share saved tracks as a SLAPS CRATE link without an account',
       'Anyone can add a track — just paste a YouTube URL',
     ],
     aboutEnTitle: '',
@@ -156,6 +161,10 @@ const I18N = {
     favTitle: '保存した曲',
     favLead: 'この端末にのみ保存されます。サーバーには送信されません。',
     favPlayAll: '▶ 保存した曲だけ再生',
+    crateShare: '🔗 SLAPS CRATEを共有',
+    crateNote: '共有URLにはYouTube IDだけが含まれます。保存曲や履歴はサーバーへ送信されません。',
+    crateExit: 'CRATEを終了',
+    crateLoaded: 'SLAPS CRATEを読み込みました：{count}曲',
     favEmpty: 'まだ保存した曲はありません。気に入った曲で ♡ をタップしてください。',
     favToastMsg: '♥ この端末にのみ保存されました。<br>サーバーには送信されません。ブラウザデータを消去すると削除されます。',
     favToastDismiss: '今後表示しない',
@@ -183,12 +192,13 @@ const I18N = {
     aboutPalgo: 'レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
     aboutH2how: '使い方',
     aboutHow: [
-      '開いた瞬間にランダム再生',
+      'STARTを押すとランダム再生が始まる',
       '左右のボタン／キー／スワイプで曲送り',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> で国を絞る（US / JP / UK / FR / KR …）',
       '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> で映像を画面いっぱいに拡大（縦横比をフィット）',
       '<span class="about-badge">UI</span> でUIを常時表示（MVに集中したい時はOFF）',
       '気に入ったら <svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> で保存（この端末だけに残る）',
+      '保存曲をSLAPS CRATEとして、ログインなしで共有できる',
       '好きな曲はYouTubeのURLを貼るだけで誰でも追加OK',
     ],
     aboutEnTitle: 'About (English)',
@@ -311,7 +321,10 @@ const i18n = (() => {
     $('#favModal .modal__h').textContent = t('favTitle');
     $('#favModal .modal__lead').textContent = t('favLead');
     $('#favPlayAll').textContent = t('favPlayAll');
+    $('#crateShare').textContent = t('crateShare');
+    $('#crateNote').textContent = t('crateNote');
     $('#favEmpty').textContent = t('favEmpty');
+    if (typeof window.updateFavCount === 'function') window.updateFavCount();
 
     // fav toast
     $('#favToast .fav-toast__msg').innerHTML = t('favToastMsg');

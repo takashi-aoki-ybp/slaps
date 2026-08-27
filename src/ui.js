@@ -56,7 +56,18 @@ export function updateTrackCount() {
   const n = playableCount();
   const unit = window.i18n.t(n === 1 ? 'track' : 'tracks');
   el.innerHTML = `<b>${n.toLocaleString(window.i18n.getLang() === 'ja' ? 'ja-JP' : 'en-US')}</b>&nbsp;${unit}`;
-  el.classList.toggle('is-filtered', state.region !== 'all' || state.era !== 'all');
+  el.classList.toggle('is-filtered', state.crateMode || state.region !== 'all' || state.era !== 'all');
+}
+
+function clearCrateMode() {
+  if (!state.crateMode) return;
+  state.crateMode = false;
+  state.crateIds = [];
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('crate');
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  } catch {}
 }
 
 // ---- Vibeネオンカラー更新 ----
@@ -134,6 +145,7 @@ export function showFilterFeedback() {
 }
 
 export function setRegion(region) {
+  clearCrateMode();
   state.region = region;
   document.querySelectorAll('.region__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.region === region));
@@ -146,6 +158,7 @@ export function setRegion(region) {
 }
 
 export function setEra(era) {
+  clearCrateMode();
   state.era = era;
   document.querySelectorAll('.era__btn').forEach((b) =>
     b.classList.toggle('is-active', b.dataset.era === era));
@@ -158,6 +171,7 @@ export function setEra(era) {
 }
 
 export async function setOrder(order) {
+  clearCrateMode();
   if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) =>
@@ -480,11 +494,12 @@ export function renderFavBtn() {
   btn.classList.toggle('is-fav', on);
 }
 export function updateFavCount() {
-  const count = favGet().length;
-  const labelKey = state.favMode ? 'favOpenActive' : 'favOpen';
+  const count = state.crateMode ? state.crateIds.length : favGet().length;
+  const labelKey = state.crateMode ? 'crateExit' : (state.favMode ? 'favOpenActive' : 'favOpen');
   const label = window.i18n.t(labelKey);
-  const icon = state.favMode ? '◀' : '♡';
+  const icon = state.crateMode || state.favMode ? '◀' : '♡';
   $('#favOpen').innerHTML = `${icon} ${label} (<span id="favCount">${count}</span>)`;
+  $('#favOpen').classList.toggle('is-active', state.crateMode || state.favMode);
 }
 window.updateFavCount = updateFavCount;
 
@@ -495,6 +510,7 @@ export function openFavs() {
   const list = $('#favList');
   $('#favEmpty').hidden = favs.length > 0;
   $('#favPlayAll').hidden = favs.length === 0;
+  $('#crateShare').hidden = favs.length === 0;
   list.innerHTML = favs.map((f) => `
     <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}" role="button" tabindex="0">
       <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
@@ -513,6 +529,7 @@ export function playFavorites(fromId) {
   const favs = favGet();
   if (!favs.length) return;
   state.favMode = true;
+  clearCrateMode();
   state.queue = favs.map((f) => ({ ...f }));
   if (fromId) {
     state.index = Math.max(0, state.queue.findIndex((s) => s.youtube_id === fromId));
@@ -526,28 +543,17 @@ export function playFavorites(fromId) {
   closeFavs();
 }
 
-export async function doShare() {
-  const song = current();
-  if (!song) return;
-  const shareUrl = `${window.location.origin}/?v=${song.youtube_id}`;
-
-  // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
-  fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
-
-  const shareText = `Play on SLAPS | ${song.name}`;
-  const fullCopyText = `${shareText}\n${shareUrl}`;
+async function sharePayload(fullCopyText) {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (isMobile && navigator.share) {
     try {
-      await navigator.share({
-        text: fullCopyText
-      });
+      await navigator.share({ text: fullCopyText });
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
     }
   }
-  
+
   try {
     await navigator.clipboard.writeText(fullCopyText);
     showToast(window.i18n.t('shareCopied'));
@@ -561,9 +567,30 @@ export async function doShare() {
     try {
       document.execCommand('copy');
       showToast(window.i18n.t('shareCopied'));
-    } catch (__ون) {}
+    } catch (__err) {}
     document.body.removeChild(input);
   }
+}
+
+export async function shareCrate() {
+  const ids = favGet().map((song) => song.youtube_id).filter((id) => /^[A-Za-z0-9_-]{11}$/.test(id)).slice(0, 50);
+  if (!ids.length) return;
+  const url = new URL('/', window.location.origin);
+  url.searchParams.set('crate', ids.join('.'));
+  await sharePayload(`SLAPS CRATE | ${ids.length} tracks\n${url.toString()}`);
+}
+
+export async function doShare() {
+  const song = current();
+  if (!song) return;
+  const shareUrl = `${window.location.origin}/?v=${song.youtube_id}`;
+
+  // OGP 画像の事前生成をバックグラウンドでトリガー（プリウォーム）
+  fetch(`/api/og-image?v=${song.youtube_id}`).catch(() => {});
+
+  const shareText = `Play on SLAPS | ${song.name}`;
+  const fullCopyText = `${shareText}\n${shareUrl}`;
+  await sharePayload(fullCopyText);
 }
 
 export function trapFocus(modal) {
@@ -656,6 +683,7 @@ export function setupUIListeners() {
       updateVibeColor(v);
     });
     balanceRange.addEventListener('change', () => {
+      clearCrateMode();
       state.favMode = false;
       $('#favOpen').classList.remove('is-active');
       updateFavCount();
@@ -705,7 +733,8 @@ export function setupUIListeners() {
   $('#shareBtn').addEventListener('click', doShare);
   $('#favBtn').addEventListener('click', toggleFav);
   $('#favOpen').addEventListener('click', () => {
-    if (state.favMode) {
+    if (state.crateMode || state.favMode) {
+      clearCrateMode();
       state.favMode = false;
       $('#favOpen').classList.remove('is-active');
       updateFavCount();
@@ -718,6 +747,7 @@ export function setupUIListeners() {
   });
   $('#favClose').addEventListener('click', closeFavs);
   $('#favPlayAll').addEventListener('click', () => playFavorites());
+  $('#crateShare').addEventListener('click', shareCrate);
 
   // 音量コントロールの初期化 (HOTFIX)
   const volumeSlider = $('#volumeSlider');

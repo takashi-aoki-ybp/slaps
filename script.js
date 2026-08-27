@@ -1,7 +1,7 @@
 import { state } from './src/state.js';
 import { db } from './src/db.js';
 import { tryStart, createYTPlayer, runIntro } from './src/player.js';
-import { setupUIListeners, updateTrackCount } from './src/ui.js';
+import { setupUIListeners, updateTrackCount, updateFavCount, showToast } from './src/ui.js';
 import { initPresence } from './src/presence.js';
 
 // ---- データ読み込み ----
@@ -11,7 +11,17 @@ async function loadData() {
   } catch {
     state.all = [];
   }
+  if (state.crateMode) {
+    const existingIds = new Set(state.all.map((song) => song.youtube_id));
+    state.crateIds = state.crateIds.filter((id) => existingIds.has(id));
+    if (!state.crateIds.length) {
+      state.crateMode = false;
+    } else {
+      showToast(window.i18n.t('crateLoaded').replace('{count}', state.crateIds.length));
+    }
+  }
   updateTrackCount();
+  updateFavCount();
   tryStart();
 }
 

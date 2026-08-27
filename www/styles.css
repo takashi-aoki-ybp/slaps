@@ -555,6 +555,7 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 .preview img { width: 96px; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px; }
 .preview p { font-size: 13px; line-height: 1.5; }
 .modal__submit { width: 100%; margin-top: 20px; background: var(--fg); color: #000; font-weight: 600; border-radius: 999px; padding: 12px; }
+.modal__submit--secondary { margin-top: 8px; background: transparent; color: var(--fg); border: 1px solid rgba(255, 255, 255, .28); }
 .modal__submit:disabled { opacity: .4; cursor: default; }
 .modal__note { margin-top: 10px; color: #666; font-size: 11px; line-height: 1.6; }
 
@@ -1548,4 +1549,3 @@ textarea:focus:not(:focus-visible),
     width: 100%;
   }
 }
-
