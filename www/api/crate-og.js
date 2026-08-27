@@ -91,7 +91,7 @@ export default async function handler(req, res) {
   if (!ids.length) return res.status(400).send('Missing or invalid crate IDs');
 
   const cacheHash = crypto.createHash('sha1').update(ids.join('.')).digest('hex');
-  const cacheKey = `${process.env.DB_PREFIX || ''}slaps:crate-og:${cacheHash}`;
+  const cacheKey = `${process.env.DB_PREFIX || ''}slaps:saved-og:v2:${cacheHash}`;
 
   try {
     const cached = await kvFetch(['GET', cacheKey]);
