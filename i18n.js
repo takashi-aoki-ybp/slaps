@@ -94,6 +94,7 @@ const I18N = {
     ],
     aboutEnTitle: '',
     aboutEn: '',
+    selectedLink: 'SLAPS SELECTED — Curation for brands, artists, shops, and events',
     // meta
     postedBy: 'posted by',
     anon: 'Anonymous',
@@ -207,6 +208,7 @@ const I18N = {
     ],
     aboutEnTitle: 'About (English)',
     aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. Tap START and a track picked by a real person plays immediately at random. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or bundle saved tracks into a shareable SLAPS CRATE. Paste a YouTube URL to add a track after automatic checks.',
+    selectedLink: 'SLAPS SELECTED — ブランド・アーティスト向け選曲企画',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
@@ -354,6 +356,8 @@ const i18n = (() => {
       if (h2s[1]) h2s[1].textContent = t('aboutH2how');
       const ul = ov.querySelector('ul');
       if (ul) ul.innerHTML = t('aboutHow').map(li => `<li>${li}</li>`).join('');
+      const selectedLink = $('#selectedLink');
+      if (selectedLink) selectedLink.textContent = t('selectedLink');
       // English section
       const enSection = ov.querySelector('.en');
       if (enSection) {

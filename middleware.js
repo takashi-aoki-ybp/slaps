@@ -19,6 +19,45 @@ export default async function middleware(request) {
   }
 
   const videoId = url.searchParams.get('v');
+  const crateIds = String(url.searchParams.get('crate') || '')
+    .split('.')
+    .filter((id) => /^[A-Za-z0-9_-]{11}$/.test(id))
+    .filter((id, index, all) => all.indexOf(id) === index)
+    .slice(0, 50);
+
+  // CRATE共有は、クローラー向けに曲数と専用画像を含むOGPを返す
+  if (crateIds.length && BOT_UA_REGEX.test(userAgent)) {
+    try {
+      const indexUrl = new URL('./index.html', request.url);
+      const indexRes = await fetch(indexUrl);
+      let html = await indexRes.text();
+      const crate = crateIds.join('.');
+      const count = crateIds.length;
+      const title = `SLAPS CRATE · ${count} TRACK${count === 1 ? '' : 'S'}`;
+      const desc = `A ${count}-track selection shared on SLAPS. Open the crate.`;
+      const shareUrl = `${url.origin}/?crate=${crate}`;
+      const imageUrl = `${url.origin}/api/crate-og?crate=${crate}`;
+
+      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${title}">`);
+      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${title}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${desc}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${desc}">`);
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${imageUrl}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${imageUrl}">`);
+      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${shareUrl}">`);
+      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${shareUrl}">`);
+      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${title}</title>`);
+
+      return new Response(html, {
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=3600',
+        },
+      });
+    } catch (_) {
+      return next();
+    }
+  }
 
   // 動画IDがあり、かつクローラーからのアクセスの時のみOGPをインジェクト
   if (videoId && BOT_UA_REGEX.test(userAgent)) {

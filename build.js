@@ -7,7 +7,9 @@ const destDir = path.join(__dirname, 'www');
 // コピーするファイルとディレクトリのリスト
 const targets = [
   'index.html',
+  'selected.html',
   'styles.css',
+  'selected.css',
   'script.js',
   'i18n.js',
   'manifest.json',

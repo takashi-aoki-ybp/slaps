@@ -6,7 +6,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/promo", "destination": "/index.html" }
+    { "source": "/promo", "destination": "/index.html" },
+    { "source": "/selected", "destination": "/selected.html" }
   ],
   "outputDirectory": "www"
 }
