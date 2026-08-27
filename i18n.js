@@ -15,7 +15,7 @@ const I18N = {
     saved: '♥ Saved',
     favOpen: 'Saved',
     favOpenActive: 'Back to All',
-    share: '🔗 Share',
+    share: '🔗 Share Track',
     shareCopied: 'Link copied to clipboard!',
     report: '⚐ Report',
     start: '▶ START',
@@ -48,6 +48,7 @@ const I18N = {
     favLead: 'Saved to this device only. Not sent to any server.',
     favPlayAll: '▶ Play Saved Only',
     crateShare: '🔗 Share SLAPS CRATE',
+    crateShareText: 'Open my SLAPS CRATE | {count} tracks',
     crateNote: 'The shared URL contains YouTube IDs only. Saved tracks and listening history are never sent to a server.',
     crateExit: 'Exit CRATE',
     crateLoaded: 'SLAPS CRATE loaded: {count} tracks.',
@@ -76,19 +77,20 @@ const I18N = {
     // about
     aboutH1: 'Stumble upon tracks you never knew existed.',
     aboutP1: "You love HIPHOP, but you're tired of what the algorithm keeps pushing. Playlists on streaming services all sound the same. There must be better tracks out there in the world — you just can't find them.",
-    aboutP2: '<strong>SLAPS</strong> was born from that frustration. Open it up, and a track hand-picked by someone who thought "this is fire" starts playing at random.',
+    aboutP2: '<strong>SLAPS</strong> was born from that frustration. Tap START and a track hand-picked by someone who thought "this is fire" starts playing immediately at random.',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
-    aboutPalgo: 'No recommendations. No history-based optimization. We don\'t track what you listen to. Discovery is completely random. <strong>Because stumbling upon music by chance is the best part.</strong>',
+    aboutPalgo: 'No personalized feed and no history-based optimization. We don\'t profile what you listen to. Tracks start at random; DIG only opens when you choose to explore further. <strong>Because stumbling upon music by chance is the best part.</strong>',
     aboutH2how: 'How to Use',
     aboutHow: [
       'Tap START to begin random play',
       'Skip tracks with side buttons / arrow keys / swipe',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> to filter by country (US / JP / UK / FR / KR …)',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> to zoom the video to fill the screen (aspect ratio crop)',
+      'Use the country filter to narrow tracks (US / JP / UK / FR / KR …)',
+      'Use Fill Screen to make the video fill the display (the edges may be cropped)',
       '<span class="about-badge">UI</span> to keep the UI visible (turn OFF to focus on the MV)',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> to save (stored on this device only)',
-      'Share saved tracks as a SLAPS CRATE link without an account',
-      'Anyone can add a track — just paste a YouTube URL',
+      'Tap ♡ Save to keep a track on this device only',
+      'Bundle saved tracks into a SLAPS CRATE and share the selection as a link — no account required',
+      'Use DIG to explore related and unregistered tracks when you want to dig deeper',
+      'Paste a YouTube URL to add a track; it goes live immediately after automatic video and duplicate checks',
     ],
     aboutEnTitle: '',
     aboutEn: '',
@@ -132,7 +134,7 @@ const I18N = {
     saved: '♥ 保存済',
     favOpen: '保存した曲を再生',
     favOpenActive: '全曲再生に戻る',
-    share: '🔗 共有',
+    share: '🔗 曲を共有',
     shareCopied: 'リンクをクリップボードにコピーしました！',
     report: '⚐ 報告',
     start: '▶ START',
@@ -162,6 +164,7 @@ const I18N = {
     favLead: 'この端末にのみ保存されます。サーバーには送信されません。',
     favPlayAll: '▶ 保存した曲だけ再生',
     crateShare: '🔗 SLAPS CRATEを共有',
+    crateShareText: 'SLAPS CRATEを開く｜{count}曲の選曲箱',
     crateNote: '共有URLにはYouTube IDだけが含まれます。保存曲や履歴はサーバーへ送信されません。',
     crateExit: 'CRATEを終了',
     crateLoaded: 'SLAPS CRATEを読み込みました：{count}曲',
@@ -187,22 +190,23 @@ const I18N = {
     tryBroaderFilters: ' フィルターを広げてみてください。',
     aboutH1: '知らなかった曲に、偶然ぶつかる場所。',
     aboutP1: 'アルゴリズムが勧めてくる曲はもう聴き飽きた。サブスクのプレイリストは同じような曲ばっかり。もっと良い曲が世界中にあるはずなのに、なかなか出会えない。',
-    aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。アクセスしたら、誰かが「これヤバい」と思い、選んだ曲がランダムで流れだす。',
+    aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。STARTを押したら、誰かが「これヤバい」と思って選んだ曲が、すぐランダムで流れだす。',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
-    aboutPalgo: 'レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
+    aboutPalgo: 'あなた専用のレコメンドも、履歴による最適化もしない。聴いた曲からあなたを分析しない。曲との出会いはランダムで、もっと掘りたい時だけ自分でDIGする。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
     aboutH2how: '使い方',
     aboutHow: [
       'STARTを押すとランダム再生が始まる',
       '左右のボタン／キー／スワイプで曲送り',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> で国を絞る（US / JP / UK / FR / KR …）',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> で映像を画面いっぱいに拡大（縦横比をフィット）',
+      '国フィルターで曲を絞る（US / JP / UK / FR / KR …）',
+      '画面拡大で映像を画面いっぱいに表示（端が切れる場合あり）',
       '<span class="about-badge">UI</span> でUIを常時表示（MVに集中したい時はOFF）',
-      '気に入ったら <svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> で保存（この端末だけに残る）',
-      '保存曲をSLAPS CRATEとして、ログインなしで共有できる',
-      '好きな曲はYouTubeのURLを貼るだけで誰でも追加OK',
+      '気に入った曲は ♡ 保存（この端末だけに残る）',
+      '保存曲をSLAPS CRATEという選曲箱にまとめ、ログインなしのリンクで共有',
+      'もっと掘りたい時はDIGから関連曲・未登録曲を探す',
+      'YouTube URLを貼って曲を追加。動画と重複の自動確認を通ればすぐ公開',
     ],
     aboutEnTitle: 'About (English)',
-    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization — just tracks picked by real people, played at random. Filter by region, save favorites locally, add your own track by pasting a YouTube URL. No rules. If it slaps, it belongs here.',
+    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. Tap START and a track picked by a real person plays immediately at random. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or bundle saved tracks into a shareable SLAPS CRATE. Paste a YouTube URL to add a track after automatic checks.',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
@@ -352,7 +356,13 @@ const i18n = (() => {
       if (ul) ul.innerHTML = t('aboutHow').map(li => `<li>${li}</li>`).join('');
       // English section
       const enSection = ov.querySelector('.en');
-      if (enSection) enSection.style.display = lang === 'ja' ? '' : 'none';
+      if (enSection) {
+        const enTitle = enSection.querySelector('h2');
+        const enBody = enSection.querySelector('p');
+        if (enTitle) enTitle.textContent = t('aboutEnTitle');
+        if (enBody) enBody.innerHTML = t('aboutEn');
+        enSection.style.display = lang === 'ja' ? '' : 'none';
+      }
     }
 
     // lang toggle: swap is-active between JP and EN

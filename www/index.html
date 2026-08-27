@@ -55,7 +55,7 @@
   <link rel="preconnect" href="https://img.youtube.com">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=3.05">
+  <link rel="stylesheet" href="./styles.css?v=3.06">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -198,7 +198,7 @@
         <div class="actions__links">
           <button type="button" class="report-link" id="favOpen">♡ 保存した曲を再生 (<span id="favCount">0</span>)</button>
           <button type="button" class="report-link" id="digOpen">🔍 DIG</button>
-          <button type="button" class="report-link" id="shareBtn">🔗 共有</button>
+          <button type="button" class="report-link" id="shareBtn">🔗 曲を共有</button>
           <button type="button" class="report-link" id="reportBtn">⚐ 報告</button>
         </div>
       </div>
@@ -372,7 +372,7 @@
       <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
       <p class="tag">Nothing but slaps.</p>
 
-      <h1 lang="ja">知らないヤバい曲に、偶然ぶつかる場所。</h1>
+      <h1 lang="ja">知らなかった曲に、偶然ぶつかる場所。</h1>
       <p class="lead" lang="ja">
         HIPHOPが好きで、でもアルゴリズムが勧めてくる曲はもう聴き飽きた。
         サブスクのプレイリストは同じような曲ばっかり。もっとヤバい曲が世界中にあるはずなのに、
@@ -380,23 +380,26 @@
       </p>
       <p class="lead">
         <strong>SLAPS</strong>はそんな不満から生まれた、HIPHOPに特化したオンライン・ステーション。
-        アクセスしたら、誰かが「これヤバい」と思って手で選んだ曲がランダムで流れるだけ。
+        STARTを押したら、誰かが「これヤバい」と思って選んだ曲が、すぐランダムで流れだす。
       </p>
 
       <h2>NO ALGORITHM. JUST SLAPS.</h2>
       <p>
-        レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。
-        どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。
+        あなた専用のレコメンドも、履歴による最適化もしない。聴いた曲からあなたを分析しない。
+        曲との出会いはランダムで、もっと掘りたい時だけ自分でDIGする。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。
       </p>
 
       <h2>使い方</h2>
       <ul>
-        <li>開いた瞬間にランダム再生</li>
+        <li>STARTを押すとランダム再生が始まる</li>
         <li>左右のボタン／キー／スワイプで曲送り</li>
-        <li>🌐 で国を絞る（US / JP / UK / FR / KR …）</li>
-        <li>📌 でUIを固定（MVに集中したい時はOFF）</li>
-        <li>気に入ったら ♡ で保存（この端末だけに残る）</li>
-        <li>好きな曲はYouTubeのURLを貼るだけで誰でも追加OK</li>
+        <li>国フィルターで曲を絞る（US / JP / UK / FR / KR …）</li>
+        <li>画面拡大で映像を画面いっぱいに表示（端が切れる場合あり）</li>
+        <li>UIで操作画面を常時表示（MVに集中したい時はOFF）</li>
+        <li>気に入った曲は ♡ 保存（この端末だけに残る）</li>
+        <li>保存曲をSLAPS CRATEという選曲箱にまとめ、ログインなしのリンクで共有</li>
+        <li>もっと掘りたい時はDIGから関連曲・未登録曲を探す</li>
+        <li>YouTube URLを貼って曲を追加。動画と重複の自動確認を通ればすぐ公開</li>
       </ul>
 
       <hr>
@@ -404,10 +407,10 @@
       <div class="en">
         <h2>About (English)</h2>
         <p>
-          <strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization —
-          just tracks picked by real people, played at random.
-          Filter by region, save favorites locally, add your own track by pasting a YouTube URL.
-          No rules. If it slaps, it belongs here.
+          <strong>SLAPS</strong> is a HIPHOP-only online station. Tap START and a track picked by a real person plays
+          immediately at random. There is no personalized feed or history-based optimization. Use DIG when you want
+          to explore further, or bundle saved tracks into a shareable SLAPS CRATE. Paste a YouTube URL to add a track
+          after automatic checks.
         </p>
       </div>
     </div>
@@ -435,9 +438,9 @@
   <div class="vibe-ticker" id="vibeTicker" hidden></div>
 
   <!-- Scripts: 多言語設定→本体→YT API の順 -->
-  <script src="./src/tv-navigation.js?v=3.05"></script>
-  <script src="./i18n.js?v=3.05"></script>
-  <script type="module" src="./script.js?v=3.05"></script>
+  <script src="./src/tv-navigation.js?v=3.06"></script>
+  <script src="./i18n.js?v=3.06"></script>
+  <script type="module" src="./script.js?v=3.06"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
 
 </body>

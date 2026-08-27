@@ -577,7 +577,8 @@ export async function shareCrate() {
   if (!ids.length) return;
   const url = new URL('/', window.location.origin);
   url.searchParams.set('crate', ids.join('.'));
-  await sharePayload(`SLAPS CRATE | ${ids.length} tracks\n${url.toString()}`);
+  const shareText = window.i18n.t('crateShareText').replace('{count}', String(ids.length));
+  await sharePayload(`${shareText}\n${url.toString()}`);
 }
 
 export async function doShare() {
