@@ -126,10 +126,10 @@ export default async function handler(req, res) {
     logo.contain(390, 138, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE);
     canvas.composite(logo, 62, 58);
 
-    drawText(canvas, 'CRATE', 68, 230, 11);
+    drawText(canvas, 'SAVED', 68, 230, 11);
     drawText(canvas, `${ids.length} TRACK${ids.length === 1 ? '' : 'S'}`, 70, 340, 5);
     drawText(canvas, 'A SELECTION SHARED ON SLAPS', 70, 420, 2, 0xbdbdbdff);
-    drawText(canvas, 'OPEN THE CRATE / SLAPS.TOKYO', 70, 520, 2, 0xd8d8d8ff);
+    drawText(canvas, 'LISTEN ON SLAPS.TOKYO', 70, 520, 2, 0xd8d8d8ff);
 
     canvas.quality(88);
     const buffer = await canvas.getBufferAsync(Jimp.MIME_JPEG);

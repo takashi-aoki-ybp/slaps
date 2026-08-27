@@ -47,11 +47,11 @@ const I18N = {
     favTitle: 'Saved Tracks',
     favLead: 'Saved to this device only. Not sent to any server.',
     favPlayAll: '▶ Play Saved Only',
-    crateShare: '🔗 Share SLAPS CRATE',
-    crateShareText: 'Open my SLAPS CRATE | {count} tracks',
+    crateShare: '🔗 Share Saved Tracks',
+    crateShareText: 'Listen to my {count} saved tracks on SLAPS',
     crateNote: 'The shared URL contains YouTube IDs only. Saved tracks and listening history are never sent to a server.',
-    crateExit: 'Exit CRATE',
-    crateLoaded: 'SLAPS CRATE loaded: {count} tracks.',
+    crateExit: 'Exit Shared Tracks',
+    crateLoaded: 'Loaded {count} shared tracks.',
     favEmpty: 'No saved tracks yet. Hit ♡ Save on a track you like.',
     // fav toast
     favToastMsg: '♥ Saved to this device only.<br>Not sent to server. Cleared if you clear browser data.',
@@ -88,13 +88,12 @@ const I18N = {
       'Use Fill Screen to make the video fill the display (the edges may be cropped)',
       '<span class="about-badge">UI</span> to keep the UI visible (turn OFF to focus on the MV)',
       'Tap ♡ Save to keep a track on this device only',
-      'Bundle saved tracks into a SLAPS CRATE and share the selection as a link — no account required',
+      'Share saved tracks with a link — no account required',
       'Use DIG to explore related and unregistered tracks when you want to dig deeper',
       'Paste a YouTube URL to add a track; it goes live immediately after automatic video and duplicate checks',
     ],
     aboutEnTitle: '',
     aboutEn: '',
-    selectedLink: 'SLAPS SELECTED — Curation for brands, artists, shops, and events',
     // meta
     postedBy: 'posted by',
     anon: 'Anonymous',
@@ -164,11 +163,11 @@ const I18N = {
     favTitle: '保存した曲',
     favLead: 'この端末にのみ保存されます。サーバーには送信されません。',
     favPlayAll: '▶ 保存した曲だけ再生',
-    crateShare: '🔗 SLAPS CRATEを共有',
-    crateShareText: 'SLAPS CRATEを開く｜{count}曲の選曲箱',
+    crateShare: '🔗 保存した曲を共有',
+    crateShareText: 'SLAPSで保存した{count}曲を聴く',
     crateNote: '共有URLにはYouTube IDだけが含まれます。保存曲や履歴はサーバーへ送信されません。',
-    crateExit: 'CRATEを終了',
-    crateLoaded: 'SLAPS CRATEを読み込みました：{count}曲',
+    crateExit: '共有リストを終了',
+    crateLoaded: '共有された{count}曲を読み込みました',
     favEmpty: 'まだ保存した曲はありません。気に入った曲で ♡ をタップしてください。',
     favToastMsg: '♥ この端末にのみ保存されました。<br>サーバーには送信されません。ブラウザデータを消去すると削除されます。',
     favToastDismiss: '今後表示しない',
@@ -202,13 +201,12 @@ const I18N = {
       '画面拡大で映像を画面いっぱいに表示（端が切れる場合あり）',
       '<span class="about-badge">UI</span> でUIを常時表示（MVに集中したい時はOFF）',
       '気に入った曲は ♡ 保存（この端末だけに残る）',
-      '保存曲をSLAPS CRATEという選曲箱にまとめ、ログインなしのリンクで共有',
+      '保存した曲をログインなしのリンクで共有',
       'もっと掘りたい時はDIGから関連曲・未登録曲を探す',
       'YouTube URLを貼って曲を追加。動画と重複の自動確認を通ればすぐ公開',
     ],
     aboutEnTitle: 'About (English)',
-    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. Tap START and a track picked by a real person plays immediately at random. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or bundle saved tracks into a shareable SLAPS CRATE. Paste a YouTube URL to add a track after automatic checks.',
-    selectedLink: 'SLAPS SELECTED — ブランド・アーティスト向け選曲企画',
+    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. Tap START and a track picked by a real person plays immediately at random. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or share saved tracks with a link. Paste a YouTube URL to add a track after automatic checks.',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
@@ -356,8 +354,6 @@ const i18n = (() => {
       if (h2s[1]) h2s[1].textContent = t('aboutH2how');
       const ul = ov.querySelector('ul');
       if (ul) ul.innerHTML = t('aboutHow').map(li => `<li>${li}</li>`).join('');
-      const selectedLink = $('#selectedLink');
-      if (selectedLink) selectedLink.textContent = t('selectedLink');
       // English section
       const enSection = ov.querySelector('.en');
       if (enSection) {

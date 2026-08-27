@@ -25,7 +25,7 @@ export default async function middleware(request) {
     .filter((id, index, all) => all.indexOf(id) === index)
     .slice(0, 50);
 
-  // CRATE共有は、クローラー向けに曲数と専用画像を含むOGPを返す
+  // 保存曲の共有は、クローラー向けに曲数と専用画像を含むOGPを返す
   if (crateIds.length && BOT_UA_REGEX.test(userAgent)) {
     try {
       const indexUrl = new URL('./index.html', request.url);
@@ -33,8 +33,8 @@ export default async function middleware(request) {
       let html = await indexRes.text();
       const crate = crateIds.join('.');
       const count = crateIds.length;
-      const title = `SLAPS CRATE · ${count} TRACK${count === 1 ? '' : 'S'}`;
-      const desc = `A ${count}-track selection shared on SLAPS. Open the crate.`;
+      const title = `${count} SAVED TRACK${count === 1 ? '' : 'S'} · SLAPS`;
+      const desc = `Listen to ${count} tracks shared on SLAPS.`;
       const shareUrl = `${url.origin}/?crate=${crate}`;
       const imageUrl = `${url.origin}/api/crate-og?crate=${crate}`;
 

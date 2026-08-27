@@ -648,18 +648,6 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 .about-ov hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0; }
 .about-ov .en { color: var(--dim); font-size: 14px; line-height: 1.85; }
 .about-ov .en h2 { color: var(--fg); }
-#selectedLink {
-  display: inline-flex;
-  margin-top: 10px;
-  padding-bottom: 4px;
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,.45);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-}
-#selectedLink:hover { border-color: #fff; }
-
 /* ===== fav list ===== */
 .fav-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
 .fav-item { display: flex; align-items: center; gap: 12px; background: #000; border: 1px solid var(--line); border-radius: 10px; padding: 10px; cursor: pointer; transition: .12s; }

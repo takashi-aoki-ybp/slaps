@@ -5,9 +5,12 @@
       "schedule": "0 20 * * *"
     }
   ],
+  "redirects": [
+    { "source": "/selected", "destination": "/", "permanent": false },
+    { "source": "/selected.html", "destination": "/", "permanent": false }
+  ],
   "rewrites": [
-    { "source": "/promo", "destination": "/index.html" },
-    { "source": "/selected", "destination": "/selected.html" }
+    { "source": "/promo", "destination": "/index.html" }
   ],
   "outputDirectory": "www"
 }
