@@ -227,8 +227,8 @@ export function runIntro() {
     return;
   }
 
-  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 2400);
-  finishTimer = setTimeout(finishIntro, 3100);
+  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 900);
+  finishTimer = setTimeout(finishIntro, 1350);
 }
 
 export function loadCurrent() {
