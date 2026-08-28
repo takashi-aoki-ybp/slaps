@@ -1487,6 +1487,12 @@ textarea:focus:not(:focus-visible),
 }
 
 /* DIG SLAPS 透過オーバーレイ */
+#digOverlay {
+  overflow: hidden;
+}
+#digOverlay .about-ov__inner {
+  max-width: 1120px;
+}
 .dig-overlay-title {
   font-size: 16px;
   font-weight: 700;
@@ -1496,11 +1502,16 @@ textarea:focus:not(:focus-visible),
   color: var(--fg);
 }
 .dig-overlay-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 480px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+  max-width: 1120px;
+  max-height: calc(100dvh - 190px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   margin: 0 auto;
+  padding: 2px 6px 20px;
 }
 .dig-overlay-item {
   display: flex !important;
@@ -1525,8 +1536,8 @@ textarea:focus:not(:focus-visible),
   transform: none !important; /* スマホではホバー浮き上がりを無効化 */
 }
 .dig-overlay-item__artwork {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border-radius: 12px;
   object-fit: cover;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1539,7 +1550,7 @@ textarea:focus:not(:focus-visible),
   gap: 4px;
 }
 .dig-overlay-item__name {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: #fff;
   white-space: nowrap;
@@ -1547,7 +1558,7 @@ textarea:focus:not(:focus-visible),
   text-overflow: ellipsis;
 }
 .dig-overlay-item__artist {
-  font-size: 13px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
   white-space: nowrap;
   overflow: hidden;
@@ -1616,6 +1627,25 @@ textarea:focus:not(:focus-visible),
 
 /* スマホ表示での確認モーダルのボタン縦並び化 */
 @media (max-width: 480px) {
+  #digOverlay {
+    overflow-y: auto;
+  }
+  .dig-overlay-title {
+    margin: 20px 0 14px;
+  }
+  .dig-overlay-list {
+    max-height: none;
+    gap: 10px;
+    padding-inline: 0;
+  }
+  .dig-overlay-item {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  .dig-overlay-item__artwork {
+    width: 50px;
+    height: 50px;
+  }
   .modal__panel--confirm .modal__actions {
     flex-direction: column;
     gap: 8px;

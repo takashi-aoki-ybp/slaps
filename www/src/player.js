@@ -23,6 +23,9 @@ let introFinished = false;
 let promoTimer = null;
 let promoFadeInterval = null;
 
+const MAX_DIG_RECOMMENDATIONS = 16;
+const MAX_REGISTERED_DIG_RECOMMENDATIONS = 4;
+
 function disableCaptions() {
   if (!state.player) return;
   try {
@@ -471,7 +474,7 @@ function getRegisteredRecommendations(artist, currentSong) {
         youtube_id: song.youtube_id,
         registered: true
       });
-      if (registered.length >= 1) {
+      if (registered.length >= MAX_REGISTERED_DIG_RECOMMENDATIONS) {
         break;
       }
     }
@@ -836,7 +839,7 @@ function filterTracksByArtist(results, artist, registeredTitles, cleanTitle) {
       artwork: (track.artworkUrl100 || '').replace('100x100bb.jpg', '400x400bb.jpg')
     });
 
-    if (unexpressed.length >= 3) break;
+    if (unexpressed.length >= MAX_DIG_RECOMMENDATIONS) break;
   }
   return unexpressed;
 }
@@ -933,7 +936,7 @@ export async function fetchRecommendations(artist, isFallback = false) {
 
       // iTunes の結果を、現在 filtered に入っている（登録済み関連曲）タイトルと重複しないように追加
       for (const ir of itunesRecs) {
-        if (filtered.length >= 3) break;
+        if (filtered.length >= MAX_DIG_RECOMMENDATIONS) break;
         const cleanIrTitle = cleanTitle(ir.title);
         const isDuplicate = filtered.some(f => cleanTitle(f.title) === cleanIrTitle);
         if (!isDuplicate) {
@@ -954,7 +957,7 @@ export async function fetchRecommendations(artist, isFallback = false) {
       }
     }
 
-    state.recommendations = filtered.slice(0, 3);
+    state.recommendations = filtered.slice(0, MAX_DIG_RECOMMENDATIONS);
   } catch (err) {
     console.warn('Failed to fetch recommendations:', err);
     state.recommendations = [];
