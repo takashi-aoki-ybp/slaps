@@ -220,8 +220,9 @@ export function runIntro() {
     return;
   }
 
-  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 900);
-  finishTimer = setTimeout(finishIntro, 1350);
+  // 最後の説明文が出切ったあと、短い余韻を残してからSTARTへ切り替える。
+  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 1300);
+  finishTimer = setTimeout(finishIntro, 1750);
 }
 
 export function loadCurrent() {
