@@ -27,10 +27,10 @@ img { display: block; max-width: 100%; }
   position: fixed; inset: 0; z-index: 50;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
   background: var(--bg);
-  transition: opacity 1.2s ease;
+  transition: opacity .7s ease;
 }
 .intro__logo {
-  animation: introLogo 1.7s ease both;
+  animation: introLogo 1.1s ease both;
 }
 /* ロゴ画像共通 */
 .logo-img { display: block; height: auto; object-fit: contain; }
@@ -41,13 +41,13 @@ img { display: block; max-width: 100%; }
 .intro__tag {
   font-size: clamp(11px, 3vw, 14px); letter-spacing: .34em; text-transform: uppercase;
   color: rgba(255,255,255,.6); padding-left: .34em;
-  animation: introFade 1.2s ease .9s both;
+  animation: introFade .8s ease .5s both;
 }
 @keyframes introFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .intro__note {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   margin-top: 14px; max-width: min(420px, 84vw); text-align: center;
-  animation: introFade 1.4s ease 1.8s both;
+  animation: introFade .8s ease 1.05s both;
 }
 .intro__note-label {
   font-size: 9px; letter-spacing: .3em; color: rgba(255,255,255,.45);
@@ -1230,15 +1230,7 @@ textarea:focus:not(:focus-visible),
 
 /* ===== 未登録推薦曲 (Unregistered Track Recommendations) ===== */
 .meta__recommendations {
-  margin-top: 4px;
-  margin-bottom: 12px;
-  animation: fadeIn 0.5s ease forwards;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-  width: 100%;
-}
-.meta__recommendations:hover {
-  opacity: 1;
+  display: none !important;
 }
 
 .recommend-title {
@@ -1396,22 +1388,105 @@ textarea:focus:not(:focus-visible),
   to { transform: scale(1); opacity: 1; }
 }
 
-/* モバイル表示での出し分け */
-#digOpen {
-  display: none;
+/* ===== DIG SLAPS ステッカー ===== */
+.dig-sticker {
+  position: fixed;
+  right: calc(24px + env(safe-area-inset-right));
+  bottom: calc(var(--dig-bottom, 24px) + env(safe-area-inset-bottom));
+  z-index: 8;
+  width: 116px;
+  min-height: 92px;
+  padding: 13px 10px 9px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  color: #090909;
+  background: #dfff2f;
+  border: 3px solid #090909;
+  border-radius: 5px 12px 7px 10px;
+  box-shadow: 4px 4px 0 #fff, 8px 8px 0 rgba(0, 0, 0, .78);
+  transform: rotate(-6deg);
+  transform-origin: center;
+  isolation: isolate;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.dig-sticker::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .22;
+  background-image: radial-gradient(#000 1.2px, transparent 1.2px);
+  background-size: 6px 6px;
+  transform: rotate(9deg) scale(1.2);
+}
+.dig-sticker::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  z-index: -1;
+  border: 1px dashed rgba(0, 0, 0, .72);
+  border-radius: 3px 8px 4px 7px;
+}
+.dig-sticker:hover,
+.dig-sticker:focus-visible {
+  background: #fff45c;
+  transform: rotate(-2deg) scale(1.06);
+  box-shadow: 5px 5px 0 #fff, 10px 10px 0 rgba(0, 0, 0, .75);
+  outline: none;
+}
+.dig-sticker:active { transform: rotate(-2deg) scale(.98); }
+.dig-sticker__yo {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  margin: -4px 3px 0 0;
+  padding: 1px 5px 0;
+  color: #fff;
+  background: #0b0b0b;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: .04em;
+  transform: rotate(4deg);
+}
+.dig-sticker__main {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 29px;
+  font-weight: 700;
+  line-height: .78;
+  letter-spacing: -.01em;
+  text-align: left;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.55);
+}
+.dig-sticker__count {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-self: end;
+  margin-top: 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .14em;
 }
 
 @media (max-width: 767px) {
-  /* スマホ版ではPC用のホバーリストを非表示にし、代わりにドックリンクからオーバーレイで開く */
-  .meta__recommendations {
-    display: none !important;
+  .dig-sticker {
+    right: calc(68px + env(safe-area-inset-right));
+    width: 74px;
+    min-height: 56px;
+    padding: 8px 6px 5px;
+    box-shadow: 3px 3px 0 #fff, 6px 6px 0 rgba(0, 0, 0, .78);
   }
-  #digOpen {
-    display: inline-block;
-  }
+  .dig-sticker__yo { margin-top: -3px; padding-inline: 3px; font-size: 11px; }
+  .dig-sticker__main { font-size: 18px; line-height: .82; }
+  .dig-sticker__count { margin-top: 2px; font-size: 6px; }
 }
 
-/* スマホ用 DIG SLAPS 透過オーバーレイ */
+/* DIG SLAPS 透過オーバーレイ */
 .dig-overlay-title {
   font-size: 16px;
   font-weight: 700;
@@ -1497,11 +1572,13 @@ textarea:focus:not(:focus-visible),
   color: #000;
 }
 
-/* スマホ版 DIG ボタン用パルスガイドの個別調整 */
+/* DIGステッカーは装飾面を壊さず、外周だけを呼吸させる */
+#digOpen.guide-pulse { animation: digStickerPulse 1.8s ease-in-out infinite; }
 #digOpen.guide-pulse::before,
-#digOpen.guide-pulse::after {
-  border-radius: 8px;
-  inset: -4px -8px;
+#digOpen.guide-pulse::after { animation: none; }
+@keyframes digStickerPulse {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(223, 255, 47, 0)); }
+  50% { filter: drop-shadow(0 0 9px rgba(223, 255, 47, .72)); }
 }
 
 /* 推薦候補0件時のUI用スタイル */

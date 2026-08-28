@@ -387,8 +387,31 @@ export async function doSubmit() {
   }
 }
 
-export function openDig() { $('#digOverlay').hidden = false; document.body.style.overflow = 'hidden'; }
-export function closeDig() { $('#digOverlay').hidden = true; document.body.style.overflow = ''; }
+export function openDig() {
+  $('#digOverlay').hidden = false;
+  const trigger = $('#digOpen');
+  if (trigger) trigger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+export function closeDig() {
+  $('#digOverlay').hidden = true;
+  const trigger = $('#digOpen');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+function positionDigSticker() {
+  const sticker = $('#digOpen');
+  if (!sticker || sticker.hidden) return;
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    const dock = $('.dock');
+    if (!dock) return;
+    const dockTop = dock.getBoundingClientRect().top;
+    sticker.style.setProperty('--dig-bottom', `${Math.max(96, window.innerHeight - dockTop + 10)}px`);
+  } else {
+    sticker.style.removeProperty('--dig-bottom');
+  }
+}
 
 export function openModal() {
   $('#submitModal').hidden = false;
@@ -630,6 +653,7 @@ export function showInfoGuide() {
 // ---- イベントバインディングと初期セットアップ ----
 export const balanceRange = $('#balanceRange');
 let ytCtTouched = false;
+let digDockObserver = null;
 
 export function setupUIListeners() {
   const aboutOverlay = $('#aboutOverlay');
@@ -873,6 +897,11 @@ export function setupUIListeners() {
   const digOverlay = $('#digOverlay');
   if ($('#digOpen')) $('#digOpen').addEventListener('click', openDig);
   if ($('#digClose')) $('#digClose').addEventListener('click', closeDig);
+  window.addEventListener('resize', positionDigSticker, { passive: true });
+  if ('ResizeObserver' in window && $('.dock')) {
+    digDockObserver = new ResizeObserver(() => requestAnimationFrame(positionDigSticker));
+    digDockObserver.observe($('.dock'));
+  }
   if (digOverlay) {
     digOverlay.addEventListener('click', (e) => { if (e.target === digOverlay) closeDig(); });
   }
@@ -1474,15 +1503,23 @@ export function renderRecommendations() {
 
   const recs = state.recommendations || [];
   const digOpenBtn = $('#digOpen');
+  const digCount = $('#digCount');
   if (recs.length === 0) {
     container.hidden = true;
-    if (digOpenBtn) digOpenBtn.style.display = 'none';
+    if (digOpenBtn) {
+      digOpenBtn.hidden = true;
+      digOpenBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (digCount) digCount.textContent = '';
+    if (!$('#digOverlay').hidden) closeDig();
     return;
   }
 
-  if (digOpenBtn) digOpenBtn.style.display = '';
+  if (digOpenBtn) digOpenBtn.hidden = false;
+  if (digCount) digCount.textContent = `${recs.length} CUTS`;
+  requestAnimationFrame(positionDigSticker);
 
-  // PC版リスト描画 (ホバー対応)
+  // イベント委譲を維持するための非表示リスト
   list.innerHTML = recs.map(r => {
     const isRegistered = !!r.registered;
     const actionText = isRegistered 
@@ -1502,7 +1539,7 @@ export function renderRecommendations() {
     `;
   }).join('');
 
-  // スマホ版オーバーレイリスト描画
+  // 全画面DIGオーバーレイリスト描画
   if (overlayList) {
     overlayList.innerHTML = recs.map(r => {
       const isRegistered = !!r.registered;
@@ -1524,7 +1561,8 @@ export function renderRecommendations() {
     }).join('');
   }
 
-  container.hidden = false;
+  // 候補の有無で中央のdock高を変えない。
+  container.hidden = true;
 }
 
 // Expose functions globally for i18n.js integration

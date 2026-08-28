@@ -182,9 +182,10 @@ export function runIntro() {
   }
 
   const intro = document.querySelector('#intro');
-  // イントロの裏側で最初からボタンを表示状態にしておく
+  // STARTはイントロの全要素が表示し終わるまで隠す。
+  // 背面に先出しすると、イントロのフェード中にSTARTだけが透けて見える。
   const unmuteBtn = document.querySelector('#unmute');
-  if (unmuteBtn) unmuteBtn.hidden = false;
+  if (unmuteBtn) unmuteBtn.hidden = true;
 
   let fadeTimer = null;
   let finishTimer = null;
@@ -199,7 +200,11 @@ export function runIntro() {
     if (intro) intro.remove();
 
     // プロモモードの場合は自動起動（タップ待ちをスキップしミュート再生開始）
-    if (state.isPromo) startPromoPlayback();
+    if (state.isPromo) {
+      startPromoPlayback();
+    } else if (unmuteBtn) {
+      unmuteBtn.hidden = false;
+    }
   };
 
   function skipIntro() {
@@ -222,8 +227,8 @@ export function runIntro() {
     return;
   }
 
-  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 1200);
-  finishTimer = setTimeout(finishIntro, 2000);
+  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 2400);
+  finishTimer = setTimeout(finishIntro, 3100);
 }
 
 export function loadCurrent() {
