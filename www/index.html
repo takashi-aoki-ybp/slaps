@@ -55,7 +55,7 @@
   <link rel="preconnect" href="https://img.youtube.com">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=3.17">
+  <link rel="stylesheet" href="./styles.css?v=3.18">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -366,8 +366,20 @@
     <div class="about-ov__inner">
       <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
       <p class="tag">DIG SLAPS</p>
-      <h2 class="dig-overlay-title" id="digOverlayTitle">💡 このアーティストの未登録曲 (DIG)</h2>
-      <div class="dig-overlay-list" id="digOverlayList"></div>
+      <h2 class="dig-overlay-title" id="digOverlayTitle">PICK A CUT.</h2>
+      <p class="dig-overlay-lead" id="digOverlayLead">ジャケットを掘って、気になる1枚を選ぶ。</p>
+      <div class="dig-crate">
+        <div class="dig-overlay-list" id="digOverlayList" role="listbox" aria-label="DIG SLAPS 候補曲"></div>
+        <div class="recommend-item dig-overlay-detail" id="digOverlayDetail" aria-live="polite" hidden>
+          <span class="dig-overlay-detail__index" id="digOverlayDetailIndex"></span>
+          <div class="dig-overlay-detail__copy">
+            <span class="dig-overlay-detail__eyebrow">NOW DIGGING</span>
+            <strong class="dig-overlay-detail__name" id="digOverlayDetailName"></strong>
+            <span class="dig-overlay-detail__artist" id="digOverlayDetailArtist"></span>
+          </div>
+          <button type="button" class="dig-overlay-detail__action" id="digOverlayDetailAction"></button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -444,9 +456,9 @@
   <div class="vibe-ticker" id="vibeTicker" hidden></div>
 
   <!-- Scripts: 多言語設定→本体→YT API の順 -->
-  <script src="./src/tv-navigation.js?v=3.17"></script>
-  <script src="./i18n.js?v=3.17"></script>
-  <script type="module" src="./script.js?v=3.17"></script>
+  <script src="./src/tv-navigation.js?v=3.18"></script>
+  <script src="./i18n.js?v=3.18"></script>
+  <script type="module" src="./script.js?v=3.18"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
 
 </body>

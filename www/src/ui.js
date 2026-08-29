@@ -392,6 +392,10 @@ export function openDig() {
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => {
+    const active = $('#digOverlayList .dig-record.is-active') || $('#digOverlayList .dig-record');
+    if (active) setDigSelection(active);
+  });
 }
 export function closeDig() {
   $('#digOverlay').hidden = true;
@@ -403,14 +407,47 @@ export function closeDig() {
 function positionDigSticker() {
   const sticker = $('#digOpen');
   if (!sticker || sticker.hidden) return;
-  if (window.matchMedia('(max-width: 767px)').matches) {
-    const dock = $('.dock');
-    if (!dock) return;
-    const dockTop = dock.getBoundingClientRect().top;
-    sticker.style.setProperty('--dig-bottom', `${Math.max(96, window.innerHeight - dockTop + 10)}px`);
-  } else {
-    sticker.style.removeProperty('--dig-bottom');
-  }
+  sticker.style.removeProperty('--dig-bottom');
+}
+
+function setDigSelection(item) {
+  if (!item) return;
+  const list = $('#digOverlayList');
+  const detail = $('#digOverlayDetail');
+  if (!list || !detail) return;
+  list.querySelectorAll('.dig-record').forEach((record) => {
+    const active = record === item;
+    record.classList.toggle('is-active', active);
+    record.setAttribute('aria-selected', String(active));
+    record.tabIndex = active ? 0 : -1;
+  });
+  detail.hidden = false;
+  detail.dataset.artist = item.dataset.artist || '';
+  detail.dataset.title = item.dataset.title || '';
+  detail.dataset.artwork = item.dataset.artwork || '';
+  detail.dataset.youtubeId = item.dataset.youtubeId || '';
+  detail.dataset.registered = item.dataset.registered || 'false';
+  $('#digOverlayDetailIndex').textContent = `${String(Number(item.dataset.index) + 1).padStart(2, '0')} / ${String(list.querySelectorAll('.dig-record').length).padStart(2, '0')}`;
+  $('#digOverlayDetailName').textContent = item.dataset.title || '';
+  $('#digOverlayDetailArtist').textContent = item.dataset.artist || '';
+  $('#digOverlayDetailAction').textContent = item.dataset.registered === 'true' ? '▶ PLAY' : '＋ ADD';
+}
+
+function handleDigKeyboard(e) {
+  const records = [...e.currentTarget.querySelectorAll('.dig-record')];
+  const currentIndex = records.indexOf(e.target.closest('.dig-record'));
+  if (currentIndex < 0) return;
+  let nextIndex = currentIndex;
+  if (e.key === 'ArrowRight') nextIndex = Math.min(records.length - 1, currentIndex + 1);
+  else if (e.key === 'ArrowLeft') nextIndex = Math.max(0, currentIndex - 1);
+  else if (e.key === 'ArrowDown') nextIndex = Math.min(records.length - 1, currentIndex + (window.innerWidth <= 480 ? 4 : 8));
+  else if (e.key === 'ArrowUp') nextIndex = Math.max(0, currentIndex - (window.innerWidth <= 480 ? 4 : 8));
+  else if (e.key === 'Home') nextIndex = 0;
+  else if (e.key === 'End') nextIndex = records.length - 1;
+  else return;
+  e.preventDefault();
+  setDigSelection(records[nextIndex]);
+  records[nextIndex].focus();
 }
 
 export function openModal() {
@@ -653,7 +690,6 @@ export function showInfoGuide() {
 // ---- イベントバインディングと初期セットアップ ----
 export const balanceRange = $('#balanceRange');
 let ytCtTouched = false;
-let digDockObserver = null;
 
 export function setupUIListeners() {
   const aboutOverlay = $('#aboutOverlay');
@@ -812,6 +848,7 @@ export function setupUIListeners() {
   const handleRecommendClick = async (e) => {
     const item = e.target.closest('.recommend-item');
     if (!item || item.classList.contains('is-loading')) return;
+    if (item.id === 'digOverlayDetail' && !e.target.closest('.dig-overlay-detail__action')) return;
 
     const isRegistered = item.dataset.registered === 'true';
     const youtubeId = item.dataset.youtubeId;
@@ -891,17 +928,18 @@ export function setupUIListeners() {
   };
 
   if ($('#recommendList')) $('#recommendList').addEventListener('click', handleRecommendClick);
-  if ($('#digOverlayList')) $('#digOverlayList').addEventListener('click', handleRecommendClick);
+  if ($('#digOverlayList')) {
+    $('#digOverlayList').addEventListener('pointerover', (e) => setDigSelection(e.target.closest('.dig-record')));
+    $('#digOverlayList').addEventListener('focusin', (e) => setDigSelection(e.target.closest('.dig-record')));
+    $('#digOverlayList').addEventListener('click', (e) => setDigSelection(e.target.closest('.dig-record')));
+    $('#digOverlayList').addEventListener('keydown', handleDigKeyboard);
+  }
+  if ($('#digOverlayDetail')) $('#digOverlayDetail').addEventListener('click', handleRecommendClick);
 
   // DIG SLAPS スマホ用透過オーバーレイ開閉
   const digOverlay = $('#digOverlay');
   if ($('#digOpen')) $('#digOpen').addEventListener('click', openDig);
   if ($('#digClose')) $('#digClose').addEventListener('click', closeDig);
-  window.addEventListener('resize', positionDigSticker, { passive: true });
-  if ('ResizeObserver' in window && $('.dock')) {
-    digDockObserver = new ResizeObserver(() => requestAnimationFrame(positionDigSticker));
-    digDockObserver.observe($('.dock'));
-  }
   if (digOverlay) {
     digOverlay.addEventListener('click', (e) => { if (e.target === digOverlay) closeDig(); });
   }
@@ -1496,16 +1534,20 @@ export function renderRecommendations() {
       : '🔍 DIG SLAPS (Related & unregistered tracks)';
   }
   if (overlayTitle) {
-    overlayTitle.textContent = isJa
-      ? '💡 このアーティストの関連曲 (DIG)'
-      : '💡 Related tracks by this artist (DIG)';
+    overlayTitle.textContent = 'PICK A CUT.';
   }
+  const overlayLead = $('#digOverlayLead');
+  if (overlayLead) overlayLead.textContent = isJa
+    ? 'ジャケットを掘って、気になる1枚を選ぶ。'
+    : 'Dig through the sleeves. Pick what hits.';
 
   const recs = state.recommendations || [];
   const digOpenBtn = $('#digOpen');
   const digCount = $('#digCount');
   if (recs.length === 0) {
     container.hidden = true;
+    if ($('#digOverlayDetail')) $('#digOverlayDetail').hidden = true;
+    if (overlayList) overlayList.innerHTML = '';
     if (digOpenBtn) {
       digOpenBtn.hidden = true;
       digOpenBtn.setAttribute('aria-expanded', 'false');
@@ -1541,24 +1583,17 @@ export function renderRecommendations() {
 
   // 全画面DIGオーバーレイリスト描画
   if (overlayList) {
-    overlayList.innerHTML = recs.map(r => {
+    overlayList.innerHTML = recs.map((r, index) => {
       const isRegistered = !!r.registered;
-      const actionText = isRegistered 
-        ? 'PLAY' 
-        : '＋ ADD';
-      const actionClass = isRegistered ? 'dig-overlay-item__add-btn--play' : '';
-      
       return `
-        <div class="recommend-item dig-overlay-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="button" tabindex="0">
-          <img class="dig-overlay-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
-          <div class="dig-overlay-item__info">
-            <span class="dig-overlay-item__name">${escapeHtml(r.title)}</span>
-            <span class="dig-overlay-item__artist">${escapeHtml(r.artist)}</span>
-          </div>
-          <button type="button" class="dig-overlay-item__add-btn ${actionClass}">${actionText}</button>
-        </div>
+        <button type="button" class="dig-record${index === 0 ? ' is-active' : ''}" style="--dig-i:${index}" data-index="${index}" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="option" aria-selected="${index === 0}" aria-label="${escapeHtml(`${r.title} — ${r.artist}`)}" tabindex="${index === 0 ? '0' : '-1'}">
+          <img class="dig-record__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
+          <span class="dig-record__shade" aria-hidden="true"></span>
+          <span class="dig-record__number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
+        </button>
       `;
     }).join('');
+    setDigSelection(overlayList.querySelector('.dig-record'));
   }
 
   // 候補の有無で中央のdock高を変えない。
