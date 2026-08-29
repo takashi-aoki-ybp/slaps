@@ -23,14 +23,6 @@ const eraLabels = {
   '20s': ['2020年代', 'the 2020s'],
 };
 
-function vibeLabels(value) {
-  const vibe = Number(value ?? 2.5);
-  if (vibe <= 1.4) return ['コンシャス', 'conscious'];
-  if (vibe <= 2.4) return ['レイドバック', 'laid-back'];
-  if (vibe < 3.6) return ['バランス', 'balanced'];
-  return ['ターント', 'turnt'];
-}
-
 function variantFor(id) {
   return [...id].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 3;
 }
@@ -40,20 +32,19 @@ function buildDescription(song, metadata) {
   const author = (metadata.author_name || 'YouTube').trim().replace(/\s+/g, ' ');
   const [regionJa, regionEn] = regionLabels[song.region] || regionLabels.other;
   const [eraJa, eraEn] = eraLabels[song.era] || ['年代横断', 'across eras'];
-  const [vibeJa, vibeEn] = vibeLabels(song.conscious_turnt);
   const variant = variantFor(song.youtube_id);
   const templates = [
     {
-      ja: `YouTubeで公開中の「${title}」。SLAPSでは${eraJa}・${regionJa}の${vibeJa}セレクトとして収録。`,
-      en: `“${title}” on YouTube, catalogued by SLAPS as a ${vibeEn} hip-hop pick from ${regionEn} in ${eraEn}.`,
+      ja: `YouTubeで公開中の「${title}」。${regionJa}の${eraJa}ヒップホップとして収録。`,
+      en: `“${title}” on YouTube. Hip-hop from ${regionEn}, released in ${eraEn}.`,
     },
     {
-      ja: `${author}公開の「${title}」。${regionJa} / ${eraJa}、SLAPSのVIBEでは${vibeJa}寄り。`,
-      en: `“${title}” from ${author}. ${regionEn} / ${eraEn}, placed on the ${vibeEn} side of the SLAPS vibe scale.`,
+      ja: `${author}公開の「${title}」。${regionJa} / ${eraJa}。`,
+      en: `“${title}” from ${author}. ${regionEn} / ${eraEn}.`,
     },
     {
-      ja: `SLAPSアーカイブから「${title}」。${regionJa}の${eraJa}ヒップホップ、VIBEは${vibeJa}。`,
-      en: `From the SLAPS archive: “${title}”. ${eraEn} hip-hop from ${regionEn}, with a ${vibeEn} vibe setting.`,
+      ja: `SLAPSアーカイブから「${title}」。${regionJa}の${eraJa}ヒップホップ。`,
+      en: `From the SLAPS archive: “${title}”. Hip-hop from ${regionEn}, released in ${eraEn}.`,
     },
   ];
   return {

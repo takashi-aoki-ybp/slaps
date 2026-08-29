@@ -18,6 +18,10 @@ async function kvFetch(command) {
   return data.result;
 }
 
+function hasObsoleteVibeLabel(value = '') {
+  return /SLAPSのVIBE|VIBEは(?:コンシャス|レイドバック|バランス|ターント)|(?:コンシャス|レイドバック|バランス|ターント)セレクト|SLAPS vibe scale|(?:conscious|laid-back|balanced|turnt) vibe setting|catalogued by SLAPS as a (?:conscious|laid-back|balanced|turnt)/i.test(value);
+}
+
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Content-Type', 'application/json');
@@ -76,10 +80,14 @@ export default async function handler(req, res) {
           }
 
           // Keep user-submitted DB metadata authoritative, but let the curated
-          // catalogue fill description fields that predate bilingual copy.
+          // catalogue replace missing copy and the retired auto-generated vibe labels.
           dbSong.description = {
-            ja: dbSong.description?.ja || localSong.description?.ja || '',
-            en: dbSong.description?.en || localSong.description?.en || '',
+            ja: !dbSong.description?.ja || hasObsoleteVibeLabel(dbSong.description.ja)
+              ? localSong.description?.ja || ''
+              : dbSong.description.ja,
+            en: !dbSong.description?.en || hasObsoleteVibeLabel(dbSong.description.en)
+              ? localSong.description?.en || ''
+              : dbSong.description.en,
           };
         }
         merged.push(dbSong);

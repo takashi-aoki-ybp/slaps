@@ -47,6 +47,15 @@ for (const [index, song] of songs.entries()) {
     warnings.push(`#${index + 1} ${id || '(no id)'}: missing bilingual description object`);
   } else if (!song.description.ja || !song.description.en) {
     warnings.push(`#${index + 1} ${id || '(no id)'}: one or more descriptions are empty`);
+  } else {
+    const ja = song.description.ja;
+    const en = song.description.en;
+    if (/SLAPSのVIBE|VIBEは(?:コンシャス|レイドバック|バランス|ターント)|(?:コンシャス|レイドバック|バランス|ターント)セレクト/.test(ja)) {
+      addError(index, `ambiguous SLAPS vibe label in Japanese description: ${id}`);
+    }
+    if (/SLAPS vibe scale|(?:conscious|laid-back|balanced|turnt) vibe setting|catalogued by SLAPS as a (?:conscious|laid-back|balanced|turnt)/i.test(en)) {
+      addError(index, `ambiguous SLAPS vibe label in English description: ${id}`);
+    }
   }
 }
 
