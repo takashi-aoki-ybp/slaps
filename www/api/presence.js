@@ -124,7 +124,11 @@ export default async function handler(req, res) {
 
       // 通知頻度は抑えるが、表示する場合は実際のアクティブ接続が再生中の曲だけを使う。
       if (actualListeningSongs.length > 0 && Math.random() < 0.3) {
-        someoneListeningTo = actualListeningSongs[Math.floor(Math.random() * actualListeningSongs.length)];
+        const selectedSong = actualListeningSongs[Math.floor(Math.random() * actualListeningSongs.length)];
+        someoneListeningTo = {
+          youtube_id: selectedSong.youtube_id,
+          title: selectedSong.name,
+        };
       }
     }
 

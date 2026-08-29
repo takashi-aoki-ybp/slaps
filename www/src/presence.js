@@ -84,23 +84,35 @@ let tickerTimeout = null;
 function showVibeTicker(song) {
   const ticker = document.getElementById('vibeTicker');
   if (!ticker) return;
+  const digOverlay = document.getElementById('digOverlay');
+  if (digOverlay && !digOverlay.hidden) return;
+
+  const title = String(song?.title || song?.name || '').trim();
+  const youtubeId = String(song?.youtube_id || '').trim();
+  if (!title || !youtubeId) return;
 
   // すでに表示中ならスキップ (頻繁に出すぎないように)
   if (!ticker.hidden) return;
 
-  ticker.innerHTML = `
-    <span class="vibe-ticker__icon">🎵</span>
-    <span class="vibe-ticker__text">Someone is vibing to <strong>${song.title}</strong></span>
-  `;
+  const icon = document.createElement('span');
+  icon.className = 'vibe-ticker__icon';
+  icon.textContent = '🎵';
+  const text = document.createElement('span');
+  text.className = 'vibe-ticker__text';
+  text.append('Someone is vibing to ');
+  const strong = document.createElement('strong');
+  strong.textContent = title;
+  text.append(strong);
+  ticker.replaceChildren(icon, text);
   ticker.hidden = false;
   
   // クリック時のアクション (曲へジャンプ)
   ticker.onclick = () => {
     ticker.hidden = true;
-    const targetSong = state.all.find(s => s.youtube_id === song.youtube_id);
+    const targetSong = state.all.find(s => s.youtube_id === youtubeId);
     if (targetSong) {
       // 現在のキューの先頭（現在再生中）の次、または先頭に割り込ませる
-      state.queue = state.queue.filter(s => s.youtube_id !== song.youtube_id);
+      state.queue = state.queue.filter(s => s.youtube_id !== youtubeId);
       state.queue.unshift(targetSong);
       state.index = 0;
       loadCurrent();

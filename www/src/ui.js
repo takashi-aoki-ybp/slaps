@@ -388,10 +388,14 @@ export async function doSubmit() {
 }
 
 export function openDig() {
-  $('#digOverlay').hidden = false;
+  const overlay = $('#digOverlay');
+  overlay.hidden = false;
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'true');
+  const ticker = $('#vibeTicker');
+  if (ticker) ticker.hidden = true;
   document.body.style.overflow = 'hidden';
+  syncDigDetailPlacement();
   requestAnimationFrame(() => {
     const active = $('#digOverlayList .dig-record.is-active') || $('#digOverlayList .dig-record');
     if (active) setDigSelection(active);
@@ -401,7 +405,23 @@ export function closeDig() {
   $('#digOverlay').hidden = true;
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  const detail = $('#digOverlayDetail');
+  const crate = $('#digOverlay .dig-crate');
+  if (detail) {
+    detail.hidden = true;
+    if (crate && detail.parentElement !== crate) crate.append(detail);
+  }
   document.body.style.overflow = '';
+}
+
+function syncDigDetailPlacement() {
+  const overlay = $('#digOverlay');
+  const detail = $('#digOverlayDetail');
+  const crate = $('#digOverlay .dig-crate');
+  if (!overlay || !detail || !crate || overlay.hidden) return;
+  const mobile = window.matchMedia('(max-width: 480px)').matches;
+  const target = mobile ? document.body : crate;
+  if (detail.parentElement !== target) target.append(detail);
 }
 
 function positionDigSticker() {
@@ -944,6 +964,7 @@ export function setupUIListeners() {
   if (digOverlay) {
     digOverlay.addEventListener('click', (e) => { if (e.target === digOverlay) closeDig(); });
   }
+  window.addEventListener('resize', syncDigDetailPlacement, { passive: true });
 
   // Modal backdrops
   $('#submitModal').addEventListener('click', (e) => { if (e.target === $('#submitModal')) closeModal(); });
