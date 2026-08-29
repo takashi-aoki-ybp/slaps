@@ -1393,6 +1393,8 @@ textarea:focus:not(:focus-visible),
   --dig-accent: #e0f850;
   --dig-accent-hover: #f1ff8a;
   --dig-accent-rgb: 224, 248, 80;
+  --dig-dot: rgba(82, 96, 8, .34);
+  --dig-dot-pattern: radial-gradient(circle, var(--dig-dot) 0 1.25px, transparent 1.35px);
 }
 .dig-sticker {
   position: fixed;
@@ -1523,6 +1525,12 @@ textarea:focus:not(:focus-visible),
 .dig-overlay-kicker {
   margin: 14px 0 0 !important;
   color: var(--dig-accent) !important;
+  background-color: var(--dig-accent);
+  background-image: var(--dig-dot-pattern);
+  background-size: 6px 6px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(18px, 2.2vw, 28px) !important;
   line-height: 1;
@@ -1583,9 +1591,29 @@ textarea:focus:not(:focus-visible),
   z-index: 8;
   filter: saturate(1.12) brightness(1.04);
   transform: translateY(-18px) rotate(0) scale(1.16);
-  box-shadow: 0 22px 44px rgba(0,0,0,.7), 0 0 0 3px var(--dig-accent);
+  box-shadow: 0 22px 44px rgba(0,0,0,.7);
   outline: none;
 }
+.dig-record::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  z-index: 4;
+  padding: 4px;
+  border-radius: 6px;
+  background-color: var(--dig-accent);
+  background-image: var(--dig-dot-pattern);
+  background-size: 6px 6px;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity .2s ease;
+}
+.dig-record:hover::after,
+.dig-record:focus-visible::after,
+.dig-record.is-active::after { opacity: 1; }
 .dig-record:hover::before,
 .dig-record:focus-visible::before,
 .dig-record.is-active::before { opacity: 1; transform: translateX(18%); }
@@ -1635,6 +1663,7 @@ textarea:focus:not(:focus-visible),
   text-shadow: 0 1px 8px #000;
 }
 .dig-overlay-detail {
+  position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
@@ -1647,7 +1676,7 @@ textarea:focus:not(:focus-visible),
   color: #fff;
   background: rgba(15,15,15,.74);
   border: 1px solid rgba(255,255,255,.18);
-  border-left: 5px solid var(--dig-accent);
+  border-left: 0;
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0 20px 50px rgba(0,0,0,.34);
@@ -1657,14 +1686,32 @@ textarea:focus:not(:focus-visible),
   cursor: default;
   transition: none;
 }
+.dig-overlay-detail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background-color: var(--dig-accent);
+  background-image: var(--dig-dot-pattern);
+  background-size: 6px 6px;
+  border-radius: 4px 0 0 4px;
+}
 .dig-overlay-detail:hover,
-.dig-overlay-detail:active { transform: none; border-color: rgba(255,255,255,.18); border-left-color: var(--dig-accent); box-shadow: 0 20px 50px rgba(0,0,0,.34); }
+.dig-overlay-detail:active { transform: none; border-color: rgba(255,255,255,.18); box-shadow: 0 20px 50px rgba(0,0,0,.34); }
 .dig-overlay-detail__index {
   min-width: 64px;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 38px;
   line-height: 1;
   color: var(--dig-accent);
+  background-color: var(--dig-accent);
+  background-image: var(--dig-dot-pattern);
+  background-size: 6px 6px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .dig-overlay-detail__copy { min-width: 0; display: grid; gap: 3px; }
 .dig-overlay-detail__eyebrow {
@@ -1685,7 +1732,9 @@ textarea:focus:not(:focus-visible),
 .dig-overlay-detail__action {
   min-width: 92px;
   padding: 11px 18px;
-  background: var(--dig-accent);
+  background-color: var(--dig-accent);
+  background-image: var(--dig-dot-pattern);
+  background-size: 6px 6px;
   border: 2px solid #090909;
   border-radius: 999px;
   box-shadow: 3px 3px 0 #fff;
@@ -1697,7 +1746,7 @@ textarea:focus:not(:focus-visible),
   transition: transform .16s ease, background .16s ease;
 }
 .dig-overlay-detail__action:hover,
-.dig-overlay-detail__action:focus-visible { background: var(--dig-accent-hover); transform: translateY(-2px); outline: none; }
+.dig-overlay-detail__action:focus-visible { background-color: var(--dig-accent-hover); transform: translateY(-2px); outline: none; }
 @keyframes digSleeveIn { from { opacity: 0; transform: translateY(34px) rotate(-5deg) scale(.86); } }
 @keyframes digDetailIn { from { opacity: 0; transform: translateY(8px); } }
 
@@ -1814,5 +1863,6 @@ textarea:focus:not(:focus-visible),
   #digOpen.guide-pulse { animation: none !important; }
   .dig-record,
   .dig-record::before,
+  .dig-record::after,
   .dig-overlay-detail__action { transition: none !important; }
 }
