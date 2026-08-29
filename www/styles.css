@@ -1389,6 +1389,11 @@ textarea:focus:not(:focus-visible),
 }
 
 /* ===== DIG SLAPS ステッカー ===== */
+:root {
+  --dig-accent: #e0f850;
+  --dig-accent-hover: #f1ff8a;
+  --dig-accent-rgb: 224, 248, 80;
+}
 .dig-sticker {
   position: fixed;
   right: calc(24px + env(safe-area-inset-right));
@@ -1402,7 +1407,7 @@ textarea:focus:not(:focus-visible),
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
   color: #090909;
-  background: #dfff2f;
+  background: var(--dig-accent);
   border: 3px solid #090909;
   border-radius: 5px 12px 7px 10px;
   box-shadow: 4px 4px 0 #fff, 8px 8px 0 rgba(0, 0, 0, .78);
@@ -1431,7 +1436,7 @@ textarea:focus:not(:focus-visible),
 }
 .dig-sticker:hover,
 .dig-sticker:focus-visible {
-  background: #fff45c;
+  background: var(--dig-accent-hover);
   transform: rotate(-2deg) scale(1.06);
   box-shadow: 5px 5px 0 #fff, 10px 10px 0 rgba(0, 0, 0, .75);
   outline: none;
@@ -1491,7 +1496,7 @@ textarea:focus:not(:focus-visible),
 #digOverlay {
   overflow-y: auto;
   background:
-    radial-gradient(circle at 50% 8%, rgba(223, 255, 47, .08), transparent 36%),
+    radial-gradient(circle at 50% 8%, rgba(var(--dig-accent-rgb), .08), transparent 36%),
     rgba(0, 0, 0, .8);
 }
 #digOverlay .about-ov__inner {
@@ -1517,7 +1522,7 @@ textarea:focus:not(:focus-visible),
 }
 .dig-overlay-kicker {
   margin: 14px 0 0 !important;
-  color: #dfff2f !important;
+  color: var(--dig-accent) !important;
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(18px, 2.2vw, 28px) !important;
   line-height: 1;
@@ -1565,7 +1570,7 @@ textarea:focus:not(:focus-visible),
   z-index: -1;
   border-radius: 50%;
   background:
-    radial-gradient(circle, #dfff2f 0 5%, #111 5.5% 9%, transparent 9.5%),
+    radial-gradient(circle, var(--dig-accent) 0 5%, #111 5.5% 9%, transparent 9.5%),
     repeating-radial-gradient(circle, #161616 0 3px, #242424 4px, #101010 5px);
   box-shadow: 8px 7px 18px rgba(0,0,0,.62);
   opacity: 0;
@@ -1578,7 +1583,7 @@ textarea:focus:not(:focus-visible),
   z-index: 8;
   filter: saturate(1.12) brightness(1.04);
   transform: translateY(-18px) rotate(0) scale(1.16);
-  box-shadow: 0 22px 44px rgba(0,0,0,.7), 0 0 0 3px #dfff2f;
+  box-shadow: 0 22px 44px rgba(0,0,0,.7), 0 0 0 3px var(--dig-accent);
   outline: none;
 }
 .dig-record:hover::before,
@@ -1642,7 +1647,7 @@ textarea:focus:not(:focus-visible),
   color: #fff;
   background: rgba(15,15,15,.74);
   border: 1px solid rgba(255,255,255,.18);
-  border-left: 5px solid #dfff2f;
+  border-left: 5px solid var(--dig-accent);
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0 20px 50px rgba(0,0,0,.34);
@@ -1653,13 +1658,13 @@ textarea:focus:not(:focus-visible),
   transition: none;
 }
 .dig-overlay-detail:hover,
-.dig-overlay-detail:active { transform: none; border-color: rgba(255,255,255,.18); border-left-color: #dfff2f; box-shadow: 0 20px 50px rgba(0,0,0,.34); }
+.dig-overlay-detail:active { transform: none; border-color: rgba(255,255,255,.18); border-left-color: var(--dig-accent); box-shadow: 0 20px 50px rgba(0,0,0,.34); }
 .dig-overlay-detail__index {
   min-width: 64px;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 38px;
   line-height: 1;
-  color: #dfff2f;
+  color: var(--dig-accent);
 }
 .dig-overlay-detail__copy { min-width: 0; display: grid; gap: 3px; }
 .dig-overlay-detail__eyebrow {
@@ -1680,7 +1685,7 @@ textarea:focus:not(:focus-visible),
 .dig-overlay-detail__action {
   min-width: 92px;
   padding: 11px 18px;
-  background: #dfff2f;
+  background: var(--dig-accent);
   border: 2px solid #090909;
   border-radius: 999px;
   box-shadow: 3px 3px 0 #fff;
@@ -1692,7 +1697,7 @@ textarea:focus:not(:focus-visible),
   transition: transform .16s ease, background .16s ease;
 }
 .dig-overlay-detail__action:hover,
-.dig-overlay-detail__action:focus-visible { background: #fff45c; transform: translateY(-2px); outline: none; }
+.dig-overlay-detail__action:focus-visible { background: var(--dig-accent-hover); transform: translateY(-2px); outline: none; }
 @keyframes digSleeveIn { from { opacity: 0; transform: translateY(34px) rotate(-5deg) scale(.86); } }
 @keyframes digDetailIn { from { opacity: 0; transform: translateY(8px); } }
 
@@ -1715,8 +1720,8 @@ textarea:focus:not(:focus-visible),
 #digOpen.guide-pulse::before,
 #digOpen.guide-pulse::after { animation: none; }
 @keyframes digStickerPulse {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(223, 255, 47, 0)); }
-  50% { filter: drop-shadow(0 0 9px rgba(223, 255, 47, .72)); }
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(var(--dig-accent-rgb), 0)); }
+  50% { filter: drop-shadow(0 0 9px rgba(var(--dig-accent-rgb), .72)); }
 }
 
 /* 推薦候補0件時のUI用スタイル */
