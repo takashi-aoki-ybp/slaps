@@ -437,11 +437,12 @@ function handleDigKeyboard(e) {
   const records = [...e.currentTarget.querySelectorAll('.dig-record')];
   const currentIndex = records.indexOf(e.target.closest('.dig-record'));
   if (currentIndex < 0) return;
+  const columns = Math.max(1, getComputedStyle(e.currentTarget).gridTemplateColumns.split(' ').length);
   let nextIndex = currentIndex;
   if (e.key === 'ArrowRight') nextIndex = Math.min(records.length - 1, currentIndex + 1);
   else if (e.key === 'ArrowLeft') nextIndex = Math.max(0, currentIndex - 1);
-  else if (e.key === 'ArrowDown') nextIndex = Math.min(records.length - 1, currentIndex + (window.innerWidth <= 480 ? 4 : 8));
-  else if (e.key === 'ArrowUp') nextIndex = Math.max(0, currentIndex - (window.innerWidth <= 480 ? 4 : 8));
+  else if (e.key === 'ArrowDown') nextIndex = Math.min(records.length - 1, currentIndex + columns);
+  else if (e.key === 'ArrowUp') nextIndex = Math.max(0, currentIndex - columns);
   else if (e.key === 'Home') nextIndex = 0;
   else if (e.key === 'End') nextIndex = records.length - 1;
   else return;
@@ -1534,7 +1535,7 @@ export function renderRecommendations() {
       : '🔍 DIG SLAPS (Related & unregistered tracks)';
   }
   if (overlayTitle) {
-    overlayTitle.textContent = 'PICK A CUT.';
+    overlayTitle.textContent = 'DIG SLAPS';
   }
   const overlayLead = $('#digOverlayLead');
   if (overlayLead) overlayLead.textContent = isJa
@@ -1589,6 +1590,7 @@ export function renderRecommendations() {
         <button type="button" class="dig-record${index === 0 ? ' is-active' : ''}" style="--dig-i:${index}" data-index="${index}" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="option" aria-selected="${index === 0}" aria-label="${escapeHtml(`${r.title} — ${r.artist}`)}" tabindex="${index === 0 ? '0' : '-1'}">
           <img class="dig-record__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
           <span class="dig-record__shade" aria-hidden="true"></span>
+          <span class="dig-record__title" aria-hidden="true">${escapeHtml(r.title)}</span>
           <span class="dig-record__number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
         </button>
       `;
