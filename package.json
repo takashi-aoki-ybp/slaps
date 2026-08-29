@@ -7,12 +7,13 @@
     "build": "node build.js",
     "audit:songs": "node scripts/audit-songs.js",
     "audit:youtube": "node scripts/audit-youtube.js",
+    "test:og-image": "node scripts/test-og-image.js",
     "curate:empty": "node scripts/fill-empty-descriptions.js",
     "android:sync": "npm run build && npx cap sync android",
     "android:verify": "node scripts/verify-android.js",
     "submissions": "node scripts/review-submissions.js",
     "verify": "npm test && npm run build && git diff --check",
-    "test": "npm run audit:songs"
+    "test": "npm run audit:songs && npm run test:og-image"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.0",

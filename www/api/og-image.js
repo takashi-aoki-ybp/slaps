@@ -2,6 +2,8 @@ const Jimp = require('jimp');
 const path = require('path');
 const fs = require('fs');
 
+const OG_CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
+
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
@@ -78,7 +80,13 @@ export default async function handler(req, res) {
     // Vercel KV へのキャッシュ書き込み
     try {
       const base64 = buffer.toString('base64');
-      await kvFetch(['SET', `${prefix}slaps:og:${v}`, base64]);
+      await kvFetch([
+        'SET',
+        `${prefix}slaps:og:${v}`,
+        base64,
+        'EX',
+        OG_CACHE_TTL_SECONDS,
+      ]);
     } catch (kvError) {
       console.error('KV Cache Write Error:', kvError);
     }
