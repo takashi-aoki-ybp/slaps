@@ -162,6 +162,7 @@ export default async function handler(req, res) {
       const { submission_id, submitted_at, status, ...songData } = matched.submission;
       const song = {
         ...songData,
+        moderation_status: 'live',
         created_at: new Date().toISOString(),
       };
       await Promise.all([

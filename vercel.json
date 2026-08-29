@@ -1,10 +1,4 @@
 {
-  "crons": [
-    {
-      "path": "/api/cron/auto-classify",
-      "schedule": "0 20 * * *"
-    }
-  ],
   "redirects": [
     { "source": "/selected", "destination": "/", "permanent": false },
     { "source": "/selected.html", "destination": "/", "permanent": false }

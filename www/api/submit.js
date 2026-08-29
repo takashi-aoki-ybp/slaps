@@ -1,7 +1,8 @@
 import { classifySong } from './utils/classifier.js';
+import { assessHipHop, eraFromPublishDate, findTitleDuplicate } from './utils/submission-quality.js';
 import fs from 'fs';
 import path from 'path';
-import { createHash } from 'crypto';
+import { createHash, randomUUID } from 'crypto';
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -22,14 +23,58 @@ async function kvFetch(command) {
 
 async function fetchYouTubeMetadata(youtubeId) {
   const videoUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
-  const response = await fetch(
+  const oembedResponse = await fetch(
     `https://www.youtube.com/oembed?url=${encodeURIComponent(videoUrl)}&format=json`,
     { signal: AbortSignal.timeout(5000) },
   );
-  if (!response.ok) return null;
-  const data = await response.json();
-  if (!data || typeof data.title !== 'string' || !data.title.trim()) return null;
-  return data;
+  if (!oembedResponse.ok) return null;
+  const oembed = await oembedResponse.json();
+  if (!oembed || typeof oembed.title !== 'string' || !oembed.title.trim()) return null;
+
+  const apiKey = process.env.YOUTUBE_INNERTUBE_API_KEY;
+  if (!apiKey) return oembed;
+  try {
+    const clientVersion = process.env.YOUTUBE_INNERTUBE_CLIENT_VERSION || '2.20260826.01.00';
+    const playerResponse = await fetch(
+      `https://www.youtube.com/youtubei/v1/player?key=${encodeURIComponent(apiKey)}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': 'https://www.youtube.com',
+          'User-Agent': 'Mozilla/5.0',
+          'X-YouTube-Client-Name': '1',
+          'X-YouTube-Client-Version': clientVersion,
+        },
+        body: JSON.stringify({
+          context: { client: { clientName: 'WEB', clientVersion, hl: 'ja', gl: 'JP' } },
+          videoId: youtubeId,
+        }),
+        signal: AbortSignal.timeout(6000),
+      },
+    );
+    if (!playerResponse.ok) return oembed;
+    const player = await playerResponse.json();
+    const details = player.videoDetails || {};
+    const microformat = player.microformat?.playerMicroformatRenderer || {};
+    return {
+      ...oembed,
+      title: details.title || oembed.title,
+      author_name: details.author || oembed.author_name,
+      shortDescription: details.shortDescription || '',
+      keywords: Array.isArray(details.keywords) ? details.keywords : [],
+      category: microformat.category || '',
+      publishDate: microformat.publishDate || microformat.uploadDate || '',
+    };
+  } catch {
+    return oembed;
+  }
+}
+
+function parseJsonList(rawItems) {
+  return (rawItems || []).flatMap((raw) => {
+    try { return [JSON.parse(raw)]; } catch { return []; }
+  });
 }
 
 function rateLimitKey(req, prefix) {
@@ -77,8 +122,11 @@ export default async function handler(req, res) {
   try {
     const prefix = process.env.DB_PREFIX || '';
     const localSongs = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'songs.json'), 'utf8'));
-    const isPublished = await kvFetch(['SISMEMBER', `${prefix}slaps:existing_ids`, youtube_id]);
-    if (isPublished === 1 || localSongs.some(item => item.youtube_id === youtube_id)) {
+    const [isPublished, isPending] = await Promise.all([
+      kvFetch(['SISMEMBER', `${prefix}slaps:existing_ids`, youtube_id]),
+      kvFetch(['SISMEMBER', `${prefix}slaps:submission_ids`, youtube_id]),
+    ]);
+    if (isPublished === 1 || isPending === 1 || localSongs.some(item => item.youtube_id === youtube_id)) {
       return res.status(400).json({ error: 'This song already exists on SLAPS.' });
     }
 
@@ -97,9 +145,32 @@ export default async function handler(req, res) {
     }
 
     const verifiedName = metadata.title.trim().slice(0, 150);
-    const guesses = classifySong({ name: verifiedName, region, era, description });
+    const [publishedRaw, pendingRaw] = await Promise.all([
+      kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
+      kvFetch(['LRANGE', `${prefix}slaps:submissions`, '0', '99']),
+    ]);
+    const duplicate = findTitleDuplicate(verifiedName, [
+      ...localSongs,
+      ...parseJsonList(publishedRaw),
+      ...parseJsonList(pendingRaw),
+    ]);
+    if (duplicate) {
+      return res.status(409).json({
+        error: 'A track with the same title already exists on SLAPS.',
+        duplicate_youtube_id: duplicate.youtube_id,
+      });
+    }
+
+    const publishEra = eraFromPublishDate(metadata.publishDate);
+    const guesses = classifySong({
+      name: verifiedName,
+      region,
+      era: publishEra || era,
+      description,
+      publish_at: metadata.publishDate,
+    });
     if (!region || region === '' || region === 'other') region = guesses.region;
-    if (!era || era === '' || era === 'other') era = guesses.era;
+    era = publishEra || ((!era || era === '' || era === 'other') ? guesses.era : era);
     if (!['us', 'jp', 'uk', 'fr', 'kr', 'other'].includes(region)) {
       return res.status(400).json({ error: 'Invalid region' });
     }
@@ -107,6 +178,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid era' });
     }
 
+    const hiphop = assessHipHop(metadata);
     const song = {
       youtube_id,
       name: verifiedName,
@@ -117,9 +189,31 @@ export default async function handler(req, res) {
       thumbnail: `https://img.youtube.com/vi/${youtube_id}/mqdefault.jpg`,
       conscious_turnt: conscious_turnt == null ? 2.5 : conscious_turnt,
       source: 'community',
-      moderation_status: 'live',
+      moderation_status: hiphop.confident ? 'live' : 'pending',
+      quality_reason: hiphop.reason,
+      publish_at: metadata.publishDate || undefined,
       created_at: new Date().toISOString(),
     };
+
+    if (!hiphop.confident) {
+      const pending = {
+        ...song,
+        submission_id: randomUUID(),
+        status: 'pending',
+        submitted_at: song.created_at,
+      };
+      const reservedPending = await kvFetch(['SADD', `${prefix}slaps:submission_ids`, youtube_id]);
+      if (reservedPending !== 1) {
+        return res.status(409).json({ error: 'This song is already awaiting review.' });
+      }
+      try {
+        await kvFetch(['LPUSH', `${prefix}slaps:submissions`, JSON.stringify(pending)]);
+      } catch (error) {
+        await kvFetch(['SREM', `${prefix}slaps:submission_ids`, youtube_id]).catch(() => {});
+        throw error;
+      }
+      return res.status(202).json({ status: 'needs_review', youtube_id, reason: hiphop.reason });
+    }
 
     const reserved = await kvFetch(['SADD', `${prefix}slaps:existing_ids`, youtube_id]);
     if (reserved !== 1) {

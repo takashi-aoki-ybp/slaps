@@ -11,6 +11,8 @@ const targets = [
   'script.js',
   'i18n.js',
   'manifest.json',
+  'robots.txt',
+  'sitemap.xml',
   'service-worker.js',
   'assets',
   'data',

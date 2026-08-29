@@ -81,7 +81,7 @@ export const state = {
   volume: loadVolume(),   // 曲自体の音量（0 - 100）
   preMuteVolume: loadVolume() || 100, // ミュート解除時の復帰用音量
   comments: [],           // コメントデータ
-  commentMode: 2,         // コメンタリーモード (0 = OFF, 1 = 字幕のみ, 2 = フル機能)
+  commentMode: 0,         // 字幕・文字起こし風の自動表示は常にOFF
   triggeredComments: new Set(), // すでにトリガーしたコメントID
   isPromo: false,         // プロモーション動画制作モード
   promoFinished: false,   // プロモ動画終了フラグ

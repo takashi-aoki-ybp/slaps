@@ -1483,7 +1483,7 @@ textarea:focus:not(:focus-visible),
 @media (max-width: 767px) {
   .dig-sticker {
     right: calc(16px + env(safe-area-inset-right));
-    bottom: calc(18px + env(safe-area-inset-bottom));
+    bottom: calc(var(--dig-bottom, 18px) + env(safe-area-inset-bottom));
     width: 74px;
     min-height: 56px;
     padding: 8px 6px 5px;
@@ -1492,6 +1492,16 @@ textarea:focus:not(:focus-visible),
   .dig-sticker__yo { margin-top: -3px; padding-inline: 3px; font-size: 11px; }
   .dig-sticker__main { font-size: 18px; line-height: .82; }
   .dig-sticker__count { margin-top: 2px; font-size: 6px; }
+}
+
+@media (max-width: 767px) {
+  .actions__links { gap: 2px 8px; }
+  .report-link {
+    min-height: 44px;
+    padding: 10px 3px;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 /* DIG SLAPS 透過オーバーレイ */

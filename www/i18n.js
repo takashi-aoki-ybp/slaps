@@ -32,7 +32,7 @@ const I18N = {
     fieldComment: 'Comment',
     fieldCommentPh: 'What slaps about this track?',
     submitBtn: 'Add to Station',
-    submitNote: '※ Published immediately after automatic video and duplicate checks.',
+    submitNote: '※ Published immediately after video, duplicate, and HIPHOP checks. Uncertain tracks wait for review.',
     notSet: '-- Not set --',
     optional: 'optional',
     // report modal
@@ -60,6 +60,7 @@ const I18N = {
     toastAdded: 'Track added!<br>Try listening from LATEST! 🎉',
     toastAddedLocal: 'Added! (saved to this device)',
     toastAddFail: 'Failed to add. Please try again later.',
+    toastNeedsReview: 'Received. This track needs a quick HIPHOP check before it goes live.',
     toastDuplicate: 'Thank you! This track is already registered!',
     toastReported: 'Reported. Thanks for keeping SLAPS clean. 🙏',
     toastReportFail: 'Report failed. Please try again.',
@@ -77,12 +78,13 @@ const I18N = {
     // about
     aboutH1: 'Stumble upon tracks you never knew existed.',
     aboutP1: "You love HIPHOP, but you're tired of what the algorithm keeps pushing. Playlists on streaming services all sound the same. There must be better tracks out there in the world — you just can't find them.",
-    aboutP2: '<strong>SLAPS</strong> was born from that frustration. Tap START and a track hand-picked by someone who thought "this is fire" starts playing immediately at random.',
+    aboutP2: '<strong>SLAPS</strong> was born from that frustration. A muted video hand-picked by someone who thought "this is fire" starts immediately at random. START enables sound.',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
     aboutPalgo: 'No personalized feed and no history-based optimization. We don\'t profile what you listen to. Tracks start at random; DIG only opens when you choose to explore further. <strong>Because stumbling upon music by chance is the best part.</strong>',
     aboutH2how: 'How to Use',
     aboutHow: [
-      'Tap START to begin random play',
+      'A muted track starts playing at random when the page opens',
+      'Tap START to enable sound',
       'Skip tracks with side buttons / arrow keys / swipe',
       'Use the country filter to narrow tracks (US / JP / UK / FR / KR …)',
       'Use Fill Screen to make the video fill the display (the edges may be cropped)',
@@ -90,7 +92,8 @@ const I18N = {
       'Tap ♡ Save to keep a track on this device only',
       'Share saved tracks with a link — no account required',
       'Use DIG to explore related and unregistered tracks when you want to dig deeper',
-      'Paste a YouTube URL to add a track; it goes live immediately after automatic video and duplicate checks',
+      'Paste a YouTube URL to add a track; it goes live immediately after automatic video, duplicate, and HIPHOP checks',
+      'For the live online count, an anonymous device ID and current YouTube ID are sent briefly; listening history is not stored',
     ],
     aboutEnTitle: '',
     aboutEn: '',
@@ -150,7 +153,7 @@ const I18N = {
     fieldComment: 'コメント',
     fieldCommentPh: 'この曲のヤバいポイントは？',
     submitBtn: 'ステーションに追加',
-    submitNote: '※ 動画の存在・重複を自動確認後、すぐ公開されます。',
+    submitNote: '※ 動画・重複・HIPHOPを自動確認。判定できた曲はすぐ公開、不確実な曲だけ確認待ちになります。',
     notSet: '-- 未設定 --',
     optional: '任意',
     reportTitle: '曲を報告',
@@ -174,6 +177,7 @@ const I18N = {
     toastAdded: '曲を追加しました！<br>LATEST（新着順）から聴いてみてください！ 🎉',
     toastAddedLocal: '追加しました！（この端末に保存）',
     toastAddFail: '追加に失敗しました。もう一度お試しください。',
+    toastNeedsReview: '受け付けました。HIPHOPかどうかの確認後に公開します。',
     toastDuplicate: 'ありがとう！この曲はすでに登録されています！',
     toastReported: '報告しました。SLAPSをきれいに保ってくれてありがとう 🙏',
     toastReportFail: '報告に失敗しました。もう一度お試しください。',
@@ -190,12 +194,13 @@ const I18N = {
     tryBroaderFilters: ' フィルターを広げてみてください。',
     aboutH1: '知らなかった曲に、偶然ぶつかる場所。',
     aboutP1: 'アルゴリズムが勧めてくる曲はもう聴き飽きた。サブスクのプレイリストは同じような曲ばっかり。もっと良い曲が世界中にあるはずなのに、なかなか出会えない。',
-    aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。STARTを押したら、誰かが「これヤバい」と思って選んだ曲が、すぐランダムで流れだす。',
+    aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。ページを開くと、誰かが「これヤバい」と思って選んだ曲が、すぐランダムに映像で流れだす。STARTは音を出すためのボタン。',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
     aboutPalgo: 'あなた専用のレコメンドも、履歴による最適化もしない。聴いた曲からあなたを分析しない。曲との出会いはランダムで、もっと掘りたい時だけ自分でDIGする。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
     aboutH2how: '使い方',
     aboutHow: [
-      'STARTを押すとランダム再生が始まる',
+      'ページを開くと、ミュートのままランダム再生が始まる',
+      'STARTを押すと音が出る',
       '左右のボタン／キー／スワイプで曲送り',
       '国フィルターで曲を絞る（US / JP / UK / FR / KR …）',
       '画面拡大で映像を画面いっぱいに表示（端が切れる場合あり）',
@@ -203,10 +208,11 @@ const I18N = {
       '気に入った曲は ♡ 保存（この端末だけに残る）',
       '保存した曲をログインなしのリンクで共有',
       'もっと掘りたい時はDIGから関連曲・未登録曲を探す',
-      'YouTube URLを貼って曲を追加。動画と重複の自動確認を通ればすぐ公開',
+      'YouTube URLを貼って曲を追加。動画・重複・HIPHOPの自動確認を通ればすぐ公開',
+      '同時接続数のため、匿名の端末IDと再生中のYouTube IDを短時間だけ送信（再生履歴は保存しない）',
     ],
     aboutEnTitle: 'About (English)',
-    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. Tap START and a track picked by a real person plays immediately at random. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or share saved tracks with a link. Paste a YouTube URL to add a track after automatic checks.',
+    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. A muted video picked by a real person starts immediately at random; START enables sound. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or share saved tracks with a link. Paste a YouTube URL to add a track after automatic checks.',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
@@ -258,6 +264,16 @@ const i18n = (() => {
     if (shareBtn) shareBtn.textContent = t('share');
     const reportBtn = $('#reportBtn');
     if (reportBtn) reportBtn.textContent = t('report');
+    const isJa = getLang() === 'ja';
+    const closeLabel = isJa ? '閉じる' : 'Close';
+    document.querySelectorAll('.modal__close, .about-ov__close').forEach((button) => button.setAttribute('aria-label', closeLabel));
+    $('#digOpen')?.setAttribute('aria-label', isJa ? 'DIG SLAPSを開く' : 'Open DIG SLAPS');
+    $('#regions')?.setAttribute('aria-label', isJa ? '地域フィルター' : 'Region filter');
+    $('#eras')?.setAttribute('aria-label', isJa ? '年代フィルター' : 'Era filter');
+    $('#order')?.setAttribute('aria-label', isJa ? '再生順' : 'Playback order');
+    $('#prevBtn')?.setAttribute('aria-label', isJa ? '前の曲' : 'Previous track');
+    $('#nextBtn')?.setAttribute('aria-label', isJa ? '次の曲' : 'Next track');
+    $('#playBtn')?.setAttribute('aria-label', isJa ? '再生 / 一時停止' : 'Play / Pause');
 
     // intro (if still in DOM)
     const introSub = $('#introSub');

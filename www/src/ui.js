@@ -147,8 +147,11 @@ export function showFilterFeedback() {
 export function setRegion(region) {
   clearCrateMode();
   state.region = region;
-  document.querySelectorAll('.region__btn').forEach((b) =>
-    b.classList.toggle('is-active', b.dataset.region === region));
+  document.querySelectorAll('.region__btn').forEach((b) => {
+    const active = b.dataset.region === region;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
   updateFavCount();
@@ -160,8 +163,11 @@ export function setRegion(region) {
 export function setEra(era) {
   clearCrateMode();
   state.era = era;
-  document.querySelectorAll('.era__btn').forEach((b) =>
-    b.classList.toggle('is-active', b.dataset.era === era));
+  document.querySelectorAll('.era__btn').forEach((b) => {
+    const active = b.dataset.era === era;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
   updateFavCount();
@@ -174,8 +180,11 @@ export async function setOrder(order) {
   clearCrateMode();
   if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
   state.order = order;
-  document.querySelectorAll('.order__btn').forEach((b) =>
-    b.classList.toggle('is-active', b.dataset.order === order));
+  document.querySelectorAll('.order__btn').forEach((b) => {
+    const active = b.dataset.order === order;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
 
   // 1. Immediately apply order to the queue based on current memory
   if (state.favMode) {
@@ -365,6 +374,12 @@ export async function doSubmit() {
   inputs.forEach((el) => { if (el) el.disabled = true; });
   try {
     const result = await db.submit(song);
+    if (result && result.status === 'needs_review') {
+      lastSubmitTime = Date.now();
+      closeModal();
+      showToast(window.i18n.t('toastNeedsReview'));
+      return;
+    }
     if (!result || result.status !== 'published' || !result.song) throw new Error('Submit failed');
     state.all = [result.song, ...state.all.filter((item) => item.youtube_id !== result.song.youtube_id)];
     setBalance(state.balance, { keep: true });
@@ -427,7 +442,17 @@ function syncDigDetailPlacement() {
 function positionDigSticker() {
   const sticker = $('#digOpen');
   if (!sticker || sticker.hidden) return;
-  sticker.style.removeProperty('--dig-bottom');
+  if (!window.matchMedia('(max-width: 767px)').matches) {
+    sticker.style.removeProperty('--dig-bottom');
+    return;
+  }
+  const report = $('#reportBtn');
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const reportTop = report?.getBoundingClientRect().top;
+  const safeBottom = Number.isFinite(reportTop)
+    ? Math.max(18, Math.ceil(viewportHeight - reportTop + 10))
+    : 18;
+  sticker.style.setProperty('--dig-bottom', `${safeBottom}px`);
 }
 
 function setDigSelection(item) {
@@ -597,7 +622,7 @@ export function openFavs() {
       <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
       <div class="fav-item__body">
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
-        <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
+        <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''}</span>
       </div>
       <button type="button" class="fav-item__btn" data-fav-play aria-label="Play" tabindex="-1">▶</button>
       <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="0">×</button>
@@ -964,7 +989,10 @@ export function setupUIListeners() {
   if (digOverlay) {
     digOverlay.addEventListener('click', (e) => { if (e.target === digOverlay) closeDig(); });
   }
-  window.addEventListener('resize', syncDigDetailPlacement, { passive: true });
+  window.addEventListener('resize', () => {
+    syncDigDetailPlacement();
+    positionDigSticker();
+  }, { passive: true });
 
   // Modal backdrops
   $('#submitModal').addEventListener('click', (e) => { if (e.target === $('#submitModal')) closeModal(); });
@@ -1119,14 +1147,9 @@ export function setupUIListeners() {
   // Init favs and labels
   updateFavCount();
 
-  // Vibeモードの復元と初期設定
-  let savedMode = localStorage.getItem('slaps_comment_mode');
-  if (savedMode === null) {
-    savedMode = '0'; // デフォルトは OFF (0)
-  }
-  let parsedMode = parseInt(savedMode, 10);
-  if (parsedMode === 1) parsedMode = 2; // 古い「字幕のみ」は「ON」に丸める
-  state.commentMode = parsedMode === 2 ? 2 : 0;
+  // 字幕・文字起こし風の自動表示は廃止。過去設定もOFFへ戻す。
+  state.commentMode = 0;
+  localStorage.removeItem('slaps_comment_mode');
   
 
 
@@ -1151,6 +1174,7 @@ export async function fetchComments(youtubeId) {
   state.triggeredComments.clear();
   
   renderCommentDots();
+  if (state.commentMode === 0) return;
   
   try {
     const res = await fetch(`/api/comments?v=${youtubeId}`);
