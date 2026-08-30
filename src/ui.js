@@ -413,10 +413,13 @@ export function openDig() {
   syncDigDetailPlacement();
   requestAnimationFrame(() => {
     const active = $('#digOverlayList .dig-record.is-active') || $('#digOverlayList .dig-record');
-    if (active) setDigSelection(active);
+    if (active) {
+      setDigSelection(active);
+      active.focus({ preventScroll: true });
+    }
   });
 }
-export function closeDig() {
+export function closeDig({ restoreFocus = true } = {}) {
   $('#digOverlay').hidden = true;
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'false');
@@ -427,6 +430,7 @@ export function closeDig() {
     if (crate && detail.parentElement !== crate) crate.append(detail);
   }
   document.body.style.overflow = '';
+  if (restoreFocus && trigger && !trigger.hidden) trigger.focus({ preventScroll: true });
 }
 
 function syncDigDetailPlacement() {
@@ -498,7 +502,7 @@ function handleDigKeyboard(e) {
 
 export function openModal() {
   $('#submitModal').hidden = false;
-  closeDig(); // スマホ用オーバーレイが開いていれば同時に閉じる
+  closeDig({ restoreFocus: false }); // スマホ用オーバーレイが開いていれば同時に閉じる
 }
 export function closeModal() {
   $('#submitModal').hidden = true;
@@ -701,11 +705,12 @@ export async function doShare() {
 }
 
 export function trapFocus(modal) {
-  const focusable = modal.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
-  if (!focusable.length) return;
-  const first = focusable[0], last = focusable[focusable.length - 1];
   modal.addEventListener('keydown', (e) => {
     if (modal.hidden || e.key !== 'Tab') return;
+    const focusable = [...modal.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])')]
+      .filter((element) => !element.disabled && element.getClientRects().length > 0);
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
     if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
     else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
   });
@@ -1058,6 +1063,7 @@ export function setupUIListeners() {
       if (e.target.closest('input, textarea, select')) return;
     }
     if (e.key === 'Escape') {
+      if (!$('#digOverlay').hidden) { closeDig(); return; }
       if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; document.body.style.overflow = ''; return; }
       if (!$('#submitModal').hidden) { closeModal(); return; }
       if (!$('#reportModal').hidden) { closeReport(); return; }
@@ -1134,7 +1140,7 @@ export function setupUIListeners() {
   $('#promoBadge').addEventListener('click', onPromoBadgeClick);
 
   // Focus trap setup
-  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay'].forEach((sel) => {
+  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay', '#digOverlay'].forEach((sel) => {
     const m = $(sel);
     if (m) trapFocus(m);
   });

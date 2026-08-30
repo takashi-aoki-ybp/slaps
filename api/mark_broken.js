@@ -1,3 +1,5 @@
+const { isCataloguedYoutubeId, requesterDigest, takeRateLimit } = require('./utils/request-guards.js');
+
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
@@ -34,6 +36,25 @@ export default async function handler(req, res) {
 
   try {
     const prefix = process.env.DB_PREFIX || '';
+    if (!(await isCataloguedYoutubeId(youtube_id, kvFetch, prefix))) {
+      return res.status(404).json({ error: 'Track not found' });
+    }
+    const rate = await takeRateLimit({
+      req,
+      kvFetch,
+      prefix,
+      scope: 'mark_broken',
+      limit: 30,
+      windowSeconds: 60,
+    });
+    if (!rate.allowed) return res.status(429).json({ error: 'Too Many Requests' });
+
+    const voterKey = `${prefix}slaps:broken_reporters:${youtube_id}:${requesterDigest(req)}`;
+    const firstVote = await kvFetch(['SET', voterKey, '1', 'NX', 'EX', '2592000']);
+    if (firstVote !== 'OK') {
+      return res.status(200).json({ status: 'already_reported', report_counted: false });
+    }
+
     // Redis HINCRBY slaps:broken [youtube_id] 1
     const currentVotes = await kvFetch(['HINCRBY', `${prefix}slaps:broken`, youtube_id, '1']);
     
@@ -45,8 +66,9 @@ export default async function handler(req, res) {
       created_at: new Date().toISOString()
     };
     await kvFetch(['LPUSH', `${prefix}slaps:broken_logs`, JSON.stringify(logItem)]);
+    await kvFetch(['LTRIM', `${prefix}slaps:broken_logs`, '0', '999']);
 
-    res.status(200).json({ status: 'success', current_votes: currentVotes });
+    res.status(200).json({ status: 'success', report_counted: true, current_votes: currentVotes });
   } catch (error) {
     console.error('Failed to mark broken:', error);
     res.status(500).json({ error: 'Internal Server Error' });

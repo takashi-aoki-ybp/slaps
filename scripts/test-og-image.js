@@ -49,6 +49,12 @@ function loadHandler({ kvResults = [], imageError = null } = {}) {
     require(id) {
       if (id === 'jimp') return jimp;
       if (id === 'path') return path;
+      if (id === './utils/request-guards.js') {
+        return {
+          isCataloguedYoutubeId: async () => true,
+          takeRateLimit: async () => ({ allowed: true }),
+        };
+      }
       if (id === 'fs') {
         return { readFileSync: () => Buffer.from('fallback-png') };
       }
@@ -89,9 +95,9 @@ async function run() {
       kvResults: [cached.toString('base64')],
     });
     const res = createResponse();
-    await handler({ query: { v: 'cachedVideo1' } }, res);
+    await handler({ query: { v: 'cachedVid01' } }, res);
 
-    assert.deepEqual(commands, [['GET', 'test:slaps:og:cachedVideo1']]);
+    assert.deepEqual(commands, [['GET', 'test:slaps:og:cachedVid01']]);
     assert.equal(res.headers['Content-Type'], 'image/jpeg');
     assert.equal(res.headers['Cache-Control'], 'public, max-age=86400, s-maxage=86400');
     assert.equal(res.headers['X-Slaps-Cache'], 'KV_HIT');
@@ -123,7 +129,7 @@ async function run() {
       imageError: new Error('thumbnail unavailable'),
     });
     const res = createResponse();
-    await handler({ query: { v: 'brokenVideo1' } }, res);
+    await handler({ query: { v: 'brokenVid01' } }, res);
 
     assert.equal(res.headers['Content-Type'], 'image/png');
     assert.deepEqual(res.body, Buffer.from('fallback-png'));

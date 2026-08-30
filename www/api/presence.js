@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+const { isAllowedWebOrigin, isCataloguedYoutubeId, takeRateLimit } = require('./utils/request-guards.js');
 
 const PRESENCE_WINDOW_MS = 30000;
 
@@ -54,9 +55,14 @@ function normalizeYoutubeId(value) {
 
 export default async function handler(req, res) {
   // CORS とキャッシュ無効化
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = String(req.headers?.origin || '').trim();
+  if (origin && isAllowedWebOrigin(req)) res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+
+  if (!isAllowedWebOrigin(req)) {
+    return res.status(403).json({ error: 'Origin not allowed' });
+  }
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -83,11 +89,24 @@ export default async function handler(req, res) {
     }
 
     const prefix = process.env.DB_PREFIX || '';
+    const rate = await takeRateLimit({
+      req,
+      kvFetch,
+      prefix,
+      scope: 'presence',
+      limit: 600,
+      windowSeconds: 60,
+    });
+    if (!rate.allowed) return res.status(429).json({ error: 'Too Many Requests' });
+
     const presenceKey = `${prefix}slaps:presence:v2`;
     const tracksKey = `${prefix}slaps:presence:tracks:v2`;
     const now = Date.now();
     const cutoff = now - PRESENCE_WINDOW_MS;
-    const currentYoutubeId = normalizeYoutubeId(youtubeId);
+    const candidateYoutubeId = normalizeYoutubeId(youtubeId);
+    const currentYoutubeId = candidateYoutubeId && await isCataloguedYoutubeId(candidateYoutubeId, kvFetch, prefix)
+      ? candidateYoutubeId
+      : '';
     const staleClientIds = await kvFetch([
       'ZRANGEBYSCORE', presenceKey, '-inf', cutoff.toString(),
     ]);

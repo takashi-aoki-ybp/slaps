@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const Jimp = require('jimp');
 const path = require('path');
+const { filterCataloguedYoutubeIds, takeRateLimit } = require('./utils/request-guards.js');
 
 function validIds(raw) {
   return String(raw || '')
@@ -87,11 +88,23 @@ function drawText(image, text, x, y, scale, color = 0xffffffff) {
 }
 
 export default async function handler(req, res) {
-  const ids = validIds(req.query.crate);
-  if (!ids.length) return res.status(400).send('Missing or invalid crate IDs');
+  const requestedIds = validIds(req.query.crate);
+  if (!requestedIds.length) return res.status(400).send('Missing or invalid crate IDs');
+  const prefix = process.env.DB_PREFIX || '';
+  const ids = await filterCataloguedYoutubeIds(requestedIds, kvFetch, prefix);
+  if (ids.length !== requestedIds.length) return res.status(404).send('Track not found');
+  const rate = await takeRateLimit({
+    req,
+    kvFetch,
+    prefix,
+    scope: 'saved_og',
+    limit: 30,
+    windowSeconds: 60,
+  });
+  if (!rate.allowed) return res.status(429).send('Too Many Requests');
 
   const cacheHash = crypto.createHash('sha1').update(ids.join('.')).digest('hex');
-  const cacheKey = `${process.env.DB_PREFIX || ''}slaps:saved-og:v2:${cacheHash}`;
+  const cacheKey = `${prefix}slaps:saved-og:v2:${cacheHash}`;
 
   try {
     const cached = await kvFetch(['GET', cacheKey]);

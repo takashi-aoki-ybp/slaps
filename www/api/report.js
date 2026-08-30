@@ -1,4 +1,5 @@
 import { createHash } from 'crypto';
+const { isCataloguedYoutubeId, takeRateLimit } = require('./utils/request-guards.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -44,6 +45,19 @@ export default async function handler(req, res) {
 
   try {
     const prefix = process.env.DB_PREFIX || '';
+    if (!(await isCataloguedYoutubeId(youtube_id, kvFetch, prefix))) {
+      return res.status(404).json({ error: 'Track not found' });
+    }
+    const rate = await takeRateLimit({
+      req,
+      kvFetch,
+      prefix,
+      scope: 'report',
+      limit: 30,
+      windowSeconds: 3600,
+    });
+    if (!rate.allowed) return res.status(429).json({ error: 'Too Many Requests' });
+
     const voterKey = reporterKey(req, prefix, youtube_id);
     if (voterKey) {
       const firstReport = await kvFetch(['SET', voterKey, '1', 'NX', 'EX', '2592000']);
@@ -63,6 +77,7 @@ export default async function handler(req, res) {
     };
 
     await kvFetch(['LPUSH', `${prefix}slaps:reports`, JSON.stringify(report)]);
+    await kvFetch(['LTRIM', `${prefix}slaps:reports`, '0', '1999']);
 
     let autoHidden = false;
     if (reportCount >= 3) {
@@ -87,6 +102,7 @@ export default async function handler(req, res) {
             reviewed_at: new Date().toISOString(),
           })]),
         ]);
+        await kvFetch(['LTRIM', `${prefix}slaps:submission_reviews`, '0', '999']);
         autoHidden = true;
       }
     }

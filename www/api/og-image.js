@@ -1,6 +1,7 @@
 const Jimp = require('jimp');
 const path = require('path');
 const fs = require('fs');
+const { isCataloguedYoutubeId, takeRateLimit } = require('./utils/request-guards.js');
 
 const OG_CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
 
@@ -24,11 +25,23 @@ async function kvFetch(command) {
 export default async function handler(req, res) {
   const { v } = req.query;
 
-  if (!v) {
+  if (!v || !/^[A-Za-z0-9_-]{11}$/.test(v)) {
     return res.status(400).send('Missing video ID parameter "v"');
   }
 
   const prefix = process.env.DB_PREFIX || '';
+  if (!(await isCataloguedYoutubeId(v, kvFetch, prefix))) {
+    return res.status(404).send('Track not found');
+  }
+  const rate = await takeRateLimit({
+    req,
+    kvFetch,
+    prefix,
+    scope: 'og_image',
+    limit: 120,
+    windowSeconds: 60,
+  });
+  if (!rate.allowed) return res.status(429).send('Too Many Requests');
 
   // Redis (Vercel KV) からキャッシュの取得を試みる
   try {

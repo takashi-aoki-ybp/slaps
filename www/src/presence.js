@@ -84,8 +84,8 @@ let tickerTimeout = null;
 function showVibeTicker(song) {
   const ticker = document.getElementById('vibeTicker');
   if (!ticker) return;
-  const digOverlay = document.getElementById('digOverlay');
-  if (digOverlay && !digOverlay.hidden) return;
+  if (!state.started) return;
+  if (document.querySelector('.modal:not([hidden]), .about-ov:not([hidden])')) return;
 
   const title = String(song?.title || song?.name || '').trim();
   const youtubeId = String(song?.youtube_id || '').trim();

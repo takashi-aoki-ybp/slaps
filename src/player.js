@@ -146,7 +146,7 @@ export function onPlayerError(e) {
 export function markBroken(id, code) {
   if (!id || state.broken.has(id)) return;
   state.broken.add(id);
-  db.markBroken(id, code);
+  db.markBroken(id, code).catch(() => {});
   updateTrackCount();
 }
 
@@ -787,6 +787,11 @@ function filterTracksByArtist(results, artist, registeredTitles, cleanTitle) {
   for (const track of results) {
     const trackName = track.trackName;
     if (!trackName) continue;
+
+    // DIG is a HIPHOP discovery surface. Guest appearances on pop/children's
+    // releases should not enter the crate just because the artist name matches.
+    const genre = String(track.primaryGenreName || '').toLowerCase();
+    if (!/(hip[\s-]?hop|rap|ヒップホップ|ラップ)/i.test(genre)) continue;
     
     // アーティスト名の一致チェック (メイン名でのチェック)
     const trackArtist = (track.artistName || '').trim().toLowerCase();
@@ -857,7 +862,10 @@ export async function fetchRecommendations(artist, isFallback = false) {
         .replace(/featuring.*/g, '')
         .replace(/\(ft\..*?\)/g, '')
         .replace(/ft\..*/g, '')
-        .replace(/[\(\)\[\]]/g, '')
+        .replace(/\b(radio\s+edit|clean|explicit|album\s+version|single\s+version)\b/g, '')
+        .replace(/[\(\)\[\]{}]/g, '')
+        .replace(/[^\p{L}\p{N}]+/gu, ' ')
+        .replace(/\s+/g, ' ')
         .trim();
     };
 
