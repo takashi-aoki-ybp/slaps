@@ -99,11 +99,16 @@ function showVibeTicker(song) {
   icon.textContent = '🎵';
   const text = document.createElement('span');
   text.className = 'vibe-ticker__text';
-  text.append('Someone is vibing to ');
+  const isJa = window.i18n?.getLang?.() === 'ja';
+  const prefix = isJa ? '誰かが再生中：' : 'Someone is playing: ';
+  text.append(prefix);
   const strong = document.createElement('strong');
   strong.textContent = title;
   text.append(strong);
   ticker.replaceChildren(icon, text);
+  ticker.setAttribute('aria-label', isJa
+    ? `${prefix}${title}。クリックするとこの曲へ移動します。`
+    : `${prefix}${title}. Click to play this track.`);
   ticker.hidden = false;
   
   // クリック時のアクション (曲へジャンプ)

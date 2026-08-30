@@ -77,6 +77,10 @@ async function run() {
   assert.match(ui, /active\.focus\(\{ preventScroll: true \}\)/);
   assert.match(ui, /!\$\('#digOverlay'\)\.hidden/);
   assert.match(read('src/presence.js'), /!state\.started/);
+  assert.match(read('src/presence.js'), /Someone is playing:/);
+  const styles = read('styles.css');
+  assert.match(styles, /\.vibe-ticker\s*\{[\s\S]*left: max\(24px, env\(safe-area-inset-left\)\)/);
+  assert.match(styles, /@media \(max-width: 768px\)[\s\S]*\.vibe-ticker\s*\{[\s\S]*left: 50%/);
 
   console.log('Public API and UI safety guard tests passed.');
 }

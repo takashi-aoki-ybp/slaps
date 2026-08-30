@@ -846,9 +846,9 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 
 .vibe-ticker {
   position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: max(24px, env(safe-area-inset-left));
+  transform: translateY(20px);
   background: rgba(10, 10, 10, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -864,17 +864,17 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  max-width: 90%;
+  max-width: min(420px, calc(100vw - 48px));
   width: max-content;
 }
 .vibe-ticker:not([hidden]) {
   opacity: 1;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 .vibe-ticker:hover {
   background: rgba(20, 20, 20, 0.95);
-  transform: translateX(-50%) translateY(-2px);
+  transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.2);
 }
 .vibe-ticker__icon {
@@ -896,8 +896,13 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 @media (max-width: 768px) {
   .vibe-ticker {
     bottom: 120px;
+    left: 50%;
     padding: 8px 16px;
+    max-width: calc(100vw - 28px);
+    transform: translateX(-50%) translateY(20px);
   }
+  .vibe-ticker:not([hidden]) { transform: translateX(-50%) translateY(0); }
+  .vibe-ticker:hover { transform: translateX(-50%) translateY(-2px); }
 }.progress__dots {
   position: absolute;
   left: 0;
