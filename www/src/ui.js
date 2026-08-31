@@ -113,6 +113,11 @@ export function setBalance(p, opts = {}) {
       return;
     }
   }
+  if (opts.first) {
+    state.index = 0;
+    if (state.ready && state.queue.length) loadCurrent();
+    return;
+  }
   if (opts.keep && cur) {
     if (state.order === 'shuffle') {
       const filtered = state.queue.filter((s) => s.youtube_id !== cur.youtube_id);
@@ -196,7 +201,7 @@ export async function setOrder(order) {
   } else {
     // If LATEST (newest) or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
     const shouldCutPlay = (order === 'newest' || order === 'shuffle');
-    setBalance(state.balance, { keep: !shouldCutPlay });
+    setBalance(state.balance, order === 'newest' ? { first: true } : { keep: !shouldCutPlay });
   }
 
   // 2. Fetch latest database songs in the background if LATEST is selected
@@ -216,8 +221,9 @@ export async function setOrder(order) {
           state.all = data;
           updateTrackCount();
           if (!state.favMode) {
-            // Once background fetch completes, always keep current song to prevent sudden audio resets
-            setBalance(state.balance, { keep: true });
+            // LATEST is an explicit request for the newest track. A stale tab may
+            // only learn about a submission here, so do not preserve the old song.
+            setBalance(state.balance, { first: true });
           }
         }
       }

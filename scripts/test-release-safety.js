@@ -62,6 +62,9 @@ async function run() {
   assert.doesNotMatch(read('src/ui.js'), /fav-item__sub[^\n]*zoneLabel/);
   assert.doesNotMatch(read('src/ui.js'), /needs_review|toastNeedsReview/);
   assert.doesNotMatch(read('i18n.js'), /HIPHOPを自動確認|HIPHOPかどうかの確認後|HIPHOP checks/);
+  assert.match(read('src/ui.js'), /if \(opts\.first\)[\s\S]*state\.index = 0;[\s\S]*loadCurrent\(\);/);
+  assert.match(read('src/ui.js'), /order === 'newest' \? \{ first: true \} :/);
+  assert.match(read('src/ui.js'), /state\.all = data;[\s\S]*setBalance\(state\.balance, \{ first: true \}\)/);
 
   console.log('Release safety tests passed.');
 }
