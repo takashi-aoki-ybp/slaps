@@ -1,8 +1,8 @@
 import { classifySong } from './utils/classifier.js';
-import { assessHipHop, eraFromPublishDate, findTitleDuplicate } from './utils/submission-quality.js';
+import { eraFromPublishDate, findTitleDuplicate } from './utils/submission-quality.js';
 import fs from 'fs';
 import path from 'path';
-import { createHash, randomUUID } from 'crypto';
+import { createHash } from 'crypto';
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -126,7 +126,7 @@ export default async function handler(req, res) {
       kvFetch(['SISMEMBER', `${prefix}slaps:existing_ids`, youtube_id]),
       kvFetch(['SISMEMBER', `${prefix}slaps:submission_ids`, youtube_id]),
     ]);
-    if (isPublished === 1 || isPending === 1 || localSongs.some(item => item.youtube_id === youtube_id)) {
+    if (isPublished === 1 || localSongs.some(item => item.youtube_id === youtube_id)) {
       return res.status(400).json({ error: 'This song already exists on SLAPS.' });
     }
 
@@ -147,12 +147,22 @@ export default async function handler(req, res) {
     const verifiedName = metadata.title.trim().slice(0, 150);
     const [publishedRaw, pendingRaw] = await Promise.all([
       kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
-      kvFetch(['LRANGE', `${prefix}slaps:submissions`, '0', '99']),
+      kvFetch(['LRANGE', `${prefix}slaps:submissions`, '0', '-1']),
     ]);
+    const pendingItems = parseJsonList(pendingRaw);
+    const existingPending = pendingItems.find((item) => item.youtube_id === youtube_id) || null;
+    const existingPendingRaw = existingPending
+      ? pendingRaw.find((raw) => {
+          try { return JSON.parse(raw).youtube_id === youtube_id; } catch { return false; }
+        })
+      : null;
+    if (isPending === 1 && !existingPending) {
+      return res.status(409).json({ error: 'This song is already awaiting migration.' });
+    }
     const duplicate = findTitleDuplicate(verifiedName, [
       ...localSongs,
       ...parseJsonList(publishedRaw),
-      ...parseJsonList(pendingRaw),
+      ...pendingItems.filter((item) => item.youtube_id !== youtube_id),
     ]);
     if (duplicate) {
       return res.status(409).json({
@@ -161,6 +171,10 @@ export default async function handler(req, res) {
       });
     }
 
+    if (existingPending) {
+      region ||= existingPending.region;
+      era ||= existingPending.era;
+    }
     const publishEra = eraFromPublishDate(metadata.publishDate);
     const guesses = classifySong({
       name: verifiedName,
@@ -178,42 +192,21 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid era' });
     }
 
-    const hiphop = assessHipHop(metadata);
     const song = {
       youtube_id,
       name: verifiedName,
       region,
       era,
-      user_name: (user_name && typeof user_name === 'string' && user_name.trim().slice(0, 50)) || 'Anonymous',
-      description: { ja: jaDesc, en: enDesc },
-      thumbnail: `https://img.youtube.com/vi/${youtube_id}/mqdefault.jpg`,
-      conscious_turnt: conscious_turnt == null ? 2.5 : conscious_turnt,
+      user_name: existingPending?.user_name ||
+        ((user_name && typeof user_name === 'string' && user_name.trim().slice(0, 50)) || 'Anonymous'),
+      description: existingPending?.description || { ja: jaDesc, en: enDesc },
+      thumbnail: existingPending?.thumbnail || `https://img.youtube.com/vi/${youtube_id}/mqdefault.jpg`,
+      conscious_turnt: existingPending?.conscious_turnt ?? (conscious_turnt == null ? 2.5 : conscious_turnt),
       source: 'community',
-      moderation_status: hiphop.confident ? 'live' : 'pending',
-      quality_reason: hiphop.reason,
-      publish_at: metadata.publishDate || undefined,
-      created_at: new Date().toISOString(),
+      moderation_status: 'live',
+      publish_at: existingPending?.publish_at || metadata.publishDate || undefined,
+      created_at: existingPending?.created_at || existingPending?.submitted_at || new Date().toISOString(),
     };
-
-    if (!hiphop.confident) {
-      const pending = {
-        ...song,
-        submission_id: randomUUID(),
-        status: 'pending',
-        submitted_at: song.created_at,
-      };
-      const reservedPending = await kvFetch(['SADD', `${prefix}slaps:submission_ids`, youtube_id]);
-      if (reservedPending !== 1) {
-        return res.status(409).json({ error: 'This song is already awaiting review.' });
-      }
-      try {
-        await kvFetch(['LPUSH', `${prefix}slaps:submissions`, JSON.stringify(pending)]);
-      } catch (error) {
-        await kvFetch(['SREM', `${prefix}slaps:submission_ids`, youtube_id]).catch(() => {});
-        throw error;
-      }
-      return res.status(202).json({ status: 'needs_review', youtube_id, reason: hiphop.reason });
-    }
 
     const reserved = await kvFetch(['SADD', `${prefix}slaps:existing_ids`, youtube_id]);
     if (reserved !== 1) {
@@ -224,6 +217,17 @@ export default async function handler(req, res) {
     } catch (error) {
       await kvFetch(['SREM', `${prefix}slaps:existing_ids`, youtube_id]).catch(() => {});
       throw error;
+    }
+    if (existingPending) {
+      const cleanupResults = await Promise.allSettled([
+        existingPendingRaw
+          ? kvFetch(['LREM', `${prefix}slaps:submissions`, '1', existingPendingRaw])
+          : Promise.resolve(0),
+        kvFetch(['SREM', `${prefix}slaps:submission_ids`, youtube_id]),
+      ]);
+      if (cleanupResults.some((result) => result.status === 'rejected')) {
+        console.warn('Published a pending song, but pending-queue cleanup was incomplete:', youtube_id);
+      }
     }
 
     const host = req.headers.host || 'slaps.tokyo';

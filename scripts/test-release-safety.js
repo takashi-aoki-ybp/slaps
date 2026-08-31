@@ -32,8 +32,10 @@ async function run() {
   const submit = read('api/submit.js');
   assert.match(submit, /eraFromPublishDate/);
   assert.match(submit, /findTitleDuplicate/);
-  assert.match(submit, /status: 'needs_review'/);
+  assert.match(submit, /moderation_status: 'live'/);
+  assert.doesNotMatch(submit, /assessHipHop|status: 'needs_review'/);
   assert.match(submit, /slaps:submission_ids/);
+  assert.match(submit, /LREM/);
 
   const youtubeSearch = read('api/youtube-search.js');
   assert.match(youtubeSearch, /yt_search_rate/);
@@ -58,6 +60,8 @@ async function run() {
   assert.match(read('src/ui.js'), /setAttribute\('aria-pressed'/);
   assert.match(read('src/state.js'), /commentMode: 0/);
   assert.doesNotMatch(read('src/ui.js'), /fav-item__sub[^\n]*zoneLabel/);
+  assert.doesNotMatch(read('src/ui.js'), /needs_review|toastNeedsReview/);
+  assert.doesNotMatch(read('i18n.js'), /HIPHOPを自動確認|HIPHOPかどうかの確認後|HIPHOP checks/);
 
   console.log('Release safety tests passed.');
 }

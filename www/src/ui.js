@@ -374,12 +374,6 @@ export async function doSubmit() {
   inputs.forEach((el) => { if (el) el.disabled = true; });
   try {
     const result = await db.submit(song);
-    if (result && result.status === 'needs_review') {
-      lastSubmitTime = Date.now();
-      closeModal();
-      showToast(window.i18n.t('toastNeedsReview'));
-      return;
-    }
     if (!result || result.status !== 'published' || !result.song) throw new Error('Submit failed');
     state.all = [result.song, ...state.all.filter((item) => item.youtube_id !== result.song.youtube_id)];
     setBalance(state.balance, { keep: true });
