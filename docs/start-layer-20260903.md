@@ -1,4 +1,4 @@
-# START handoff — v3.45
+# START handoff — v3.46
 
 ## Follow-up: START fade-in — v3.46
 
@@ -103,3 +103,34 @@ only Web assets/version are synchronized here.
   clicks, fr/90s four-track cycle and reversible PREV/NEXT, LATEST/DAILY,
   mobile DIG, pageerror0. Evidence:/tmp/slaps-start-production-shuffle.log.
   All owned verification browsers have been closed.
+
+## v3.46 production acceptance (supersedes v3.45 timing above)
+
+- READY / production / https://slaps.tokyo/ and www, both aliases assigned.
+- Source9cf84a9247154ae4609f3937185281f21c0a0610; deployment
+  dpl_2C9vf6AKZktKL9GPfAwT67G5qvzi /
+  https://slaps-8f3vxptgz-takashi-aokis-projects.vercel.app.
+  Static frontend + Vercel Node APIs; build4s / deploy24s.
+- npm run verify,11 intro cases, Android asset sync and GitHub
+  CI33764143970 /33764138352 PASS. Old2aee76d fails both fade-in gate checks.
+- Actual public six-case coverage PASS: PC/mobile, early/mobile-early START,
+  delayed iframe and blocked API/retry. Captured intermediate START opacity
+  >0 and<1 with opening opacity1, then START opacity1 before opening fade.
+  Lead450–501ms, opening fade1601–1602ms, pageerror0. Early click continues
+  the same video and does not re-show START after the opening.
+- Mobile early-click's first NEXT probe hit the existing idle-hidden UI after
+  waiting. Retested with real pointer movement to wake UI before NEXT; no
+  forced click and no change to the app's idle behavior. First three and last
+  three successful runs are merged in production-evidence.json by unique mode.
+- SW-enabled reload PASS with slaps-v3.46 cache/controller/current CSS,
+  advancing muted video and centered START. Full public SHUFFLE/DIG acceptance
+  rerun PASS (1011/full pool, eight draws, fr90s cycle/PREV-NEXT, LATEST/DAILY,
+  mobile DIG). All owned process-muted test browsers closed.
+- Five public assets match candidate bytes; complete1011-track API payload
+  unchanged. No DB, song, analytics, DIG or iframe configuration edits.
+- Post-deploy10m log scan:1 known DEP0169 warning at /api/og-image, HTTP200.
+  No new monitoring/drain configuration; physical devices not tested.
+- Rollback:v3.45 / dpl_BGAswEwkxahias5HHkP5GnAF8nks. main unchanged.
+- Evidence:outputs/start-layer-20260903/ plus /tmp/slaps-start-fade-*.log and
+  /tmp/slaps-start-fade-errors.jsonl. v3.45 screenshots/JSON were refreshed by
+  v3.46 checks; the v3.45 timing results above retain their historical values.
