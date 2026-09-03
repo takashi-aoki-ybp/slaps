@@ -205,16 +205,27 @@ export function runIntro() {
   const unmuteBtn = document.querySelector('#unmute');
   if (unmuteBtn) unmuteBtn.hidden = true;
 
-  let fadeTimer = null;
+  let pollTimer = null;
   let finishTimer = null;
+  const startedAt = performance.now();
+  let retryAt = startedAt;
+  let movingSince = null;
+  let lastAdvanceAt = null;
+  let lastTime = null;
+  let lastId = null;
+  let skipRequested = false;
+  const retryBtn = document.querySelector('#introRetry');
+  const introSub = document.querySelector('#introSub');
+  const originalSub = introSub?.textContent;
 
   const finishIntro = () => {
     if (introFinished) return;
     introFinished = true;
-    clearTimeout(fadeTimer);
+    clearTimeout(pollTimer);
     clearTimeout(finishTimer);
     if (intro) intro.removeEventListener('pointerdown', skipIntro);
     window.removeEventListener('keydown', skipIntro);
+    retryBtn?.removeEventListener('click', retryPlayback);
     if (intro) intro.remove();
 
     // プロモモードの場合は自動起動（タップ待ちをスキップしミュート再生開始）
@@ -226,8 +237,70 @@ export function runIntro() {
   };
 
   function skipIntro() {
-    if (intro) intro.classList.add('is-out');
-    setTimeout(finishIntro, 120);
+    // A gesture may shorten the text hold, never expose an unstarted video.
+    skipRequested = true;
+    if (state.ready && state.player && state.muted) {
+      state.player.mute();
+      state.player.playVideo();
+    }
+  }
+
+  function retryPlayback(event) {
+    event.stopPropagation();
+    retryAt = performance.now();
+    if (retryBtn) retryBtn.hidden = true;
+    if (introSub) introSub.textContent = originalSub;
+    if (!state.ready) createYTPlayer(true);
+    else if (state.player) { state.player.mute(); state.player.playVideo(); }
+    if (!state.all.length) window.retrySLAPS?.();
+  }
+
+  function checkPlayback() {
+    if (introFinished) return;
+    const now = performance.now();
+    let time = null;
+    let id = null;
+    let playing = false;
+    try {
+      time = state.player?.getCurrentTime?.();
+      id = state.player?.getVideoData?.().video_id;
+      playing = state.ready && state.player?.getPlayerState?.() === 1
+        && !!id && id === current()?.youtube_id && Number.isFinite(time);
+    } catch { /* Keep the opening in place while the player is unavailable. */ }
+    if (!playing || id !== lastId || lastTime === null || time < lastTime) {
+      movingSince = null;
+      lastAdvanceAt = null;
+    } else if (time > lastTime) {
+      if (movingSince === null) movingSince = now;
+      lastAdvanceAt = now;
+    } else if (lastAdvanceAt === null || now - lastAdvanceAt > 600) {
+      movingSince = null;
+    }
+    lastTime = time;
+    lastId = id;
+    const ready = movingSince !== null && now - movingSince >= 800;
+
+    if (!ready && finishTimer !== null) {
+      clearTimeout(finishTimer);
+      finishTimer = null;
+      intro.classList.remove('is-out');
+    }
+    if (ready && (skipRequested || now - startedAt >= 2600)) {
+      if (retryBtn) retryBtn.hidden = true;
+      if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
+      if (finishTimer === null) {
+        intro.classList.add('is-out');
+        finishTimer = setTimeout(finishIntro, 1600);
+      }
+    } else if (!ready && now - retryAt >= 12000) {
+      if (retryBtn) {
+        retryBtn.textContent = window.i18n.t('introRetry');
+        retryBtn.hidden = false;
+      }
+      const hint = window.i18n.t('introRetryHint');
+      if (introSub && introSub.textContent !== hint) introSub.textContent = hint;
+    }
+    pollTimer = setTimeout(checkPlayback, 150);
   }
 
   if (!intro) {
@@ -237,6 +310,7 @@ export function runIntro() {
 
   intro.addEventListener('pointerdown', skipIntro, { once: true });
   window.addEventListener('keydown', skipIntro, { once: true });
+  retryBtn?.addEventListener('click', retryPlayback);
 
   if (state.isPromo) {
     // プロモモードの場合は即座にイントロを終了する
@@ -245,9 +319,9 @@ export function runIntro() {
     return;
   }
 
-  // 最後の説明文が出切ったあと、短い余韻を残してからSTARTへ切り替える。
-  fadeTimer = setTimeout(() => intro.classList.add('is-out'), 1300);
-  finishTimer = setTimeout(finishIntro, 1750);
+  // Load/play remains independent of this gate. Reveal only after actual
+  // muted playback advances; a timer or YouTube onReady alone is insufficient.
+  checkPlayback();
 }
 
 export function loadCurrent() {

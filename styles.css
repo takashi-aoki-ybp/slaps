@@ -27,7 +27,7 @@ img { display: block; max-width: 100%; }
   position: fixed; inset: 0; z-index: 50;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
   background: var(--bg);
-  transition: opacity .45s ease;
+  transition: opacity 1.6s ease;
 }
 .intro__logo {
   animation: introLogo .55s ease both;
@@ -58,6 +58,8 @@ img { display: block; max-width: 100%; }
   margin-top: 4px; letter-spacing: .04em;
 }
 .intro.is-out { opacity: 0; pointer-events: none; }
+.intro__retry { padding: 10px 24px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; }
+body.is-promo-mode .intro { transition-duration: .6s; }
 
 /* ===== chrome（UI要素の表示制御） ===== */
 .chrome { opacity: 0; transition: opacity .7s ease; pointer-events: none; }
