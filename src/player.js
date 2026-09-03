@@ -98,6 +98,7 @@ if (window.YT && window.YT.Player) {
 
 export function onPlayerStateChange(e) {
   if (e.data === YT.PlayerState.ENDED) {
+    notePlaybackState(false);
     if (state.isPromo) clearPromoTimer();
     next('ended');
     return;
@@ -135,6 +136,7 @@ export function togglePlay() {
 }
 
 export function onPlayerError(e) {
+  notePlaybackState(false);
   const song = current();
   if (song) markBroken(song.youtube_id, e.data);
   consecutiveErrors++;
@@ -234,6 +236,7 @@ export function runIntro() {
 export function loadCurrent() {
   const song = current();
   if (!song) return;
+  noteTrackLoaded();
   state.played.add(song.youtube_id);
   savePlayed();
 
@@ -257,7 +260,6 @@ export function loadCurrent() {
     state.player.setVolume(state.volume);
   }
   renderMeta(song);
-  noteTrackLoaded(song, analyticsMode(state));
   resetProgress();
 
   // コメントの取得
@@ -640,7 +642,15 @@ export function unmute() {
   }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
-  noteStarted(current(), analyticsMode(state));
+  noteStarted(current(), analyticsMode(state), () => {
+    const id = state.player?.getVideoData?.().video_id;
+    return {
+      playing: id === current()?.youtube_id && state.player?.getPlayerState() === YT.PlayerState.PLAYING,
+      id,
+      time: state.player?.getCurrentTime(),
+      mode: analyticsMode(state),
+    };
+  });
   
   // ミュート解除時にUI側の音量表示とスライダーをstate.volume同期させる
   const volumeSlider = document.querySelector('#volumeSlider');

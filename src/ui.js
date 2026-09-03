@@ -3,6 +3,7 @@ import { db } from './db.js';
 import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy, setVolume } from './player.js';
 import { analyticsMode, trackEvent } from './analytics.js';
 import { buildDailyArchive, dailyShareUrl } from './daily.js';
+import { deliverShare } from './sharing.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -670,32 +671,9 @@ export function playFavorites(fromId) {
 }
 
 async function sharePayload(fullCopyText) {
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  if (isMobile && navigator.share) {
-    try {
-      await navigator.share({ text: fullCopyText });
-      return;
-    } catch (err) {
-      if (err.name === 'AbortError') return;
-    }
-  }
-
-  try {
-    await navigator.clipboard.writeText(fullCopyText);
-    showToast(window.i18n.t('shareCopied'));
-  } catch (_) {
-    const input = document.createElement('input');
-    input.value = fullCopyText;
-    input.style.position = 'absolute';
-    input.style.opacity = '0';
-    document.body.appendChild(input);
-    input.select();
-    try {
-      document.execCommand('copy');
-      showToast(window.i18n.t('shareCopied'));
-    } catch (__err) {}
-    document.body.removeChild(input);
-  }
+  const outcome = await deliverShare(fullCopyText);
+  if (outcome === 'copied') showToast(window.i18n.t('shareCopied'));
+  return outcome;
 }
 
 export async function shareCrate() {
@@ -704,8 +682,8 @@ export async function shareCrate() {
   const url = new URL('/', window.location.origin);
   url.searchParams.set('crate', ids.join('.'));
   const shareText = window.i18n.t('crateShareText').replace('{count}', String(ids.length));
-  trackEvent('share_crate', { count: ids.length });
-  await sharePayload(`${shareText}\n${url.toString()}`);
+  const share_outcome = await sharePayload(`${shareText}\n${url.toString()}`);
+  trackEvent('share_crate', { count: ids.length, share_outcome });
 }
 
 export async function doShare() {
@@ -718,8 +696,9 @@ export async function doShare() {
 
   const shareText = `Play on SLAPS | ${song.name}`;
   const fullCopyText = `${shareText}\n${shareUrl}`;
-  trackEvent('share_track', { youtube_id: song.youtube_id, mode: analyticsMode(state) });
-  await sharePayload(fullCopyText);
+  const mode = analyticsMode(state);
+  const share_outcome = await sharePayload(fullCopyText);
+  trackEvent('share_track', { youtube_id: song.youtube_id, mode, share_outcome });
 }
 
 let dailyArchive = [];
@@ -792,8 +771,8 @@ export async function shareDaily() {
   if (!entry) return;
   const url = dailyShareUrl(window.location.origin, entry.date);
   const text = window.i18n.t('dailyShareText').replace('{date}', entry.date).replace('{count}', entry.tracks.length);
-  trackEvent('daily_share', { date: entry.date, count: entry.tracks.length });
-  await sharePayload(`${text}\n${url}`);
+  const share_outcome = await sharePayload(`${text}\n${url}`);
+  trackEvent('daily_share', { date: entry.date, count: entry.tracks.length, share_outcome });
 }
 
 export function initDaily() {

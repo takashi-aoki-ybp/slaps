@@ -1,18 +1,23 @@
 const FIRST_VISIT_KEY = 'slaps_first_visit_v1';
-const RETURN_SENT_KEY = 'slaps_return_milestones_v1';
+const RETURN_SENT_KEY = 'slaps_return_milestones_v2';
 const SESSION_EVENTS = new Set();
 const playedAfterStart = new Set();
 let listeningStarted = false;
 let fiveMinuteTimer = null;
-let playbackActive = false;
-let playbackStartedAt = 0;
 let listenedMs = 0;
+let lastSample = null;
+
+export function analyticsDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Date(date.getTime() + 9 * 3600000).toISOString().slice(0, 10);
+}
 
 export function calendarDayDiff(from, to) {
-  const start = new Date(from);
-  const end = new Date(to);
-  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return 0;
-  return Math.max(0, Math.floor((end.getTime() - start.getTime()) / 86400000));
+  const start = analyticsDate(from);
+  const end = analyticsDate(to);
+  if (!start || !end) return 0;
+  return Math.max(0, Math.round((Date.parse(end) - Date.parse(start)) / 86400000));
 }
 
 export function sanitizeProps(props = {}) {
@@ -26,6 +31,7 @@ export function trackEvent(name, props = {}) {
   window.dataLayer.push({
     event: `slaps_${String(name).replace(/[^a-z0-9_]/gi, '_').toLowerCase()}`,
     ...sanitizeProps(props),
+    measurement_version: '2',
   });
 }
 
@@ -47,8 +53,8 @@ export function initAnalytics(now = new Date()) {
     const days = calendarDayDiff(first, now);
     const sent = new Set(JSON.parse(localStorage.getItem(RETURN_SENT_KEY) || '[]'));
     for (const milestone of [1, 7]) {
-      if (days >= milestone && !sent.has(milestone)) {
-        trackEvent(`return_d${milestone}`, { days_since_first_visit: days });
+      if (days === milestone && !sent.has(milestone)) {
+        trackEvent(`return_d${milestone}`, { days_since_first_visit: days, cohort_date: analyticsDate(first) });
         sent.add(milestone);
       }
     }
@@ -58,34 +64,48 @@ export function initAnalytics(now = new Date()) {
   }
 }
 
-export function noteStarted(song, mode = 'station') {
+export function noteStarted(song, mode = 'station', readPlayback = () => null) {
   if (listeningStarted) return;
   listeningStarted = true;
   trackOnce('start', { youtube_id: song?.youtube_id || null, mode });
-  noteTrackLoaded(song, mode);
-  notePlaybackState(true);
+  // START is intent. Only advancing, confirmed playback qualifies as listening.
+  const sample = () => {
+    try { samplePlayback(readPlayback()); } catch { notePlaybackState(false); }
+  };
+  sample();
   fiveMinuteTimer = setInterval(() => {
-    const total = listenedMs + (playbackActive ? Date.now() - playbackStartedAt : 0);
-    if (total < 300000) return;
+    sample();
+    if (listenedMs < 300000) return;
     trackOnce('listen_5_minutes', { tracks_loaded: playedAfterStart.size });
-    clearInterval(fiveMinuteTimer);
-    fiveMinuteTimer = null;
-  }, 5000);
+  }, 1000);
 }
 
 export function notePlaybackState(playing) {
-  if (!listeningStarted || playbackActive === playing) return;
-  const now = Date.now();
-  if (playbackActive) listenedMs += Math.max(0, now - playbackStartedAt);
-  playbackActive = playing;
-  playbackStartedAt = playing ? now : 0;
+  if (!playing) lastSample = null;
 }
 
-export function noteTrackLoaded(song, mode = 'station') {
-  if (!listeningStarted || !song?.youtube_id) return;
-  playedAfterStart.add(song.youtube_id);
+export function noteTrackLoaded() {
+  // Loading, buffering, errors and track switches must not count as playback.
+  notePlaybackState(false);
+}
+
+export function samplePlayback(snapshot, now = performance.now()) {
+  if (!listeningStarted) return;
+  if (!snapshot?.playing || !snapshot.id || !Number.isFinite(snapshot.time)) {
+    notePlaybackState(false);
+    return;
+  }
+  const previous = lastSample;
+  lastSample = { id: snapshot.id, time: snapshot.time, now };
+  if (!previous || previous.id !== snapshot.id) return;
+  const elapsed = now - previous.now;
+  const advanced = (snapshot.time - previous.time) * 1000;
+  // Ignore seeking, frozen players and throttled/suspended browser gaps.
+  if (elapsed <= 0 || elapsed > 2500 || advanced <= 0 || advanced > elapsed * 1.5 + 250) return;
+  listenedMs += Math.min(elapsed, advanced);
+  playedAfterStart.add(snapshot.id);
   if (playedAfterStart.size >= 3) {
-    trackOnce('track_3_reached', { mode });
+    trackOnce('track_3_reached', { mode: snapshot.mode || 'station' });
   }
 }
 
@@ -100,9 +120,8 @@ export function resetAnalyticsForTests() {
   SESSION_EVENTS.clear();
   playedAfterStart.clear();
   listeningStarted = false;
-  playbackActive = false;
-  playbackStartedAt = 0;
   listenedMs = 0;
+  lastSample = null;
   if (fiveMinuteTimer) clearInterval(fiveMinuteTimer);
   fiveMinuteTimer = null;
 }
