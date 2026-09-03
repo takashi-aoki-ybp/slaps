@@ -22,7 +22,7 @@ async function kvFetch(command) {
   return data.result;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const { v } = req.query;
 
   if (!v || !/^[A-Za-z0-9_-]{11}$/.test(v)) {
