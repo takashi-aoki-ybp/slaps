@@ -38,7 +38,9 @@ async function loadSongs() {
 
 async function loadTile(id, width, height) {
   try {
-    const image = await Jimp.read(`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+    const response = await fetch(`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+    if (!response.ok) throw new Error(`Thumbnail error: ${response.status}`);
+    const image = await Jimp.read(Buffer.from(await response.arrayBuffer()));
     return image.cover(width, height, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
   } catch {
     return new Jimp(width, height, 0x181818ff);
