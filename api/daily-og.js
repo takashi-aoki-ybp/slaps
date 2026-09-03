@@ -109,7 +109,7 @@ module.exports = async function handler(req, res) {
     const tiles = await Promise.all(tracks.slice(0, 4).map((song) => loadTile(song.youtube_id, tileWidth, tileHeight)));
     tiles.forEach((tile, index) => canvas.composite(tile, 600 + (index % 2) * tileWidth, Math.floor(index / 2) * tileHeight));
     canvas.composite(new Jimp(650, 630, 0x00000066), 550, 0);
-    const logo = await Jimp.read(path.join(process.cwd(), 'assets', 'logo.png'));
+    const logo = await Jimp.read(fs.readFileSync(path.join(process.cwd(), 'assets', 'logo.png')));
     logo.contain(390, 138, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE);
     canvas.composite(logo, 62, 54);
     drawText(canvas, "TODAY'S 10", 68, 230, 10);

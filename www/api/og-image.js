@@ -66,11 +66,12 @@ export default async function handler(req, res) {
     
     // 2. 重ね合わせ用の SLAPS ロゴ付き中央画像 (share_center.png) のパス
     const overlayPath = path.join(process.cwd(), 'assets', 'share_center.png');
+    const overlayBuffer = fs.readFileSync(overlayPath);
 
     // 並列で画像をロード
     const [bgImage, overlayImage] = await Promise.all([
       Jimp.read(thumbnailBuffer),
-      Jimp.read(overlayPath)
+      Jimp.read(overlayBuffer)
     ]);
 
     // hqdefaultは通常 480x360 ですが、念のため 1200x630 もしくはそれに準じるサイズにリサイズするか、
