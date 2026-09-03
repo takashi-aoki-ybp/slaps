@@ -19,11 +19,33 @@ export default async function middleware(request) {
   }
 
   const videoId = url.searchParams.get('v');
+  const dailyDate = String(url.searchParams.get('daily') || '');
   const crateIds = String(url.searchParams.get('crate') || '')
     .split('.')
     .filter((id) => /^[A-Za-z0-9_-]{11}$/.test(id))
     .filter((id, index, all) => all.indexOf(id) === index)
     .slice(0, 50);
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dailyDate) && BOT_UA_REGEX.test(userAgent)) {
+    try {
+      const indexRes = await fetch(new URL('./index.html', request.url));
+      let html = await indexRes.text();
+      const title = `TODAY'S 10 · ${dailyDate} · SLAPS`;
+      const desc = `Listen to the SLAPS DAILY DROP for ${dailyDate}.`;
+      const shareUrl = `${url.origin}/?daily=${dailyDate}`;
+      const imageUrl = `${url.origin}/api/daily-og?date=${dailyDate}`;
+      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${title}">`);
+      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${title}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${desc}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${desc}">`);
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${imageUrl}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${imageUrl}">`);
+      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${shareUrl}">`);
+      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${shareUrl}">`);
+      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${title}</title>`);
+      return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
+    } catch { return next(); }
+  }
 
   // 保存曲の共有は、クローラー向けに曲数と専用画像を含むOGPを返す
   if (crateIds.length && BOT_UA_REGEX.test(userAgent)) {

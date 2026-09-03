@@ -15,7 +15,7 @@
     "android:verify": "node scripts/verify-android.js",
     "submissions": "node scripts/review-submissions.js",
     "verify": "npm test && npm run build && git diff --check",
-    "test": "npm run audit:songs && npm run test:og-image && npm run test:release-safety && node scripts/test-safety-guards.js"
+    "test": "npm run audit:songs && npm run test:og-image && npm run test:release-safety && node scripts/test-safety-guards.js && node scripts/test-growth-features.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.0",

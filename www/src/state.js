@@ -56,6 +56,12 @@ const loadCrateIds = () => {
 };
 
 const initialCrateIds = loadCrateIds();
+const initialDailyDate = (() => {
+  try {
+    const value = new URLSearchParams(window.location.search).get('daily') || '';
+    return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : '';
+  } catch { return ''; }
+})();
 
 export const state = {
   all: [],
@@ -66,6 +72,9 @@ export const state = {
   favMode: false,
   crateMode: initialCrateIds.length > 0,
   crateIds: initialCrateIds,
+  dailyMode: false,
+  dailyDate: initialDailyDate,
+  dailyIds: [],
   queue: [],
   index: 0,
   player: null,
@@ -103,6 +112,10 @@ export function getFilteredPool() {
     const byId = new Map(pool.map((song) => [song.youtube_id, song]));
     return state.crateIds.map((id) => byId.get(id)).filter(Boolean);
   }
+  if (state.dailyMode) {
+    const byId = new Map(pool.map((song) => [song.youtube_id, song]));
+    return state.dailyIds.map((id) => byId.get(id)).filter(Boolean);
+  }
   if (state.region !== 'all') {
     pool = pool.filter((s) => s.region === state.region);
   }
@@ -118,7 +131,7 @@ export function playableCount() {
 
 export function eligibleByBalance(p) {
   const live = getFilteredPool();
-  if (state.crateMode) return live;
+  if (state.crateMode || state.dailyMode) return live;
   let pool;
   if (p > 2.4 && p < 2.6) {
     pool = live;
@@ -221,7 +234,7 @@ export function injectPromoSongs(arr) {
 }
 
 export function applyOrder(arr) {
-  if (state.crateMode) return;
+  if (state.crateMode || state.dailyMode) return;
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
   else deckShuffle(arr);
   // injectPromoSongs(arr);

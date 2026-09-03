@@ -309,6 +309,16 @@ body.is-fill #yt {
 .track-count b { font-weight: 700; color: var(--fg); }
 .track-count.is-filtered { color: var(--conscious); }
 .track-count.is-filtered b { color: var(--conscious); }
+.catalog-line { display: flex; align-items: center; gap: 10px; margin-top: 8px; min-height: 24px; }
+.catalog-line .track-count { margin-top: 0; }
+.daily-open {
+  appearance: none; border: 1px solid rgba(224,255,60,.64); border-radius: 999px;
+  background-color: rgba(8,8,8,.64); color: #e0ff3c; padding: 5px 10px;
+  font: 700 9px/1 Inter, sans-serif; letter-spacing: .12em; cursor: pointer;
+  transition: background-color .2s, color .2s, transform .2s;
+}
+.daily-open:hover, .daily-open:focus-visible, .daily-open.is-active { background-color: #e0ff3c; color: #080808; outline: none; transform: translateY(-1px); }
+.daily-open b { font-size: 11px; }
 
 /* ===== nav buttons ===== */
 .stage__nav {
@@ -1155,6 +1165,40 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
     backdrop-filter: none !important;
   }
 }
+
+/* ===== TODAY'S 10 / DAILY DROP ===== */
+.daily-overlay { background: radial-gradient(circle at 75% 14%, rgba(224,255,60,.09), transparent 32%), #050505; }
+.daily-overlay__inner { max-width: 1180px; }
+.daily-kicker { margin: 6px 0 0 !important; color: #e0ff3c !important; font: 700 12px/1 Inter, sans-serif; letter-spacing: .28em; }
+.daily-title { margin: 6px 0 4px !important; font: 400 clamp(50px, 8vw, 92px)/.9 'Bebas Neue', sans-serif !important; letter-spacing: .02em; }
+.daily-lead { margin: 8px 0 24px !important; color: rgba(255,255,255,.65) !important; }
+.daily-date-nav { display: inline-grid; grid-template-columns: 38px auto 38px; align-items: center; gap: 8px; margin-top: 10px; }
+.daily-date-nav button { width: 36px; height: 32px; border: 1px solid rgba(255,255,255,.2); border-radius: 99px; background: transparent; color: #fff; cursor: pointer; }
+.daily-date-nav button:disabled { opacity: .2; cursor: default; }
+.daily-date-nav strong { min-width: 108px; font-size: 13px; letter-spacing: .12em; }
+.daily-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.daily-card { position: relative; min-width: 0; padding: 0; border: 1px solid rgba(255,255,255,.18); border-radius: 4px; overflow: hidden; background: #111; color: #fff; text-align: left; cursor: pointer; transition: transform .18s, border-color .18s; }
+.daily-card:hover, .daily-card:focus-visible { transform: translateY(-5px); border-color: #e0ff3c; outline: none; }
+.daily-card__cover { display: block; aspect-ratio: 1; overflow: hidden; background: #111; }
+.daily-card__cover img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.daily-card__cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 48%, rgba(0,0,0,.94)); pointer-events: none; }
+.daily-card__number { position: absolute; right: 8px; bottom: 8px; z-index: 1; color: #e0ff3c; font: 400 23px/1 'Bebas Neue', sans-serif; }
+.daily-card__title { position: absolute; left: 8px; right: 38px; bottom: 8px; z-index: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 11px; line-height: 1.2; }
+.daily-actions { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+.daily-action { min-height: 44px; padding: 0 20px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; font-weight: 700; cursor: pointer; }
+.daily-action--primary { border-color: #e0ff3c; background: #e0ff3c; color: #070707; box-shadow: 4px 4px 0 #fff; }
+.daily-count { text-align: center; color: rgba(255,255,255,.34) !important; font-size: 10px !important; letter-spacing: .2em; margin-top: 15px !important; }
+@media (max-width: 767px) {
+  .catalog-line { gap: 7px; margin-top: 4px; }
+  .daily-open { padding: 4px 7px; font-size: 8px; }
+  .daily-overlay { padding: 38px 14px calc(30px + env(safe-area-inset-bottom)); }
+  .daily-title { font-size: 52px !important; }
+  .daily-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .daily-card__title { font-size: 10px; }
+  .daily-actions { position: sticky; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 2; padding: 8px; border-radius: 999px; background: rgba(5,5,5,.88); backdrop-filter: blur(12px); }
+  .daily-action { flex: 1; padding: 0 10px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .daily-card, .daily-open { transition: none; } }
 
 /* ===== テレビ向けフォーカス（Spatial Navigation）の視覚効果 ===== */
 /* フォーカス可能要素に目立つカスタムフォーカスを設定 */

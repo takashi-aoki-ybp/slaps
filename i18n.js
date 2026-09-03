@@ -19,6 +19,11 @@ const I18N = {
     shareCopied: 'Link copied to clipboard!',
     report: '⚐ Report',
     start: '▶ START',
+    dailyOpen: 'NEW TODAY',
+    dailyPlayAll: '▶ PLAY ALL {count}',
+    dailyShare: '↗ SHARE THIS DROP',
+    dailyShareText: "SLAPS DAILY DROP — {date} / {count} tracks",
+    dailyLead: 'Ten tracks added today. Play them straight through.',
     // submit modal
     modalTitle: 'Add Track',
     modalLead: "Paste a YouTube URL — that's all you need.<br>Details below are optional, but help others discover the track.",
@@ -140,6 +145,11 @@ const I18N = {
     shareCopied: 'リンクをクリップボードにコピーしました！',
     report: '⚐ 報告',
     start: '▶ START',
+    dailyOpen: 'NEW TODAY',
+    dailyPlayAll: '▶ {count}曲を通して聴く',
+    dailyShare: '↗ 今日の10曲を共有',
+    dailyShareText: 'SLAPS 今日の10曲 — {date} / {count}曲',
+    dailyLead: '今日入った10曲。上から、そのまま聴く。',
     modalTitle: '曲を追加',
     modalLead: 'YouTube URLを貼るだけでOK。<br>以下の項目は任意ですが、入力すると他のユーザーが曲を見つけやすくなります。',
     fieldUrl: 'YouTube URL',
@@ -266,6 +276,10 @@ const i18n = (() => {
     const closeLabel = isJa ? '閉じる' : 'Close';
     document.querySelectorAll('.modal__close, .about-ov__close').forEach((button) => button.setAttribute('aria-label', closeLabel));
     $('#digOpen')?.setAttribute('aria-label', isJa ? 'DIG SLAPSを開く' : 'Open DIG SLAPS');
+    $('#dailyOpen')?.setAttribute('aria-label', isJa ? '今日の10曲を開く' : "Open today's tracks");
+    if ($('#dailyLead')) $('#dailyLead').textContent = t('dailyLead');
+    if ($('#dailyShare')) $('#dailyShare').textContent = t('dailyShare');
+    if (typeof window.refreshDaily === 'function') window.refreshDaily();
     $('#regions')?.setAttribute('aria-label', isJa ? '地域フィルター' : 'Region filter');
     $('#eras')?.setAttribute('aria-label', isJa ? '年代フィルター' : 'Era filter');
     $('#order')?.setAttribute('aria-label', isJa ? '再生順' : 'Playback order');

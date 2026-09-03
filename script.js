@@ -3,6 +3,8 @@ import { db } from './src/db.js';
 import { tryStart, createYTPlayer, runIntro } from './src/player.js';
 import { setupUIListeners, updateTrackCount, updateFavCount, showToast } from './src/ui.js';
 import { initPresence } from './src/presence.js';
+import { initAnalytics } from './src/analytics.js';
+import { initDaily } from './src/ui.js';
 
 // ---- データ読み込み ----
 async function loadData() {
@@ -22,6 +24,7 @@ async function loadData() {
   }
   updateTrackCount();
   updateFavCount();
+  initDaily();
   tryStart();
 }
 
@@ -29,6 +32,7 @@ async function loadData() {
 document.addEventListener('DOMContentLoaded', () => {
   window.__state = state;
   window.i18n.applyAll();
+  initAnalytics();
   setupUIListeners();
   runIntro();
   loadData();

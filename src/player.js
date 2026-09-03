@@ -15,6 +15,7 @@ import {
   getAudioContext,
   renderRecommendations
 } from './ui.js';
+import { analyticsMode, notePlaybackState, noteStarted, noteTrackLoaded, trackEvent } from './analytics.js';
 
 let consecutiveErrors = 0;
 let introStarted = false;
@@ -98,16 +99,18 @@ if (window.YT && window.YT.Player) {
 export function onPlayerStateChange(e) {
   if (e.data === YT.PlayerState.ENDED) {
     if (state.isPromo) clearPromoTimer();
-    next();
+    next('ended');
     return;
   }
   if (e.data === YT.PlayerState.PLAYING) {
+    notePlaybackState(true);
     disableCaptions();
     startProgress();
     if (state.isPromo) {
       startPromoTimer();
     }
   } else {
+    notePlaybackState(false);
     stopProgress();
     if (state.isPromo && e.data === YT.PlayerState.PAUSED) {
       clearPromoTimer();
@@ -254,6 +257,7 @@ export function loadCurrent() {
     state.player.setVolume(state.volume);
   }
   renderMeta(song);
+  noteTrackLoaded(song, analyticsMode(state));
   resetProgress();
 
   // コメントの取得
@@ -618,8 +622,14 @@ export function slideTransition(dir) {
   }, 500);
 }
 
-export function next() { step(1); }
-export function prev() { step(-1); }
+export function next(reason = 'manual') {
+  if (reason !== 'ended') trackEvent('next', { mode: analyticsMode(state) });
+  step(1);
+}
+export function prev() {
+  trackEvent('previous', { mode: analyticsMode(state) });
+  step(-1);
+}
 
 export function unmute() {
   state.muted = false;
@@ -630,6 +640,7 @@ export function unmute() {
   }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
+  noteStarted(current(), analyticsMode(state));
   
   // ミュート解除時にUI側の音量表示とスライダーをstate.volume同期させる
   const volumeSlider = document.querySelector('#volumeSlider');

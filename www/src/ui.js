@@ -1,6 +1,8 @@
 import { state, REGION_LABELS, CT, current, getFilteredPool, playableCount, eligibleByBalance, applyOrder } from './state.js';
 import { db } from './db.js';
 import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy, setVolume } from './player.js';
+import { analyticsMode, trackEvent } from './analytics.js';
+import { buildDailyArchive, dailyShareUrl } from './daily.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -43,7 +45,7 @@ export function wake() {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => {
     const aboutOverlay = $('#aboutOverlay');
-    if ($('#submitModal').hidden && $('#reportModal').hidden && $('#favModal').hidden && aboutOverlay.hidden && !state.paused) {
+    if ($('#submitModal').hidden && $('#reportModal').hidden && $('#favModal').hidden && $('#dailyOverlay').hidden && aboutOverlay.hidden && !state.paused) {
       document.body.classList.add('is-idle');
     }
   }, IDLE_MS);
@@ -56,19 +58,25 @@ export function updateTrackCount() {
   const n = playableCount();
   const unit = window.i18n.t(n === 1 ? 'track' : 'tracks');
   el.innerHTML = `<b>${n.toLocaleString(window.i18n.getLang() === 'ja' ? 'ja-JP' : 'en-US')}</b>&nbsp;${unit}`;
-  el.classList.toggle('is-filtered', state.crateMode || state.region !== 'all' || state.era !== 'all');
+  el.classList.toggle('is-filtered', state.crateMode || state.dailyMode || state.region !== 'all' || state.era !== 'all');
 }
 
-function clearCrateMode() {
-  if (!state.crateMode) return;
+function clearSpecialMode() {
+  const wasSpecial = state.crateMode || state.dailyMode;
   state.crateMode = false;
   state.crateIds = [];
+  state.dailyMode = false;
+  state.dailyIds = [];
+  $('#dailyOpen')?.classList.remove('is-active');
   try {
     const url = new URL(window.location.href);
     url.searchParams.delete('crate');
+    url.searchParams.delete('daily');
     window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
   } catch {}
 }
+
+const clearCrateMode = clearSpecialMode;
 
 // ---- Vibeネオンカラー更新 ----
 export function updateVibeColor(p, element = balanceRange) {
@@ -151,6 +159,7 @@ export function showFilterFeedback() {
 
 export function setRegion(region) {
   clearCrateMode();
+  trackEvent('filter_region', { region });
   state.region = region;
   document.querySelectorAll('.region__btn').forEach((b) => {
     const active = b.dataset.region === region;
@@ -167,6 +176,7 @@ export function setRegion(region) {
 
 export function setEra(era) {
   clearCrateMode();
+  trackEvent('filter_era', { era });
   state.era = era;
   document.querySelectorAll('.era__btn').forEach((b) => {
     const active = b.dataset.era === era;
@@ -183,6 +193,7 @@ export function setEra(era) {
 
 export async function setOrder(order) {
   clearCrateMode();
+  trackEvent('order', { order });
   if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
   state.order = order;
   document.querySelectorAll('.order__btn').forEach((b) => {
@@ -219,6 +230,7 @@ export async function setOrder(order) {
         // Check if the user hasn't switched away from target order while waiting
         if (Array.isArray(data) && state.order === order) {
           state.all = data;
+          initDaily();
           updateTrackCount();
           if (!state.favMode) {
             // LATEST is an explicit request for the newest track. A stale tab may
@@ -382,6 +394,7 @@ export async function doSubmit() {
     const result = await db.submit(song);
     if (!result || result.status !== 'published' || !result.song) throw new Error('Submit failed');
     state.all = [result.song, ...state.all.filter((item) => item.youtube_id !== result.song.youtube_id)];
+    trackEvent('submit_success', { youtube_id: result.song.youtube_id });
     setBalance(state.balance, { keep: true });
     updateTrackCount();
     lastSubmitTime = Date.now();
@@ -405,6 +418,7 @@ export async function doSubmit() {
 export function openDig() {
   const overlay = $('#digOverlay');
   overlay.hidden = false;
+  trackEvent('dig_open', { suggestions: state.recommendations.length });
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'true');
   const ticker = $('#vibeTicker');
@@ -564,7 +578,8 @@ export function toggleFav() {
   const song = current();
   if (!song) return;
   let favs = favGet();
-  if (favs.some((f) => f.youtube_id === song.youtube_id)) {
+  const removing = favs.some((f) => f.youtube_id === song.youtube_id);
+  if (removing) {
     favs = favs.filter((f) => f.youtube_id !== song.youtube_id);
   } else {
     favs.unshift({
@@ -574,6 +589,7 @@ export function toggleFav() {
     });
     showFavToast();
   }
+  trackEvent('save', { action: removing ? 'remove' : 'add', youtube_id: song.youtube_id });
   favSave(favs);
   renderFavBtn();
   updateFavCount();
@@ -688,6 +704,7 @@ export async function shareCrate() {
   const url = new URL('/', window.location.origin);
   url.searchParams.set('crate', ids.join('.'));
   const shareText = window.i18n.t('crateShareText').replace('{count}', String(ids.length));
+  trackEvent('share_crate', { count: ids.length });
   await sharePayload(`${shareText}\n${url.toString()}`);
 }
 
@@ -701,8 +718,96 @@ export async function doShare() {
 
   const shareText = `Play on SLAPS | ${song.name}`;
   const fullCopyText = `${shareText}\n${shareUrl}`;
+  trackEvent('share_track', { youtube_id: song.youtube_id, mode: analyticsMode(state) });
   await sharePayload(fullCopyText);
 }
+
+let dailyArchive = [];
+let dailyIndex = 0;
+
+function dailyEntry(date) {
+  return dailyArchive.find((entry) => entry.date === date) || dailyArchive[0] || null;
+}
+
+function renderDaily(date) {
+  const entry = dailyEntry(date);
+  if (!entry) return;
+  dailyIndex = Math.max(0, dailyArchive.findIndex((item) => item.date === entry.date));
+  state.dailyDate = entry.date;
+  $('#dailyDate').textContent = entry.date.replaceAll('-', '.');
+  $('#dailyPrev').disabled = dailyIndex >= dailyArchive.length - 1;
+  $('#dailyNext').disabled = dailyIndex <= 0;
+  const list = $('#dailyList');
+  list.innerHTML = entry.tracks.map((song, index) => `
+    <button type="button" class="daily-card" data-daily-play="${escapeHtml(song.youtube_id)}" aria-label="${escapeHtml(song.name)}">
+      <span class="daily-card__cover"><img loading="lazy" src="${escapeHtml(song.thumbnail || `https://img.youtube.com/vi/${song.youtube_id}/mqdefault.jpg`)}" alt=""></span>
+      <span class="daily-card__number">${String(index + 1).padStart(2, '0')}</span>
+      <strong class="daily-card__title">${escapeHtml(song.name)}</strong>
+    </button>`).join('');
+  $('#dailyPlayAll').textContent = window.i18n.t('dailyPlayAll').replace('{count}', entry.tracks.length);
+  $('#dailyCount').textContent = `${entry.tracks.length} CUTS`;
+}
+
+export function openDaily(date = state.dailyDate) {
+  if (!dailyArchive.length) return;
+  renderDaily(date);
+  $('#dailyOverlay').hidden = false;
+  document.body.style.overflow = 'hidden';
+  trackEvent('daily_open', { date: state.dailyDate });
+  requestAnimationFrame(() => $('#dailyClose')?.focus({ preventScroll: true }));
+}
+
+export function closeDaily() {
+  $('#dailyOverlay').hidden = true;
+  document.body.style.overflow = '';
+  $('#dailyOpen')?.focus({ preventScroll: true });
+}
+
+export function playDaily(fromId = '') {
+  const entry = dailyEntry(state.dailyDate);
+  if (!entry?.tracks.length) return;
+  clearSpecialMode();
+  state.favMode = false;
+  state.dailyMode = true;
+  state.dailyDate = entry.date;
+  state.dailyIds = entry.tracks.map((song) => song.youtube_id);
+  state.queue = entry.tracks.map((song) => ({ ...song }));
+  state.index = fromId ? Math.max(0, state.queue.findIndex((song) => song.youtube_id === fromId)) : 0;
+  $('#dailyOpen')?.classList.add('is-active');
+  updateTrackCount();
+  updateFavCount();
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('crate');
+    url.searchParams.set('daily', entry.date);
+    history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  } catch {}
+  trackEvent('daily_play', { date: entry.date, start_index: state.index + 1, count: entry.tracks.length });
+  if (state.ready) loadCurrent();
+  closeDaily();
+}
+
+export async function shareDaily() {
+  const entry = dailyEntry(state.dailyDate);
+  if (!entry) return;
+  const url = dailyShareUrl(window.location.origin, entry.date);
+  const text = window.i18n.t('dailyShareText').replace('{date}', entry.date).replace('{count}', entry.tracks.length);
+  trackEvent('daily_share', { date: entry.date, count: entry.tracks.length });
+  await sharePayload(`${text}\n${url}`);
+}
+
+export function initDaily() {
+  dailyArchive = buildDailyArchive(state.all);
+  const open = $('#dailyOpen');
+  if (!dailyArchive.length || !open) return;
+  const requested = state.dailyDate;
+  const entry = dailyEntry(requested);
+  state.dailyDate = entry.date;
+  $('#dailyOpenCount').textContent = entry.tracks.length;
+  open.hidden = false;
+  if (requested) openDaily(requested);
+}
+window.refreshDaily = () => { if (dailyArchive.length) renderDaily(state.dailyDate); };
 
 export function trapFocus(modal) {
   modal.addEventListener('keydown', (e) => {
@@ -744,6 +849,7 @@ let ytCtTouched = false;
 
 export function setupUIListeners() {
   const aboutOverlay = $('#aboutOverlay');
+  const dailyOverlay = $('#dailyOverlay');
 
   // Next / Prev / Play
   $('#nextBtn').addEventListener('click', next);
@@ -774,6 +880,16 @@ export function setupUIListeners() {
   $('#reportBtn').addEventListener('click', openReport);
   $('#reportClose').addEventListener('click', closeReport);
   $('#reportDo').addEventListener('click', doReport);
+  $('#dailyOpen').addEventListener('click', () => openDaily());
+  $('#dailyClose').addEventListener('click', closeDaily);
+  $('#dailyPlayAll').addEventListener('click', () => playDaily());
+  $('#dailyShare').addEventListener('click', shareDaily);
+  $('#dailyPrev').addEventListener('click', () => renderDaily(dailyArchive[Math.min(dailyArchive.length - 1, dailyIndex + 1)]?.date));
+  $('#dailyNext').addEventListener('click', () => renderDaily(dailyArchive[Math.max(0, dailyIndex - 1)]?.date));
+  $('#dailyList').addEventListener('click', (event) => {
+    const card = event.target.closest('[data-daily-play]');
+    if (card) playDaily(card.dataset.dailyPlay);
+  });
 
   // Form Vibe slider
   const ytCt = $('#ytConsTurnt');
@@ -1003,6 +1119,7 @@ export function setupUIListeners() {
   $('#submitModal').addEventListener('click', (e) => { if (e.target === $('#submitModal')) closeModal(); });
   $('#reportModal').addEventListener('click', (e) => { if (e.target === $('#reportModal')) closeReport(); });
   $('#favModal').addEventListener('click', (e) => { if (e.target === $('#favModal')) closeFavs(); });
+  dailyOverlay.addEventListener('click', (e) => { if (e.target === dailyOverlay) closeDaily(); });
 
   // About overlay
   $('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'hidden'; });
@@ -1063,6 +1180,7 @@ export function setupUIListeners() {
       if (e.target.closest('input, textarea, select')) return;
     }
     if (e.key === 'Escape') {
+      if (!dailyOverlay.hidden) { closeDaily(); return; }
       if (!$('#digOverlay').hidden) { closeDig(); return; }
       if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; document.body.style.overflow = ''; return; }
       if (!$('#submitModal').hidden) { closeModal(); return; }
@@ -1070,7 +1188,7 @@ export function setupUIListeners() {
       if (!$('#favModal').hidden) { closeFavs(); return; }
       return;
     }
-    const modalOpen = !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden;
+    const modalOpen = !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden;
     if (modalOpen) return;
     if (e.key === 'ArrowRight') {
       e.preventDefault();
@@ -1099,7 +1217,7 @@ export function setupUIListeners() {
   let touchStart = null;
   let touchStartTarget = null;
   document.addEventListener('touchstart', (e) => {
-    if (!$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden) return;
+    if (!$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden) return;
     touchStartTarget = e.target;
     touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   }, { passive: true });
@@ -1140,7 +1258,7 @@ export function setupUIListeners() {
   $('#promoBadge').addEventListener('click', onPromoBadgeClick);
 
   // Focus trap setup
-  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay', '#digOverlay'].forEach((sel) => {
+  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay', '#digOverlay', '#dailyOverlay'].forEach((sel) => {
     const m = $(sel);
     if (m) trapFocus(m);
   });
