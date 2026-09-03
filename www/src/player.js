@@ -200,12 +200,13 @@ export function runIntro() {
   }
 
   const intro = document.querySelector('#intro');
-  // STARTはイントロの全要素が表示し終わるまで隠す。
-  // 背面に先出しすると、イントロのフェード中にSTARTだけが透けて見える。
+  // Once playback settles, paint START above the opening before fading it.
+  // Never leave a gap that exposes YouTube's central control before START.
   const unmuteBtn = document.querySelector('#unmute');
   if (unmuteBtn) unmuteBtn.hidden = true;
 
   let pollTimer = null;
+  let revealTimer = null;
   let finishTimer = null;
   const startedAt = performance.now();
   let retryAt = startedAt;
@@ -222,6 +223,7 @@ export function runIntro() {
     if (introFinished) return;
     introFinished = true;
     clearTimeout(pollTimer);
+    clearTimeout(revealTimer);
     clearTimeout(finishTimer);
     if (intro) intro.removeEventListener('pointerdown', skipIntro);
     window.removeEventListener('keydown', skipIntro);
@@ -232,7 +234,7 @@ export function runIntro() {
     if (state.isPromo) {
       startPromoPlayback();
     } else if (unmuteBtn) {
-      unmuteBtn.hidden = false;
+      unmuteBtn.hidden = !state.muted;
     }
   };
 
@@ -257,6 +259,12 @@ export function runIntro() {
 
   function checkPlayback() {
     if (introFinished) return;
+    // START is clickable during the handoff. Once explicitly unlocked, finish
+    // the existing fade even if unmuting briefly causes the player to buffer.
+    if (!state.muted) {
+      if (revealTimer === null && finishTimer === null) beginFade();
+      return;
+    }
     const now = performance.now();
     let time = null;
     let id = null;
@@ -280,17 +288,20 @@ export function runIntro() {
     lastId = id;
     const ready = movingSince !== null && now - movingSince >= 800;
 
-    if (!ready && finishTimer !== null) {
+    if (!ready && (revealTimer !== null || finishTimer !== null)) {
+      clearTimeout(revealTimer);
+      revealTimer = null;
       clearTimeout(finishTimer);
       finishTimer = null;
       intro.classList.remove('is-out');
+      // Keep START covering the center while the opening becomes opaque again.
     }
     if (ready && (skipRequested || now - startedAt >= 2600)) {
       if (retryBtn) retryBtn.hidden = true;
       if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
-      if (finishTimer === null) {
-        intro.classList.add('is-out');
-        finishTimer = setTimeout(finishIntro, 1600);
+      if (revealTimer === null && finishTimer === null) {
+        if (unmuteBtn) unmuteBtn.hidden = false;
+        revealTimer = setTimeout(beginFade, 150);
       }
     } else if (!ready && now - retryAt >= 12000) {
       if (retryBtn) {
@@ -301,6 +312,12 @@ export function runIntro() {
       if (introSub && introSub.textContent !== hint) introSub.textContent = hint;
     }
     pollTimer = setTimeout(checkPlayback, 150);
+  }
+
+  function beginFade() {
+    revealTimer = null;
+    intro.classList.add('is-out');
+    finishTimer = setTimeout(finishIntro, 1600);
   }
 
   if (!intro) {

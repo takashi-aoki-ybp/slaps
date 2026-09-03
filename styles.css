@@ -492,12 +492,13 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
 
 /* ===== unmute (START) ===== */
 .unmute {
-  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(0); z-index: 35;
+  /* Above .intro (50), opaque and centered to cover the iframe control. */
+  position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%) translateZ(0); z-index: 51;
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   display: flex; align-items: center; gap: 12px;
-  background: rgba(0, 0, 0, 0.72);
+  background: #000;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 26px;
@@ -511,7 +512,7 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   transform: translate(-50%, -50%) scale(1.04) translateZ(0) !important;
 }
 .unmute:hover {
-  background: rgba(0, 0, 0, 0.88);
+  background: #000;
   border-color: rgba(255, 255, 255, 0.45);
 }
 @keyframes unmutePulse {
@@ -769,7 +770,7 @@ body.is-started.is-idle:not(.is-pinned) .idle-title {
   .meta__foot { margin-top: 3px; }
   .actions { gap: 6px; }
   .pill { padding: 7px 14px; font-size: 13px; }
-  .unmute { top: 38%; padding: 14px 30px; font-size: 20px; }
+  .unmute { padding: 14px 30px; font-size: 20px; }
   .intro__logo { font-size: min(48px, 12vw); }
 }
 
