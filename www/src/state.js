@@ -2,41 +2,6 @@ export const REGION_LABELS = {
   us: '🇺🇸 US', jp: '🇯🇵 JP', uk: '🇬🇧 UK', fr: '🇫🇷 FR', kr: '🇰🇷 KR', other: '🌍', all: '🌐 ALL',
 };
 
-const PLAYED_KEY = 'slaps_played';
-const loadPlayed = () => {
-  try {
-    const arr = JSON.parse(localStorage.getItem(PLAYED_KEY) || '[]');
-    return new Set(arr);
-  } catch {
-    return new Set();
-  }
-};
-
-export function savePlayed() {
-  try {
-    localStorage.setItem(PLAYED_KEY, JSON.stringify([...state.played]));
-  } catch {
-    // quota exceeded — silently drop
-  }
-}
-
-const RECENT_KEY = 'slaps_recent';
-const loadRecent = () => {
-  try {
-    return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
-  } catch {
-    return [];
-  }
-};
-
-export function saveRecent() {
-  try {
-    localStorage.setItem(RECENT_KEY, JSON.stringify(state.recent));
-  } catch {
-    // quota exceeded — silently drop
-  }
-}
-
 const loadVolume = () => {
   try {
     const v = localStorage.getItem('slaps_volume');
@@ -85,8 +50,6 @@ export const state = {
   pinned: false,       // UI固定
   fill: true,         // 映像拡大（4:3対応）— デフォルトON
   broken: new Set(),
-  played: loadPlayed(),   // デッキシャッフル: 再生済みID
-  recent: loadRecent(),   // 直近再生曲のガード（最大10曲の配列）
   volume: loadVolume(),   // 曲自体の音量（0 - 100）
   preMuteVolume: loadVolume() || 100, // ミュート解除時の復帰用音量
   comments: [],           // コメントデータ
@@ -156,41 +119,14 @@ export function shuffle(arr) {
   }
 }
 
-// デッキシャッフル: 未再生曲を優先し、かつ直近N曲（recent）を最後方に配置
-export function deckShuffle(arr) {
-  let recentSet = new Set(state.recent);
-  
-  // 未再生で、かつ直近N曲に含まれない曲
-  const unplayedNotRecent = arr.filter((s) => !state.played.has(s.youtube_id) && !recentSet.has(s.youtube_id));
-  
-  // もし unplayedNotRecent が空の場合、再生完了（または recent ばかり）とみなし、このプール内の曲を履歴から部分クリアする
-  if (unplayedNotRecent.length === 0 && arr.length > 0) {
-    // プール内の曲のみを played と recent から削除
-    for (const song of arr) {
-      state.played.delete(song.youtube_id);
-    }
-    state.recent = state.recent.filter((id) => !arr.some((s) => s.youtube_id === id));
-    savePlayed();
-    saveRecent();
-    // Update local recentSet to reflect deletion
-    recentSet = new Set(state.recent);
+// Every eligible track has equal priority. Only prevent an immediate repeat
+// when explicitly reshuffling or moving into a new cycle.
+export function shuffleQueue(arr, avoidId) {
+  shuffle(arr);
+  if (arr.length > 1 && avoidId && arr[0].youtube_id === avoidId) {
+    const j = 1 + Math.floor(Math.random() * (arr.length - 1));
+    [arr[0], arr[j]] = [arr[j], arr[0]];
   }
-
-  // 状態分けしてシャッフル
-  // A: 未再生かつ直近でない曲
-  const poolA = arr.filter((s) => !state.played.has(s.youtube_id) && !recentSet.has(s.youtube_id));
-  // B: 直近再生された曲
-  const poolB = arr.filter((s) => recentSet.has(s.youtube_id));
-  // C: すでに再生済みで、かつ直近でない曲
-  const poolC = arr.filter((s) => state.played.has(s.youtube_id) && !recentSet.has(s.youtube_id));
-
-  shuffle(poolA);
-  shuffle(poolB);
-  shuffle(poolC);
-
-  arr.length = 0;
-  // 並び順：[未再生かつ直近でない] -> [再生済みかつ直近でない] -> [直近再生曲（最後方）]
-  arr.push(...poolA, ...poolC, ...poolB);
 }
 
 export function songTime(s) {
@@ -233,9 +169,44 @@ export function injectPromoSongs(arr) {
   arr.push(...result);
 }
 
-export function applyOrder(arr) {
+// Retain only the latest cycle boundary so PREV / NEXT across it are reversible.
+// This is in-memory navigation state, never an input to track weighting.
+let shuffleBoundary = null;
+let backwardWrapQueue = null;
+
+export function applyOrder(arr, avoidId) {
+  shuffleBoundary = null;
+  backwardWrapQueue = null;
   if (state.crateMode || state.dailyMode) return;
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
-  else deckShuffle(arr);
+  else shuffleQueue(arr, avoidId);
   // injectPromoSongs(arr);
+}
+
+export function advanceQueue(dir) {
+  const n = state.queue.length;
+  if (!n) return;
+  const randomMode = state.order === 'shuffle' && !state.crateMode && !state.dailyMode;
+  if (randomMode && dir > 0 && state.index === n - 1 && n > 1) {
+    if (backwardWrapQueue === state.queue) {
+      // PREV from the initial track wraps backwards; NEXT should undo it,
+      // not mistake it for completing a listening cycle.
+      backwardWrapQueue = null;
+    } else if (shuffleBoundary?.before === state.queue) {
+      state.queue = shuffleBoundary.after;
+    } else {
+      const before = state.queue;
+      const after = before.slice();
+      shuffleQueue(after, current()?.youtube_id);
+      shuffleBoundary = { before, after };
+      state.queue = after;
+    }
+    state.index = 0;
+  } else if (randomMode && dir < 0 && state.index === 0 && shuffleBoundary?.after === state.queue) {
+    state.queue = shuffleBoundary.before;
+    state.index = state.queue.length - 1;
+  } else {
+    if (randomMode && dir < 0 && state.index === 0) backwardWrapQueue = state.queue;
+    state.index = (state.index + dir + n) % n;
+  }
 }

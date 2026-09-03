@@ -110,7 +110,7 @@ export function setBalance(p, opts = {}) {
   state.balance = p;
   const cur = current();
   state.queue = eligibleByBalance(p);
-  applyOrder(state.queue);
+  applyOrder(state.queue, !opts.keep && !opts.shareId && !opts.first ? cur?.youtube_id : undefined);
   updateVibeColor(p);
   if (opts.shareId) {
     const targetSong = state.all.find((s) => s.youtube_id === opts.shareId);
@@ -206,7 +206,7 @@ export async function setOrder(order) {
   // 1. Immediately apply order to the queue based on current memory
   if (state.favMode) {
     const cur = current();
-    applyOrder(state.queue);
+    applyOrder(state.queue, cur?.youtube_id);
     if (state.order === 'shuffle') state.index = 0;
     else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
     if (state.ready) loadCurrent();

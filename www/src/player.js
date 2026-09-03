@@ -1,4 +1,4 @@
-import { state, current, savePlayed, saveRecent } from './state.js';
+import { state, current, advanceQueue } from './state.js';
 import { db } from './db.js';
 import {
   renderMeta,
@@ -237,17 +237,6 @@ export function loadCurrent() {
   const song = current();
   if (!song) return;
   noteTrackLoaded();
-  state.played.add(song.youtube_id);
-  savePlayed();
-
-  // Update recent playback history
-  state.recent = state.recent.filter((id) => id !== song.youtube_id);
-  state.recent.push(song.youtube_id);
-  if (state.recent.length > 10) {
-    state.recent.shift();
-  }
-  saveRecent();
-
   consecutiveErrors = 0;
   if (state.pinned) document.querySelector('#playBtn').style.display = 'none';
   state.player.loadVideoById(song.youtube_id);
@@ -555,7 +544,7 @@ export function step(dir) {
   const n = state.queue.length;
   if (!n) return;
   for (let i = 0; i < n; i++) {
-    state.index = (state.index + dir + n) % n;
+    advanceQueue(dir);
     if (!state.broken.has(current().youtube_id)) {
       slideTransition(dir);
       return;
