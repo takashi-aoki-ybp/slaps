@@ -6,7 +6,11 @@
     }
   ],
   "rewrites": [
-    { "source": "/promo", "destination": "/index.html" }
+    {
+      "source": "/promo",
+      "destination": "/index.html"
+    }
   ],
-  "outputDirectory": "www"
+  "outputDirectory": "www",
+  "ignoreCommand": "[ \"$VERCEL_GIT_COMMIT_MESSAGE\" = \"ci: restore read-only YouTube audit (configuration only)\" ]"
 }
