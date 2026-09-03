@@ -1,5 +1,27 @@
 # START handoff — v3.45
 
+## Follow-up: START fade-in — v3.46
+
+The user additionally requested START itself fade in rather than appear
+instantly. Replace v3.45's150ms abrupt-appearance lead with a400ms opacity
+animation and450ms lead. Keep the opening fully opaque during that fade-in;
+only after START is opaque does the opening begin its existing1.6s fade.
+The older v3.45 measurements below remain historical.
+
+This is an explicit timing-oracle update: retained all11 cases, adding assertions
+that the opening has NOT begun fading during START's400ms entrance. Adapted
+completion clock points by the extra300ms, without removing failure/skip/retry
+or early-click assertions. The old2aee76d source fails the two new timing
+assertions. Real-browser verification additionally measures intermediate START
+opacity, fully opaque opening at that instant, and START opacity1 when the
+opening fade starts. Same-video audio unlock and all other UI stay unchanged.
+
+The initial live probe twice sampled opacity after locator polling had already
+missed the400ms window. Its captured mutation trace showed0 →0.488 →0.877 while
+the opening stayed at1. The verifier now records rendered frames with rAF and
+asserts those intermediate values instead of relying on a late120ms sleep.
+The fade/opaque-opening assertions are retained, not bypassed.
+
 ## Acceptance contract / explicit oracle change
 
 The user reported the pause control appearing before START and explicitly asked

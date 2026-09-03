@@ -301,7 +301,8 @@ export function runIntro() {
       if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
       if (revealTimer === null && finishTimer === null) {
         if (unmuteBtn) unmuteBtn.hidden = false;
-        revealTimer = setTimeout(beginFade, 150);
+        // Let START's 400ms fade-in finish while the opening is still opaque.
+        revealTimer = setTimeout(beginFade, 450);
       }
     } else if (!ready && now - retryAt >= 12000) {
       if (retryBtn) {
