@@ -60,13 +60,16 @@ export default async function handler(req, res) {
   try {
     // 1. YouTubeのhqdefaultサムネイル画像 (480x360) を読み込む
     const ytThumbnailUrl = `https://img.youtube.com/vi/${v}/hqdefault.jpg`;
+    const thumbnailResponse = await fetch(ytThumbnailUrl);
+    if (!thumbnailResponse.ok) throw new Error(`Thumbnail error: ${thumbnailResponse.status}`);
+    const thumbnailBuffer = Buffer.from(await thumbnailResponse.arrayBuffer());
     
     // 2. 重ね合わせ用の SLAPS ロゴ付き中央画像 (share_center.png) のパス
     const overlayPath = path.join(process.cwd(), 'assets', 'share_center.png');
 
     // 並列で画像をロード
     const [bgImage, overlayImage] = await Promise.all([
-      Jimp.read(ytThumbnailUrl),
+      Jimp.read(thumbnailBuffer),
       Jimp.read(overlayPath)
     ]);
 

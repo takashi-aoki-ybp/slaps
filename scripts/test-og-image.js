@@ -61,6 +61,10 @@ function loadHandler({ kvResults = [], imageError = null } = {}) {
       throw new Error(`Unexpected require: ${id}`);
     },
     async fetch(url, options) {
+      if (url.startsWith('https://img.youtube.com/')) {
+        if (imageError) throw imageError;
+        return { ok: true, async arrayBuffer() { return Buffer.from('thumbnail'); } };
+      }
       assert.equal(url, 'https://kv.example.test');
       const command = JSON.parse(options.body);
       commands.push(command);
