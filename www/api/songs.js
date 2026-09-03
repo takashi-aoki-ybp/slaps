@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+const { retireGeneratedDescription } = require('./utils/description-policy.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -43,7 +44,7 @@ export default async function handler(req, res) {
       ]);
 
       if (rawList && Array.isArray(rawList)) {
-        dbSongs = rawList.map(item => JSON.parse(item));
+        dbSongs = rawList.map(item => retireGeneratedDescription(JSON.parse(item)));
       }
       if (rawBroken && Array.isArray(rawBroken)) {
         for (let i = 0; i < rawBroken.length; i += 2) {

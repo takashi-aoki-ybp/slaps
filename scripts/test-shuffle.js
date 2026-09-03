@@ -42,6 +42,17 @@ for (let j = 0; j < 3; j++) for (let k = 0; k < 2; k++) {
 }
 assert.equal(permutations.size, 6);
 
+// Catalog-scale check: no hidden short list; identical random draws must yield
+// identical results regardless of persistent/in-memory legacy history.
+reset();
+run("state.all=Array.from({length:1007},(_,i)=>({youtube_id:'track-'+i}));state.queue=state.all.slice();state.played=new Set();state.recent=[]");
+draws=Array(1006).fill(0.37);run('applyOrder(state.queue)');
+const fullCatalog=ids();
+assert.equal(fullCatalog.length,1007);assert.equal(new Set(fullCatalog).size,1007);
+run("state.queue=state.all.slice();state.played=new Set(state.all.slice(5).map(s=>s.youtube_id));state.recent=state.all.slice(5,15).map(s=>s.youtube_id)");
+draws=Array(1006).fill(0.37);run('applyOrder(state.queue)');
+assert.deepEqual(ids(),fullCatalog,'Old history must not affect catalog shuffle');
+
 reset();
 const original = ids(); const beforeBackward = calls;
 run('advanceQueue(-1); advanceQueue(1)');
