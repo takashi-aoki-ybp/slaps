@@ -19,7 +19,7 @@ after START do not reopen the entry gate (audio state is not entry permission).
 The13-case regression suite retains previous gates and adds cancellation before
 text exit and re-muting after entry. Against9cf84a9 it fails6 cases. Real-browser
 verification records text-fade opacity, text hidden before START, and zero
-text/START overlap on every captured rendered frame, including rebuffer guards.
+text/START overlap on every captured rendered frame; unit cases cover rebuffer guards.
 The v3.45/v3.46 results below are historical, superseded where they permit overlap.
 
 ## Follow-up: START fade-in — v3.46
@@ -156,3 +156,34 @@ only Web assets/version are synchronized here.
 - Evidence:outputs/start-layer-20260903/ plus /tmp/slaps-start-fade-*.log and
   /tmp/slaps-start-fade-errors.jsonl. v3.45 screenshots/JSON were refreshed by
   v3.46 checks; the v3.45 timing results above retain their historical values.
+
+## v3.47 production result — no text/START overlap
+
+- URL:https://slaps.tokyo/ (www alias also explicitly set).
+- Target:production; Status:READY; source3d945e681fd8759f9b2418f269ed487ec4b50ca7.
+- Deployment:dpl_Bn8JxG8FMkfK1RDZgPy2SYuXxGGu /
+  https://slaps-a2ylbix5h-takashi-aokis-projects.vercel.app.
+- Static frontend + Vercel Node APIs; build4s / deploy19s; Web/PWA3.47,
+  Android347 Web assets synced. No physical mobile-device claim.
+- npm run verify/13 intro cases/CI33765319851 and33765324198 PASS;
+  old9cf84a9 fails6 cases. No existing failure/skip/retry/promo checks removed.
+- Public normal/mobile/early/mobile-early/iframe-delay/API-block-retry all
+  PASS. Every captured frame with visible START has opening-copy opacity0;
+  copy fade-out and START fade-in each have intermediate opacity samples.
+  START stays above an opaque background until fully visible. Lead451–452ms,
+  background fade1600–1602ms; early clicks retain the same video; pageerror0.
+- Public PC/mobile screenshots visually inspected: the three old text elements
+  are gone when START is visible. The prior v3.46 verifier checked START alone
+  and missed this composition requirement; the explicit no-overlap oracle now
+  rejects that former behavior.
+- SW-enabled reload PASS (slaps-v3.47/controller/current CSS/muted moving video).
+  Public SHUFFLE/DIG full acceptance PASS:1011 candidates, eight draws,
+  fr90s4-track cycle/PREV-NEXT, LATEST/DAILY and mobile DIG.
+- Five public assets match source; complete1011-track API payload unchanged.
+  No song/submission/analytics/selection/DIG/iframe-parameter changes.
+- Post-deploy10m log scan:one existing DEP0169 warning /api/og-image, HTTP200.
+  No new monitoring/drain configuration. Owned process-muted browsers closed;
+  synthetic analytics and same-origin non-GET requests intercepted.
+- Rollback:v3.46 /dpl_2C9vf6AKZktKL9GPfAwT67G5qvzi. main unchanged.
+- Evidence:outputs/start-layer-20260903/ now contains v3.47 results/images;
+  /tmp/slaps-handoff-*.log and /tmp/slaps-handoff-errors.jsonl.
