@@ -1,17 +1,17 @@
-# SLAPS 全面監査後の修正 — v3.43候補
+# SLAPS 全面監査後の修正 — v3.43本番反映済み
 
 handoff_version: 1.0
 project: SLAPS
 projectPath: SLAPS
 owner_ai: Codex
 reviewer_ai: deterministic regression checks and real browser
-status: waiting
+status: done
 updated_at: 2026-09-03
 
 ## 完了条件と保護対象
 
 監査で再現した不具合を既存のデザイン・オープニング・曲・ユーザー投稿・お気に入り・計測を保ったまま修正する。
-コード修正とローカル検証は実施済み。本番反映・GitHub mainへの反映は未実施。
+コード修正・ローカル検証・隔離実Redis・本番反映後の実操作検証を実施済み。mainには監査設定と当該設定コミットだけの公開スキップ条件を反映し、アプリ全体はマージしていない。
 本番v3.42の基準commitは83ba27a480d472fbe92315192f7e81381497d99d。
 
 ## 実施済み
@@ -37,7 +37,7 @@ updated_at: 2026-09-03
 - npm run verify: 成功。既存テストを削除・緩和していない。
 - scripts/test-audit-regressions.js: 18項目成功。SLAPS_TEST_BASELINE=83ba27aで修正前に同じ18項目がすべて失敗することも確認。
 - API故障注入は実handler＋隔離モックRedis。部分失敗／HTTP200のerror／競合／正常更新／空欄更新、行破損、本文なし入力、HTML反射、非同期競合などを検証。
-- Luaの実Redisエンジン／Upstash上での実行は未検証。モックの成功だけで本番DB更新完了とはしていない。実DBの書き換えは0。
+- Luaは初期段階ではモックのみ。その後、承認を受け実Upstashのランダムな専用キー1件で空欄更新・旧値不一致時の無変更・同時更新の片方だけ成功を確認。専用キーは削除済み。本番設定のDB_PREFIXは空文字、既存slaps:songsの130レコードは前後で完全一致。本番曲の試験更新は0。
 - outputs/audit-fix-20260903/browser.cjs: ローカル配信コード＋本番由来1,011曲のスナップショット、実YouTubeで10シナリオ成功。START前の映像時間進行、同一動画・iframe、旧保存説明、DIGキー・スワイプ・下部固定、storage拒否、YouTube障害復帰、空一覧復帰、旧候補応答を確認。
 - outputs/audit-fix-20260903/shuffle.cjs: ローカルコード＋公開GET、全1,011曲、8回のSHUFFLE、fr/90s4曲一周、PREV/NEXT、DAILY→全曲、LATEST、PC/SP、pageerror0。
 - ブラウザーはプロセスで消音。SLAPSへのテスト投稿／presence／broken voteと解析送信を遮断。YouTubeの通常プレーヤー通信は維持。終了済み。
@@ -49,9 +49,7 @@ updated_at: 2026-09-03
 
 ## 未完了・別途必要
 
-1. 本番デプロイとslaps.tokyoでの公開後検証。現時点の本番はv3.42のまま。
-2. GitHub定期監査を動かす既定mainへの必要設定反映。main全体の無確認マージはしない。
-3. 実Redis/UpstashでのLuaコマンド実行確認。承認された隔離環境で検証し、本番曲をテスト用に更新しない。
+1. 本番反映・main監査設定・実Redisの3項目は下記の証拠で完了。
 4. Android実機のAPI接続。相対URLがlocalhostへ向く構成は今回未修正。資産同期と混同しない。
 5. Jimp系の残るmoderate5パッケージ。メジャー更新を伴うため画像生成の互換性検証を分けて実施する。
 6. 国・年代未指定時の推測／アップロード年と作品年の相違。既存全曲の年代・説明の一次資料照合、重複候補3組の版違い確認も残る。
@@ -60,8 +58,21 @@ updated_at: 2026-09-03
 ## 次アクション
 
 owner: Codex
-action: 公開承認後、隔離環境でDBコマンド互換性を確認し、Webの本番反映・公開後の実操作確認。定期監査のmain反映は差分を限定して別途確認。
-blocker: 本番・mainへの公開操作は未承認。実Redisの新しい更新コマンドは実環境の確認待ち。
+action: 次回の03:00 JSTの定期監査を確認。Android接続・画像ライブラリ・作品年代の別件は独立した検証境界で扱う。
+blocker: 今回承認された公開・監査復旧にはなし。全課題解消を意味しない。
+
+## 2026-09-03 公開承認後の確定結果
+
+- ユーザー「はい」「全部承認するから進めろ」に基づき公開。app commit f242996127fbdc6d8ff2513dfbd5c2618d77c39b、GitHub CI 33755380715/33755375631成功。
+- Production dpl_9Fm5ekyvqBmfYtapEQCWRGurWVN2、https://slaps-kgetnsw33-takashi-aokis-projects.vercel.app 。切戻先はv3.42 dpl_4T2EiKs82Fez5R5zBhQqFbxqDnbg。
+- CLI deployの初回成功時は独自ドメインが旧版のままだった。公開後の版照合とLATESTテストで検出し、slaps.tokyo/www.slaps.tokyoを明示的にalias set後に再検証。両ホストのSW/script/player/UI/i18n/CSS計12資産SHA256はローカルと完全一致。v3.43確認済み。
+- productionモードのbrowser.cjsはローカル資産の上書きなし・実APIを使用。START同一動画継続、DIGキー/SPスワイプ/下部固定、旧保存説明非表示・保存ID維持、storage拒否、YouTube遮断から復帰、空一覧復帰、旧候補応答の10ケース成功。障害は検証ブラウザ内だけに注入。
+- 本番SHUFFLE8回、全1,011曲、fr/90s4曲周回、PREV/NEXT、DAILY→全曲、LATEST、PC/SP、pageerror0。CSS・曲データ・analytics.jsは不変。
+- 公開APIは1,011曲/1,011一意IDで監査前カタログと全内容一致。本文{}のsubmit/report/mark_brokenは400、未認証adminは401。曲OG/DAILY OGはimage/jpeg/200。正常な投稿・コメントの本番テスト書込はしていない。
+- main commit a1f0b7d65f176ed0433a124158184c902082d4be。変更は.github/workflows/youtube-audit.ymlとvercel.jsonだけ。旧main自動公開を防ぐignoreCommandは今回のコミットメッセージ完全一致だけを対象にする。VercelチェックでCanceled by Ignored Build Stepを実確認。他のコミット/空メッセージはビルド続行のテスト成功。設定根拠: https://vercel.com/docs/project-configuration/vercel-json#ignorecommand 。
+- 定期監査は毎日03:00 JST、50曲巡回。レビュー済みf242996の監査コードを固定し、毎回公開APIから最新の全カタログ（community含む）を取得。mainの古い曲一覧は使わない。本番書込資格情報なし。全件確認の手動起動33756425391は1,011曲/失敗0、artifact9893626274。初回のscheduleイベントそのものは次回待ち。GitHub Actions v4群のNode20非推奨警告は残るがNode24で成功。
+- 本番直近20分error照会にはOG/DAILY OGのHTTP200に伴う既知DEP0169警告4行。全error0とはしない。Jimp系moderate5は別件として保持。
+- 証拠: outputs/audit-fix-20260903/{redis-live-results,public-check-results,production-browser-results,main-publication}.json、production-desktop.png/production-mobile.png/mobile-dig.png、/tmp/slaps-v343-production-shuffle.log、/tmp/slaps-v343-runtime-errors-final.jsonl。
 
 ## 参照
 
@@ -69,4 +80,3 @@ blocker: 本番・mainへの公開操作は未承認。実Redisの新しい更�
 - [node-tar advisory](https://github.com/advisories/GHSA-r292-9mhp-454m)
 - [brace-expansion advisory](https://github.com/advisories/GHSA-rgw5-rvv9-x895)
 - [xmldom advisory](https://github.com/advisories/GHSA-6gmq-8vp8-gcm6)
-
