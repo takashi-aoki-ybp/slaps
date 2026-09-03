@@ -49,3 +49,35 @@ only Web assets/version are synchronized here.
 - Normal and mobile fade/ready screenshots inspected: opaque START is above
   the fading logo and covers the center, with no exposed pause icon beforehand.
 - Process-muted test browsers closed; no same-origin production writes allowed.
+
+## Deploy Result
+
+- URL: https://slaps.tokyo/ (www alias also assigned explicitly).
+- Target: production. Status: READY. Web/PWA3.45 / Android assets345.
+- Source commit:2aee76d1f425d85aa8accce131cefe69b95383cf.
+- Framework: static frontend + Vercel Node APIs. Build:5s, total deploy26s.
+- Deployment:dpl_BGAswEwkxahias5HHkP5GnAF8nks.
+- Deployment URL:https://slaps-1hpflf1ty-takashi-aokis-projects.vercel.app.
+- Rollback:v3.44 / dpl_H23FVd7TaxTzZTkiqLrajCZXGz3H.
+- GitHub CI33763196250 and33763192360 passed; main unchanged.
+
+## Public acceptance
+
+- The six real-browser cases all PASS: normal/mobile, early/mobile-early,
+  iframe6s-delay and API-block-retry. pageerror0, center covered throughout,
+  START lead151–152ms, fade1601–1602ms. Text hold2725–2730ms normally;
+  delayed iframe7566ms, API retry14204ms. START retained the video and unmuted it.
+- Five public assets byte-match the candidate. Public API1011 tracks /1011
+  unique IDs, complete payload identical before/after; no song/DB changes.
+- SW-enabled reload PASS: slaps-v3.45/controller active, current3.45 CSS,
+  moving muted video, START covers center.
+- Post-deploy10m error scan:1 existing DEP0169 url.parse warning at
+  /api/og-image, response200. Not a claim of zero error-level logs.
+  No new drains or monitoring configuration changes.
+- Evidence:outputs/start-layer-20260903/production-evidence.json,
+  public-parity.json, *-fading.png/*-ready.png, /tmp/slaps-start-reload.log,
+  /tmp/slaps-start-deploy.log and /tmp/slaps-start-errors.jsonl.
+- Public SHUFFLE/DIG acceptance also PASS:1011/full pool, eight SHUFFLE
+  clicks, fr/90s four-track cycle and reversible PREV/NEXT, LATEST/DAILY,
+  mobile DIG, pageerror0. Evidence:/tmp/slaps-start-production-shuffle.log.
+  All owned verification browsers have been closed.
