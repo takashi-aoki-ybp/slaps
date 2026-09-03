@@ -11,9 +11,10 @@ function harness({ promo = false, absent = false, coarse = false } = {}) {
   let now = 0, sequence = 0, playing = false, stalled = false, mediaTime = 0;
   const timers = new Map(), listeners = new Map();
   const el = () => ({ hidden: true, textContent: 'Original', removed: false,
-    classList: { values: new Set(), add(v) { this.values.add(v); }, remove(v) { this.values.delete(v); } },
+    classList: { values: new Set(), add(v) { this.values.add(v); }, remove(v) { this.values.delete(v); }, contains(v) { return this.values.has(v); } },
     addEventListener(event, cb) { this[event] = cb; }, removeEventListener(event) { delete this[event]; }, remove() { this.removed = true; } });
-  const intro = el(), button = el(), retry = el(), sub = el();
+  const intro = el(), button = el(), retry = el(), sub = el(), copy = el(), body = el();
+  copy.hidden = false;
   let mutes = 0, plays = 0, retries = 0, catalogRetries = 0, promos = 0;
   const state = { ready: true, muted: true, all: [{}], player: {
     getCurrentTime: () => coarse ? Math.floor(mediaTime * 4) / 4 : mediaTime,
@@ -24,7 +25,7 @@ function harness({ promo = false, absent = false, coarse = false } = {}) {
     performance: { now: () => now }, window: { location: { search: '', pathname: promo ? '/promo' : '/' },
       addEventListener: (k, f) => listeners.set(k, f), removeEventListener: k => listeners.delete(k),
       retrySLAPS: () => catalogRetries++, i18n: { t: k => k } },
-    document: { body: el(), querySelector: s => ({ '#intro': absent ? null : intro, '#unmute': button, '#introRetry': retry, '#introSub': sub })[s] },
+    document: { body, querySelector: s => ({ '#intro': absent ? null : intro, '#unmute': button, '#introRetry': retry, '#introSub': sub, '#introCopy': copy })[s] },
     setTimeout: (fn, delay) => { const id = ++sequence; timers.set(id, { fn, at: now + delay }); return id; }, clearTimeout: id => timers.delete(id),
     createYTPlayer: () => retries++, startPromoPlayback: () => promos++,
   });
@@ -40,7 +41,7 @@ function harness({ promo = false, absent = false, coarse = false } = {}) {
     if (playing && !stalled) mediaTime += (target - now) / 1000;
     now = target;
   }
-  return { intro, button, retry, state, advance, timers, listeners,
+  return { intro, button, retry, copy, body, state, advance, timers, listeners,
     play() { playing = true; }, buffer() { playing = false; }, stall() { stalled = true; },
     skip() { listeners.get('keydown')?.(); },
     retryClick() { retry.click({ stopPropagation() {} }); },
@@ -51,15 +52,17 @@ const tests = [
   ['timer alone never reveals unstarted video', () => { const h=harness();h.advance(7000);assert.equal(h.fading,false);assert.equal(h.intro.removed,false);assert.equal(h.button.hidden,true); }],
   // User explicitly replaced v3.44's hidden-during-fade behavior: START must
   // paint FIRST, then remain above the whole fade. Readiness/hold stay required.
-  // v3.46: the user's follow-up asks START itself to fade in for400ms first.
-  ['minimum hold then START fades in before the entire slow opening fade', () => { const h=harness();h.play();h.advance(2500);assert.equal(h.fading,false);assert.equal(h.button.hidden,true);h.advance(200);assert.equal(h.fading,false);assert.equal(h.button.hidden,false);h.advance(400);assert.equal(h.fading,false);h.advance(50);assert.equal(h.fading,true);h.advance(1500);assert.equal(h.button.hidden,false);assert.equal(h.intro.removed,false);h.advance(100);assert.equal(h.button.hidden,false);assert.equal(h.intro.removed,true);assert.equal(h.timers.size,0); }],
-  ['late playback starts fade only after stable progress and START', () => { const h=harness();h.advance(6000);h.play();h.advance(700);assert.equal(h.fading,false);assert.equal(h.button.hidden,true);h.advance(350);assert.equal(h.button.hidden,false);assert.equal(h.fading,false);h.advance(400);assert.equal(h.fading,false);h.advance(50);assert.equal(h.fading,true);h.advance(1700);assert.equal(h.intro.removed,true); }],
-  ['coarse API time updates can settle', () => { const h=harness({coarse:true});h.play();h.advance(4800);assert.equal(h.intro.removed,true); }],
+  // v3.47: text must be gone BEFORE START begins fading in. Keep all prior gates.
+  ['text exits before START fades in, then the background fades', () => { const h=harness();h.play();h.advance(2500);assert.equal(h.fading,false);assert.equal(h.button.hidden,true);h.advance(200);assert.equal(h.intro.classList.contains('is-copy-out'),true);assert.equal(h.copy.hidden,false);assert.equal(h.button.hidden,true);h.advance(399);assert.equal(h.button.hidden,true);h.advance(1);assert.equal(h.copy.hidden,true);assert.equal(h.button.hidden,false);assert.equal(h.fading,false);h.advance(400);assert.equal(h.fading,false);h.advance(50);assert.equal(h.fading,true);h.advance(1500);assert.equal(h.button.hidden,false);assert.equal(h.intro.removed,false);h.advance(100);assert.equal(h.button.hidden,false);assert.equal(h.intro.removed,true);assert.equal(h.timers.size,0); }],
+  ['late playback still waits for text exit and START entry', () => { const h=harness();h.advance(6000);h.play();h.advance(700);assert.equal(h.fading,false);assert.equal(h.button.hidden,true);h.advance(350);assert.equal(h.button.hidden,true);h.advance(400);assert.equal(h.copy.hidden,true);assert.equal(h.button.hidden,false);assert.equal(h.fading,false);h.advance(400);assert.equal(h.fading,false);h.advance(50);assert.equal(h.fading,true);h.advance(1700);assert.equal(h.intro.removed,true); }],
+  ['coarse API time updates can settle', () => { const h=harness({coarse:true});h.play();h.advance(5300);assert.equal(h.intro.removed,true); }],
   ['PLAYING with frozen time is not ready', () => { const h=harness();h.play();h.stall();h.advance(7000);assert.equal(h.fading,false);assert.equal(h.button.hidden,true); }],
-  ['buffering during fade restores opening but keeps START over the center', () => { const h=harness();h.play();h.advance(3200);assert.equal(h.fading,true);h.buffer();h.advance(3000);assert.equal(h.fading,false);assert.equal(h.intro.removed,false);assert.equal(h.button.hidden,false);h.play();h.advance(3200);assert.equal(h.intro.removed,true); }],
-  ['early audio unlock never resurrects START or cancels the fade', () => { for (const clickAt of [2700,3300]) {const h=harness();h.play();h.advance(clickAt);assert.equal(h.button.hidden,false);h.state.muted=false;h.button.hidden=true;h.buffer();h.advance(2100);assert.equal(h.intro.removed,true);assert.equal(h.button.hidden,true);assert.equal(h.state.muted,false);assert.equal(h.timers.size,0);} }],
-  ['START can recover when playback buffered during handoff', () => {const h=harness();h.play();h.advance(2900);h.buffer();h.advance(300);assert.equal(h.fading,false);assert.equal(h.button.hidden,false);h.state.muted=false;h.button.hidden=true;h.advance(1800);assert.equal(h.intro.removed,true);assert.equal(h.button.hidden,true);assert.equal(h.timers.size,0);}],
-  ['skip cannot expose buffering video or unlock audio', () => { const h=harness();h.skip();h.advance(2000);assert.equal(h.button.hidden,true);assert.equal(h.intro.removed,false);assert.equal(h.state.muted,true);h.play();h.advance(3400);assert.equal(h.intro.removed,true); }],
+  ['buffering during fade restores background, never the departed text', () => { const h=harness();h.play();h.advance(3600);assert.equal(h.fading,true);h.buffer();h.advance(3000);assert.equal(h.fading,false);assert.equal(h.intro.removed,false);assert.equal(h.button.hidden,false);assert.equal(h.copy.hidden,true);h.play();h.advance(3200);assert.equal(h.intro.removed,true); }],
+  ['early audio unlock never resurrects START or cancels the fade', () => { for (const clickAt of [3100,3700]) {const h=harness();h.play();h.advance(clickAt);assert.equal(h.button.hidden,false);h.state.muted=false;h.button.hidden=true;h.buffer();h.advance(2100);assert.equal(h.intro.removed,true);assert.equal(h.button.hidden,true);assert.equal(h.state.muted,false);assert.equal(h.timers.size,0);} }],
+  ['START can recover when playback buffered during handoff', () => {const h=harness();h.play();h.advance(3300);h.buffer();h.advance(300);assert.equal(h.fading,false);assert.equal(h.button.hidden,false);assert.equal(h.copy.hidden,true);h.state.muted=false;h.button.hidden=true;h.advance(1800);assert.equal(h.intro.removed,true);assert.equal(h.button.hidden,true);assert.equal(h.timers.size,0);}],
+  ['buffering before text exit restores text without introducing START', () => {const h=harness();h.play();h.advance(2800);h.buffer();h.advance(3000);assert.equal(h.intro.classList.contains('is-copy-out'),false);assert.equal(h.copy.hidden,false);assert.equal(h.button.hidden,true);h.play();h.advance(3600);assert.equal(h.intro.removed,true);assert.equal(h.copy.hidden,true);}],
+  ['re-muting after START does not reopen the entry gate', () => {const h=harness();h.play();h.advance(3200);h.body.classList.add('is-started');h.button.hidden=true;h.state.muted=true;h.buffer();h.advance(2100);assert.equal(h.intro.removed,true);assert.equal(h.button.hidden,true);}],
+  ['skip cannot expose buffering video or unlock audio', () => { const h=harness();h.skip();h.advance(2000);assert.equal(h.button.hidden,true);assert.equal(h.intro.removed,false);assert.equal(h.state.muted,true);h.play();h.advance(3600);assert.equal(h.intro.removed,true); }],
   ['timeout offers retry without exposing video, then recovers', () => { const h=harness();h.state.ready=false;h.state.player=null;h.state.all=[];h.advance(12100);assert.equal(h.retry.hidden,false);assert.equal(h.button.hidden,true);assert.equal(h.intro.removed,false);h.retryClick();assert.equal(h.counts.retries,1);assert.equal(h.counts.catalogRetries,1);assert.equal(h.retry.hidden,true); }],
   ['promo keeps its existing short muted entry', () => { const h=harness({promo:true});h.advance(650);assert.equal(h.counts.promos,1);assert.equal(h.intro.removed,true); }],
 ];

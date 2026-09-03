@@ -1,4 +1,26 @@
-# START handoff — v3.46
+# START handoff — v3.47
+
+## Current acceptance: no opening-text / START overlap
+
+The user rejected v3.46 because the opening copy remained behind START.
+The correct handoff is now: retain minimum text hold/playback readiness →
+fade the three opening text elements out together for400ms → explicitly hide
+that text group and start START's400ms fade-in → reveal the background with
+the existing1.6s fade once START is opaque. The background stays opaque during
+both text/button transitions, so the iframe control cannot appear between them.
+
+The initial copy/layout is unchanged; a wrapper separates copy opacity from
+background opacity. No frame may show the old text and a visible START together.
+Buffering before text exit restores text without showing START; after START
+appears, the departed text must never come back over it. The retry button has
+space below START when the text has already gone. Early START and re-muting
+after START do not reopen the entry gate (audio state is not entry permission).
+
+The13-case regression suite retains previous gates and adds cancellation before
+text exit and re-muting after entry. Against9cf84a9 it fails6 cases. Real-browser
+verification records text-fade opacity, text hidden before START, and zero
+text/START overlap on every captured rendered frame, including rebuffer guards.
+The v3.45/v3.46 results below are historical, superseded where they permit overlap.
 
 ## Follow-up: START fade-in — v3.46
 

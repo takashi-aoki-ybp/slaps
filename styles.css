@@ -29,6 +29,12 @@ img { display: block; max-width: 100%; }
   background: var(--bg);
   transition: opacity 1.6s ease;
 }
+.intro__copy {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  transition: opacity .4s ease;
+}
+.intro.is-copy-out .intro__copy { opacity: 0; pointer-events: none; }
+.intro.is-copy-out .intro__retry { position: absolute; top: calc(50% + 80px); }
 .intro__logo {
   animation: introLogo .55s ease both;
 }

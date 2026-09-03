@@ -200,12 +200,15 @@ export function runIntro() {
   }
 
   const intro = document.querySelector('#intro');
-  // Once playback settles, paint START above the opening before fading it.
-  // Never leave a gap that exposes YouTube's central control before START.
+  const introCopy = document.querySelector('#introCopy');
+  // Text exits first, then START enters. Keep the opaque opening behind both
+  // until START is solid, so neither text overlap nor an iframe-control gap occurs.
   const unmuteBtn = document.querySelector('#unmute');
   if (unmuteBtn) unmuteBtn.hidden = true;
 
   let pollTimer = null;
+  let copyTimer = null;
+  let copyFinished = false;
   let revealTimer = null;
   let finishTimer = null;
   const startedAt = performance.now();
@@ -218,11 +221,13 @@ export function runIntro() {
   const retryBtn = document.querySelector('#introRetry');
   const introSub = document.querySelector('#introSub');
   const originalSub = introSub?.textContent;
+  const audioUnlocked = () => !state.muted || document.body.classList.contains('is-started');
 
   const finishIntro = () => {
     if (introFinished) return;
     introFinished = true;
     clearTimeout(pollTimer);
+    clearTimeout(copyTimer);
     clearTimeout(revealTimer);
     clearTimeout(finishTimer);
     if (intro) intro.removeEventListener('pointerdown', skipIntro);
@@ -234,7 +239,7 @@ export function runIntro() {
     if (state.isPromo) {
       startPromoPlayback();
     } else if (unmuteBtn) {
-      unmuteBtn.hidden = !state.muted;
+      unmuteBtn.hidden = audioUnlocked();
     }
   };
 
@@ -261,7 +266,7 @@ export function runIntro() {
     if (introFinished) return;
     // START is clickable during the handoff. Once explicitly unlocked, finish
     // the existing fade even if unmuting briefly causes the player to buffer.
-    if (!state.muted) {
+    if (audioUnlocked()) {
       if (revealTimer === null && finishTimer === null) beginFade();
       return;
     }
@@ -288,6 +293,11 @@ export function runIntro() {
     lastId = id;
     const ready = movingSince !== null && now - movingSince >= 800;
 
+    if (!ready && copyTimer !== null) {
+      clearTimeout(copyTimer);
+      copyTimer = null;
+      intro.classList.remove('is-copy-out');
+    }
     if (!ready && (revealTimer !== null || finishTimer !== null)) {
       clearTimeout(revealTimer);
       revealTimer = null;
@@ -299,10 +309,17 @@ export function runIntro() {
     if (ready && (skipRequested || now - startedAt >= 2600)) {
       if (retryBtn) retryBtn.hidden = true;
       if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
-      if (revealTimer === null && finishTimer === null) {
-        if (unmuteBtn) unmuteBtn.hidden = false;
-        // Let START's 400ms fade-in finish while the opening is still opaque.
-        revealTimer = setTimeout(beginFade, 450);
+      if (!copyFinished && copyTimer === null) {
+        intro.classList.add('is-copy-out');
+        copyTimer = setTimeout(() => {
+          copyTimer = null;
+          copyFinished = true;
+          // Explicitly hide the copy before revealing START, even after a slow frame.
+          if (introCopy) introCopy.hidden = true;
+          showStart();
+        }, 400);
+      } else if (copyFinished && revealTimer === null && finishTimer === null) {
+        showStart();
       }
     } else if (!ready && now - retryAt >= 12000) {
       if (retryBtn) {
@@ -313,6 +330,12 @@ export function runIntro() {
       if (introSub && introSub.textContent !== hint) introSub.textContent = hint;
     }
     pollTimer = setTimeout(checkPlayback, 150);
+  }
+
+  function showStart() {
+    if (unmuteBtn && !audioUnlocked()) unmuteBtn.hidden = false;
+    // Let START's400ms fade-in finish on the still-opaque opening background.
+    revealTimer = setTimeout(beginFade, 450);
   }
 
   function beginFade() {
