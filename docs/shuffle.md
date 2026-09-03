@@ -6,6 +6,7 @@
 - Within a cycle each candidate appears once. This still uses a transient randomized playback queue to support NEXT/PREV; it is not an editorial shortlist or an independent-with-replacement draw on every NEXT. Chance repeats across cycles are possible.
 - Retain the latest pair of cycle queues in memory for reversible PREV/NEXT at that boundary. Initial backward wrap is also reversible without triggering a new shuffle.
 - Respect region/era, broken-video exclusion, and the selected favorites pool. LATEST sorting, DAILY sequence and shared-list sequence remain unchanged.
+- When SHUFFLE exits DAILY or a shared list, refresh the visible track count as well as the underlying pool.
 - No CSS, song data, intro timing, muted background autoplay, START audio-unlock, or analytics changes.
 
 ## Acceptance

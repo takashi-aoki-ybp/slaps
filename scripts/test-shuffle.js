@@ -95,4 +95,6 @@ assert.deepEqual(ids(), ['a']); assert.equal(run('state.index'), 0);
 
 assert.match(fs.readFileSync('src/player.js', 'utf8'), /advanceQueue\(dir\)/);
 assert.doesNotMatch(fs.readFileSync('src/player.js', 'utf8'), /savePlayed|saveRecent/);
+const ui = fs.readFileSync('src/ui.js', 'utf8');
+assert.match(ui.slice(ui.indexOf('function clearSpecialMode()'), ui.indexOf('const clearCrateMode')), /if \(wasSpecial\) updateTrackCount\(\)/);
 console.log('Shuffle tests passed: equal weighting, no persistent history, fresh cycles, reversible boundary, filters and special queues.');

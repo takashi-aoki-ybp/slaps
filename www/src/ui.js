@@ -69,6 +69,7 @@ function clearSpecialMode() {
   state.dailyMode = false;
   state.dailyIds = [];
   $('#dailyOpen')?.classList.remove('is-active');
+  if (wasSpecial) updateTrackCount();
   try {
     const url = new URL(window.location.href);
     url.searchParams.delete('crate');
