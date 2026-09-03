@@ -20,6 +20,9 @@ import { analyticsMode, notePlaybackState, noteStarted, noteTrackLoaded, trackEv
 let consecutiveErrors = 0;
 let introStarted = false;
 let introFinished = false;
+let recommendationVersion = 0;
+const newRecommendationRequest = () => ({ version: ++recommendationVersion, id: current()?.youtube_id });
+const isCurrentRecommendation = request => request.version === recommendationVersion && request.id === current()?.youtube_id;
 
 let promoTimer = null;
 let promoFadeInterval = null;
@@ -56,7 +59,20 @@ function startPromoPlayback() {
   showInfoGuide();
 }
 
-export function createYTPlayer() {
+let youtubeRetryPending = false;
+export function createYTPlayer(retry = false) {
+  if (retry && !(window.YT && window.YT.Player) && !youtubeRetryPending) {
+    youtubeRetryPending = true;
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.onload = script.onerror = () => { youtubeRetryPending = false; script.remove(); };
+    document.head.append(script);
+    return;
+  }
+  if (retry && state.player && !state.ready && typeof state.player.destroy === 'function') {
+    state.player.destroy();
+    state.player = null;
+  }
   if (state.player || !(window.YT && window.YT.Player)) return;
   try {
     state.player = new YT.Player('yt', {
@@ -104,6 +120,7 @@ export function onPlayerStateChange(e) {
     return;
   }
   if (e.data === YT.PlayerState.PLAYING) {
+    consecutiveErrors = 0;
     notePlaybackState(true);
     disableCaptions();
     startProgress();
@@ -156,8 +173,7 @@ export function markBroken(id, code) {
 }
 
 export function tryStart() {
-  if (state.started || !state.ready || !state.all.length) return;
-  state.started = true;
+  if (state.started || !state.ready || !state.player || !state.all.length) return;
   const params = new URLSearchParams(window.location.search);
   const shareId = params.get('v');
 
@@ -168,6 +184,7 @@ export function tryStart() {
   }
 
   setBalance(2.5, { shareId });
+  state.started = true;
   runIntro();
   if (state.isPromo && introFinished) startPromoPlayback();
 }
@@ -235,9 +252,8 @@ export function runIntro() {
 
 export function loadCurrent() {
   const song = current();
-  if (!song) return;
+  if (!song || !state.ready || typeof state.player?.loadVideoById !== 'function') return;
   noteTrackLoaded();
-  consecutiveErrors = 0;
   if (state.pinned) document.querySelector('#playBtn').style.display = 'none';
   state.player.loadVideoById(song.youtube_id);
   disableCaptions();
@@ -478,7 +494,7 @@ function getRegisteredRecommendations(artist, currentSong) {
 }
 
 // アーティスト名が抽出できなかった場合、曲名単体で iTunes API からアーティスト名を逆引きして推薦を取得する
-export async function fetchArtistAndRecommendationsBySongName(song) {
+export async function fetchArtistAndRecommendationsBySongName(song, request = newRecommendationRequest()) {
   try {
     // 不要な動画関連のワードをクリーンアップして iTunes API のヒット率を向上させる
     const query = song.name
@@ -499,6 +515,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
     const res = await fetch(url);
     if (!res.ok) throw new Error('iTunes API error');
     const data = await res.json();
+    if (!isCurrentRecommendation(request)) return;
     
     if (data.results && data.results.length > 0) {
       const track = data.results[0];
@@ -521,7 +538,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
           
           // 曲名はDBの正式データを維持（iTunes逆引き結果で上書きしない）
           
-          await fetchRecommendations(reversedArtist, true);
+          await fetchRecommendations(reversedArtist, true, request);
           return;
         }
       }
@@ -531,7 +548,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
   }
 
   // 逆引きに失敗した場合、または結果がない場合は空で表示
-  if (current() && current().youtube_id === song.youtube_id) {
+  if (isCurrentRecommendation(request)) {
     state.recommendations = [];
     renderRecommendations();
   }
@@ -623,6 +640,12 @@ export function prev() {
 }
 
 export function unmute() {
+  if (!state.ready || !state.player || !current()) {
+    showToast(window.i18n.t(state.all.length ? 'toastYtFail' : 'toastCatalogFail'));
+    createYTPlayer(true);
+    if (!state.all.length) window.retrySLAPS?.();
+    return;
+  }
   state.muted = false;
   if (state.player) { 
     state.player.unMute(); 
@@ -860,7 +883,7 @@ function filterTracksByArtist(results, artist, registeredTitles, cleanTitle) {
 }
 
 // iTunes Search API から未登録推薦曲を取得する
-export async function fetchRecommendations(artist, isFallback = false) {
+export async function fetchRecommendations(artist, isFallback = false, request = newRecommendationRequest()) {
   try {
     // すでに登録済みの曲リスト（小文字の曲名配列、かつfeatや括弧を削除したクリーンなタイトル）
     const cleanTitle = (str) => {
@@ -967,16 +990,18 @@ export async function fetchRecommendations(artist, isFallback = false) {
     }
 
     // 推薦が0件だった場合、かつまだ逆引きを実行していないなら、曲名全体での逆引きフォールバックを試みる
+    if (!isCurrentRecommendation(request)) return;
     if (filtered.length === 0 && !isFallback) {
       if (song) {
         console.log(`No recommendations found for "${artist}". Attempting reverse lookup fallback...`);
-        await fetchArtistAndRecommendationsBySongName(song);
+        await fetchArtistAndRecommendationsBySongName(song, request);
         return;
       }
     }
 
     state.recommendations = filtered.slice(0, MAX_DIG_RECOMMENDATIONS);
   } catch (err) {
+    if (!isCurrentRecommendation(request)) return;
     console.warn('Failed to fetch recommendations:', err);
     state.recommendations = [];
   }

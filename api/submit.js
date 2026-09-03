@@ -18,6 +18,7 @@ async function kvFetch(command) {
   });
   if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
   const data = await res.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
 }
 
@@ -91,7 +92,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  let { youtube_id, region, era, user_name, description, conscious_turnt } = req.body;
+  let { youtube_id, region, era, user_name, description, conscious_turnt } = req.body || {};
 
   // 厳格なバリデーション
   if (!youtube_id || !/^[A-Za-z0-9_-]{11}$/.test(youtube_id)) {
@@ -179,12 +180,12 @@ export default async function handler(req, res) {
     const guesses = classifySong({
       name: verifiedName,
       region,
-      era: publishEra || era,
+      era: era || publishEra,
       description,
       publish_at: metadata.publishDate,
     });
-    if (!region || region === '' || region === 'other') region = guesses.region;
-    era = publishEra || ((!era || era === '' || era === 'other') ? guesses.era : era);
+    if (!region || region === '') region = guesses.region;
+    era = ((!era || era === '' || era === 'other') ? guesses.era : era);
     if (!['us', 'jp', 'uk', 'fr', 'kr', 'other'].includes(region)) {
       return res.status(400).json({ error: 'Invalid region' });
     }

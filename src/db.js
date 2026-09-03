@@ -1,4 +1,4 @@
-const lsGet = (k) => { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch { return []; } };
+const lsGet = (k) => { try { const value = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(value) ? value.filter(item => item && typeof item === 'object') : []; } catch { return []; } };
 const lsPush = (k, v) => {
   const a = lsGet(k);
   a.unshift(v);

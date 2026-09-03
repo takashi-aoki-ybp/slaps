@@ -12,6 +12,7 @@ async function kvFetch(command) {
   });
   if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
   const data = await res.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
 }
 

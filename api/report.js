@@ -15,6 +15,7 @@ async function kvFetch(command) {
   });
   if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
   const data = await res.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
 }
 
@@ -32,7 +33,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { youtube_id, name, reason, note } = req.body;
+  const { youtube_id, name, reason, note } = req.body || {};
 
   if (!youtube_id || !/^[A-Za-z0-9_-]{11}$/.test(youtube_id)) {
     return res.status(400).json({ error: 'Invalid YouTube ID' });

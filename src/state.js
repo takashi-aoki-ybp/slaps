@@ -5,7 +5,8 @@ export const REGION_LABELS = {
 const loadVolume = () => {
   try {
     const v = localStorage.getItem('slaps_volume');
-    return v != null ? Math.max(0, Math.min(100, parseInt(v, 10))) : 100;
+    const parsed = Number.parseInt(v, 10);
+    return Number.isFinite(parsed) ? Math.max(0, Math.min(100, parsed)) : 100;
   } catch {
     return 100;
   }
@@ -89,6 +90,7 @@ export function getFilteredPool() {
 }
 
 export function playableCount() {
+  if (state.favMode) return state.queue.filter(s => !state.broken.has(s.youtube_id)).length;
   return getFilteredPool().length;
 }
 
@@ -130,7 +132,7 @@ export function shuffleQueue(arr, avoidId) {
 }
 
 export function songTime(s) {
-  const t = s.publish_at || s.created_at;
+  const t = s.created_at || s.publish_at;
   const n = t ? Date.parse(t) : NaN;
   return Number.isNaN(n) ? 0 : n;
 }

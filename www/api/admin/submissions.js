@@ -16,8 +16,31 @@ async function kvFetch(command) {
   });
   if (!response.ok) throw new Error(`KV error: ${response.statusText}`);
   const data = await response.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
 }
+
+// Compare every old value before writing. LSET preserves list position and
+// never creates a delete/reinsert window, even if the network drops afterward.
+const UPDATE_DESCRIPTIONS = `
+local rows = redis.call('LRANGE', KEYS[1], 0, -1)
+local replacements = cjson.decode(ARGV[1])
+local indices = {}
+for _, replacement in ipairs(replacements) do
+  local found = false
+  for index, raw in ipairs(rows) do
+    if raw == replacement.oldRaw then
+      indices[index] = replacement.newRaw
+      found = true
+    end
+  end
+  if not found then return 0 end
+end
+for index, raw in pairs(indices) do
+  redis.call('LSET', KEYS[1], index - 1, raw)
+end
+return 1
+`;
 
 function isAuthorized(req) {
   const expected = process.env.SLAPS_ADMIN_TOKEN || '';
@@ -98,16 +121,21 @@ export default async function handler(req, res) {
       const description = req.body?.description || {};
       const ja = typeof description.ja === 'string' ? description.ja.trim().slice(0, 250) : '';
       const en = typeof description.en === 'string' ? description.en.trim().slice(0, 250) : '';
-      if (!ja && !en) {
-        return res.status(400).json({ error: 'At least one description is required' });
+      if (!req.body.description || (typeof description.ja !== 'string' && typeof description.en !== 'string') ||
+          ('ja' in description && typeof description.ja !== 'string') || ('en' in description && typeof description.en !== 'string')) {
+        return res.status(400).json({ error: 'Provide description.ja or description.en as a string (empty is allowed)' });
       }
       const updatedSongs = matchedSongs.map(item => ({
         oldRaw: item.raw,
-        song: { ...item.song, description: { ja, en }, updated_at: new Date().toISOString() },
+        song: { ...item.song, description: {
+          ja: typeof description.ja === 'string' ? ja : item.song.description?.ja || '',
+          en: typeof description.en === 'string' ? en : item.song.description?.en || '',
+        }, updated_at: new Date().toISOString() },
       }));
-      for (const item of updatedSongs) {
-        await kvFetch(['LREM', songsKey, '0', item.oldRaw]);
-        await kvFetch(['LPUSH', songsKey, JSON.stringify(item.song)]);
+      const updated = await kvFetch(['EVAL', UPDATE_DESCRIPTIONS, '1', songsKey,
+        JSON.stringify(updatedSongs.map(item => ({ oldRaw: item.oldRaw, newRaw: JSON.stringify(item.song) })))]);
+      if (updated !== 1) {
+        return res.status(409).json({ error: 'Song changed during review; reload before retrying' });
       }
       await kvFetch(['LPUSH', `${prefix}slaps:submission_reviews`, JSON.stringify({
         action,

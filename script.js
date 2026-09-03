@@ -25,8 +25,10 @@ async function loadData() {
   updateTrackCount();
   updateFavCount();
   initDaily();
+  if (!state.all.length) showToast(window.i18n.t('toastCatalogFail'));
   tryStart();
 }
+window.retrySLAPS = loadData;
 
 // 起動処理
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
       import('./src/ui.js').then((ui) => {
         ui.showToast(window.i18n.t('toastYtFail'));
       });
-      // 強制起動フォールバック（黒画面で固まるのを防ぐ）
-      state.ready = true;
-      tryStart();
+      // Only onReady may mark the actual player ready. A late API callback
+      // can still start muted playback; START can retry without a reload.
+      createYTPlayer();
     }
   }, 10000);
   

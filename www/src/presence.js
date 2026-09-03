@@ -19,10 +19,10 @@ function generateUUID() {
 
 // 初期化
 export function initPresence() {
-  currentClientId = localStorage.getItem('slaps_client_id');
+  try { currentClientId = localStorage.getItem('slaps_client_id'); } catch { /* session ID below */ }
   if (!currentClientId) {
     currentClientId = generateUUID();
-    localStorage.setItem('slaps_client_id', currentClientId);
+    try { localStorage.setItem('slaps_client_id', currentClientId); } catch { /* session only */ }
   }
 
   // 初回実行

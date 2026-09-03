@@ -50,11 +50,11 @@ const I18N = {
     reportReasons: ['Inappropriate content', 'Video unavailable / deleted', 'Not HIPHOP', 'Duplicate', 'Other'],
     // fav modal
     favTitle: 'Saved Tracks',
-    favLead: 'Saved to this device only. Not sent to any server.',
+    favLead: 'Your saved list stays on this device. Save actions are measured to improve SLAPS.',
     favPlayAll: '▶ Play Saved Only',
     crateShare: '🔗 Share Saved Tracks',
     crateShareText: 'Listen to my {count} saved tracks on SLAPS',
-    crateNote: 'The shared URL contains YouTube IDs only. Saved tracks and listening history are never sent to a server.',
+    crateNote: 'The shared URL contains the selected YouTube IDs. Your saved list stays on this device; playback and save events are measured to improve SLAPS.',
     crateExit: 'Exit Shared Tracks',
     crateLoaded: 'Loaded {count} shared tracks.',
     favEmpty: 'No saved tracks yet. Hit ♡ Save on a track you like.',
@@ -72,6 +72,8 @@ const I18N = {
     toastNetwork: 'Connection issues. Please check your network.',
     toastBackToAll: 'Returned to all tracks.',
     toastYtFail: 'YouTube connection failed. Please check your network or try again.',
+    toastCatalogFail: 'Tracks could not be loaded. Check your connection and press START to retry.',
+    toastFavoritesSession: 'Device storage is unavailable. This save will last for this session only.',
     toastWait: 'Thank you!',
     confirmPlayTitle: 'Track Added!',
     confirmPlayDesc: 'Would you like to play this track right now?',
@@ -97,7 +99,7 @@ const I18N = {
       'Share saved tracks with a link — no account required',
       'Use DIG to explore related and unregistered tracks when you want to dig deeper',
       'Paste a YouTube URL to add a track; it goes live immediately after video and duplicate checks',
-      'For the live online count, an anonymous device ID and current YouTube ID are sent briefly; listening history is not stored',
+      'The live online count uses an anonymous device ID and current YouTube ID. Playback and save events are also measured to improve SLAPS, not to personalize the shuffle',
     ],
     aboutEnTitle: '',
     aboutEn: '',
@@ -173,11 +175,11 @@ const I18N = {
     reportBtn: '報告する',
     reportReasons: ['不適切なコンテンツ', '動画が利用不可 / 削除済み', 'HIPHOPではない', '重複', 'その他'],
     favTitle: '保存した曲',
-    favLead: 'この端末にのみ保存されます。サーバーには送信されません。',
+    favLead: '保存リストはこの端末に残ります。保存操作はサービス改善のために計測しています。',
     favPlayAll: '▶ 保存した曲だけ再生',
     crateShare: '🔗 保存した曲を共有',
     crateShareText: 'SLAPSで保存した{count}曲を聴く',
-    crateNote: '共有URLにはYouTube IDだけが含まれます。保存曲や履歴はサーバーへ送信されません。',
+    crateNote: '共有URLには選んだ曲のYouTube IDが含まれます。保存リストはこの端末に残り、再生・保存の操作はサービス改善のために計測しています。',
     crateExit: '共有リストを終了',
     crateLoaded: '共有された{count}曲を読み込みました',
     favEmpty: 'まだ保存した曲はありません。気に入った曲で ♡ をタップしてください。',
@@ -193,6 +195,8 @@ const I18N = {
     toastNetwork: '接続に問題があります。ネットワークを確認してください。',
     toastBackToAll: '全体再生に戻りました。',
     toastYtFail: 'YouTube接続に失敗しました。ネットワークを確認するか、もう一度お試しください。',
+    toastCatalogFail: '曲を読み込めませんでした。通信を確認し、STARTを押すと再試行できます。',
+    toastFavoritesSession: '端末に保存できないため、この画面を閉じるまでの一時保存になります。',
     toastWait: 'ありがとうございます！',
     confirmPlayTitle: '追加完了しました！',
     confirmPlayDesc: 'すぐにこの曲を再生しますか？',
@@ -217,7 +221,7 @@ const I18N = {
       '保存した曲をログインなしのリンクで共有',
       'もっと掘りたい時はDIGから関連曲・未登録曲を探す',
       'YouTube URLを貼って曲を追加。動画と重複を確認後、すぐ公開',
-      '同時接続数のため、匿名の端末IDと再生中のYouTube IDを短時間だけ送信（再生履歴は保存しない）',
+      '同時接続数のために匿名の端末IDと再生中のYouTube IDを送信。再生・保存などの操作も改善のために計測しますが、シャッフルの個人別最適化には使いません',
     ],
     aboutEnTitle: 'About (English)',
     aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. A muted video picked by a real person starts immediately at random; START enables sound. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or share saved tracks with a link. Paste a YouTube URL to add a track after automatic checks.',
@@ -249,14 +253,15 @@ const I18N = {
 };
 
 const i18n = (() => {
-  let lang = localStorage.getItem('slaps_lang') || 'ja';
+  let lang = 'ja';
+  try { const saved = localStorage.getItem('slaps_lang'); if (saved === 'ja' || saved === 'en') lang = saved; } catch {}
 
   function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
   function getLang() { return lang; }
 
   function setLang(l) {
     lang = l;
-    localStorage.setItem('slaps_lang', l);
+    try { localStorage.setItem('slaps_lang', l); } catch { /* language still works for this session */ }
     document.documentElement.lang = l;
     applyAll();
   }

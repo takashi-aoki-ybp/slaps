@@ -193,7 +193,9 @@ export function setEra(era) {
   showFilterFeedback();
 }
 
+let orderRequestVersion = 0;
 export async function setOrder(order) {
+  const requestVersion = ++orderRequestVersion;
   clearCrateMode();
   trackEvent('order', { order });
   if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
@@ -209,7 +211,7 @@ export async function setOrder(order) {
     const cur = current();
     applyOrder(state.queue, cur?.youtube_id);
     if (state.order === 'shuffle') state.index = 0;
-    else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
+    else state.index = 0;
     if (state.ready) loadCurrent();
   } else {
     // If LATEST (newest) or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
@@ -224,13 +226,16 @@ export async function setOrder(order) {
     const labelText = 'LATEST';
     // Avoid backing up the loading "..." HTML on rapid double-clicks
     const fixedOriginalHTML = (originalHTML && originalHTML.includes('...')) ? labelText : originalHTML;
-    if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
+    if (btn) {
+      btn.dataset.refreshVersion = String(requestVersion);
+      btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
+    }
     try {
       const res = await fetch(`/api/songs?t=${Date.now()}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         // Check if the user hasn't switched away from target order while waiting
-        if (Array.isArray(data) && state.order === order) {
+        if (Array.isArray(data) && state.order === order && requestVersion === orderRequestVersion) {
           state.all = data;
           initDaily();
           updateTrackCount();
@@ -244,7 +249,7 @@ export async function setOrder(order) {
     } catch (e) {
       console.warn(`Failed to refresh songs on ${labelText} click:`, e);
     } finally {
-      if (btn) btn.innerHTML = fixedOriginalHTML;
+      if (btn && btn.dataset.refreshVersion === String(requestVersion)) btn.innerHTML = fixedOriginalHTML;
     }
   }
 }
@@ -512,6 +517,7 @@ function handleDigKeyboard(e) {
   else if (e.key === 'End') nextIndex = records.length - 1;
   else return;
   e.preventDefault();
+  e.stopPropagation();
   setDigSelection(records[nextIndex]);
   records[nextIndex].focus();
 }
@@ -572,8 +578,25 @@ export async function doReport() {
 
 // ---- お気に入り ----
 const FAV_KEY = 'slaps_favorites';
-export function favGet() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
-export function favSave(arr) { try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); } catch { /* quota exceeded */ } }
+let memoryFavorites = [];
+let favoritesMemoryOnly = false;
+export function favGet() {
+  let stored = memoryFavorites;
+  if (!favoritesMemoryOnly) {
+    try { stored = JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { /* keep session copy */ }
+  }
+  const valid = Array.isArray(stored) ? stored.filter(f => f && typeof f === 'object' && /^[A-Za-z0-9_-]{11}$/.test(f.youtube_id)) : [];
+  memoryFavorites = valid;
+  const catalog = new Map(state.all.map(song => [song.youtube_id, song]));
+  // Favorites store membership/order, not an authoritative historical catalog.
+  // Reconcile in memory; do not erase stored favorites or fabricate comments.
+  return valid.map(f => catalog.has(f.youtube_id) ? { ...f, ...catalog.get(f.youtube_id) } : { ...f });
+}
+export function favSave(arr) {
+  memoryFavorites = arr;
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); favoritesMemoryOnly = false; }
+  catch { favoritesMemoryOnly = true; showToast(window.i18n.t('toastFavoritesSession')); }
+}
 export function isFav(id) { return favGet().some((f) => f.youtube_id === id); }
 
 export function toggleFav() {
@@ -667,6 +690,7 @@ export function playFavorites(fromId) {
   }
   $('#favOpen').classList.add('is-active');
   updateFavCount();
+  updateTrackCount();
   if (state.ready) loadCurrent();
   closeFavs();
 }
@@ -776,11 +800,13 @@ export async function shareDaily() {
   trackEvent('daily_share', { date: entry.date, count: entry.tracks.length, share_outcome });
 }
 
+let initialDailyRequestHandled = false;
 export function initDaily() {
   dailyArchive = buildDailyArchive(state.all);
   const open = $('#dailyOpen');
   if (!dailyArchive.length || !open) return;
-  const requested = state.dailyDate;
+  const requested = initialDailyRequestHandled ? '' : state.dailyDate;
+  initialDailyRequestHandled = true;
   const entry = dailyEntry(requested);
   state.dailyDate = entry.date;
   $('#dailyOpenCount').textContent = entry.tracks.length;
@@ -1168,7 +1194,7 @@ export function setupUIListeners() {
       if (!$('#favModal').hidden) { closeFavs(); return; }
       return;
     }
-    const modalOpen = !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden;
+    const modalOpen = !$('#digOverlay').hidden || !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden;
     if (modalOpen) return;
     if (e.key === 'ArrowRight') {
       e.preventDefault();
@@ -1197,12 +1223,19 @@ export function setupUIListeners() {
   let touchStart = null;
   let touchStartTarget = null;
   document.addEventListener('touchstart', (e) => {
-    if (!$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden) return;
+    touchStart = null;
+    touchStartTarget = null;
+    if (!$('#digOverlay').hidden || !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden) return;
     touchStartTarget = e.target;
     touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   }, { passive: true });
   document.addEventListener('touchend', (e) => {
     if (!touchStart) return;
+    if (!$('#digOverlay').hidden || !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden) {
+      touchStart = null;
+      touchStartTarget = null;
+      return;
+    }
     if (touchStartTarget && touchStartTarget.closest('.regions, .eras, .balance, .order, input[type=range]')) {
       touchStart = null;
       touchStartTarget = null;
@@ -1253,7 +1286,7 @@ export function setupUIListeners() {
 
   // 字幕・文字起こし風の自動表示は廃止。過去設定もOFFへ戻す。
   state.commentMode = 0;
-  localStorage.removeItem('slaps_comment_mode');
+  try { localStorage.removeItem('slaps_comment_mode'); } catch { /* playback does not depend on storage */ }
   
 
 

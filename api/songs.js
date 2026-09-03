@@ -16,6 +16,7 @@ async function kvFetch(command) {
   });
   if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
   const data = await res.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
 }
 
@@ -44,7 +45,18 @@ export default async function handler(req, res) {
       ]);
 
       if (rawList && Array.isArray(rawList)) {
-        dbSongs = rawList.map(item => retireGeneratedDescription(JSON.parse(item)));
+        dbSongs = rawList.flatMap(item => {
+          try {
+            const song = JSON.parse(item);
+            if (!song || typeof song !== 'object' || !/^[A-Za-z0-9_-]{11}$/.test(song.youtube_id) || typeof song.name !== 'string') {
+              throw new Error('Invalid song row');
+            }
+            return [retireGeneratedDescription(song)];
+          } catch {
+            console.error('Ignoring malformed song row');
+            return [];
+          }
+        });
       }
       if (rawBroken && Array.isArray(rawBroken)) {
         for (let i = 0; i < rawBroken.length; i += 2) {
