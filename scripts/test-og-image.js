@@ -6,7 +6,11 @@ const vm = require('vm');
 const sourcePath = path.join(process.cwd(), 'api', 'og-image.js');
 const source = fs
   .readFileSync(sourcePath, 'utf8')
-  .replace('module.exports = async function handler', 'async function handler')
+  .replace("import Jimp from 'jimp';", "const Jimp = require('jimp');")
+  .replace("import path from 'path';", "const path = require('path');")
+  .replace("import fs from 'fs';", "const fs = require('fs');")
+  .replace("import requestGuards from './utils/request-guards.js';", "const requestGuards = require('./utils/request-guards.js');")
+  .replace('export default async function handler', 'async function handler')
   .concat('\nmodule.exports = { handler };\n');
 
 function createImage({ output = Buffer.from('generated-jpeg') } = {}) {

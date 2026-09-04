@@ -1,7 +1,9 @@
-const Jimp = require('jimp');
-const path = require('path');
-const fs = require('fs');
-const { isCataloguedYoutubeId, takeRateLimit } = require('./utils/request-guards.js');
+import Jimp from 'jimp';
+import path from 'path';
+import fs from 'fs';
+import requestGuards from './utils/request-guards.js';
+
+const { isCataloguedYoutubeId, takeRateLimit } = requestGuards;
 
 const OG_CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
 
@@ -23,7 +25,7 @@ async function kvFetch(command) {
   return data.result;
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   const { v } = req.query;
 
   if (!v || !/^[A-Za-z0-9_-]{11}$/.test(v)) {
