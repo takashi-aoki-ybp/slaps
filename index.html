@@ -58,7 +58,7 @@
   <link rel="preconnect" href="https://img.youtube.com">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=3.55">
+  <link rel="stylesheet" href="./styles.css?v=3.56">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -92,7 +92,7 @@
       <button type="button" class="icon-btn is-fill" id="fillBtn" aria-label="映像を拡大" aria-pressed="true" title="映像を画面いっぱいに拡大">
         <svg class="fill-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
       </button>
-      <button type="button" class="icon-btn icon-btn--text is-pinned" id="pinBtn" aria-label="UIを常時表示" aria-pressed="true" title="UIを常時表示">UI</button>
+      <button type="button" class="icon-btn icon-btn--text" id="pinBtn" aria-label="UIを常時表示" aria-pressed="false" title="UIを常時表示">UI</button>
       <a class="icon-btn icon-btn--text" id="infoLink" href="#about" aria-label="About / このサイトについて">i</a>
     </div>
 
@@ -483,15 +483,15 @@
 
 
   <!-- ===== トースト通知 ===== -->
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ===== Vibe ティッカー ===== -->
-  <div class="vibe-ticker" id="vibeTicker" hidden></div>
+  <button type="button" class="vibe-ticker" id="vibeTicker" hidden></button>
 
   <!-- Scripts: 多言語設定→本体→YT API の順 -->
-  <script src="./src/tv-navigation.js?v=3.55"></script>
-  <script src="./i18n.js?v=3.55"></script>
-  <script type="module" src="./script.js?v=3.55"></script>
+  <script src="./src/tv-navigation.js?v=3.56"></script>
+  <script src="./i18n.js?v=3.56"></script>
+  <script type="module" src="./script.js?v=3.56"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
 
 </body>

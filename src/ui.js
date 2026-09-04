@@ -7,6 +7,24 @@ import { deliverShare } from './sharing.js';
 
 const $ = (sel) => document.querySelector(sel);
 
+const dialogReturnFocus = new Map();
+function openDialog(modal, initialFocus, fallbackFocus) {
+  const active = document.activeElement;
+  dialogReturnFocus.set(modal, active && active !== document.body ? active : fallbackFocus);
+  modal.hidden = false;
+  requestAnimationFrame(() => initialFocus?.focus({ preventScroll: true }));
+}
+function closeDialog(modal, fallbackFocus, { restoreFocus = true } = {}) {
+  modal.hidden = true;
+  const target = dialogReturnFocus.get(modal);
+  dialogReturnFocus.delete(modal);
+  if (!restoreFocus) return;
+  requestAnimationFrame(() => {
+    const returnTarget = target?.isConnected && !target.hidden ? target : fallbackFocus;
+    returnTarget?.focus({ preventScroll: true });
+  });
+}
+
 // ---- プログレスバーのアニメーション ----
 let progressRAF = null;
 export function startProgress() {
@@ -32,7 +50,11 @@ export function resetProgress() { $('#progressBar').style.width = '0%'; }
 let toastTimer = null;
 export function showToast(msg) {
   const el = $('#toast');
-  el.innerHTML = msg;
+  el.replaceChildren();
+  String(msg ?? '').split(/<br\s*\/?>/i).forEach((line, index) => {
+    if (index) el.append(document.createElement('br'));
+    el.append(document.createTextNode(line));
+  });
   el.classList.add('is-show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('is-show'), 3500);
@@ -523,11 +545,11 @@ function handleDigKeyboard(e) {
 }
 
 export function openModal() {
-  $('#submitModal').hidden = false;
+  openDialog($('#submitModal'), $('#ytUrl'), $('#submitOpen'));
   closeDig({ restoreFocus: false }); // スマホ用オーバーレイが開いていれば同時に閉じる
 }
-export function closeModal() {
-  $('#submitModal').hidden = true;
+export function closeModal(options) {
+  closeDialog($('#submitModal'), $('#submitOpen'), options);
   $('#ytUrl').value = ''; $('#ytComment').value = ''; $('#ytName').value = '';
   $('#ytRegion').value = ''; $('#ytEra').value = '';
   $('#preview').hidden = true; $('#submitDo').disabled = true;
@@ -545,9 +567,9 @@ export function openReport() {
   if (!song) return;
   $('#reportTarget').textContent = `${window.i18n.t('reportingPrefix')} "${song.name}"`;
   $('#reportNote').value = '';
-  $('#reportModal').hidden = false;
+  openDialog($('#reportModal'), $('#reportReason'), $('#reportBtn'));
 }
-export function closeReport() { $('#reportModal').hidden = true; }
+export function closeReport(options) { closeDialog($('#reportModal'), $('#reportBtn'), options); }
 let lastReportTime = 0;
 export async function doReport() {
   if (Date.now() - lastReportTime < 30000) {
@@ -663,18 +685,18 @@ export function openFavs() {
   $('#favPlayAll').hidden = favs.length === 0;
   $('#crateShare').hidden = favs.length === 0;
   list.innerHTML = favs.map((f) => `
-    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}" role="button" tabindex="0">
+    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}">
       <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
-      <div class="fav-item__body">
+      <button type="button" class="fav-item__body" data-fav-play>
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
         <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''}</span>
-      </div>
-      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play" tabindex="-1">▶</button>
+      </button>
+      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play">▶</button>
       <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="0">×</button>
     </div>`).join('');
-  $('#favModal').hidden = false;
+  openDialog($('#favModal'), $('#favClose'), $('#favOpen'));
 }
-export function closeFavs() { $('#favModal').hidden = true; }
+export function closeFavs(options) { closeDialog($('#favModal'), $('#favOpen'), options); }
 
 export function playFavorites(fromId) {
   const favs = favGet();
@@ -1128,8 +1150,16 @@ export function setupUIListeners() {
   dailyOverlay.addEventListener('click', (e) => { if (e.target === dailyOverlay) closeDaily(); });
 
   // About overlay
-  $('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'hidden'; });
-  $('#aboutClose').addEventListener('click', () => { aboutOverlay.hidden = true; document.body.style.overflow = ''; });
+  const openAbout = () => {
+    openDialog(aboutOverlay, $('#aboutClose'), $('#infoLink'));
+    document.body.style.overflow = 'hidden';
+  };
+  const closeAbout = () => {
+    closeDialog(aboutOverlay, $('#infoLink'));
+    document.body.style.overflow = '';
+  };
+  $('#infoLink').addEventListener('click', (e) => { e.preventDefault(); openAbout(); });
+  $('#aboutClose').addEventListener('click', closeAbout);
 
   // Fav list interactions
   function handleFavAction(target, item) {
@@ -1188,7 +1218,7 @@ export function setupUIListeners() {
     if (e.key === 'Escape') {
       if (!dailyOverlay.hidden) { closeDaily(); return; }
       if (!$('#digOverlay').hidden) { closeDig(); return; }
-      if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; document.body.style.overflow = ''; return; }
+      if (!aboutOverlay.hidden) { closeAbout(); return; }
       if (!$('#submitModal').hidden) { closeModal(); return; }
       if (!$('#reportModal').hidden) { closeReport(); return; }
       if (!$('#favModal').hidden) { closeFavs(); return; }

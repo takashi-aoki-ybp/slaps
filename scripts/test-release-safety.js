@@ -74,8 +74,28 @@ async function run() {
   const html = read('index.html');
   assert.match(html, /HIPHOP Online Station/);
   assert.match(html, /role="dialog" aria-modal="true"/);
+  assert.match(html, /id="toast"[^>]*role="status"[^>]*aria-live="polite"/,
+    'transient errors and confirmations must be announced without stealing focus');
+  assert.match(html, /<button type="button" class="vibe-ticker" id="vibeTicker"/,
+    'the clickable live-listener ticker must be keyboard operable');
   assert.match(html, /ミュートのままランダム再生/);
+  assert.match(html, /id="pinBtn"[^>]*aria-pressed="false"/,
+    'mobile markup must not claim the desktop-only pinned default');
+  assert.doesNotMatch(html, /id="pinBtn"[^>]*class="[^"]*is-pinned/,
+    'mobile markup must not style the unpinned default as active');
   assert.match(read('src/ui.js'), /setAttribute\('aria-pressed'/);
+  assert.doesNotMatch(read('src/ui.js'), /el\.innerHTML = msg/,
+    'toast text, including API errors, must not be injected as HTML');
+  assert.match(read('src/ui.js'), /split\(\/<br\\s\*\\\/\?>\/i\)/,
+    'safe toast rendering must preserve intentional line breaks');
+  assert.match(read('src/ui.js'), /openDialog\(\$\('#submitModal'\), \$\('#ytUrl'\), \$\('#submitOpen'\)\)/,
+    'the add-track dialog must move focus inside and remember its trigger');
+  assert.match(read('src/ui.js'), /closeDialog\(\$\('#favModal'\), \$\('#favOpen'\)/,
+    'the saved-tracks dialog must restore focus when it closes');
+  assert.doesNotMatch(read('src/ui.js'), /class="fav-item"[^>]*role="button"/,
+    'saved-track rows must not create a button containing nested buttons');
+  assert.match(read('src/ui.js'), /class="fav-item__body" data-fav-play/,
+    'saved-track title and metadata must remain an explicit play button');
   assert.match(read('src/state.js'), /commentMode: 0/);
   assert.doesNotMatch(read('src/ui.js'), /fav-item__sub[^\n]*zoneLabel/);
   assert.doesNotMatch(read('src/ui.js'), /needs_review|toastNeedsReview/);
@@ -83,6 +103,8 @@ async function run() {
   assert.match(read('src/ui.js'), /if \(opts\.first\)[\s\S]*state\.index = 0;[\s\S]*loadCurrent\(\);/);
   assert.match(read('src/ui.js'), /order === 'newest' \? \{ first: true \} :/);
   assert.match(read('src/ui.js'), /state\.all = data;[\s\S]*setBalance\(state\.balance, \{ first: true \}\)/);
+  assert.doesNotMatch(read('src/state.js'), /injectPromoSongs|promoIdx|countSinceLastPromo/,
+    'retired promotional queue weighting must not remain available for accidental reactivation');
 
   console.log('Release safety tests passed.');
 }

@@ -137,40 +137,6 @@ export function songTime(s) {
   return Number.isNaN(n) ? 0 : n;
 }
 
-export function injectPromoSongs(arr) {
-  const promos = arr.filter((s) => s.promo === true);
-  if (!promos.length) return;
-
-  const normals = arr.filter((s) => s.promo !== true);
-  shuffle(promos);
-
-  const result = [];
-  let promoIdx = 0;
-  let normalIdx = 0;
-
-  // 1曲目は必ずプロモーション曲（あれば）
-  if (promoIdx < promos.length) {
-    result.push(promos[promoIdx++]);
-  }
-
-  // 2曲目以降、5曲おきにプロモーション曲を挿入
-  let countSinceLastPromo = 0;
-  while (normalIdx < normals.length || promoIdx < promos.length) {
-    if (promoIdx < promos.length && countSinceLastPromo >= 4) {
-      result.push(promos[promoIdx++]);
-      countSinceLastPromo = 0;
-    } else if (normalIdx < normals.length) {
-      result.push(normals[normalIdx++]);
-      countSinceLastPromo++;
-    } else {
-      result.push(promos[promoIdx++]);
-    }
-  }
-
-  arr.length = 0;
-  arr.push(...result);
-}
-
 // Retain only the latest cycle boundary so PREV / NEXT across it are reversible.
 // This is in-memory navigation state, never an input to track weighting.
 let shuffleBoundary = null;
@@ -182,7 +148,6 @@ export function applyOrder(arr, avoidId) {
   if (state.crateMode || state.dailyMode) return;
   if (state.order === 'newest') arr.sort((a, b) => songTime(b) - songTime(a));
   else shuffleQueue(arr, avoidId);
-  // injectPromoSongs(arr);
 }
 
 export function advanceQueue(dir) {
