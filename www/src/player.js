@@ -212,12 +212,13 @@ export function runIntro() {
   let revealTimer = null;
   let finishTimer = null;
   const startedAt = performance.now();
-  let retryAt = startedAt;
+  const startFallbackAt = startedAt + 6000;
   let movingSince = null;
   let lastAdvanceAt = null;
   let lastTime = null;
   let lastId = null;
   let skipRequested = false;
+  let fallbackVisible = false;
   const retryBtn = document.querySelector('#introRetry');
   const introSub = document.querySelector('#introSub');
   const originalSub = introSub?.textContent;
@@ -254,7 +255,6 @@ export function runIntro() {
 
   function retryPlayback(event) {
     event.stopPropagation();
-    retryAt = performance.now();
     if (retryBtn) retryBtn.hidden = true;
     if (introSub) introSub.textContent = originalSub;
     if (!state.ready) createYTPlayer(true);
@@ -293,12 +293,12 @@ export function runIntro() {
     lastId = id;
     const ready = movingSince !== null && now - movingSince >= 800;
 
-    if (!ready && copyTimer !== null) {
+    if (!ready && !fallbackVisible && copyTimer !== null) {
       clearTimeout(copyTimer);
       copyTimer = null;
       intro.classList.remove('is-copy-out');
     }
-    if (!ready && (revealTimer !== null || finishTimer !== null)) {
+    if (!ready && !fallbackVisible && (revealTimer !== null || finishTimer !== null)) {
       clearTimeout(revealTimer);
       revealTimer = null;
       clearTimeout(finishTimer);
@@ -316,26 +316,37 @@ export function runIntro() {
           copyFinished = true;
           // Explicitly hide the copy before revealing START, even after a slow frame.
           if (introCopy) introCopy.hidden = true;
-          showStart();
+          showStart(false);
         }, 400);
       } else if (copyFinished && revealTimer === null && finishTimer === null) {
-        showStart();
+        showStart(false);
       }
-    } else if (!ready && now - retryAt >= 12000) {
-      if (retryBtn) {
-        retryBtn.textContent = window.i18n.t('introRetry');
-        retryBtn.hidden = false;
-      }
-      const hint = window.i18n.t('introRetryHint');
-      if (introSub && introSub.textContent !== hint) introSub.textContent = hint;
+    } else if (!ready && !fallbackVisible && now >= startFallbackAt) {
+      // A third-party player can report ready without advancing, or fail to
+      // initialize at all. Do not strand the opening on a passive retry state:
+      // reveal START over the still-opaque intro so the user's gesture can
+      // retry/unlock playback without exposing YouTube's spinner underneath.
+      fallbackVisible = true;
+      if (retryBtn) retryBtn.hidden = true;
+      if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
+      intro.classList.add('is-copy-out');
+      copyTimer = setTimeout(() => {
+        copyTimer = null;
+        copyFinished = true;
+        if (introCopy) introCopy.hidden = true;
+        showStart(true);
+      }, 400);
     }
     pollTimer = setTimeout(checkPlayback, 150);
   }
 
-  function showStart() {
+  function showStart(holdOpening = false) {
     if (unmuteBtn && !audioUnlocked()) unmuteBtn.hidden = false;
+    if (holdOpening) return;
     // Let START's400ms fade-in finish on the still-opaque opening background.
-    revealTimer = setTimeout(beginFade, 450);
+    if (revealTimer === null && finishTimer === null) {
+      revealTimer = setTimeout(beginFade, 450);
+    }
   }
 
   function beginFade() {
@@ -360,8 +371,9 @@ export function runIntro() {
     return;
   }
 
-  // Load/play remains independent of this gate. Reveal only after actual
-  // muted playback advances; a timer or YouTube onReady alone is insufficient.
+  // Load/play remains independent of this gate. Prefer actual muted playback
+  // progress; if the third-party player stalls, START becomes the bounded
+  // recovery action while the opaque opening continues to cover the iframe.
   checkPlayback();
 }
 
