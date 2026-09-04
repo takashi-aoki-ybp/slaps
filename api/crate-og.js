@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const Jimp = require('jimp');
+const { Jimp, JimpMime, HorizontalAlign, VerticalAlign } = require('jimp');
 const path = require('path');
 const { filterCataloguedYoutubeIds, takeRateLimit } = require('./utils/request-guards.js');
 
@@ -31,10 +31,16 @@ async function kvFetch(command) {
 
 async function loadTile(id, width, height) {
   try {
-    const image = await Jimp.read(`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
-    return image.cover(width, height, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+    const response = await fetch(`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+    if (!response.ok) throw new Error(`Thumbnail error: ${response.status}`);
+    const image = await Jimp.read(Buffer.from(await response.arrayBuffer()));
+    return image.cover({
+      w: width,
+      h: height,
+      align: HorizontalAlign.CENTER | VerticalAlign.MIDDLE,
+    });
   } catch (_) {
-    return new Jimp(width, height, 0x181818ff);
+    return new Jimp({ width, height, color: 0x181818ff });
   }
 }
 
@@ -121,7 +127,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const canvas = new Jimp(1200, 630, 0x050505ff);
+    const canvas = new Jimp({ width: 1200, height: 630, color: 0x050505ff });
     const tileWidth = 335;
     const tileHeight = 315;
     const tileIds = ids.slice(0, 4);
@@ -130,15 +136,19 @@ export default async function handler(req, res) {
     for (let index = 0; index < 4; index += 1) {
       const x = 530 + (index % 2) * tileWidth;
       const y = Math.floor(index / 2) * tileHeight;
-      const tile = tiles[index] || new Jimp(tileWidth, tileHeight, 0x181818ff);
+      const tile = tiles[index] || new Jimp({ width: tileWidth, height: tileHeight, color: 0x181818ff });
       canvas.composite(tile, x, y);
     }
 
-    const shade = new Jimp(670, 630, 0x00000055);
+    const shade = new Jimp({ width: 670, height: 630, color: 0x00000055 });
     canvas.composite(shade, 530, 0);
 
     const logo = await Jimp.read(path.join(process.cwd(), 'assets', 'logo.png'));
-    logo.contain(390, 138, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE);
+    logo.contain({
+      w: 390,
+      h: 138,
+      align: HorizontalAlign.LEFT | VerticalAlign.MIDDLE,
+    });
     canvas.composite(logo, 62, 58);
 
     drawText(canvas, 'SAVED', 68, 230, 11);
@@ -146,8 +156,7 @@ export default async function handler(req, res) {
     drawText(canvas, 'A SELECTION SHARED ON SLAPS', 70, 420, 2, 0xbdbdbdff);
     drawText(canvas, 'LISTEN ON SLAPS.TOKYO', 70, 520, 2, 0xd8d8d8ff);
 
-    canvas.quality(88);
-    const buffer = await canvas.getBufferAsync(Jimp.MIME_JPEG);
+    const buffer = await canvas.getBuffer(JimpMime.jpeg, { quality: 88 });
     try {
       await kvFetch(['SET', cacheKey, buffer.toString('base64'), 'EX', 604800]);
     } catch (error) {

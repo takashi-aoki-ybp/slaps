@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const Jimp = require('jimp');
+const { Jimp, JimpMime, HorizontalAlign, VerticalAlign } = require('jimp');
 const path = require('path');
 const fs = require('fs');
 const { readRedisList } = require('./utils/kv-list.js');
@@ -44,9 +44,13 @@ async function loadTile(id, width, height) {
     const response = await fetch(`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
     if (!response.ok) throw new Error(`Thumbnail error: ${response.status}`);
     const image = await Jimp.read(Buffer.from(await response.arrayBuffer()));
-    return image.cover(width, height, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+    return image.cover({
+      w: width,
+      h: height,
+      align: HorizontalAlign.CENTER | VerticalAlign.MIDDLE,
+    });
   } catch {
-    return new Jimp(width, height, 0x181818ff);
+    return new Jimp({ width, height, color: 0x181818ff });
   }
 }
 
@@ -106,20 +110,23 @@ module.exports = async function handler(req, res) {
     ).filter((song, index, all) => all.findIndex((item) => item.youtube_id === song.youtube_id) === index).slice(0, 10);
     if (!tracks.length) return res.status(404).send('Daily drop not found');
 
-    const canvas = new Jimp(1200, 630, 0x050505ff);
+    const canvas = new Jimp({ width: 1200, height: 630, color: 0x050505ff });
     const tileWidth = 300;
     const tileHeight = 315;
     const tiles = await Promise.all(tracks.slice(0, 4).map((song) => loadTile(song.youtube_id, tileWidth, tileHeight)));
     tiles.forEach((tile, index) => canvas.composite(tile, 600 + (index % 2) * tileWidth, Math.floor(index / 2) * tileHeight));
-    canvas.composite(new Jimp(650, 630, 0x00000066), 550, 0);
+    canvas.composite(new Jimp({ width: 650, height: 630, color: 0x00000066 }), 550, 0);
     const logo = await Jimp.read(fs.readFileSync(path.join(process.cwd(), 'assets', 'logo.png')));
-    logo.contain(390, 138, Jimp.HORIZONTAL_ALIGN_LEFT | Jimp.VERTICAL_ALIGN_MIDDLE);
+    logo.contain({
+      w: 390,
+      h: 138,
+      align: HorizontalAlign.LEFT | VerticalAlign.MIDDLE,
+    });
     canvas.composite(logo, 62, 54);
     drawText(canvas, "TODAY'S 10", 68, 230, 10);
     drawText(canvas, date.replaceAll('-', '.'), 70, 345, 5, 0xe0ff3cff);
     drawText(canvas, `${tracks.length} TRACKS / DAILY DROP`, 70, 445, 3, 0xd8d8d8ff);
-    canvas.quality(88);
-    const buffer = await canvas.getBufferAsync(Jimp.MIME_JPEG);
+    const buffer = await canvas.getBuffer(JimpMime.jpeg, { quality: 88 });
     try { await kvFetch(['SET', cacheKey, buffer.toString('base64'), 'EX', 604800]); } catch (error) { console.error('DAILY OG cache write failed:', error); }
     res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');

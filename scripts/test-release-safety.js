@@ -1,7 +1,7 @@
 const assert = require('assert/strict');
 const fs = require('fs');
 const path = require('path');
-const Jimp = require('jimp');
+const { Jimp } = require('jimp');
 const { extractLengthSeconds, isTooShortTrack } = require('./audit-youtube.js');
 
 const read = (file) => fs.readFileSync(path.join(process.cwd(), file), 'utf8');
@@ -12,6 +12,10 @@ async function loadQualityModule() {
 }
 
 async function run() {
+  const packageJson = JSON.parse(read('package.json'));
+  assert.equal(packageJson.dependencies.jimp, '1.6.1',
+    'image generation must stay on the audited Jimp release');
+
   const vercel = JSON.parse(read('vercel.json'));
   assert.ok(!vercel.crons || vercel.crons.length === 0, 'retired auto-classify cron must not be scheduled');
 
