@@ -1,4 +1,4 @@
-import Jimp from 'jimp';
+import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs';
 import requestGuards from './utils/request-guards.js';
@@ -71,31 +71,18 @@ export default async function handler(req, res) {
     const overlayPath = path.join(process.cwd(), 'assets', 'share_center.png');
     const overlayBuffer = fs.readFileSync(overlayPath);
 
-    // 並列で画像をロード
-    const [bgImage, overlayImage] = await Promise.all([
-      Jimp.read(thumbnailBuffer),
-      Jimp.read(overlayBuffer)
-    ]);
-
     // hqdefaultは通常 480x360 ですが、念のため 1200x630 もしくはそれに準じるサイズにリサイズするか、
     // あるいはそのままアスペクト比を維持しつつ重ね合わせます。
     // Facebook推奨OGPサイズ（1200x630）に合わせるため、まず背景画像を1200x630にフィット（クロップ＆リサイズ）させます。
-    bgImage.cover(1200, 630, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
-
-    // YouTube画像の上に黒い半透明（シャドウ）フィルターを掛けてロゴを際立たせる（オプション）
-    // 今回はユーザー提示の「重ねる画像」との親和性を考え、必要に応じて中央のロゴを重ねます。
-    // overlayImage (share_center.png) をリサイズして中央にブレンド
-    // share_center.png は中央の正方形を想定しています。
-    overlayImage.resize(320, 320); // 中央のSLAPSロゴのサイズ感を320x320ピクセルに調整
-
-    const x = (bgImage.bitmap.width - overlayImage.bitmap.width) / 2;
-    const y = (bgImage.bitmap.height - overlayImage.bitmap.height) / 2;
-
-    bgImage.composite(overlayImage, x, y);
-
-    // 3. バッファに変換して画像として返却（処理速度が圧倒的に速いJPEGに変更し、画質を85%に設定）
-    bgImage.quality(85);
-    const buffer = await bgImage.getBufferAsync(Jimp.MIME_JPEG);
+    const overlay = await sharp(overlayBuffer)
+      .resize(320, 320, { fit: 'fill' })
+      .png()
+      .toBuffer();
+    const buffer = await sharp(thumbnailBuffer)
+      .resize(1200, 630, { fit: 'cover', position: 'centre' })
+      .composite([{ input: overlay, left: 440, top: 155 }])
+      .jpeg({ quality: 85 })
+      .toBuffer();
 
     // Vercel KV へのキャッシュ書き込み
     try {

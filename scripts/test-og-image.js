@@ -6,35 +6,28 @@ const vm = require('vm');
 const sourcePath = path.join(process.cwd(), 'api', 'og-image.js');
 const source = fs
   .readFileSync(sourcePath, 'utf8')
-  .replace("import Jimp from 'jimp';", "const Jimp = require('jimp');")
+  .replace("import sharp from 'sharp';", "const sharp = require('sharp');")
   .replace("import path from 'path';", "const path = require('path');")
   .replace("import fs from 'fs';", "const fs = require('fs');")
   .replace("import requestGuards from './utils/request-guards.js';", "const requestGuards = require('./utils/request-guards.js');")
   .replace('export default async function handler', 'async function handler')
   .concat('\nmodule.exports = { handler };\n');
 
-function createImage({ output = Buffer.from('generated-jpeg') } = {}) {
-  return {
-    bitmap: { width: 1200, height: 630 },
-    cover() { return this; },
-    resize() { return this; },
-    composite() { return this; },
-    quality() { return this; },
-    async getBufferAsync() { return output; },
-  };
-}
-
 function loadHandler({ kvResults = [], imageError = null } = {}) {
   const commands = [];
   let kvIndex = 0;
-  const jimp = {
-    HORIZONTAL_ALIGN_CENTER: 1,
-    VERTICAL_ALIGN_MIDDLE: 2,
-    MIME_JPEG: 'image/jpeg',
-    async read() {
-      if (imageError) throw imageError;
-      return createImage();
-    },
+  let sharpCall = 0;
+  const sharp = () => {
+    sharpCall += 1;
+    if (imageError) throw imageError;
+    const output = sharpCall % 2 === 1 ? Buffer.from('overlay-png') : Buffer.from('generated-jpeg');
+    return {
+      resize() { return this; },
+      composite() { return this; },
+      png() { return this; },
+      jpeg() { return this; },
+      async toBuffer() { return output; },
+    };
   };
 
   const sandbox = {
@@ -51,7 +44,7 @@ function loadHandler({ kvResults = [], imageError = null } = {}) {
       },
     },
     require(id) {
-      if (id === 'jimp') return jimp;
+      if (id === 'sharp') return sharp;
       if (id === 'path') return path;
       if (id === './utils/request-guards.js') {
         return {
