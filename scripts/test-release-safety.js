@@ -54,6 +54,12 @@ async function run() {
   assert.match(middleware, /matcher:\s*\['\/\(\(\?!api\/\)\.\*\)'\]/,
     'API routes must bypass page metadata middleware');
 
+  const ogImage = read('api/og-image.js');
+  assert.match(ogImage, /export default \{ fetch: handleOgImage \}/,
+    'OG endpoint must use the Web Request/Response handler');
+  assert.doesNotMatch(ogImage, /req\.query|res\.send|res\.setHeader/,
+    'OG endpoint must not fall back to the legacy Node response adapter');
+
   const manifest = JSON.parse(read('manifest.json'));
   for (const size of [192, 512]) {
     const icon = manifest.icons.find((item) => item.sizes === `${size}x${size}`);

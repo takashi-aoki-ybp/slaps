@@ -10,8 +10,9 @@ const source = fs
   .replace("import path from 'path';", "const path = require('path');")
   .replace("import fs from 'fs';", "const fs = require('fs');")
   .replace("import requestGuards from './utils/request-guards.js';", "const requestGuards = require('./utils/request-guards.js');")
-  .replace('export default async function handler', 'async function handler')
-  .concat('\nmodule.exports = { handler };\n');
+  .replace('export async function handleOgImage', 'async function handleOgImage')
+  .replace('export default { fetch: handleOgImage };', '')
+  .concat('\nmodule.exports = { handleOgImage };\n');
 
 function loadHandler({ kvResults = [], imageError = null } = {}) {
   const commands = [];
@@ -34,6 +35,10 @@ function loadHandler({ kvResults = [], imageError = null } = {}) {
     module: { exports: {} },
     exports: {},
     Buffer,
+    Headers,
+    Request,
+    Response,
+    URL,
     console: { error() {} },
     process: {
       cwd: () => process.cwd(),
@@ -75,19 +80,14 @@ function loadHandler({ kvResults = [], imageError = null } = {}) {
   };
 
   vm.runInNewContext(source, sandbox, { filename: sourcePath });
-  return { handler: sandbox.module.exports.handler, commands };
+  return { handler: sandbox.module.exports.handleOgImage, commands };
 }
 
-function createResponse() {
-  return {
-    headers: {},
-    statusCode: 200,
-    body: null,
-    setHeader(name, value) { this.headers[name] = value; },
-    status(code) { this.statusCode = code; return this; },
-    send(body) { this.body = body; return this; },
-  };
-}
+const ogRequest = (videoId) => new Request(`https://slaps.tokyo/api/og-image?v=${videoId}`, {
+  headers: { 'x-forwarded-for': '203.0.113.10' },
+});
+
+const responseBuffer = async (response) => Buffer.from(await response.arrayBuffer());
 
 async function run() {
   {
@@ -95,20 +95,18 @@ async function run() {
     const { handler, commands } = loadHandler({
       kvResults: [cached.toString('base64')],
     });
-    const res = createResponse();
-    await handler({ query: { v: 'cachedVid01' } }, res);
+    const res = await handler(ogRequest('cachedVid01'));
 
     assert.deepEqual(commands, [['GET', 'test:slaps:og:cachedVid01']]);
-    assert.equal(res.headers['Content-Type'], 'image/jpeg');
-    assert.equal(res.headers['Cache-Control'], 'public, max-age=86400, s-maxage=86400');
-    assert.equal(res.headers['X-Slaps-Cache'], 'KV_HIT');
-    assert.deepEqual(res.body, cached);
+    assert.equal(res.headers.get('content-type'), 'image/jpeg');
+    assert.equal(res.headers.get('cache-control'), 'public, max-age=86400, s-maxage=86400');
+    assert.equal(res.headers.get('x-slaps-cache'), 'KV_HIT');
+    assert.deepEqual(await responseBuffer(res), cached);
   }
 
   {
     const { handler, commands } = loadHandler({ kvResults: [null, 'OK'] });
-    const res = createResponse();
-    await handler({ query: { v: 'newVideo123' } }, res);
+    const res = await handler(ogRequest('newVideo123'));
 
     assert.deepEqual(commands[0], ['GET', 'test:slaps:og:newVideo123']);
     assert.deepEqual(commands[1], [
@@ -118,10 +116,10 @@ async function run() {
       'EX',
       2592000,
     ]);
-    assert.equal(res.headers['Content-Type'], 'image/jpeg');
-    assert.equal(res.headers['Cache-Control'], 'public, max-age=86400, s-maxage=86400');
-    assert.equal(res.headers['X-Slaps-Cache'], 'KV_MISS');
-    assert.deepEqual(res.body, Buffer.from('generated-jpeg'));
+    assert.equal(res.headers.get('content-type'), 'image/jpeg');
+    assert.equal(res.headers.get('cache-control'), 'public, max-age=86400, s-maxage=86400');
+    assert.equal(res.headers.get('x-slaps-cache'), 'KV_MISS');
+    assert.deepEqual(await responseBuffer(res), Buffer.from('generated-jpeg'));
   }
 
   {
@@ -129,12 +127,13 @@ async function run() {
       kvResults: [null],
       imageError: new Error('thumbnail unavailable'),
     });
-    const res = createResponse();
-    await handler({ query: { v: 'brokenVid01' } }, res);
+    const res = await handler(ogRequest('brokenVid01'));
 
-    assert.equal(res.headers['Content-Type'], 'image/png');
-    assert.deepEqual(res.body, Buffer.from('fallback-png'));
+    assert.equal(res.headers.get('content-type'), 'image/png');
+    assert.deepEqual(await responseBuffer(res), Buffer.from('fallback-png'));
   }
+
+  assert.match(fs.readFileSync(sourcePath, 'utf8'), /export default \{ fetch: handleOgImage \}/);
 
   console.log('OG image cache tests passed.');
 }

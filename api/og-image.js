@@ -25,36 +25,47 @@ async function kvFetch(command) {
   return data.result;
 }
 
-export default async function handler(req, res) {
-  const { v } = req.query;
+const cacheHeaders = (contentType, cacheState) => ({
+  'Content-Type': contentType,
+  'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+  ...(cacheState ? { 'X-Slaps-Cache': cacheState } : {}),
+});
+
+const textResponse = (body, status) => new Response(body, {
+  status,
+  headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+});
+
+export async function handleOgImage(request) {
+  const requestUrl = new URL(request.url);
+  const v = requestUrl.searchParams.get('v') || '';
 
   if (!v || !/^[A-Za-z0-9_-]{11}$/.test(v)) {
-    return res.status(400).send('Missing video ID parameter "v"');
+    return textResponse('Missing video ID parameter "v"', 400);
   }
 
   const prefix = process.env.DB_PREFIX || '';
   if (!(await isCataloguedYoutubeId(v, kvFetch, prefix))) {
-    return res.status(404).send('Track not found');
+    return textResponse('Track not found', 404);
   }
+  const forwardedFor = request.headers.get('x-forwarded-for') || '';
+  const realIp = request.headers.get('x-real-ip') || '';
   const rate = await takeRateLimit({
-    req,
+    req: { headers: { 'x-forwarded-for': forwardedFor, 'x-real-ip': realIp } },
     kvFetch,
     prefix,
     scope: 'og_image',
     limit: 120,
     windowSeconds: 60,
   });
-  if (!rate.allowed) return res.status(429).send('Too Many Requests');
+  if (!rate.allowed) return textResponse('Too Many Requests', 429);
 
   // Redis (Vercel KV) からキャッシュの取得を試みる
   try {
     const cachedBase64 = await kvFetch(['GET', `${prefix}slaps:og:${v}`]);
     if (cachedBase64) {
       const buffer = Buffer.from(cachedBase64, 'base64');
-      res.setHeader('Content-Type', 'image/jpeg');
-      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-      res.setHeader('X-Slaps-Cache', 'KV_HIT');
-      return res.send(buffer);
+      return new Response(buffer, { headers: cacheHeaders('image/jpeg', 'KV_HIT') });
     }
   } catch (kvError) {
     console.error('KV Cache Read Error:', kvError);
@@ -99,10 +110,7 @@ export default async function handler(req, res) {
     }
 
     // 適切なキャッシュヘッダーとコンテンツタイプを設定
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-    res.setHeader('X-Slaps-Cache', 'KV_MISS');
-    return res.send(buffer);
+    return new Response(buffer, { headers: cacheHeaders('image/jpeg', 'KV_MISS') });
 
   } catch (error) {
     console.error('OG Image Generation Error:', error);
@@ -110,10 +118,11 @@ export default async function handler(req, res) {
     try {
       const defaultOgpPath = path.join(process.cwd(), 'assets', 'ogp.png');
       const buffer = fs.readFileSync(defaultOgpPath);
-      res.setHeader('Content-Type', 'image/png');
-      return res.send(buffer);
+      return new Response(buffer, { headers: cacheHeaders('image/png') });
     } catch (e) {
-      return res.status(500).send('Internal Server Error');
+      return textResponse('Internal Server Error', 500);
     }
   }
 }
+
+export default { fetch: handleOgImage };
