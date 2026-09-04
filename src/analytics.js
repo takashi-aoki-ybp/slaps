@@ -35,10 +35,25 @@ export function trackEvent(name, props = {}) {
   });
 }
 
+export function trackWicleEvent(name, props = {}) {
+  if (typeof window === 'undefined' || typeof window.krt !== 'function') return false;
+  try {
+    window.krt('send', name, {
+      ...sanitizeProps(props),
+      measurement_version: '2',
+    });
+    return true;
+  } catch {
+    // Third-party analytics must never interrupt playback.
+    return false;
+  }
+}
+
 export function trackOnce(name, props = {}) {
-  if (SESSION_EVENTS.has(name)) return;
+  if (SESSION_EVENTS.has(name)) return false;
   SESSION_EVENTS.add(name);
   trackEvent(name, props);
+  return true;
 }
 
 export function initAnalytics(now = new Date()) {
@@ -76,7 +91,10 @@ export function noteStarted(song, mode = 'station', readPlayback = () => null) {
   fiveMinuteTimer = setInterval(() => {
     sample();
     if (listenedMs < 300000) return;
-    trackOnce('listen_5_minutes', { tracks_loaded: playedAfterStart.size });
+    const props = { tracks_loaded: playedAfterStart.size };
+    if (trackOnce('listen_5_minutes', props)) {
+      trackWicleEvent('slaps_listen_5_minutes', props);
+    }
   }, 1000);
 }
 

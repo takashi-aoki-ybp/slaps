@@ -38,8 +38,9 @@ async function run() {
   let snapshot = null;
   const storage = new Map();
   const events = [];
+  const wicleEvents = [];
   const context = vm.createContext({ Date, performance: { now: () => now },
-    window: { dataLayer: events },
+    window: { dataLayer: events, krt: (command, event, props) => wicleEvents.push({ command, event, props }) },
     localStorage: { getItem: k => storage.get(k) ?? null, setItem: (k, v) => storage.set(k, v) },
     setInterval: fn => { tick = fn; return 1; }, clearInterval: () => {}, readPlayback: () => snapshot,
   });
@@ -72,6 +73,15 @@ async function run() {
   snapshot.time += 120; now += 1000; tick();
   snapshot.time++; now += 60000; tick(); assert.equal(count('listen_5_minutes'), 0);
   now += 1000; snapshot.time++; tick(); assert.equal(count('listen_5_minutes'), 1);
+  assert.deepEqual(JSON.parse(JSON.stringify(wicleEvents)), [{
+    command: 'send',
+    event: 'slaps_listen_5_minutes',
+    props: { tracks_loaded: 1, measurement_version: '2' },
+  }]);
+  now += 1000; snapshot.time++; tick();
+  assert.equal(wicleEvents.length, 1, 'Wicle conversion must be sent once per session');
+  call("window.krt = () => { throw new Error('blocked'); }");
+  assert.equal(call("trackWicleEvent('slaps_test')"), false, 'Wicle failure must not affect playback');
   for (const id of ['bbbbbbbbbbb', 'ccccccccccc']) {
     call('noteTrackLoaded()'); snapshot = { playing: true, id, time: 0, mode: 'daily' };
     now += 1000; tick(); now += 1000; snapshot.time++; tick();
