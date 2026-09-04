@@ -3,6 +3,35 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 async function run() {
+  const html = fs.readFileSync('index.html', 'utf8');
+  const loaderMatch = html.match(/<!-- Google Tag Manager -->\s*<script>([\s\S]*?)<\/script>/);
+  assert.ok(loaderMatch, 'GTM loader must exist in index.html');
+  const runLoader = (hostname, native = false) => {
+    const inserted = [];
+    const firstScript = { parentNode: { insertBefore: node => inserted.push(node) } };
+    const window = {
+      location: { hostname },
+      ...(native ? { Capacitor: { isNativePlatform: () => true } } : {}),
+    };
+    const document = {
+      getElementsByTagName: () => [firstScript],
+      createElement: () => ({}),
+    };
+    vm.runInNewContext(loaderMatch[1], { window, document, Date });
+    return { inserted, dataLayer: window.dataLayer };
+  };
+  for (const hostname of ['slaps.tokyo', 'www.slaps.tokyo']) {
+    const result = runLoader(hostname);
+    assert.equal(result.inserted.length, 1, `${hostname} must load GTM`);
+    assert.equal(result.dataLayer[0].event, 'gtm.js');
+  }
+  for (const hostname of ['localhost', '127.0.0.1', 'slaps.tokyo.evil.test']) {
+    const result = runLoader(hostname);
+    assert.equal(result.inserted.length, 0, `${hostname} must not load GTM`);
+    assert.equal(result.dataLayer, undefined);
+  }
+  assert.equal(runLoader('localhost', true).inserted.length, 1, 'native app must keep GTM enabled');
+
   const source = fs.readFileSync('src/analytics.js', 'utf8').replace(/^export /gm, '');
   let now = 0;
   let tick;
