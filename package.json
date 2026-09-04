@@ -8,6 +8,7 @@
     "audit:songs": "node scripts/audit-songs.js",
     "audit:youtube": "node scripts/audit-youtube.js",
     "test:og-image": "node scripts/test-og-image.js",
+    "test:kv-list": "node scripts/test-kv-list.js",
     "generate:pwa-icons": "node scripts/generate-pwa-icons.js",
     "test:release-safety": "node scripts/test-release-safety.js",
     "curate:empty": "node scripts/fill-empty-descriptions.js",
@@ -15,7 +16,7 @@
     "android:verify": "node scripts/verify-android.js",
     "submissions": "node scripts/review-submissions.js",
     "verify": "npm test && npm run build && git diff --check",
-    "test": "npm run audit:songs && npm run test:og-image && npm run test:release-safety && node scripts/test-safety-guards.js && node scripts/test-growth-features.js && node scripts/test-analytics.js && node scripts/test-shuffle.js && node scripts/test-shuffle-guards.js && node scripts/test-description-policy.js && node scripts/test-audit-regressions.js && node scripts/test-intro.js"
+    "test": "npm run audit:songs && npm run test:og-image && npm run test:kv-list && npm run test:release-safety && node scripts/test-safety-guards.js && node scripts/test-growth-features.js && node scripts/test-analytics.js && node scripts/test-shuffle.js && node scripts/test-shuffle-guards.js && node scripts/test-description-policy.js && node scripts/test-audit-regressions.js && node scripts/test-intro.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.0",

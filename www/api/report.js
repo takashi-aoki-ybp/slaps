@@ -1,5 +1,6 @@
 import { createHash } from 'crypto';
 const { isCataloguedYoutubeId, takeRateLimit } = require('./utils/request-guards.js');
+const { readRedisList } = require('./utils/kv-list.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -83,7 +84,7 @@ export default async function handler(req, res) {
     let autoHidden = false;
     if (reportCount >= 3) {
       const songsKey = `${prefix}slaps:songs`;
-      const rawSongs = await kvFetch(['LRANGE', songsKey, '0', '-1']);
+      const rawSongs = await readRedisList(kvFetch, songsKey);
       const communityMatches = (rawSongs || []).flatMap(raw => {
         try {
           const song = JSON.parse(raw);

@@ -1,3 +1,5 @@
+const { readRedisList } = require('./utils/kv-list.js');
+
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
@@ -32,7 +34,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ comments: [] });
       }
 
-      const rawComments = await kvFetch(['LRANGE', `${prefix}slaps:comments:${youtube_id}`, 0, -1]) || [];
+      const rawComments = await readRedisList(kvFetch, `${prefix}slaps:comments:${youtube_id}`);
       const comments = rawComments.map(c => JSON.parse(c));
       
       if (comments.length > 0) {

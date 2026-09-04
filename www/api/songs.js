@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 const { retireGeneratedDescription } = require('./utils/description-policy.js');
+const { readRedisList } = require('./utils/kv-list.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -39,7 +40,7 @@ export default async function handler(req, res) {
     if (kvEnabled) {
       const prefix = process.env.DB_PREFIX || '';
       const [rawList, rawBroken, rawVibes] = await Promise.all([
-        kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
+        readRedisList(kvFetch, `${prefix}slaps:songs`),
         kvFetch(['HGETALL', `${prefix}slaps:broken`]),
         kvFetch(['HGETALL', `${prefix}slaps:vibe_counts`])
       ]);

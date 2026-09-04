@@ -3,6 +3,7 @@ import { eraFromPublishDate, findTitleDuplicate } from './utils/submission-quali
 import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
+const { readRedisList } = require('./utils/kv-list.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -147,8 +148,8 @@ export default async function handler(req, res) {
 
     const verifiedName = metadata.title.trim().slice(0, 150);
     const [publishedRaw, pendingRaw] = await Promise.all([
-      kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
-      kvFetch(['LRANGE', `${prefix}slaps:submissions`, '0', '-1']),
+      readRedisList(kvFetch, `${prefix}slaps:songs`),
+      readRedisList(kvFetch, `${prefix}slaps:submissions`),
     ]);
     const pendingItems = parseJsonList(pendingRaw);
     const existingPending = pendingItems.find((item) => item.youtube_id === youtube_id) || null;

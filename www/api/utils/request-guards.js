@@ -1,6 +1,7 @@
 const { createHash } = require('crypto');
 const fs = require('fs');
 const path = require('path');
+const { readRedisList } = require('./kv-list.js');
 
 const CATALOG_CACHE_MS = 60 * 1000;
 const catalogCaches = new Map();
@@ -26,7 +27,7 @@ async function loadCatalogIds(kvFetch, prefix = '') {
   let kvReadSucceeded = typeof kvFetch !== 'function';
   if (typeof kvFetch === 'function') {
     try {
-      const rawSongs = await kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']);
+      const rawSongs = await readRedisList(kvFetch, `${prefix}slaps:songs`);
       for (const raw of Array.isArray(rawSongs) ? rawSongs : []) {
         try {
           const song = JSON.parse(raw);

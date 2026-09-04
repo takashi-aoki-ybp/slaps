@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const Jimp = require('jimp');
 const path = require('path');
 const fs = require('fs');
+const { readRedisList } = require('./utils/kv-list.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -22,7 +23,7 @@ async function loadSongs() {
   const prefix = process.env.DB_PREFIX || '';
   let dbSongs = [];
   try {
-    const raw = await kvFetch(['LRANGE', `${prefix}slaps:songs`, 0, -1]);
+    const raw = await readRedisList(kvFetch, `${prefix}slaps:songs`);
     if (Array.isArray(raw)) dbSongs = raw.map((item) => { try { return JSON.parse(item); } catch { return null; } }).filter(Boolean);
   } catch (error) {
     console.error('DAILY OG database read failed:', error);

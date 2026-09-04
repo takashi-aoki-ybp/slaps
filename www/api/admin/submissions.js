@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { timingSafeEqual } from 'crypto';
+const { readRedisList } = require('../utils/kv-list.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -106,7 +107,7 @@ export default async function handler(req, res) {
 
     if (action === 'update_description') {
       const songsKey = `${prefix}slaps:songs`;
-      const rawSongs = await kvFetch(['LRANGE', songsKey, '0', '-1']);
+      const rawSongs = await readRedisList(kvFetch, songsKey);
       const matchedSongs = (rawSongs || []).flatMap(raw => {
         try {
           const song = JSON.parse(raw);
@@ -147,7 +148,7 @@ export default async function handler(req, res) {
 
     if (action === 'unpublish') {
       const songsKey = `${prefix}slaps:songs`;
-      const rawSongs = await kvFetch(['LRANGE', songsKey, '0', '-1']);
+      const rawSongs = await readRedisList(kvFetch, songsKey);
       const matchedSongs = (rawSongs || []).flatMap(raw => {
         try {
           const song = JSON.parse(raw);
