@@ -2,6 +2,7 @@ const assert = require('assert/strict');
 const fs = require('fs');
 const path = require('path');
 const Jimp = require('jimp');
+const { extractLengthSeconds, isTooShortTrack } = require('./audit-youtube.js');
 
 const read = (file) => fs.readFileSync(path.join(process.cwd(), file), 'utf8');
 
@@ -28,6 +29,13 @@ async function run() {
   assert.equal(quality.assessHipHop({ category: 'Music', title: 'Lion Heart' }).confident, false);
   assert.equal(quality.assessHipHop({ category: 'Comedy', keywords: ['rap'] }).confident, false);
   assert.equal(quality.findTitleDuplicate('Nas - One Mic [Official Video]', [{ name: 'Nas - One Mic' }]).name, 'Nas - One Mic');
+  assert.equal(extractLengthSeconds('{"lengthSeconds":"16"}'), 16);
+  assert.equal(extractLengthSeconds('<html>metadata unavailable</html>'), null);
+  assert.equal(isTooShortTrack(16), true);
+  assert.equal(isTooShortTrack(169), false);
+  assert.equal(isTooShortTrack(null), false);
+  assert.ok(!JSON.parse(read('data/songs.json')).some(song => song.youtube_id === 'cvxAVkrXNvQ'),
+    'known 16-second same side teaser must not return to the catalog');
 
   const submit = read('api/submit.js');
   assert.match(submit, /eraFromPublishDate/);
@@ -41,6 +49,10 @@ async function run() {
   assert.match(youtubeSearch, /yt_search_rate/);
   assert.match(youtubeSearch, /attempts > 30/);
   assert.match(youtubeSearch, /yt_search:v1/);
+
+  const middleware = read('middleware.js');
+  assert.match(middleware, /matcher:\s*\['\/\(\(\?!api\/\)\.\*\)'\]/,
+    'API routes must bypass page metadata middleware');
 
   const manifest = JSON.parse(read('manifest.json'));
   for (const size of [192, 512]) {

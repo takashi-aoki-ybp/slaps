@@ -13,6 +13,17 @@ const selected = auditAll
   ? songs
   : Array.from({ length: Math.min(batchSize, songs.length) }, (_, index) => songs[(start + index) % songs.length]);
 
+const MIN_TRACK_SECONDS = 30;
+
+function extractLengthSeconds(html = '') {
+  const match = String(html).match(/"lengthSeconds":"(\d+)"/);
+  return match ? Number(match[1]) : null;
+}
+
+function isTooShortTrack(durationSeconds) {
+  return Number.isFinite(durationSeconds) && durationSeconds < MIN_TRACK_SECONDS;
+}
+
 async function fetchWithRetry(url, options = {}, attempts = 3) {
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
@@ -33,11 +44,23 @@ async function auditSong(song) {
   const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(watchUrl)}&format=json`;
   const thumbnailUrl = `https://img.youtube.com/vi/${song.youtube_id}/mqdefault.jpg`;
   try {
-    const [oembedResponse, thumbnailResponse] = await Promise.all([
+    const [oembedResponse, thumbnailResponse, watchResponse] = await Promise.all([
       fetchWithRetry(oembedUrl),
       fetchWithRetry(thumbnailUrl, { method: 'HEAD' }),
+      fetchWithRetry(watchUrl),
     ]);
     const metadata = await oembedResponse.json();
+    const durationSeconds = extractLengthSeconds(await watchResponse.text());
+    if (isTooShortTrack(durationSeconds)) {
+      return {
+        youtube_id: song.youtube_id,
+        ok: false,
+        stored_name: song.name,
+        youtube_title: metadata.title || '',
+        duration_seconds: durationSeconds,
+        error: `Video is only ${durationSeconds}s; likely a teaser or clip rather than a full track`,
+      };
+    }
     return {
       youtube_id: song.youtube_id,
       ok: true,
@@ -45,6 +68,7 @@ async function auditSong(song) {
       youtube_title: metadata.title || '',
       author_name: metadata.author_name || '',
       thumbnail_status: thumbnailResponse.status,
+      duration_seconds: durationSeconds,
     };
   } catch (error) {
     return {
@@ -70,7 +94,7 @@ async function runPool(items, concurrency) {
   return results;
 }
 
-(async () => {
+async function main() {
   const results = await runPool(selected, 5);
   const failures = results.filter(result => !result.ok);
   const report = {
@@ -91,7 +115,13 @@ async function runPool(items, concurrency) {
     console.error(`- ${failure.youtube_id} ${failure.stored_name}: ${failure.error}`);
   }
   if (failures.length > 0) process.exitCode = 1;
-})().catch(error => {
-  console.error(error);
-  process.exitCode = 1;
-});
+}
+
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { MIN_TRACK_SECONDS, extractLengthSeconds, isTooShortTrack };

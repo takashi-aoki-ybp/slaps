@@ -6,6 +6,12 @@ function next() {
   });
 }
 
+// API routes do not need page metadata rewriting. Keeping them out of the
+// middleware path also avoids adding Edge runtime work to every API request.
+export const config = {
+  matcher: ['/((?!api/).*)'],
+};
+
 // クローラー判定用の正規表現
 const BOT_UA_REGEX = /bot|crawl|spider|facebook|twitter|slack|discord|whatsapp|telegram|line|pinterest/i;
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
