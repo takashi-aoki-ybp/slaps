@@ -13,12 +13,13 @@
     "verify:daily": "node scripts/check-daily-completion.js",
     "generate:pwa-icons": "node scripts/generate-pwa-icons.js",
     "test:release-safety": "node scripts/test-release-safety.js",
+    "test:security-headers": "node scripts/test-security-headers.js",
     "curate:empty": "node scripts/fill-empty-descriptions.js",
     "android:sync": "npm run build && npx cap sync android",
     "android:verify": "node scripts/verify-android.js",
     "submissions": "node scripts/review-submissions.js",
     "verify": "npm test && npm run build && git diff --check",
-    "test": "npm run audit:songs && npm run test:og-image && node scripts/test-share-og-images.js && npm run test:kv-list && npm run test:daily-gate && npm run test:release-safety && node scripts/test-safety-guards.js && node scripts/test-growth-features.js && node scripts/test-analytics.js && node scripts/test-shuffle.js && node scripts/test-shuffle-guards.js && node scripts/test-description-policy.js && node scripts/test-audit-regressions.js && node scripts/test-intro.js"
+    "test": "npm run audit:songs && npm run test:og-image && node scripts/test-share-og-images.js && npm run test:kv-list && npm run test:daily-gate && npm run test:release-safety && npm run test:security-headers && node scripts/test-safety-guards.js && node scripts/test-growth-features.js && node scripts/test-analytics.js && node scripts/test-shuffle.js && node scripts/test-shuffle-guards.js && node scripts/test-description-policy.js && node scripts/test-audit-regressions.js && node scripts/test-intro.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.0",
