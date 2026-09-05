@@ -2,12 +2,9 @@
 // Fire TV Stick リモコンによる空間ナビゲーション（D-pad操作）を可能にするスクリプト
 
 document.addEventListener('DOMContentLoaded', () => {
-  // TV環境かどうかの簡易判定
+  // PCの矢印キー操作を奪わないよう、TV系WebViewでのみ有効化する。
   const isTV = /Tizen|Web0S|WebOS|SMART-TV|SmartTV|AFTT|AFTN|AFTS|AFTB|FireTV/i.test(navigator.userAgent);
-  if (!isTV) {
-    // TV以外ではD-padナビゲーションを無効化（PCの矢印キーでの曲スキップ等を妨害しないため）
-    return;
-  }
+  if (!isTV) return;
 
   // フォーカス可能な要素のセレクタ
   const FOCUSABLE_SELECTOR = 'button, [tabindex="0"], a, input, select, textarea';

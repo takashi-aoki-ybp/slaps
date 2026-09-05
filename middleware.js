@@ -6,8 +6,15 @@ function next() {
   });
 }
 
+// API routes do not need page metadata rewriting. Keeping them out of the
+// middleware path also avoids adding Edge runtime work to every API request.
+export const config = {
+  matcher: ['/((?!api/).*)'],
+};
+
 // クローラー判定用の正規表現
 const BOT_UA_REGEX = /bot|crawl|spider|facebook|twitter|slack|discord|whatsapp|telegram|line|pinterest/i;
+const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 
 export default async function middleware(request) {
   const url = new URL(request.url);
@@ -18,7 +25,69 @@ export default async function middleware(request) {
     return next();
   }
 
-  const videoId = url.searchParams.get('v');
+  const rawVideoId = url.searchParams.get('v') || '';
+  const videoId = /^[A-Za-z0-9_-]{11}$/.test(rawVideoId) ? rawVideoId : '';
+  const dailyDate = String(url.searchParams.get('daily') || '');
+  const crateIds = String(url.searchParams.get('crate') || '')
+    .split('.')
+    .filter((id) => /^[A-Za-z0-9_-]{11}$/.test(id))
+    .filter((id, index, all) => all.indexOf(id) === index)
+    .slice(0, 50);
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dailyDate) && BOT_UA_REGEX.test(userAgent)) {
+    try {
+      const indexRes = await fetch(new URL('./index.html', request.url));
+      let html = await indexRes.text();
+      const title = `TODAY'S 10 · ${dailyDate} · SLAPS`;
+      const desc = `Listen to the SLAPS DAILY DROP for ${dailyDate}.`;
+      const shareUrl = `${url.origin}/?daily=${dailyDate}`;
+      const imageUrl = `${url.origin}/api/daily-og?date=${dailyDate}`;
+      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${escapeHtml(title)}">`);
+      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${escapeHtml(title)}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${escapeHtml(desc)}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${escapeHtml(desc)}">`);
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${escapeHtml(imageUrl)}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${escapeHtml(imageUrl)}">`);
+      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${escapeHtml(shareUrl)}">`);
+      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${escapeHtml(shareUrl)}">`);
+      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${escapeHtml(title)}</title>`);
+      return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=3600' } });
+    } catch { return next(); }
+  }
+
+  // 保存曲の共有は、クローラー向けに曲数と専用画像を含むOGPを返す
+  if (crateIds.length && BOT_UA_REGEX.test(userAgent)) {
+    try {
+      const indexUrl = new URL('./index.html', request.url);
+      const indexRes = await fetch(indexUrl);
+      let html = await indexRes.text();
+      const crate = crateIds.join('.');
+      const count = crateIds.length;
+      const title = `${count} SAVED TRACK${count === 1 ? '' : 'S'} · SLAPS`;
+      const desc = `Listen to ${count} tracks shared on SLAPS.`;
+      const shareUrl = `${url.origin}/?crate=${crate}`;
+      const imageUrl = `${url.origin}/api/crate-og?crate=${crate}`;
+
+      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${escapeHtml(title)}">`);
+      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${escapeHtml(title)}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${escapeHtml(desc)}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${escapeHtml(desc)}">`);
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${escapeHtml(imageUrl)}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${escapeHtml(imageUrl)}">`);
+      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${escapeHtml(shareUrl)}">`);
+      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${escapeHtml(shareUrl)}">`);
+      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${escapeHtml(title)}</title>`);
+
+      return new Response(html, {
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=3600',
+        },
+      });
+    } catch (_) {
+      return next();
+    }
+  }
 
   // 動画IDがあり、かつクローラーからのアクセスの時のみOGPをインジェクト
   if (videoId && BOT_UA_REGEX.test(userAgent)) {
@@ -81,16 +150,16 @@ export default async function middleware(request) {
 
       // OGPタグを置換
       const shareUrl = `${url.origin}/?v=${videoId}`;
-      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${title}">`);
-      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${title}">`);
-      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${desc}">`);
-      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${desc}">`);
+      html = html.replace(/<meta property="og:title" content="[^"]*">/g, () => `<meta property="og:title" content="${escapeHtml(title)}">`);
+      html = html.replace(/<meta name="twitter:title" content="[^"]*">/g, () => `<meta name="twitter:title" content="${escapeHtml(title)}">`);
+      html = html.replace(/<meta property="og:description" content="[^"]*">/g, () => `<meta property="og:description" content="${escapeHtml(desc)}">`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*">/g, () => `<meta name="twitter:description" content="${escapeHtml(desc)}">`);
       const imageUrl = `${url.origin}${thumbnail}`;
-      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${imageUrl}">`);
-      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${imageUrl}">`);
-      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${shareUrl}">`);
-      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${shareUrl}">`);
-      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${title}</title>`);
+      html = html.replace(/<meta property="og:image" content="[^"]*">/g, () => `<meta property="og:image" content="${escapeHtml(imageUrl)}">`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*">/g, () => `<meta name="twitter:image" content="${escapeHtml(imageUrl)}">`);
+      html = html.replace(/<meta property="og:url" content="[^"]*">/g, () => `<meta property="og:url" content="${escapeHtml(shareUrl)}">`);
+      html = html.replace(/<link rel="canonical" href="[^"]*">/g, () => `<link rel="canonical" href="${escapeHtml(shareUrl)}">`);
+      html = html.replace(/<title>[^<]*<\/title>/g, () => `<title>${escapeHtml(title)}</title>`);
 
       return new Response(html, {
         headers: {

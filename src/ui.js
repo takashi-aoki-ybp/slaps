@@ -1,8 +1,29 @@
 import { state, REGION_LABELS, CT, current, getFilteredPool, playableCount, eligibleByBalance, applyOrder } from './state.js';
 import { db } from './db.js';
 import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy, setVolume } from './player.js';
+import { analyticsMode, trackEvent } from './analytics.js';
+import { buildDailyArchive, dailyShareUrl } from './daily.js';
+import { deliverShare } from './sharing.js';
 
 const $ = (sel) => document.querySelector(sel);
+
+const dialogReturnFocus = new Map();
+function openDialog(modal, initialFocus, fallbackFocus) {
+  const active = document.activeElement;
+  dialogReturnFocus.set(modal, active && active !== document.body ? active : fallbackFocus);
+  modal.hidden = false;
+  requestAnimationFrame(() => initialFocus?.focus({ preventScroll: true }));
+}
+function closeDialog(modal, fallbackFocus, { restoreFocus = true } = {}) {
+  modal.hidden = true;
+  const target = dialogReturnFocus.get(modal);
+  dialogReturnFocus.delete(modal);
+  if (!restoreFocus) return;
+  requestAnimationFrame(() => {
+    const returnTarget = target?.isConnected && !target.hidden ? target : fallbackFocus;
+    returnTarget?.focus({ preventScroll: true });
+  });
+}
 
 // ---- プログレスバーのアニメーション ----
 let progressRAF = null;
@@ -29,7 +50,11 @@ export function resetProgress() { $('#progressBar').style.width = '0%'; }
 let toastTimer = null;
 export function showToast(msg) {
   const el = $('#toast');
-  el.innerHTML = msg;
+  el.replaceChildren();
+  String(msg ?? '').split(/<br\s*\/?>/i).forEach((line, index) => {
+    if (index) el.append(document.createElement('br'));
+    el.append(document.createTextNode(line));
+  });
   el.classList.add('is-show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('is-show'), 3500);
@@ -43,7 +68,7 @@ export function wake() {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => {
     const aboutOverlay = $('#aboutOverlay');
-    if ($('#submitModal').hidden && $('#reportModal').hidden && $('#favModal').hidden && aboutOverlay.hidden && !state.paused) {
+    if ($('#submitModal').hidden && $('#reportModal').hidden && $('#favModal').hidden && $('#dailyOverlay').hidden && aboutOverlay.hidden && !state.paused) {
       document.body.classList.add('is-idle');
     }
   }, IDLE_MS);
@@ -56,8 +81,26 @@ export function updateTrackCount() {
   const n = playableCount();
   const unit = window.i18n.t(n === 1 ? 'track' : 'tracks');
   el.innerHTML = `<b>${n.toLocaleString(window.i18n.getLang() === 'ja' ? 'ja-JP' : 'en-US')}</b>&nbsp;${unit}`;
-  el.classList.toggle('is-filtered', state.region !== 'all' || state.era !== 'all');
+  el.classList.toggle('is-filtered', state.crateMode || state.dailyMode || state.region !== 'all' || state.era !== 'all');
 }
+
+function clearSpecialMode() {
+  const wasSpecial = state.crateMode || state.dailyMode;
+  state.crateMode = false;
+  state.crateIds = [];
+  state.dailyMode = false;
+  state.dailyIds = [];
+  $('#dailyOpen')?.classList.remove('is-active');
+  if (wasSpecial) updateTrackCount();
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('crate');
+    url.searchParams.delete('daily');
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  } catch {}
+}
+
+const clearCrateMode = clearSpecialMode;
 
 // ---- Vibeネオンカラー更新 ----
 export function updateVibeColor(p, element = balanceRange) {
@@ -90,7 +133,7 @@ export function setBalance(p, opts = {}) {
   state.balance = p;
   const cur = current();
   state.queue = eligibleByBalance(p);
-  applyOrder(state.queue);
+  applyOrder(state.queue, !opts.keep && !opts.shareId && !opts.first ? cur?.youtube_id : undefined);
   updateVibeColor(p);
   if (opts.shareId) {
     const targetSong = state.all.find((s) => s.youtube_id === opts.shareId);
@@ -101,6 +144,11 @@ export function setBalance(p, opts = {}) {
       if (state.ready && state.queue.length) loadCurrent();
       return;
     }
+  }
+  if (opts.first) {
+    state.index = 0;
+    if (state.ready && state.queue.length) loadCurrent();
+    return;
   }
   if (opts.keep && cur) {
     if (state.order === 'shuffle') {
@@ -134,9 +182,14 @@ export function showFilterFeedback() {
 }
 
 export function setRegion(region) {
+  clearCrateMode();
+  trackEvent('filter_region', { region });
   state.region = region;
-  document.querySelectorAll('.region__btn').forEach((b) =>
-    b.classList.toggle('is-active', b.dataset.region === region));
+  document.querySelectorAll('.region__btn').forEach((b) => {
+    const active = b.dataset.region === region;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
   updateFavCount();
@@ -146,9 +199,14 @@ export function setRegion(region) {
 }
 
 export function setEra(era) {
+  clearCrateMode();
+  trackEvent('filter_era', { era });
   state.era = era;
-  document.querySelectorAll('.era__btn').forEach((b) =>
-    b.classList.toggle('is-active', b.dataset.era === era));
+  document.querySelectorAll('.era__btn').forEach((b) => {
+    const active = b.dataset.era === era;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
   state.favMode = false;
   $('#favOpen').classList.remove('is-active');
   updateFavCount();
@@ -157,23 +215,30 @@ export function setEra(era) {
   showFilterFeedback();
 }
 
+let orderRequestVersion = 0;
 export async function setOrder(order) {
+  const requestVersion = ++orderRequestVersion;
+  clearCrateMode();
+  trackEvent('order', { order });
   if (order === state.order && order !== 'newest' && order !== 'shuffle') return;
   state.order = order;
-  document.querySelectorAll('.order__btn').forEach((b) =>
-    b.classList.toggle('is-active', b.dataset.order === order));
+  document.querySelectorAll('.order__btn').forEach((b) => {
+    const active = b.dataset.order === order;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
 
   // 1. Immediately apply order to the queue based on current memory
   if (state.favMode) {
     const cur = current();
-    applyOrder(state.queue);
+    applyOrder(state.queue, cur?.youtube_id);
     if (state.order === 'shuffle') state.index = 0;
-    else state.index = (cur && state.queue[0] && state.queue[0].youtube_id === cur.youtube_id && state.queue.length > 1) ? 1 : 0;
+    else state.index = 0;
     if (state.ready) loadCurrent();
   } else {
     // If LATEST (newest) or SHUFFLE is clicked, we want to play the new song (index 0) immediately.
     const shouldCutPlay = (order === 'newest' || order === 'shuffle');
-    setBalance(state.balance, { keep: !shouldCutPlay });
+    setBalance(state.balance, order === 'newest' ? { first: true } : { keep: !shouldCutPlay });
   }
 
   // 2. Fetch latest database songs in the background if LATEST is selected
@@ -183,25 +248,30 @@ export async function setOrder(order) {
     const labelText = 'LATEST';
     // Avoid backing up the loading "..." HTML on rapid double-clicks
     const fixedOriginalHTML = (originalHTML && originalHTML.includes('...')) ? labelText : originalHTML;
-    if (btn) btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
+    if (btn) {
+      btn.dataset.refreshVersion = String(requestVersion);
+      btn.innerHTML = '<span style="opacity: 0.5;">...</span>';
+    }
     try {
       const res = await fetch(`/api/songs?t=${Date.now()}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         // Check if the user hasn't switched away from target order while waiting
-        if (Array.isArray(data) && state.order === order) {
+        if (Array.isArray(data) && state.order === order && requestVersion === orderRequestVersion) {
           state.all = data;
+          initDaily();
           updateTrackCount();
           if (!state.favMode) {
-            // Once background fetch completes, always keep current song to prevent sudden audio resets
-            setBalance(state.balance, { keep: true });
+            // LATEST is an explicit request for the newest track. A stale tab may
+            // only learn about a submission here, so do not preserve the old song.
+            setBalance(state.balance, { first: true });
           }
         }
       }
     } catch (e) {
       console.warn(`Failed to refresh songs on ${labelText} click:`, e);
     } finally {
-      if (btn) btn.innerHTML = fixedOriginalHTML;
+      if (btn && btn.dataset.refreshVersion === String(requestVersion)) btn.innerHTML = fixedOriginalHTML;
     }
   }
 }
@@ -337,7 +407,6 @@ export async function doSubmit() {
     region: $('#ytRegion').value || null,
     era: $('#ytEra').value || null,
     conscious_turnt: (ytCtTouched && $('#ytConsTurnt')) ? Number($('#ytConsTurnt').value) : null,
-    status: 'published',
   };
   const btn = $('#submitDo');
   const inputs = [
@@ -351,53 +420,15 @@ export async function doSubmit() {
   ];
   inputs.forEach((el) => { if (el) el.disabled = true; });
   try {
-    const saved = await db.submit(song);
-    const entry = saved || song;
-    if (!entry.created_at && !entry.publish_at) entry.created_at = new Date().toISOString();
-    if (!state.all.some((s) => s.youtube_id === entry.youtube_id)) state.all.unshift(entry);
+    const result = await db.submit(song);
+    if (!result || result.status !== 'published' || !result.song) throw new Error('Submit failed');
+    state.all = [result.song, ...state.all.filter((item) => item.youtube_id !== result.song.youtube_id)];
+    trackEvent('submit_success', { youtube_id: result.song.youtube_id });
+    setBalance(state.balance, { keep: true });
     updateTrackCount();
     lastSubmitTime = Date.now();
-    const wasFromDig = state.fromDig;
     closeModal();
-    if (wasFromDig) {
-      $('#confirmTitle').textContent = window.i18n.t('confirmPlayTitle');
-      $('#confirmDesc').textContent = window.i18n.t('confirmPlayDesc');
-      $('#confirmYes').textContent = window.i18n.t('confirmPlayYes');
-      $('#confirmNo').textContent = window.i18n.t('confirmPlayNo');
-      
-      const confirmModal = $('#confirmModal');
-      confirmModal.hidden = false;
-      
-      const handleYes = () => {
-        confirmModal.hidden = true;
-        state.queue.splice(state.index + 1, 0, entry);
-        setTimeout(() => {
-          next();
-        }, 500);
-        cleanup();
-      };
-      
-      const handleNo = () => {
-        confirmModal.hidden = true;
-        showToast(window.i18n.t('toastAddedNoPlay'));
-        cleanup();
-      };
-      
-      const cleanup = () => {
-        $('#confirmYes').removeEventListener('click', handleYes);
-        $('#confirmNo').removeEventListener('click', handleNo);
-        state.fromDig = false;
-      };
-      
-      $('#confirmYes').addEventListener('click', handleYes);
-      $('#confirmNo').addEventListener('click', handleNo);
-    } else {
-      showToast(db.live ? window.i18n.t('toastAdded') : window.i18n.t('toastAddedLocal'));
-      state.queue.splice(state.index + 1, 0, entry);
-      setTimeout(() => {
-        next();
-      }, 1500);
-    }
+    showToast(window.i18n.t('toastAdded'));
   } catch (error) {
     if (error && error.message && error.message !== 'Submit failed') {
       if (error.message.includes('already exists')) {
@@ -413,15 +444,112 @@ export async function doSubmit() {
   }
 }
 
-export function openDig() { $('#digOverlay').hidden = false; document.body.style.overflow = 'hidden'; }
-export function closeDig() { $('#digOverlay').hidden = true; document.body.style.overflow = ''; }
+export function openDig() {
+  const overlay = $('#digOverlay');
+  overlay.hidden = false;
+  trackEvent('dig_open', { suggestions: state.recommendations.length });
+  const trigger = $('#digOpen');
+  if (trigger) trigger.setAttribute('aria-expanded', 'true');
+  const ticker = $('#vibeTicker');
+  if (ticker) ticker.hidden = true;
+  document.body.style.overflow = 'hidden';
+  syncDigDetailPlacement();
+  requestAnimationFrame(() => {
+    const active = $('#digOverlayList .dig-record.is-active') || $('#digOverlayList .dig-record');
+    if (active) {
+      setDigSelection(active);
+      active.focus({ preventScroll: true });
+    }
+  });
+}
+export function closeDig({ restoreFocus = true } = {}) {
+  $('#digOverlay').hidden = true;
+  const trigger = $('#digOpen');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  const detail = $('#digOverlayDetail');
+  const crate = $('#digOverlay .dig-crate');
+  if (detail) {
+    detail.hidden = true;
+    if (crate && detail.parentElement !== crate) crate.append(detail);
+  }
+  document.body.style.overflow = '';
+  if (restoreFocus && trigger && !trigger.hidden) trigger.focus({ preventScroll: true });
+}
+
+function syncDigDetailPlacement() {
+  const overlay = $('#digOverlay');
+  const detail = $('#digOverlayDetail');
+  const crate = $('#digOverlay .dig-crate');
+  if (!overlay || !detail || !crate || overlay.hidden) return;
+  const mobile = window.matchMedia('(max-width: 480px)').matches;
+  const target = mobile ? document.body : crate;
+  if (detail.parentElement !== target) target.append(detail);
+}
+
+function positionDigSticker() {
+  const sticker = $('#digOpen');
+  if (!sticker || sticker.hidden) return;
+  if (!window.matchMedia('(max-width: 767px)').matches) {
+    sticker.style.removeProperty('--dig-bottom');
+    return;
+  }
+  const report = $('#reportBtn');
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+  const reportTop = report?.getBoundingClientRect().top;
+  const safeBottom = Number.isFinite(reportTop)
+    ? Math.max(18, Math.ceil(viewportHeight - reportTop + 10))
+    : 18;
+  sticker.style.setProperty('--dig-bottom', `${safeBottom}px`);
+}
+
+function setDigSelection(item) {
+  if (!item) return;
+  const list = $('#digOverlayList');
+  const detail = $('#digOverlayDetail');
+  if (!list || !detail) return;
+  list.querySelectorAll('.dig-record').forEach((record) => {
+    const active = record === item;
+    record.classList.toggle('is-active', active);
+    record.setAttribute('aria-selected', String(active));
+    record.tabIndex = active ? 0 : -1;
+  });
+  detail.hidden = false;
+  detail.dataset.artist = item.dataset.artist || '';
+  detail.dataset.title = item.dataset.title || '';
+  detail.dataset.artwork = item.dataset.artwork || '';
+  detail.dataset.youtubeId = item.dataset.youtubeId || '';
+  detail.dataset.registered = item.dataset.registered || 'false';
+  $('#digOverlayDetailIndex').textContent = `${String(Number(item.dataset.index) + 1).padStart(2, '0')} / ${String(list.querySelectorAll('.dig-record').length).padStart(2, '0')}`;
+  $('#digOverlayDetailName').textContent = item.dataset.title || '';
+  $('#digOverlayDetailArtist').textContent = item.dataset.artist || '';
+  $('#digOverlayDetailAction').textContent = item.dataset.registered === 'true' ? '▶ PLAY' : '＋ ADD';
+}
+
+function handleDigKeyboard(e) {
+  const records = [...e.currentTarget.querySelectorAll('.dig-record')];
+  const currentIndex = records.indexOf(e.target.closest('.dig-record'));
+  if (currentIndex < 0) return;
+  const columns = Math.max(1, getComputedStyle(e.currentTarget).gridTemplateColumns.split(' ').length);
+  let nextIndex = currentIndex;
+  if (e.key === 'ArrowRight') nextIndex = Math.min(records.length - 1, currentIndex + 1);
+  else if (e.key === 'ArrowLeft') nextIndex = Math.max(0, currentIndex - 1);
+  else if (e.key === 'ArrowDown') nextIndex = Math.min(records.length - 1, currentIndex + columns);
+  else if (e.key === 'ArrowUp') nextIndex = Math.max(0, currentIndex - columns);
+  else if (e.key === 'Home') nextIndex = 0;
+  else if (e.key === 'End') nextIndex = records.length - 1;
+  else return;
+  e.preventDefault();
+  e.stopPropagation();
+  setDigSelection(records[nextIndex]);
+  records[nextIndex].focus();
+}
 
 export function openModal() {
-  $('#submitModal').hidden = false;
-  closeDig(); // スマホ用オーバーレイが開いていれば同時に閉じる
+  openDialog($('#submitModal'), $('#ytUrl'), $('#submitOpen'));
+  closeDig({ restoreFocus: false }); // スマホ用オーバーレイが開いていれば同時に閉じる
 }
-export function closeModal() {
-  $('#submitModal').hidden = true;
+export function closeModal(options) {
+  closeDialog($('#submitModal'), $('#submitOpen'), options);
   $('#ytUrl').value = ''; $('#ytComment').value = ''; $('#ytName').value = '';
   $('#ytRegion').value = ''; $('#ytEra').value = '';
   $('#preview').hidden = true; $('#submitDo').disabled = true;
@@ -439,9 +567,9 @@ export function openReport() {
   if (!song) return;
   $('#reportTarget').textContent = `${window.i18n.t('reportingPrefix')} "${song.name}"`;
   $('#reportNote').value = '';
-  $('#reportModal').hidden = false;
+  openDialog($('#reportModal'), $('#reportReason'), $('#reportBtn'));
 }
-export function closeReport() { $('#reportModal').hidden = true; }
+export function closeReport(options) { closeDialog($('#reportModal'), $('#reportBtn'), options); }
 let lastReportTime = 0;
 export async function doReport() {
   if (Date.now() - lastReportTime < 30000) {
@@ -472,15 +600,33 @@ export async function doReport() {
 
 // ---- お気に入り ----
 const FAV_KEY = 'slaps_favorites';
-export function favGet() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
-export function favSave(arr) { try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); } catch { /* quota exceeded */ } }
+let memoryFavorites = [];
+let favoritesMemoryOnly = false;
+export function favGet() {
+  let stored = memoryFavorites;
+  if (!favoritesMemoryOnly) {
+    try { stored = JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { /* keep session copy */ }
+  }
+  const valid = Array.isArray(stored) ? stored.filter(f => f && typeof f === 'object' && /^[A-Za-z0-9_-]{11}$/.test(f.youtube_id)) : [];
+  memoryFavorites = valid;
+  const catalog = new Map(state.all.map(song => [song.youtube_id, song]));
+  // Favorites store membership/order, not an authoritative historical catalog.
+  // Reconcile in memory; do not erase stored favorites or fabricate comments.
+  return valid.map(f => catalog.has(f.youtube_id) ? { ...f, ...catalog.get(f.youtube_id) } : { ...f });
+}
+export function favSave(arr) {
+  memoryFavorites = arr;
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); favoritesMemoryOnly = false; }
+  catch { favoritesMemoryOnly = true; showToast(window.i18n.t('toastFavoritesSession')); }
+}
 export function isFav(id) { return favGet().some((f) => f.youtube_id === id); }
 
 export function toggleFav() {
   const song = current();
   if (!song) return;
   let favs = favGet();
-  if (favs.some((f) => f.youtube_id === song.youtube_id)) {
+  const removing = favs.some((f) => f.youtube_id === song.youtube_id);
+  if (removing) {
     favs = favs.filter((f) => f.youtube_id !== song.youtube_id);
   } else {
     favs.unshift({
@@ -490,6 +636,7 @@ export function toggleFav() {
     });
     showFavToast();
   }
+  trackEvent('save', { action: removing ? 'remove' : 'add', youtube_id: song.youtube_id });
   favSave(favs);
   renderFavBtn();
   updateFavCount();
@@ -520,11 +667,12 @@ export function renderFavBtn() {
   btn.classList.toggle('is-fav', on);
 }
 export function updateFavCount() {
-  const count = favGet().length;
-  const labelKey = state.favMode ? 'favOpenActive' : 'favOpen';
+  const count = state.crateMode ? state.crateIds.length : favGet().length;
+  const labelKey = state.crateMode ? 'crateExit' : (state.favMode ? 'favOpenActive' : 'favOpen');
   const label = window.i18n.t(labelKey);
-  const icon = state.favMode ? '◀' : '♡';
+  const icon = state.crateMode || state.favMode ? '◀' : '♡';
   $('#favOpen').innerHTML = `${icon} ${label} (<span id="favCount">${count}</span>)`;
+  $('#favOpen').classList.toggle('is-active', state.crateMode || state.favMode);
 }
 window.updateFavCount = updateFavCount;
 
@@ -535,24 +683,26 @@ export function openFavs() {
   const list = $('#favList');
   $('#favEmpty').hidden = favs.length > 0;
   $('#favPlayAll').hidden = favs.length === 0;
+  $('#crateShare').hidden = favs.length === 0;
   list.innerHTML = favs.map((f) => `
-    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}" role="button" tabindex="0">
+    <div class="fav-item" data-yt="${escapeHtml(f.youtube_id)}">
       <img class="fav-item__thumb" loading="lazy" src="${escapeHtml(f.thumbnail)}" alt="">
-      <div class="fav-item__body">
+      <button type="button" class="fav-item__body" data-fav-play>
         <span class="fav-item__title">${escapeHtml(f.name)}</span>
-        <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''} · ${zoneLabel(Number(f.conscious_turnt))}</span>
-      </div>
-      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play" tabindex="-1">▶</button>
+        <span class="fav-item__sub">${escapeHtml(f.user_name || window.i18n.t('anon'))} · ${REGION_LABELS[f.region] || ''}</span>
+      </button>
+      <button type="button" class="fav-item__btn" data-fav-play aria-label="Play">▶</button>
       <button type="button" class="fav-item__btn fav-item__del" data-fav-del aria-label="Remove" tabindex="0">×</button>
     </div>`).join('');
-  $('#favModal').hidden = false;
+  openDialog($('#favModal'), $('#favClose'), $('#favOpen'));
 }
-export function closeFavs() { $('#favModal').hidden = true; }
+export function closeFavs(options) { closeDialog($('#favModal'), $('#favOpen'), options); }
 
 export function playFavorites(fromId) {
   const favs = favGet();
   if (!favs.length) return;
   state.favMode = true;
+  clearCrateMode();
   state.queue = favs.map((f) => ({ ...f }));
   if (fromId) {
     state.index = Math.max(0, state.queue.findIndex((s) => s.youtube_id === fromId));
@@ -562,8 +712,25 @@ export function playFavorites(fromId) {
   }
   $('#favOpen').classList.add('is-active');
   updateFavCount();
+  updateTrackCount();
   if (state.ready) loadCurrent();
   closeFavs();
+}
+
+async function sharePayload(fullCopyText) {
+  const outcome = await deliverShare(fullCopyText);
+  if (outcome === 'copied') showToast(window.i18n.t('shareCopied'));
+  return outcome;
+}
+
+export async function shareCrate() {
+  const ids = favGet().map((song) => song.youtube_id).filter((id) => /^[A-Za-z0-9_-]{11}$/.test(id)).slice(0, 50);
+  if (!ids.length) return;
+  const url = new URL('/', window.location.origin);
+  url.searchParams.set('crate', ids.join('.'));
+  const shareText = window.i18n.t('crateShareText').replace('{count}', String(ids.length));
+  const share_outcome = await sharePayload(`${shareText}\n${url.toString()}`);
+  trackEvent('share_crate', { count: ids.length, share_outcome });
 }
 
 export async function doShare() {
@@ -576,42 +743,107 @@ export async function doShare() {
 
   const shareText = `Play on SLAPS | ${song.name}`;
   const fullCopyText = `${shareText}\n${shareUrl}`;
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  if (isMobile && navigator.share) {
-    try {
-      await navigator.share({
-        text: fullCopyText
-      });
-      return;
-    } catch (err) {
-      if (err.name === 'AbortError') return;
-    }
-  }
-  
-  try {
-    await navigator.clipboard.writeText(fullCopyText);
-    showToast(window.i18n.t('shareCopied'));
-  } catch (_) {
-    const input = document.createElement('input');
-    input.value = fullCopyText;
-    input.style.position = 'absolute';
-    input.style.opacity = '0';
-    document.body.appendChild(input);
-    input.select();
-    try {
-      document.execCommand('copy');
-      showToast(window.i18n.t('shareCopied'));
-    } catch (__ون) {}
-    document.body.removeChild(input);
-  }
+  const mode = analyticsMode(state);
+  const share_outcome = await sharePayload(fullCopyText);
+  trackEvent('share_track', { youtube_id: song.youtube_id, mode, share_outcome });
 }
 
+let dailyArchive = [];
+let dailyIndex = 0;
+
+function dailyEntry(date) {
+  return dailyArchive.find((entry) => entry.date === date) || dailyArchive[0] || null;
+}
+
+function renderDaily(date) {
+  const entry = dailyEntry(date);
+  if (!entry) return;
+  dailyIndex = Math.max(0, dailyArchive.findIndex((item) => item.date === entry.date));
+  state.dailyDate = entry.date;
+  $('#dailyDate').textContent = entry.date.replaceAll('-', '.');
+  $('#dailyPrev').disabled = dailyIndex >= dailyArchive.length - 1;
+  $('#dailyNext').disabled = dailyIndex <= 0;
+  const list = $('#dailyList');
+  list.innerHTML = entry.tracks.map((song, index) => `
+    <button type="button" class="daily-card" data-daily-play="${escapeHtml(song.youtube_id)}" aria-label="${escapeHtml(song.name)}">
+      <span class="daily-card__cover"><img loading="lazy" src="${escapeHtml(song.thumbnail || `https://img.youtube.com/vi/${song.youtube_id}/mqdefault.jpg`)}" alt=""></span>
+      <span class="daily-card__number">${String(index + 1).padStart(2, '0')}</span>
+      <strong class="daily-card__title">${escapeHtml(song.name)}</strong>
+    </button>`).join('');
+  $('#dailyPlayAll').textContent = window.i18n.t('dailyPlayAll').replace('{count}', entry.tracks.length);
+  $('#dailyCount').textContent = `${entry.tracks.length} CUTS`;
+}
+
+export function openDaily(date = state.dailyDate) {
+  if (!dailyArchive.length) return;
+  renderDaily(date);
+  $('#dailyOverlay').hidden = false;
+  document.body.style.overflow = 'hidden';
+  trackEvent('daily_open', { date: state.dailyDate });
+  requestAnimationFrame(() => $('#dailyClose')?.focus({ preventScroll: true }));
+}
+
+export function closeDaily() {
+  $('#dailyOverlay').hidden = true;
+  document.body.style.overflow = '';
+  $('#dailyOpen')?.focus({ preventScroll: true });
+}
+
+export function playDaily(fromId = '') {
+  const entry = dailyEntry(state.dailyDate);
+  if (!entry?.tracks.length) return;
+  clearSpecialMode();
+  state.favMode = false;
+  state.dailyMode = true;
+  state.dailyDate = entry.date;
+  state.dailyIds = entry.tracks.map((song) => song.youtube_id);
+  state.queue = entry.tracks.map((song) => ({ ...song }));
+  state.index = fromId ? Math.max(0, state.queue.findIndex((song) => song.youtube_id === fromId)) : 0;
+  $('#dailyOpen')?.classList.add('is-active');
+  updateTrackCount();
+  updateFavCount();
+  try {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('crate');
+    url.searchParams.set('daily', entry.date);
+    history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  } catch {}
+  trackEvent('daily_play', { date: entry.date, start_index: state.index + 1, count: entry.tracks.length });
+  if (state.ready) loadCurrent();
+  closeDaily();
+}
+
+export async function shareDaily() {
+  const entry = dailyEntry(state.dailyDate);
+  if (!entry) return;
+  const url = dailyShareUrl(window.location.origin, entry.date);
+  const text = window.i18n.t('dailyShareText').replace('{date}', entry.date).replace('{count}', entry.tracks.length);
+  const share_outcome = await sharePayload(`${text}\n${url}`);
+  trackEvent('daily_share', { date: entry.date, count: entry.tracks.length, share_outcome });
+}
+
+let initialDailyRequestHandled = false;
+export function initDaily() {
+  dailyArchive = buildDailyArchive(state.all);
+  const open = $('#dailyOpen');
+  if (!dailyArchive.length || !open) return;
+  const requested = initialDailyRequestHandled ? '' : state.dailyDate;
+  initialDailyRequestHandled = true;
+  const entry = dailyEntry(requested);
+  state.dailyDate = entry.date;
+  $('#dailyOpenCount').textContent = entry.tracks.length;
+  open.hidden = false;
+  if (requested) openDaily(requested);
+}
+window.refreshDaily = () => { if (dailyArchive.length) renderDaily(state.dailyDate); };
+
 export function trapFocus(modal) {
-  const focusable = modal.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
-  if (!focusable.length) return;
-  const first = focusable[0], last = focusable[focusable.length - 1];
   modal.addEventListener('keydown', (e) => {
     if (modal.hidden || e.key !== 'Tab') return;
+    const focusable = [...modal.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])')]
+      .filter((element) => !element.disabled && element.getClientRects().length > 0);
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
     if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
     else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
   });
@@ -645,6 +877,7 @@ let ytCtTouched = false;
 
 export function setupUIListeners() {
   const aboutOverlay = $('#aboutOverlay');
+  const dailyOverlay = $('#dailyOverlay');
 
   // Next / Prev / Play
   $('#nextBtn').addEventListener('click', next);
@@ -675,6 +908,16 @@ export function setupUIListeners() {
   $('#reportBtn').addEventListener('click', openReport);
   $('#reportClose').addEventListener('click', closeReport);
   $('#reportDo').addEventListener('click', doReport);
+  $('#dailyOpen').addEventListener('click', () => openDaily());
+  $('#dailyClose').addEventListener('click', closeDaily);
+  $('#dailyPlayAll').addEventListener('click', () => playDaily());
+  $('#dailyShare').addEventListener('click', shareDaily);
+  $('#dailyPrev').addEventListener('click', () => renderDaily(dailyArchive[Math.min(dailyArchive.length - 1, dailyIndex + 1)]?.date));
+  $('#dailyNext').addEventListener('click', () => renderDaily(dailyArchive[Math.max(0, dailyIndex - 1)]?.date));
+  $('#dailyList').addEventListener('click', (event) => {
+    const card = event.target.closest('[data-daily-play]');
+    if (card) playDaily(card.dataset.dailyPlay);
+  });
 
   // Form Vibe slider
   const ytCt = $('#ytConsTurnt');
@@ -696,6 +939,7 @@ export function setupUIListeners() {
       updateVibeColor(v);
     });
     balanceRange.addEventListener('change', () => {
+      clearCrateMode();
       state.favMode = false;
       $('#favOpen').classList.remove('is-active');
       updateFavCount();
@@ -745,7 +989,8 @@ export function setupUIListeners() {
   $('#shareBtn').addEventListener('click', doShare);
   $('#favBtn').addEventListener('click', toggleFav);
   $('#favOpen').addEventListener('click', () => {
-    if (state.favMode) {
+    if (state.crateMode || state.favMode) {
+      clearCrateMode();
       state.favMode = false;
       $('#favOpen').classList.remove('is-active');
       updateFavCount();
@@ -758,6 +1003,7 @@ export function setupUIListeners() {
   });
   $('#favClose').addEventListener('click', closeFavs);
   $('#favPlayAll').addEventListener('click', () => playFavorites());
+  $('#crateShare').addEventListener('click', shareCrate);
 
   // 音量コントロールの初期化 (HOTFIX)
   const volumeSlider = $('#volumeSlider');
@@ -797,6 +1043,7 @@ export function setupUIListeners() {
   const handleRecommendClick = async (e) => {
     const item = e.target.closest('.recommend-item');
     if (!item || item.classList.contains('is-loading')) return;
+    if (item.id === 'digOverlayDetail' && !e.target.closest('.dig-overlay-detail__action')) return;
 
     const isRegistered = item.dataset.registered === 'true';
     const youtubeId = item.dataset.youtubeId;
@@ -876,7 +1123,13 @@ export function setupUIListeners() {
   };
 
   if ($('#recommendList')) $('#recommendList').addEventListener('click', handleRecommendClick);
-  if ($('#digOverlayList')) $('#digOverlayList').addEventListener('click', handleRecommendClick);
+  if ($('#digOverlayList')) {
+    $('#digOverlayList').addEventListener('pointerover', (e) => setDigSelection(e.target.closest('.dig-record')));
+    $('#digOverlayList').addEventListener('focusin', (e) => setDigSelection(e.target.closest('.dig-record')));
+    $('#digOverlayList').addEventListener('click', (e) => setDigSelection(e.target.closest('.dig-record')));
+    $('#digOverlayList').addEventListener('keydown', handleDigKeyboard);
+  }
+  if ($('#digOverlayDetail')) $('#digOverlayDetail').addEventListener('click', handleRecommendClick);
 
   // DIG SLAPS スマホ用透過オーバーレイ開閉
   const digOverlay = $('#digOverlay');
@@ -885,15 +1138,28 @@ export function setupUIListeners() {
   if (digOverlay) {
     digOverlay.addEventListener('click', (e) => { if (e.target === digOverlay) closeDig(); });
   }
+  window.addEventListener('resize', () => {
+    syncDigDetailPlacement();
+    positionDigSticker();
+  }, { passive: true });
 
   // Modal backdrops
   $('#submitModal').addEventListener('click', (e) => { if (e.target === $('#submitModal')) closeModal(); });
   $('#reportModal').addEventListener('click', (e) => { if (e.target === $('#reportModal')) closeReport(); });
   $('#favModal').addEventListener('click', (e) => { if (e.target === $('#favModal')) closeFavs(); });
+  dailyOverlay.addEventListener('click', (e) => { if (e.target === dailyOverlay) closeDaily(); });
 
   // About overlay
-  $('#infoLink').addEventListener('click', (e) => { e.preventDefault(); aboutOverlay.hidden = false; document.body.style.overflow = 'hidden'; });
-  $('#aboutClose').addEventListener('click', () => { aboutOverlay.hidden = true; document.body.style.overflow = ''; });
+  const openAbout = () => {
+    openDialog(aboutOverlay, $('#aboutClose'), $('#infoLink'));
+    document.body.style.overflow = 'hidden';
+  };
+  const closeAbout = () => {
+    closeDialog(aboutOverlay, $('#infoLink'));
+    document.body.style.overflow = '';
+  };
+  $('#infoLink').addEventListener('click', (e) => { e.preventDefault(); openAbout(); });
+  $('#aboutClose').addEventListener('click', closeAbout);
 
   // Fav list interactions
   function handleFavAction(target, item) {
@@ -950,13 +1216,15 @@ export function setupUIListeners() {
       if (e.target.closest('input, textarea, select')) return;
     }
     if (e.key === 'Escape') {
-      if (!aboutOverlay.hidden) { aboutOverlay.hidden = true; document.body.style.overflow = ''; return; }
+      if (!dailyOverlay.hidden) { closeDaily(); return; }
+      if (!$('#digOverlay').hidden) { closeDig(); return; }
+      if (!aboutOverlay.hidden) { closeAbout(); return; }
       if (!$('#submitModal').hidden) { closeModal(); return; }
       if (!$('#reportModal').hidden) { closeReport(); return; }
       if (!$('#favModal').hidden) { closeFavs(); return; }
       return;
     }
-    const modalOpen = !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden;
+    const modalOpen = !$('#digOverlay').hidden || !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden;
     if (modalOpen) return;
     if (e.key === 'ArrowRight') {
       e.preventDefault();
@@ -985,12 +1253,19 @@ export function setupUIListeners() {
   let touchStart = null;
   let touchStartTarget = null;
   document.addEventListener('touchstart', (e) => {
-    if (!$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !aboutOverlay.hidden) return;
+    touchStart = null;
+    touchStartTarget = null;
+    if (!$('#digOverlay').hidden || !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden) return;
     touchStartTarget = e.target;
     touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   }, { passive: true });
   document.addEventListener('touchend', (e) => {
     if (!touchStart) return;
+    if (!$('#digOverlay').hidden || !$('#submitModal').hidden || !$('#reportModal').hidden || !$('#favModal').hidden || !dailyOverlay.hidden || !aboutOverlay.hidden) {
+      touchStart = null;
+      touchStartTarget = null;
+      return;
+    }
     if (touchStartTarget && touchStartTarget.closest('.regions, .eras, .balance, .order, input[type=range]')) {
       touchStart = null;
       touchStartTarget = null;
@@ -1026,7 +1301,7 @@ export function setupUIListeners() {
   $('#promoBadge').addEventListener('click', onPromoBadgeClick);
 
   // Focus trap setup
-  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay'].forEach((sel) => {
+  ['#submitModal', '#reportModal', '#favModal', '#aboutOverlay', '#digOverlay', '#dailyOverlay'].forEach((sel) => {
     const m = $(sel);
     if (m) trapFocus(m);
   });
@@ -1039,14 +1314,9 @@ export function setupUIListeners() {
   // Init favs and labels
   updateFavCount();
 
-  // Vibeモードの復元と初期設定
-  let savedMode = localStorage.getItem('slaps_comment_mode');
-  if (savedMode === null) {
-    savedMode = '0'; // デフォルトは OFF (0)
-  }
-  let parsedMode = parseInt(savedMode, 10);
-  if (parsedMode === 1) parsedMode = 2; // 古い「字幕のみ」は「ON」に丸める
-  state.commentMode = parsedMode === 2 ? 2 : 0;
+  // 字幕・文字起こし風の自動表示は廃止。過去設定もOFFへ戻す。
+  state.commentMode = 0;
+  try { localStorage.removeItem('slaps_comment_mode'); } catch { /* playback does not depend on storage */ }
   
 
 
@@ -1071,6 +1341,7 @@ export async function fetchComments(youtubeId) {
   state.triggeredComments.clear();
   
   renderCommentDots();
+  if (state.commentMode === 0) return;
   
   try {
     const res = await fetch(`/api/comments?v=${youtubeId}`);
@@ -1153,7 +1424,7 @@ export async function sendTapLog(time) {
     
     if (res.ok) {
       const data = await res.json();
-      if (data.status === 'success' || data.status === 'mock_success') {
+      if (data.status === 'success') {
         // ローカル配列にも追加して、ドット等をリアルタイム更新
         state.comments.push(data.comment);
         state.comments.sort((a, b) => a.time - b.time);
@@ -1476,22 +1747,34 @@ export function renderRecommendations() {
       : '🔍 DIG SLAPS (Related & unregistered tracks)';
   }
   if (overlayTitle) {
-    overlayTitle.textContent = isJa
-      ? '💡 このアーティストの関連曲 (DIG)'
-      : '💡 Related tracks by this artist (DIG)';
+    overlayTitle.textContent = 'DIG SLAPS';
   }
+  const overlayLead = $('#digOverlayLead');
+  if (overlayLead) overlayLead.textContent = isJa
+    ? 'ジャケットを掘って、気になる1枚を選ぶ。'
+    : 'Dig through the sleeves. Pick what hits.';
 
   const recs = state.recommendations || [];
   const digOpenBtn = $('#digOpen');
+  const digCount = $('#digCount');
   if (recs.length === 0) {
     container.hidden = true;
-    if (digOpenBtn) digOpenBtn.style.display = 'none';
+    if ($('#digOverlayDetail')) $('#digOverlayDetail').hidden = true;
+    if (overlayList) overlayList.innerHTML = '';
+    if (digOpenBtn) {
+      digOpenBtn.hidden = true;
+      digOpenBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (digCount) digCount.textContent = '';
+    if (!$('#digOverlay').hidden) closeDig();
     return;
   }
 
-  if (digOpenBtn) digOpenBtn.style.display = '';
+  if (digOpenBtn) digOpenBtn.hidden = false;
+  if (digCount) digCount.textContent = `${recs.length} CUTS`;
+  requestAnimationFrame(positionDigSticker);
 
-  // PC版リスト描画 (ホバー対応)
+  // イベント委譲を維持するための非表示リスト
   list.innerHTML = recs.map(r => {
     const isRegistered = !!r.registered;
     const actionText = isRegistered 
@@ -1511,29 +1794,24 @@ export function renderRecommendations() {
     `;
   }).join('');
 
-  // スマホ版オーバーレイリスト描画
+  // 全画面DIGオーバーレイリスト描画
   if (overlayList) {
-    overlayList.innerHTML = recs.map(r => {
+    overlayList.innerHTML = recs.map((r, index) => {
       const isRegistered = !!r.registered;
-      const actionText = isRegistered 
-        ? 'PLAY' 
-        : '＋ ADD';
-      const actionClass = isRegistered ? 'dig-overlay-item__add-btn--play' : '';
-      
       return `
-        <div class="recommend-item dig-overlay-item" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="button" tabindex="0">
-          <img class="dig-overlay-item__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
-          <div class="dig-overlay-item__info">
-            <span class="dig-overlay-item__name">${escapeHtml(r.title)}</span>
-            <span class="dig-overlay-item__artist">${escapeHtml(r.artist)}</span>
-          </div>
-          <button type="button" class="dig-overlay-item__add-btn ${actionClass}">${actionText}</button>
-        </div>
+        <button type="button" class="dig-record${index === 0 ? ' is-active' : ''}" style="--dig-i:${index}" data-index="${index}" data-artist="${escapeHtml(r.artist)}" data-title="${escapeHtml(r.title)}" data-artwork="${escapeHtml(r.artwork || '')}" data-youtube-id="${r.youtube_id || ''}" data-registered="${isRegistered}" role="option" aria-selected="${index === 0}" aria-label="${escapeHtml(`${r.title} — ${r.artist}`)}" tabindex="${index === 0 ? '0' : '-1'}">
+          <img class="dig-record__artwork" src="${escapeHtml(r.artwork || './assets/logo.png')}" alt="" loading="lazy">
+          <span class="dig-record__shade" aria-hidden="true"></span>
+          <span class="dig-record__title" aria-hidden="true">${escapeHtml(r.title)}</span>
+          <span class="dig-record__number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
+        </button>
       `;
     }).join('');
+    setDigSelection(overlayList.querySelector('.dig-record'));
   }
 
-  container.hidden = false;
+  // 候補の有無で中央のdock高を変えない。
+  container.hidden = true;
 }
 
 // Expose functions globally for i18n.js integration

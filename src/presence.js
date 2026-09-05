@@ -4,6 +4,11 @@ import { loadCurrent } from './player.js';
 let presenceInterval = null;
 let currentClientId = null;
 
+function hidePresence() {
+  const badge = document.getElementById('onlineBadge');
+  if (badge) badge.hidden = true;
+}
+
 // 簡単なUUID生成
 function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -14,10 +19,10 @@ function generateUUID() {
 
 // 初期化
 export function initPresence() {
-  currentClientId = localStorage.getItem('slaps_client_id');
+  try { currentClientId = localStorage.getItem('slaps_client_id'); } catch { /* session ID below */ }
   if (!currentClientId) {
     currentClientId = generateUUID();
-    localStorage.setItem('slaps_client_id', currentClientId);
+    try { localStorage.setItem('slaps_client_id', currentClientId); } catch { /* session only */ }
   }
 
   // 初回実行
@@ -44,17 +49,22 @@ async function updatePresence() {
       }),
     });
 
-    if (!res.ok) return;
+    if (!res.ok) {
+      hidePresence();
+      return;
+    }
 
     const data = await res.json();
     
     // オンライン人数の更新
-    if (data.onlineCount !== undefined) {
+    if (Number.isInteger(data.onlineCount) && data.onlineCount >= 0) {
       const badge = document.getElementById('onlineBadge');
       if (badge) {
         badge.innerHTML = `<span class="online-dot"></span> ${data.onlineCount} online`;
         badge.hidden = false;
       }
+    } else {
+      hidePresence();
     }
 
     // 他人が聴いている曲の通知 (トースト/ティッカー)
@@ -64,6 +74,7 @@ async function updatePresence() {
     
   } catch (err) {
     // サイレントエラー (機能しなくてもメインに影響させない)
+    hidePresence();
     console.debug('Presence update failed', err);
   }
 }
@@ -73,23 +84,40 @@ let tickerTimeout = null;
 function showVibeTicker(song) {
   const ticker = document.getElementById('vibeTicker');
   if (!ticker) return;
+  if (!state.started) return;
+  if (document.querySelector('.modal:not([hidden]), .about-ov:not([hidden])')) return;
+
+  const title = String(song?.title || song?.name || '').trim();
+  const youtubeId = String(song?.youtube_id || '').trim();
+  if (!title || !youtubeId) return;
 
   // すでに表示中ならスキップ (頻繁に出すぎないように)
   if (!ticker.hidden) return;
 
-  ticker.innerHTML = `
-    <span class="vibe-ticker__icon">🎵</span>
-    <span class="vibe-ticker__text">Someone is vibing to <strong>${song.title}</strong></span>
-  `;
+  const icon = document.createElement('span');
+  icon.className = 'vibe-ticker__icon';
+  icon.textContent = '🎵';
+  const text = document.createElement('span');
+  text.className = 'vibe-ticker__text';
+  const isJa = window.i18n?.getLang?.() === 'ja';
+  const prefix = isJa ? '誰かが再生中：' : 'Someone is playing: ';
+  text.append(prefix);
+  const strong = document.createElement('strong');
+  strong.textContent = title;
+  text.append(strong);
+  ticker.replaceChildren(icon, text);
+  ticker.setAttribute('aria-label', isJa
+    ? `${prefix}${title}。クリックするとこの曲へ移動します。`
+    : `${prefix}${title}. Click to play this track.`);
   ticker.hidden = false;
   
   // クリック時のアクション (曲へジャンプ)
   ticker.onclick = () => {
     ticker.hidden = true;
-    const targetSong = state.all.find(s => s.youtube_id === song.youtube_id);
+    const targetSong = state.all.find(s => s.youtube_id === youtubeId);
     if (targetSong) {
       // 現在のキューの先頭（現在再生中）の次、または先頭に割り込ませる
-      state.queue = state.queue.filter(s => s.youtube_id !== song.youtube_id);
+      state.queue = state.queue.filter(s => s.youtube_id !== youtubeId);
       state.queue.unshift(targetSong);
       state.index = 0;
       loadCurrent();

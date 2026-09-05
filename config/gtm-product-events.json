@@ -1,0 +1,668 @@
+{
+  "exportFormatVersion": 2,
+  "containerVersion": {
+    "accountId": "6359281260",
+    "containerId": "254624335",
+    "container": {
+      "path": "accounts/6359281260/containers/254624335",
+      "accountId": "6359281260",
+      "containerId": "254624335",
+      "name": "slaps.tokyo",
+      "publicId": "GTM-WCJPZNQP",
+      "usageContext": [
+        "WEB"
+      ],
+      "fingerprint": "1780653490450",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6359281260/containers/254624335/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-WCJPZNQP"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "tagId": "101",
+        "name": "GA4 - SLAPS product events",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "sendEcommerceData",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "{{Event}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-6QREG2C14S"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "youtube_id"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - youtube_id}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "mode"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - mode}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "tracks_loaded"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - tracks_loaded}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "region"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - region}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "era"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - era}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "order"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - order}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "suggestions"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - suggestions}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "action"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - action}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "count"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - count}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "date"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - date}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "start_index"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - start_index}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "days_since_first_visit"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - days_since_first_visit}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "debug_mode"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - debug_mode}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "measurement_version"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - measurement_version}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "share_outcome"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - share_outcome}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "cohort_date"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - cohort_date}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "100"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "triggerId": "100",
+        "name": "SLAPS - Product events - Production only",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "MATCH_REGEX",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "^(slaps_app_view|slaps_start|slaps_track_3_reached|slaps_listen_5_minutes|slaps_next|slaps_previous|slaps_filter_region|slaps_filter_era|slaps_order|slaps_dig_open|slaps_save|slaps_share_crate|slaps_share_track|slaps_submit_success|slaps_daily_open|slaps_daily_play|slaps_daily_share|slaps_return_d1|slaps_return_d7)$"
+              }
+            ]
+          }
+        ],
+        "filter": [
+          {
+            "type": "MATCH_REGEX",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Page Hostname}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "^(www\\.)?slaps\\.tokyo$"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "102",
+        "name": "SLAPS - Current event parameters",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() {\n  var currentEvent = {{Event}};\n  var currentId = {{SLAPS - GTM event ID}};\n  if (currentId == null) return {};\n  var allowed = [\"youtube_id\",\"mode\",\"tracks_loaded\",\"region\",\"era\",\"order\",\"suggestions\",\"action\",\"count\",\"date\",\"start_index\",\"days_since_first_visit\",\"measurement_version\",\"share_outcome\",\"cohort_date\"];\n  var layer = window.dataLayer || [];\n  for (var i = layer.length - 1; i >= 0; i--) {\n    var entry = layer[i];\n    if (entry && entry.event === currentEvent && entry[\"gtm.uniqueEventId\"] === currentId) {\n      var result = {};\n      for (var j = 0; j < allowed.length; j++) {\n        var key = allowed[j];\n        var value = entry[key];\n        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {\n          result[key] = value;\n        }\n      }\n      if ({{Debug Mode}}) result.debug_mode = true;\n      return result;\n    }\n  }\n  return {};\n}"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "103",
+        "name": "SLAPS - Param - youtube_id",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.youtube_id; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "104",
+        "name": "SLAPS - Param - mode",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.mode; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "105",
+        "name": "SLAPS - Param - tracks_loaded",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.tracks_loaded; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "106",
+        "name": "SLAPS - Param - region",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.region; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "107",
+        "name": "SLAPS - Param - era",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.era; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "108",
+        "name": "SLAPS - Param - order",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.order; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "109",
+        "name": "SLAPS - Param - suggestions",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.suggestions; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "110",
+        "name": "SLAPS - Param - action",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.action; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "111",
+        "name": "SLAPS - Param - count",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.count; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "112",
+        "name": "SLAPS - Param - date",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.date; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "113",
+        "name": "SLAPS - Param - start_index",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.start_index; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "114",
+        "name": "SLAPS - Param - days_since_first_visit",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.days_since_first_visit; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "115",
+        "name": "SLAPS - Param - debug_mode",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.debug_mode; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "200",
+        "name": "SLAPS - GTM event ID",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "gtm.uniqueEventId"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "201",
+        "name": "SLAPS - Param - measurement_version",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.measurement_version; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "202",
+        "name": "SLAPS - Param - share_outcome",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.share_outcome; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "203",
+        "name": "SLAPS - Param - cohort_date",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.cohort_date; }"
+          }
+        ]
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "EVENT",
+        "name": "Event"
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "CLICK_ID",
+        "name": "Click ID"
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "type": "DEBUG_MODE",
+        "name": "Debug Mode"
+      }
+    ]
+  }
+}

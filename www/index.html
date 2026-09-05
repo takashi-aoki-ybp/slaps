@@ -2,14 +2,17 @@
 <html lang="ja">
 <head>
   <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  <script>(function(w,d,s,l,i){var h=w.location&&w.location.hostname||'',
+  p=/^(www\.)?slaps\.tokyo$/i.test(h),
+  n=!!(w.Capacitor&&typeof w.Capacitor.isNativePlatform==='function'&&w.Capacitor.isNativePlatform());
+  if(!p&&!n)return;w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-WCJPZNQP');</script>
   <!-- End Google Tag Manager -->
   <meta charset="utf-8">
-  <title>SLAPS</title>
+  <title>SLAPS — HIPHOP Online Station | Nothing but slaps.</title>
   <meta name="description" content="Nothing but slaps. — HIPHOPに特化したオンライン・ステーション。アルゴリズムに頼らず、人が選んだHIPHOPに偶然出会う。">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
@@ -24,13 +27,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- OGP -->
-  <meta property="og:title" content="SLAPS">
+  <meta property="og:title" content="SLAPS — HIPHOP Online Station">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SLAPS">
   <meta property="og:description" content="Nothing but slaps. — HIPHOPステーション">
   <meta property="og:url" content="https://slaps.tokyo/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SLAPS">
+  <meta name="twitter:title" content="SLAPS — HIPHOP Online Station">
   <meta name="twitter:description" content="Nothing but slaps.">
   <meta property="og:image" content="https://slaps.tokyo/assets/ogp.png">
   <meta property="og:image:width" content="1200">
@@ -55,7 +58,7 @@
   <link rel="preconnect" href="https://img.youtube.com">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=2.92">
+  <link rel="stylesheet" href="./styles.css?v=3.57">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -65,11 +68,14 @@
 
   <!-- ===== イントロ ===== -->
   <div class="intro" id="intro">
-    <h1 class="intro__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--intro"></h1>
-    <p class="intro__tag">Nothing but slaps.</p>
-    <div class="intro__note">
-      <span class="intro__sub" id="introSub">アルゴリズムじゃ出会えない一曲を。</span>
+    <div class="intro__copy" id="introCopy">
+      <h1 class="intro__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--intro"></h1>
+      <p class="intro__tag">Nothing but slaps.</p>
+      <div class="intro__note">
+        <span class="intro__sub" id="introSub">アルゴリズムじゃ出会えない一曲を。</span>
+      </div>
     </div>
+    <button type="button" class="intro__retry" id="introRetry" hidden>再試行</button>
   </div>
 
   <!-- ===== YouTube映像（フルブリード） ===== -->
@@ -86,7 +92,7 @@
       <button type="button" class="icon-btn is-fill" id="fillBtn" aria-label="映像を拡大" aria-pressed="true" title="映像を画面いっぱいに拡大">
         <svg class="fill-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
       </button>
-      <button type="button" class="icon-btn icon-btn--text is-pinned" id="pinBtn" aria-label="UIを常時表示" aria-pressed="true" title="UIを常時表示">UI</button>
+      <button type="button" class="icon-btn icon-btn--text" id="pinBtn" aria-label="UIを常時表示" aria-pressed="false" title="UIを常時表示">UI</button>
       <a class="icon-btn icon-btn--text" id="infoLink" href="#about" aria-label="About / このサイトについて">i</a>
     </div>
 
@@ -97,23 +103,23 @@
       <p class="brand__tag">Nothing but slaps.</p>
 
       <!-- 地域フィルター -->
-      <div class="regions" id="regions">
-        <button type="button" class="region__btn is-active" data-region="all">🌐 ALL</button>
-        <button type="button" class="region__btn" data-region="us">🇺🇸</button>
-        <button type="button" class="region__btn" data-region="jp">🇯🇵</button>
-        <button type="button" class="region__btn" data-region="uk">🇬🇧</button>
-        <button type="button" class="region__btn" data-region="fr">🇫🇷</button>
-        <button type="button" class="region__btn" data-region="kr">🇰🇷</button>
-        <button type="button" class="region__btn" data-region="other">🌍 OTHER</button>
+      <div class="regions" id="regions" role="group" aria-label="地域フィルター">
+        <button type="button" class="region__btn is-active" data-region="all" aria-pressed="true">🌐 ALL</button>
+        <button type="button" class="region__btn" data-region="us" aria-pressed="false">🇺🇸</button>
+        <button type="button" class="region__btn" data-region="jp" aria-pressed="false">🇯🇵</button>
+        <button type="button" class="region__btn" data-region="uk" aria-pressed="false">🇬🇧</button>
+        <button type="button" class="region__btn" data-region="fr" aria-pressed="false">🇫🇷</button>
+        <button type="button" class="region__btn" data-region="kr" aria-pressed="false">🇰🇷</button>
+        <button type="button" class="region__btn" data-region="other" aria-pressed="false">🌍 OTHER</button>
       </div>
 
       <!-- 年代フィルター -->
-      <div class="eras" id="eras">
-        <button type="button" class="era__btn is-active" data-era="all">ALL</button>
-        <button type="button" class="era__btn" data-era="90s">90s</button>
-        <button type="button" class="era__btn" data-era="00s">00s</button>
-        <button type="button" class="era__btn" data-era="10s">10s</button>
-        <button type="button" class="era__btn" data-era="20s">20s+</button>
+      <div class="eras" id="eras" role="group" aria-label="年代フィルター">
+        <button type="button" class="era__btn is-active" data-era="all" aria-pressed="true">ALL</button>
+        <button type="button" class="era__btn" data-era="90s" aria-pressed="false">90s</button>
+        <button type="button" class="era__btn" data-era="00s" aria-pressed="false">00s</button>
+        <button type="button" class="era__btn" data-era="10s" aria-pressed="false">10s</button>
+        <button type="button" class="era__btn" data-era="20s" aria-pressed="false">20s+</button>
       </div>
 
       <!-- CONSCIOUS↔TURNT バランス (非表示化: 2026-06-17)
@@ -128,10 +134,13 @@
       </div>
       -->
         <div class="order" id="order" role="group" aria-label="Playback order">
-          <button type="button" class="order__btn is-active" data-order="shuffle">SHUFFLE</button>
-          <button type="button" class="order__btn" data-order="newest">LATEST</button>
+          <button type="button" class="order__btn is-active" data-order="shuffle" aria-pressed="true">SHUFFLE</button>
+          <button type="button" class="order__btn" data-order="newest" aria-pressed="false">LATEST</button>
         </div>
-        <span class="track-count" id="trackCount" aria-live="polite"></span>
+        <div class="catalog-line">
+          <span class="track-count" id="trackCount" aria-live="polite"></span>
+          <button type="button" class="daily-open" id="dailyOpen" aria-controls="dailyOverlay" hidden><b id="dailyOpenCount">10</b> NEW TODAY</button>
+        </div>
     </header>
 
     <!-- prev / play / next -->
@@ -166,6 +175,13 @@
       <span class="promo-badge__text" id="promoBadgeText">PROMO: 新曲が入荷しました</span>
     </button>
 
+    <!-- 関連曲は中央レイアウトから切り離し、ステッカーから開く -->
+    <button type="button" class="dig-sticker chrome" id="digOpen" aria-label="DIG SLAPSを開く" aria-controls="digOverlay" aria-expanded="false" hidden>
+      <span class="dig-sticker__yo">YO!</span>
+      <span class="dig-sticker__main">DIG<br>SLAPS!</span>
+      <span class="dig-sticker__count" id="digCount"></span>
+    </button>
+
     <!-- 下部：曲情報＋アクション -->
     <div class="dock chrome">
       <section class="meta" id="meta" aria-live="polite">
@@ -186,7 +202,7 @@
                  min="0" max="100" step="5" value="100" aria-label="音量調整">
           <span class="volume-control__value" id="volumeValue">100%</span>
         </div>
-        <!-- 未登録曲の推薦 -->
+        <!-- DIG候補の描画用。表示は右下ステッカーから開くオーバーレイに集約 -->
         <div class="meta__recommendations" id="metaRecommendations" hidden>
           <p class="recommend-title" id="recommendTitle">💡 This artist also has: (未登録)</p>
           <div class="recommend-list" id="recommendList"></div>
@@ -197,8 +213,7 @@
         </div>
         <div class="actions__links">
           <button type="button" class="report-link" id="favOpen">♡ 保存した曲を再生 (<span id="favCount">0</span>)</button>
-          <button type="button" class="report-link" id="digOpen">🔍 DIG</button>
-          <button type="button" class="report-link" id="shareBtn">🔗 共有</button>
+          <button type="button" class="report-link" id="shareBtn">🔗 曲を共有</button>
           <button type="button" class="report-link" id="reportBtn">⚐ 報告</button>
         </div>
       </div>
@@ -241,7 +256,7 @@
   <div class="idle-title" id="idleTitle"></div>
 
   <!-- DIG追加後の再生確認モーダル -->
-  <div class="modal" id="confirmModal" hidden>
+  <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" hidden>
     <div class="modal__panel modal__panel--confirm">
       <h2 class="modal__h" id="confirmTitle">追加完了しました！</h2>
       <p class="modal__lead" id="confirmDesc">すぐにこの曲を再生しますか？</p>
@@ -253,10 +268,10 @@
   </div>
 
   <!-- ===== 投稿モーダル ===== -->
-  <div class="modal" id="submitModal" hidden>
+  <div class="modal" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="submitTitle" hidden>
     <div class="modal__panel">
       <button type="button" class="modal__close" id="submitClose" aria-label="閉じる">×</button>
-      <h2 class="modal__h">Add Track</h2>
+      <h2 class="modal__h" id="submitTitle">Add Track</h2>
       <p class="modal__lead">Paste a YouTube URL — that's all you need.<br>Details below are optional, but help others discover the track.</p>
 
       <label class="field">
@@ -317,10 +332,10 @@
   </div>
 
   <!-- ===== 報告モーダル ===== -->
-  <div class="modal" id="reportModal" hidden>
+  <div class="modal" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportTitle" hidden>
     <div class="modal__panel">
       <button type="button" class="modal__close" id="reportClose" aria-label="閉じる">×</button>
-      <h2 class="modal__h">Report Track</h2>
+      <h2 class="modal__h" id="reportTitle">Report Track</h2>
       <p class="modal__lead" id="reportTarget"></p>
       <label class="field">
         <span>Reason</span>
@@ -341,36 +356,72 @@
   </div>
 
   <!-- ===== お気に入りモーダル ===== -->
-  <div class="modal" id="favModal" hidden>
+  <div class="modal" id="favModal" role="dialog" aria-modal="true" aria-labelledby="favTitle" hidden>
     <div class="modal__panel">
       <button type="button" class="modal__close" id="favClose" aria-label="閉じる">×</button>
-      <h2 class="modal__h">保存した曲</h2>
+      <h2 class="modal__h" id="favTitle">保存した曲</h2>
       <p class="modal__lead">この端末にのみ保存されます。サーバーには送信されません。</p>
       <button type="button" class="modal__submit" id="favPlayAll" hidden>▶ 保存した曲だけ再生</button>
+      <button type="button" class="modal__submit modal__submit--secondary" id="crateShare" hidden>🔗 保存した曲を共有</button>
       <div class="fav-list" id="favList"></div>
       <p class="modal__note" id="favEmpty">まだ保存した曲はありません。気に入った曲で ♡ をタップしてください。</p>
+      <p class="modal__note" id="crateNote">共有URLにはYouTube IDだけが含まれます。保存曲や履歴はサーバーへ送信されません。</p>
     </div>
   </div>
 
-  <!-- ===== DIG SLAPS スマホ用透過オーバーレイ ===== -->
-  <div class="about-ov" id="digOverlay" hidden>
+  <!-- ===== DIG SLAPS オーバーレイ ===== -->
+  <div class="about-ov" id="digOverlay" role="dialog" aria-modal="true" aria-labelledby="digOverlayTitle" hidden>
     <button type="button" class="about-ov__close" id="digClose" aria-label="閉じる">×</button>
     <div class="about-ov__inner">
       <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
-      <p class="tag">DIG SLAPS</p>
-      <h2 class="dig-overlay-title" id="digOverlayTitle">💡 このアーティストの未登録曲 (DIG)</h2>
-      <div class="dig-overlay-list" id="digOverlayList"></div>
+      <h2 class="dig-overlay-title" id="digOverlayTitle">DIG SLAPS</h2>
+      <p class="dig-overlay-kicker">PICK A CUT.</p>
+      <p class="dig-overlay-lead" id="digOverlayLead">ジャケットを掘って、気になる1枚を選ぶ。</p>
+      <div class="dig-crate">
+        <div class="dig-overlay-list" id="digOverlayList" role="listbox" aria-label="DIG SLAPS 候補曲"></div>
+        <div class="recommend-item dig-overlay-detail" id="digOverlayDetail" aria-live="polite" hidden>
+          <span class="dig-overlay-detail__index" id="digOverlayDetailIndex"></span>
+          <div class="dig-overlay-detail__copy">
+            <span class="dig-overlay-detail__eyebrow">NOW DIGGING</span>
+            <strong class="dig-overlay-detail__name" id="digOverlayDetailName"></strong>
+            <span class="dig-overlay-detail__artist" id="digOverlayDetailArtist"></span>
+          </div>
+          <button type="button" class="dig-overlay-detail__action" id="digOverlayDetailAction"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TODAY'S 10 ===== -->
+  <div class="about-ov daily-overlay" id="dailyOverlay" role="dialog" aria-modal="true" aria-labelledby="dailyTitle" hidden>
+    <button type="button" class="about-ov__close" id="dailyClose" aria-label="閉じる">×</button>
+    <div class="about-ov__inner daily-overlay__inner">
+      <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
+      <p class="daily-kicker">DAILY DROP</p>
+      <h2 class="daily-title" id="dailyTitle">TODAY'S 10</h2>
+      <div class="daily-date-nav" aria-label="Daily archive">
+        <button type="button" id="dailyPrev" aria-label="Previous day">←</button>
+        <strong id="dailyDate"></strong>
+        <button type="button" id="dailyNext" aria-label="Next day">→</button>
+      </div>
+      <p class="daily-lead" id="dailyLead">今日入った10曲。上から、そのまま聴く。</p>
+      <div class="daily-list" id="dailyList"></div>
+      <div class="daily-actions">
+        <button type="button" class="daily-action daily-action--primary" id="dailyPlayAll">▶ PLAY ALL 10</button>
+        <button type="button" class="daily-action" id="dailyShare">↗ SHARE THIS DROP</button>
+      </div>
+      <p class="daily-count" id="dailyCount"></p>
     </div>
   </div>
 
   <!-- ===== About オーバーレイ ===== -->
-  <div class="about-ov" id="aboutOverlay" hidden>
+  <div class="about-ov" id="aboutOverlay" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
     <button type="button" class="about-ov__close" id="aboutClose" aria-label="閉じる">×</button>
     <div class="about-ov__inner">
       <p class="about-ov__logo"><img src="./assets/logo.png" alt="SLAPS" class="logo-img logo-img--about"></p>
       <p class="tag">Nothing but slaps.</p>
 
-      <h1 lang="ja">知らないヤバい曲に、偶然ぶつかる場所。</h1>
+      <h1 id="aboutTitle" lang="ja">知らなかった曲に、偶然ぶつかる場所。</h1>
       <p class="lead" lang="ja">
         HIPHOPが好きで、でもアルゴリズムが勧めてくる曲はもう聴き飽きた。
         サブスクのプレイリストは同じような曲ばっかり。もっとヤバい曲が世界中にあるはずなのに、
@@ -378,23 +429,28 @@
       </p>
       <p class="lead">
         <strong>SLAPS</strong>はそんな不満から生まれた、HIPHOPに特化したオンライン・ステーション。
-        アクセスしたら、誰かが「これヤバい」と思って手で選んだ曲がランダムで流れるだけ。
+        ページを開くと、誰かが「これヤバい」と思って選んだ曲が、すぐランダムに映像で流れだす。STARTは音を出すためのボタン。
       </p>
 
       <h2>NO ALGORITHM. JUST SLAPS.</h2>
       <p>
-        レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。
-        どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。
+        あなた専用のレコメンドも、履歴による最適化もしない。聴いた曲からあなたを分析しない。
+        曲との出会いはランダムで、もっと掘りたい時だけ自分でDIGする。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。
       </p>
 
       <h2>使い方</h2>
       <ul>
-        <li>開いた瞬間にランダム再生</li>
+        <li>ページを開くと、ミュートのままランダム再生が始まる</li>
+        <li>STARTを押すと音が出る</li>
         <li>左右のボタン／キー／スワイプで曲送り</li>
-        <li>🌐 で国を絞る（US / JP / UK / FR / KR …）</li>
-        <li>📌 でUIを固定（MVに集中したい時はOFF）</li>
-        <li>気に入ったら ♡ で保存（この端末だけに残る）</li>
-        <li>好きな曲はYouTubeのURLを貼るだけで誰でも追加OK</li>
+        <li>国フィルターで曲を絞る（US / JP / UK / FR / KR …）</li>
+        <li>画面拡大で映像を画面いっぱいに表示（端が切れる場合あり）</li>
+        <li>UIで操作画面を常時表示（MVに集中したい時はOFF）</li>
+        <li>気に入った曲は ♡ 保存（この端末だけに残る）</li>
+        <li>保存した曲をログインなしのリンクで共有</li>
+        <li>もっと掘りたい時はDIGから関連曲・未登録曲を探す</li>
+        <li>YouTube URLを貼って曲を追加。動画と重複を確認後、すぐ公開</li>
+        <li>同時接続数のため、匿名の端末IDと再生中のYouTube IDを短時間だけ送信（再生履歴は保存しない）</li>
       </ul>
 
       <hr>
@@ -402,10 +458,10 @@
       <div class="en">
         <h2>About (English)</h2>
         <p>
-          <strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization —
-          just tracks picked by real people, played at random.
-          Filter by region, save favorites locally, add your own track by pasting a YouTube URL.
-          No rules. If it slaps, it belongs here.
+          <strong>SLAPS</strong> is a HIPHOP-only online station. A muted video picked by a real person starts
+          immediately at random; START enables sound. There is no personalized feed or history-based optimization. Use DIG when you want
+          to explore further, or share saved tracks with a link. Paste a YouTube URL to add a track
+          after automatic checks.
         </p>
       </div>
     </div>
@@ -427,15 +483,15 @@
 
 
   <!-- ===== トースト通知 ===== -->
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ===== Vibe ティッカー ===== -->
-  <div class="vibe-ticker" id="vibeTicker" hidden></div>
+  <button type="button" class="vibe-ticker" id="vibeTicker" hidden></button>
 
   <!-- Scripts: 多言語設定→本体→YT API の順 -->
-  <script src="./src/tv-navigation.js"></script>
-  <script src="./i18n.js?v=2.92"></script>
-  <script type="module" src="./script.js?v=2.92"></script>
+  <script src="./src/tv-navigation.js?v=3.57"></script>
+  <script src="./i18n.js?v=3.57"></script>
+  <script type="module" src="./script.js?v=3.57"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
 
 </body>

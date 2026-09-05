@@ -1,4 +1,4 @@
-import { state, current, savePlayed, saveRecent } from './state.js';
+import { state, current, advanceQueue } from './state.js';
 import { db } from './db.js';
 import {
   renderMeta,
@@ -15,25 +15,88 @@ import {
   getAudioContext,
   renderRecommendations
 } from './ui.js';
+import { analyticsMode, notePlaybackState, noteStarted, noteTrackLoaded, trackEvent } from './analytics.js';
 
 let consecutiveErrors = 0;
+let introStarted = false;
+let introFinished = false;
+let recommendationVersion = 0;
+const newRecommendationRequest = () => ({ version: ++recommendationVersion, id: current()?.youtube_id });
+const isCurrentRecommendation = request => request.version === recommendationVersion && request.id === current()?.youtube_id;
 
 let promoTimer = null;
 let promoFadeInterval = null;
 
-export function createYTPlayer() {
+const MAX_DIG_RECOMMENDATIONS = 16;
+const MAX_REGISTERED_DIG_RECOMMENDATIONS = 4;
+
+function disableCaptions() {
+  if (!state.player) return;
+  try {
+    state.player.setOption('captions', 'track', {});
+  } catch (e) {}
+  try {
+    if (typeof state.player.unloadModule === 'function') {
+      state.player.unloadModule('captions');
+    }
+  } catch (e) {}
+}
+
+function startPromoPlayback() {
+  document.body.classList.add('is-started');
+  const unmuteBtn = document.querySelector('#unmute');
+  if (unmuteBtn) unmuteBtn.hidden = true;
+  state.muted = true;
+  if (state.player && state.ready && typeof state.player.mute === 'function') {
+    try {
+      state.player.mute();
+      state.player.playVideo();
+    } catch (e) {
+      console.warn('Auto-play playVideo trigger failed:', e);
+    }
+  }
+  wake();
+  showInfoGuide();
+}
+
+let youtubeRetryPending = false;
+export function createYTPlayer(retry = false) {
+  if (retry && !(window.YT && window.YT.Player) && !youtubeRetryPending) {
+    youtubeRetryPending = true;
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.onload = script.onerror = () => { youtubeRetryPending = false; script.remove(); };
+    document.head.append(script);
+    return;
+  }
+  if (retry && state.player && !state.ready && typeof state.player.destroy === 'function') {
+    state.player.destroy();
+    state.player = null;
+  }
   if (state.player || !(window.YT && window.YT.Player)) return;
   try {
     state.player = new YT.Player('yt', {
-      playerVars: { autoplay: 1, mute: 1, rel: 0, controls: 0, disablekb: 1, modestbranding: 1, playsinline: 1 },
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        rel: 0,
+        controls: 0,
+        disablekb: 1,
+        modestbranding: 1,
+        playsinline: 1,
+        cc_load_policy: 0,
+        iv_load_policy: 3,
+      },
       events: {
         onReady: () => {
           state.ready = true;
           try { state.player.mute(); } catch (e) {}
+          disableCaptions();
           tryStart();
         },
         onStateChange: onPlayerStateChange,
         onError: onPlayerError,
+        onApiChange: disableCaptions,
       },
     });
   } catch (err) {
@@ -51,16 +114,21 @@ if (window.YT && window.YT.Player) {
 
 export function onPlayerStateChange(e) {
   if (e.data === YT.PlayerState.ENDED) {
+    notePlaybackState(false);
     if (state.isPromo) clearPromoTimer();
-    next();
+    next('ended');
     return;
   }
   if (e.data === YT.PlayerState.PLAYING) {
+    consecutiveErrors = 0;
+    notePlaybackState(true);
+    disableCaptions();
     startProgress();
     if (state.isPromo) {
       startPromoTimer();
     }
   } else {
+    notePlaybackState(false);
     stopProgress();
     if (state.isPromo && e.data === YT.PlayerState.PAUSED) {
       clearPromoTimer();
@@ -85,6 +153,7 @@ export function togglePlay() {
 }
 
 export function onPlayerError(e) {
+  notePlaybackState(false);
   const song = current();
   if (song) markBroken(song.youtube_id, e.data);
   consecutiveErrors++;
@@ -99,13 +168,12 @@ export function onPlayerError(e) {
 export function markBroken(id, code) {
   if (!id || state.broken.has(id)) return;
   state.broken.add(id);
-  db.markBroken(id, code);
+  db.markBroken(id, code).catch(() => {});
   updateTrackCount();
 }
 
 export function tryStart() {
-  if (state.started || !state.ready || !state.all.length) return;
-  state.started = true;
+  if (state.started || !state.ready || !state.player || !state.all.length) return;
   const params = new URLSearchParams(window.location.search);
   const shareId = params.get('v');
 
@@ -116,69 +184,207 @@ export function tryStart() {
   }
 
   setBalance(2.5, { shareId });
+  state.started = true;
   runIntro();
+  if (state.isPromo && introFinished) startPromoPlayback();
 }
 
 export function runIntro() {
+  if (introStarted || introFinished) return;
+  introStarted = true;
+
+  const params = new URLSearchParams(window.location.search);
+  if (window.location.pathname === '/promo' || params.get('promo') === '1') {
+    state.isPromo = true;
+    document.body.classList.add('is-promo-mode');
+  }
+
   const intro = document.querySelector('#intro');
-  // イントロの裏側で最初からボタンを表示状態にしておく
-  document.querySelector('#unmute').hidden = false;
+  const introCopy = document.querySelector('#introCopy');
+  // Text exits first, then START enters. Keep the opaque opening behind both
+  // until START is solid, so neither text overlap nor an iframe-control gap occurs.
+  const unmuteBtn = document.querySelector('#unmute');
+  if (unmuteBtn) unmuteBtn.hidden = true;
+
+  let pollTimer = null;
+  let copyTimer = null;
+  let copyFinished = false;
+  let revealTimer = null;
+  let finishTimer = null;
+  const startedAt = performance.now();
+  const startFallbackAt = startedAt + 6000;
+  let movingSince = null;
+  let lastAdvanceAt = null;
+  let lastTime = null;
+  let lastId = null;
+  let skipRequested = false;
+  let fallbackVisible = false;
+  const retryBtn = document.querySelector('#introRetry');
+  const introSub = document.querySelector('#introSub');
+  const originalSub = introSub?.textContent;
+  const audioUnlocked = () => !state.muted || document.body.classList.contains('is-started');
 
   const finishIntro = () => {
+    if (introFinished) return;
+    introFinished = true;
+    clearTimeout(pollTimer);
+    clearTimeout(copyTimer);
+    clearTimeout(revealTimer);
+    clearTimeout(finishTimer);
+    if (intro) intro.removeEventListener('pointerdown', skipIntro);
+    window.removeEventListener('keydown', skipIntro);
+    retryBtn?.removeEventListener('click', retryPlayback);
     if (intro) intro.remove();
-    state.ready = true;
 
     // プロモモードの場合は自動起動（タップ待ちをスキップしミュート再生開始）
     if (state.isPromo) {
-      document.body.classList.add('is-started');
-      const unmuteBtn = document.querySelector('#unmute');
-      if (unmuteBtn) unmuteBtn.hidden = true;
-      state.muted = true; // 自動再生のためミュート必須
-      if (state.player && typeof state.player.mute === 'function') {
-        try {
-          state.player.mute();
-          state.player.playVideo();
-        } catch (e) {
-          console.warn('Auto-play playVideo trigger failed:', e);
-        }
-      }
-      wake();
-      showInfoGuide();
+      startPromoPlayback();
+    } else if (unmuteBtn) {
+      unmuteBtn.hidden = audioUnlocked();
     }
   };
 
-  if (state.isPromo) {
-    // プロモモードの場合は即座にイントロを終了する
-    if (intro) {
-      intro.classList.add('is-out');
-      setTimeout(finishIntro, 1000);
-    } else {
-      finishIntro();
+  function skipIntro() {
+    // A gesture may shorten the text hold, never expose an unstarted video.
+    skipRequested = true;
+    if (state.ready && state.player && state.muted) {
+      state.player.mute();
+      state.player.playVideo();
     }
+  }
+
+  function retryPlayback(event) {
+    event.stopPropagation();
+    if (retryBtn) retryBtn.hidden = true;
+    if (introSub) introSub.textContent = originalSub;
+    if (!state.ready) createYTPlayer(true);
+    else if (state.player) { state.player.mute(); state.player.playVideo(); }
+    if (!state.all.length) window.retrySLAPS?.();
+  }
+
+  function checkPlayback() {
+    if (introFinished) return;
+    // START is clickable during the handoff. Once explicitly unlocked, finish
+    // the existing fade even if unmuting briefly causes the player to buffer.
+    if (audioUnlocked()) {
+      if (revealTimer === null && finishTimer === null) beginFade();
+      return;
+    }
+    const now = performance.now();
+    let time = null;
+    let id = null;
+    let playing = false;
+    try {
+      time = state.player?.getCurrentTime?.();
+      id = state.player?.getVideoData?.().video_id;
+      playing = state.ready && state.player?.getPlayerState?.() === 1
+        && !!id && id === current()?.youtube_id && Number.isFinite(time);
+    } catch { /* Keep the opening in place while the player is unavailable. */ }
+    if (!playing || id !== lastId || lastTime === null || time < lastTime) {
+      movingSince = null;
+      lastAdvanceAt = null;
+    } else if (time > lastTime) {
+      if (movingSince === null) movingSince = now;
+      lastAdvanceAt = now;
+    } else if (lastAdvanceAt === null || now - lastAdvanceAt > 600) {
+      movingSince = null;
+    }
+    lastTime = time;
+    lastId = id;
+    const ready = movingSince !== null && now - movingSince >= 800;
+
+    if (!ready && !fallbackVisible && copyTimer !== null) {
+      clearTimeout(copyTimer);
+      copyTimer = null;
+      intro.classList.remove('is-copy-out');
+    }
+    if (!ready && !fallbackVisible && (revealTimer !== null || finishTimer !== null)) {
+      clearTimeout(revealTimer);
+      revealTimer = null;
+      clearTimeout(finishTimer);
+      finishTimer = null;
+      intro.classList.remove('is-out');
+      // Keep START covering the center while the opening becomes opaque again.
+    }
+    if (ready && (skipRequested || now - startedAt >= 2600)) {
+      if (retryBtn) retryBtn.hidden = true;
+      if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
+      if (!copyFinished && copyTimer === null) {
+        intro.classList.add('is-copy-out');
+        copyTimer = setTimeout(() => {
+          copyTimer = null;
+          copyFinished = true;
+          // Explicitly hide the copy before revealing START, even after a slow frame.
+          if (introCopy) introCopy.hidden = true;
+          showStart(false);
+        }, 400);
+      } else if (copyFinished && revealTimer === null && finishTimer === null) {
+        showStart(false);
+      }
+    } else if (!ready && !fallbackVisible && now >= startFallbackAt) {
+      // A third-party player can report ready without advancing, or fail to
+      // initialize at all. Do not strand the opening on a passive retry state:
+      // reveal START over the still-opaque intro so the user's gesture can
+      // retry/unlock playback without exposing YouTube's spinner underneath.
+      fallbackVisible = true;
+      if (retryBtn) retryBtn.hidden = true;
+      if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
+      intro.classList.add('is-copy-out');
+      copyTimer = setTimeout(() => {
+        copyTimer = null;
+        copyFinished = true;
+        if (introCopy) introCopy.hidden = true;
+        showStart(true);
+      }, 400);
+    }
+    pollTimer = setTimeout(checkPlayback, 150);
+  }
+
+  function showStart(holdOpening = false) {
+    if (unmuteBtn && !audioUnlocked()) unmuteBtn.hidden = false;
+    if (holdOpening) return;
+    // Let START's400ms fade-in finish on the still-opaque opening background.
+    if (revealTimer === null && finishTimer === null) {
+      revealTimer = setTimeout(beginFade, 450);
+    }
+  }
+
+  function beginFade() {
+    revealTimer = null;
+    intro.classList.add('is-out');
+    finishTimer = setTimeout(finishIntro, 1600);
+  }
+
+  if (!intro) {
+    finishIntro();
     return;
   }
 
-  setTimeout(() => { if (intro) intro.classList.add('is-out'); }, 4800);
-  setTimeout(finishIntro, 6000);
+  intro.addEventListener('pointerdown', skipIntro, { once: true });
+  window.addEventListener('keydown', skipIntro, { once: true });
+  retryBtn?.addEventListener('click', retryPlayback);
+
+  if (state.isPromo) {
+    // プロモモードの場合は即座にイントロを終了する
+    intro.classList.add('is-out');
+    finishTimer = setTimeout(finishIntro, 600);
+    return;
+  }
+
+  // Load/play remains independent of this gate. Prefer actual muted playback
+  // progress; if the third-party player stalls, START becomes the bounded
+  // recovery action while the opaque opening continues to cover the iframe.
+  checkPlayback();
 }
 
 export function loadCurrent() {
   const song = current();
-  if (!song) return;
-  state.played.add(song.youtube_id);
-  savePlayed();
-
-  // Update recent playback history
-  state.recent = state.recent.filter((id) => id !== song.youtube_id);
-  state.recent.push(song.youtube_id);
-  if (state.recent.length > 10) {
-    state.recent.shift();
-  }
-  saveRecent();
-
-  consecutiveErrors = 0;
+  if (!song || !state.ready || typeof state.player?.loadVideoById !== 'function') return;
+  noteTrackLoaded();
   if (state.pinned) document.querySelector('#playBtn').style.display = 'none';
   state.player.loadVideoById(song.youtube_id);
+  disableCaptions();
+  setTimeout(disableCaptions, 300);
   if (state.muted) {
     state.player.mute();
   } else {
@@ -406,7 +612,7 @@ function getRegisteredRecommendations(artist, currentSong) {
         youtube_id: song.youtube_id,
         registered: true
       });
-      if (registered.length >= 1) {
+      if (registered.length >= MAX_REGISTERED_DIG_RECOMMENDATIONS) {
         break;
       }
     }
@@ -415,7 +621,7 @@ function getRegisteredRecommendations(artist, currentSong) {
 }
 
 // アーティスト名が抽出できなかった場合、曲名単体で iTunes API からアーティスト名を逆引きして推薦を取得する
-export async function fetchArtistAndRecommendationsBySongName(song) {
+export async function fetchArtistAndRecommendationsBySongName(song, request = newRecommendationRequest()) {
   try {
     // 不要な動画関連のワードをクリーンアップして iTunes API のヒット率を向上させる
     const query = song.name
@@ -436,6 +642,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
     const res = await fetch(url);
     if (!res.ok) throw new Error('iTunes API error');
     const data = await res.json();
+    if (!isCurrentRecommendation(request)) return;
     
     if (data.results && data.results.length > 0) {
       const track = data.results[0];
@@ -458,7 +665,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
           
           // 曲名はDBの正式データを維持（iTunes逆引き結果で上書きしない）
           
-          await fetchRecommendations(reversedArtist, true);
+          await fetchRecommendations(reversedArtist, true, request);
           return;
         }
       }
@@ -468,7 +675,7 @@ export async function fetchArtistAndRecommendationsBySongName(song) {
   }
 
   // 逆引きに失敗した場合、または結果がない場合は空で表示
-  if (current() && current().youtube_id === song.youtube_id) {
+  if (isCurrentRecommendation(request)) {
     state.recommendations = [];
     renderRecommendations();
   }
@@ -481,7 +688,7 @@ export function step(dir) {
   const n = state.queue.length;
   if (!n) return;
   for (let i = 0; i < n; i++) {
-    state.index = (state.index + dir + n) % n;
+    advanceQueue(dir);
     if (!state.broken.has(current().youtube_id)) {
       slideTransition(dir);
       return;
@@ -550,10 +757,22 @@ export function slideTransition(dir) {
   }, 500);
 }
 
-export function next() { step(1); }
-export function prev() { step(-1); }
+export function next(reason = 'manual') {
+  if (reason !== 'ended') trackEvent('next', { mode: analyticsMode(state) });
+  step(1);
+}
+export function prev() {
+  trackEvent('previous', { mode: analyticsMode(state) });
+  step(-1);
+}
 
 export function unmute() {
+  if (!state.ready || !state.player || !current()) {
+    showToast(window.i18n.t(state.all.length ? 'toastYtFail' : 'toastCatalogFail'));
+    createYTPlayer(true);
+    if (!state.all.length) window.retrySLAPS?.();
+    return;
+  }
   state.muted = false;
   if (state.player) { 
     state.player.unMute(); 
@@ -562,6 +781,15 @@ export function unmute() {
   }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
+  noteStarted(current(), analyticsMode(state), () => {
+    const id = state.player?.getVideoData?.().video_id;
+    return {
+      playing: id === current()?.youtube_id && state.player?.getPlayerState() === YT.PlayerState.PLAYING,
+      id,
+      time: state.player?.getCurrentTime(),
+      mode: analyticsMode(state),
+    };
+  });
   
   // ミュート解除時にUI側の音量表示とスライダーをstate.volume同期させる
   const volumeSlider = document.querySelector('#volumeSlider');
@@ -719,6 +947,11 @@ function filterTracksByArtist(results, artist, registeredTitles, cleanTitle) {
   for (const track of results) {
     const trackName = track.trackName;
     if (!trackName) continue;
+
+    // DIG is a HIPHOP discovery surface. Guest appearances on pop/children's
+    // releases should not enter the crate just because the artist name matches.
+    const genre = String(track.primaryGenreName || '').toLowerCase();
+    if (!/(hip[\s-]?hop|rap|ヒップホップ|ラップ)/i.test(genre)) continue;
     
     // アーティスト名の一致チェック (メイン名でのチェック)
     const trackArtist = (track.artistName || '').trim().toLowerCase();
@@ -771,13 +1004,13 @@ function filterTracksByArtist(results, artist, registeredTitles, cleanTitle) {
       artwork: (track.artworkUrl100 || '').replace('100x100bb.jpg', '400x400bb.jpg')
     });
 
-    if (unexpressed.length >= 3) break;
+    if (unexpressed.length >= MAX_DIG_RECOMMENDATIONS) break;
   }
   return unexpressed;
 }
 
 // iTunes Search API から未登録推薦曲を取得する
-export async function fetchRecommendations(artist, isFallback = false) {
+export async function fetchRecommendations(artist, isFallback = false, request = newRecommendationRequest()) {
   try {
     // すでに登録済みの曲リスト（小文字の曲名配列、かつfeatや括弧を削除したクリーンなタイトル）
     const cleanTitle = (str) => {
@@ -789,7 +1022,10 @@ export async function fetchRecommendations(artist, isFallback = false) {
         .replace(/featuring.*/g, '')
         .replace(/\(ft\..*?\)/g, '')
         .replace(/ft\..*/g, '')
-        .replace(/[\(\)\[\]]/g, '')
+        .replace(/\b(radio\s+edit|clean|explicit|album\s+version|single\s+version)\b/g, '')
+        .replace(/[\(\)\[\]{}]/g, '')
+        .replace(/[^\p{L}\p{N}]+/gu, ' ')
+        .replace(/\s+/g, ' ')
         .trim();
     };
 
@@ -868,7 +1104,7 @@ export async function fetchRecommendations(artist, isFallback = false) {
 
       // iTunes の結果を、現在 filtered に入っている（登録済み関連曲）タイトルと重複しないように追加
       for (const ir of itunesRecs) {
-        if (filtered.length >= 3) break;
+        if (filtered.length >= MAX_DIG_RECOMMENDATIONS) break;
         const cleanIrTitle = cleanTitle(ir.title);
         const isDuplicate = filtered.some(f => cleanTitle(f.title) === cleanIrTitle);
         if (!isDuplicate) {
@@ -881,16 +1117,18 @@ export async function fetchRecommendations(artist, isFallback = false) {
     }
 
     // 推薦が0件だった場合、かつまだ逆引きを実行していないなら、曲名全体での逆引きフォールバックを試みる
+    if (!isCurrentRecommendation(request)) return;
     if (filtered.length === 0 && !isFallback) {
       if (song) {
         console.log(`No recommendations found for "${artist}". Attempting reverse lookup fallback...`);
-        await fetchArtistAndRecommendationsBySongName(song);
+        await fetchArtistAndRecommendationsBySongName(song, request);
         return;
       }
     }
 
-    state.recommendations = filtered.slice(0, 3);
+    state.recommendations = filtered.slice(0, MAX_DIG_RECOMMENDATIONS);
   } catch (err) {
+    if (!isCurrentRecommendation(request)) return;
     console.warn('Failed to fetch recommendations:', err);
     state.recommendations = [];
   }

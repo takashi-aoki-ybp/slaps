@@ -1,3 +1,5 @@
+const { readRedisList } = require('./utils/kv-list.js');
+
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
@@ -12,6 +14,7 @@ async function kvFetch(command) {
   });
   if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
   const data = await res.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
 }
 
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ comments: [] });
       }
 
-      const rawComments = await kvFetch(['LRANGE', `${prefix}slaps:comments:${youtube_id}`, 0, -1]) || [];
+      const rawComments = await readRedisList(kvFetch, `${prefix}slaps:comments:${youtube_id}`);
       const comments = rawComments.map(c => JSON.parse(c));
       
       if (comments.length > 0) {
@@ -59,37 +62,9 @@ export default async function handler(req, res) {
   }
 
   if (method === 'POST') {
-    const { youtube_id, time, text, user_name } = req.body;
-
-    if (!youtube_id || !/^[A-Za-z0-9_-]{11}$/.test(youtube_id)) {
-      return res.status(400).json({ error: 'Invalid YouTube ID' });
-    }
-    if (typeof time !== 'number' || time < 0) {
-      return res.status(400).json({ error: 'Invalid time parameter' });
-    }
-
-    const finalComment = {
-      id: Math.random().toString(36).slice(2, 11),
-      time: Math.round(time * 10) / 10,
-      text: (text && typeof text === 'string') ? text.trim().slice(0, 140) : '',
-      user_name: (user_name && typeof user_name === 'string' && user_name.trim().slice(0, 50)) || 'Anonymous',
-      created_at: new Date().toISOString()
-    };
-
-    try {
-      const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
-      await Promise.all([
-        kvFetch(['RPUSH', `${prefix}slaps:comments:${youtube_id}`, JSON.stringify(finalComment)]),
-        kvFetch(['HINCRBY', `${prefix}slaps:vibe_counts`, youtube_id, 1])
-      ]);
-
-      return res.status(200).json({ status: 'success', comment: finalComment });
-    } catch (error) {
-      console.error('Failed to post comment:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
+    return res.status(410).json({ error: 'Comments are no longer accepted' });
   }
 
-  res.setHeader('Allow', ['GET', 'POST']);
+  res.setHeader('Allow', ['GET']);
   return res.status(405).json({ error: 'Method Not Allowed' });
 }

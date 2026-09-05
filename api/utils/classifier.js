@@ -41,17 +41,21 @@ export function classifySong(song) {
   }
 
   const searchText = `${title} ${desc}`;
+  const hasArtist = artist => {
+    const escaped = artist.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(^|[^\\p{L}\\p{N}])${escaped}($|[^\\p{L}\\p{N}])`, 'u').test(title);
+  };
 
   // 1. Region の分類
   let region = song.region;
-  if (!region || region === "null" || region === "" || region === "other" || region === "OTHER") {
-    if (JP_ARTISTS.some(artist => searchText.includes(artist))) {
+  if (!region || region === "null" || region === "") {
+    if (JP_ARTISTS.some(hasArtist)) {
       region = "jp";
-    } else if (FR_ARTISTS.some(artist => searchText.includes(artist))) {
+    } else if (FR_ARTISTS.some(hasArtist)) {
       region = "fr";
-    } else if (UK_ARTISTS.some(artist => searchText.includes(artist))) {
+    } else if (UK_ARTISTS.some(hasArtist)) {
       region = "uk";
-    } else if (KR_ARTISTS.some(artist => searchText.includes(artist))) {
+    } else if (KR_ARTISTS.some(hasArtist)) {
       region = "kr";
     } else {
       // 英語のタイトルや特定のUSアーティスト、あるいはそれ以外はデフォルトで us とする

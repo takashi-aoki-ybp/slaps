@@ -15,10 +15,15 @@ const I18N = {
     saved: '♥ Saved',
     favOpen: 'Saved',
     favOpenActive: 'Back to All',
-    share: '🔗 Share',
+    share: '🔗 Share Track',
     shareCopied: 'Link copied to clipboard!',
     report: '⚐ Report',
     start: '▶ START',
+    dailyOpen: 'NEW TODAY',
+    dailyPlayAll: '▶ PLAY ALL {count}',
+    dailyShare: '↗ SHARE THIS DROP',
+    dailyShareText: "SLAPS DAILY DROP — {date} / {count} tracks",
+    dailyLead: 'Ten tracks added today. Play them straight through.',
     // submit modal
     modalTitle: 'Add Track',
     modalLead: "Paste a YouTube URL — that's all you need.<br>Details below are optional, but help others discover the track.",
@@ -32,7 +37,7 @@ const I18N = {
     fieldComment: 'Comment',
     fieldCommentPh: 'What slaps about this track?',
     submitBtn: 'Add to Station',
-    submitNote: '※ Added tracks are immediately public.',
+    submitNote: '※ Published immediately after video and duplicate checks.',
     notSet: '-- Not set --',
     optional: 'optional',
     // report modal
@@ -45,8 +50,13 @@ const I18N = {
     reportReasons: ['Inappropriate content', 'Video unavailable / deleted', 'Not HIPHOP', 'Duplicate', 'Other'],
     // fav modal
     favTitle: 'Saved Tracks',
-    favLead: 'Saved to this device only. Not sent to any server.',
+    favLead: 'Your saved list stays on this device. Save actions are measured to improve SLAPS.',
     favPlayAll: '▶ Play Saved Only',
+    crateShare: '🔗 Share Saved Tracks',
+    crateShareText: 'Listen to my {count} saved tracks on SLAPS',
+    crateNote: 'The shared URL contains the selected YouTube IDs. Your saved list stays on this device; playback and save events are measured to improve SLAPS.',
+    crateExit: 'Exit Shared Tracks',
+    crateLoaded: 'Loaded {count} shared tracks.',
     favEmpty: 'No saved tracks yet. Hit ♡ Save on a track you like.',
     // fav toast
     favToastMsg: '♥ Saved to this device only.<br>Not sent to server. Cleared if you clear browser data.',
@@ -62,6 +72,10 @@ const I18N = {
     toastNetwork: 'Connection issues. Please check your network.',
     toastBackToAll: 'Returned to all tracks.',
     toastYtFail: 'YouTube connection failed. Please check your network or try again.',
+    introRetry: 'TRY AGAIN',
+    introRetryHint: 'The video is taking a while to start. Check your connection or try again.',
+    toastCatalogFail: 'Tracks could not be loaded. Check your connection and press START to retry.',
+    toastFavoritesSession: 'Device storage is unavailable. This save will last for this session only.',
     toastWait: 'Thank you!',
     confirmPlayTitle: 'Track Added!',
     confirmPlayDesc: 'Would you like to play this track right now?',
@@ -72,18 +86,22 @@ const I18N = {
     // about
     aboutH1: 'Stumble upon tracks you never knew existed.',
     aboutP1: "You love HIPHOP, but you're tired of what the algorithm keeps pushing. Playlists on streaming services all sound the same. There must be better tracks out there in the world — you just can't find them.",
-    aboutP2: '<strong>SLAPS</strong> was born from that frustration. Open it up, and a track hand-picked by someone who thought "this is fire" starts playing at random.',
+    aboutP2: '<strong>SLAPS</strong> was born from that frustration. A muted video hand-picked by someone who thought "this is fire" starts immediately at random. START enables sound.',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
-    aboutPalgo: 'No recommendations. No history-based optimization. We don\'t track what you listen to. Discovery is completely random. <strong>Because stumbling upon music by chance is the best part.</strong>',
+    aboutPalgo: 'No personalized feed and no history-based optimization. We don\'t profile what you listen to. Tracks start at random; DIG only opens when you choose to explore further. <strong>Because stumbling upon music by chance is the best part.</strong>',
     aboutH2how: 'How to Use',
     aboutHow: [
-      'Random play starts on open (muted at first — tap to unmute)',
+      'A muted track starts playing at random when the page opens',
+      'Tap START to enable sound',
       'Skip tracks with side buttons / arrow keys / swipe',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> to filter by country (US / JP / UK / FR / KR …)',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> to zoom the video to fill the screen (aspect ratio crop)',
+      'Use the country filter to narrow tracks (US / JP / UK / FR / KR …)',
+      'Use Fill Screen to make the video fill the display (the edges may be cropped)',
       '<span class="about-badge">UI</span> to keep the UI visible (turn OFF to focus on the MV)',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> to save (stored on this device only)',
-      'Anyone can add a track — just paste a YouTube URL',
+      'Tap ♡ Save to keep a track on this device only',
+      'Share saved tracks with a link — no account required',
+      'Use DIG to explore related and unregistered tracks when you want to dig deeper',
+      'Paste a YouTube URL to add a track; it goes live immediately after video and duplicate checks',
+      'The live online count uses an anonymous device ID and current YouTube ID. Playback and save events are also measured to improve SLAPS, not to personalize the shuffle',
     ],
     aboutEnTitle: '',
     aboutEn: '',
@@ -127,10 +145,15 @@ const I18N = {
     saved: '♥ 保存済',
     favOpen: '保存した曲を再生',
     favOpenActive: '全曲再生に戻る',
-    share: '🔗 共有',
+    share: '🔗 曲を共有',
     shareCopied: 'リンクをクリップボードにコピーしました！',
     report: '⚐ 報告',
     start: '▶ START',
+    dailyOpen: 'NEW TODAY',
+    dailyPlayAll: '▶ {count}曲を通して聴く',
+    dailyShare: '↗ 今日の10曲を共有',
+    dailyShareText: 'SLAPS 今日の10曲 — {date} / {count}曲',
+    dailyLead: '今日入った10曲。上から、そのまま聴く。',
     modalTitle: '曲を追加',
     modalLead: 'YouTube URLを貼るだけでOK。<br>以下の項目は任意ですが、入力すると他のユーザーが曲を見つけやすくなります。',
     fieldUrl: 'YouTube URL',
@@ -143,7 +166,7 @@ const I18N = {
     fieldComment: 'コメント',
     fieldCommentPh: 'この曲のヤバいポイントは？',
     submitBtn: 'ステーションに追加',
-    submitNote: '※ 追加した曲はすぐに公開されます。',
+    submitNote: '※ 動画と重複を確認後、すぐに公開されます。',
     notSet: '-- 未設定 --',
     optional: '任意',
     reportTitle: '曲を報告',
@@ -154,8 +177,13 @@ const I18N = {
     reportBtn: '報告する',
     reportReasons: ['不適切なコンテンツ', '動画が利用不可 / 削除済み', 'HIPHOPではない', '重複', 'その他'],
     favTitle: '保存した曲',
-    favLead: 'この端末にのみ保存されます。サーバーには送信されません。',
+    favLead: '保存リストはこの端末に残ります。保存操作はサービス改善のために計測しています。',
     favPlayAll: '▶ 保存した曲だけ再生',
+    crateShare: '🔗 保存した曲を共有',
+    crateShareText: 'SLAPSで保存した{count}曲を聴く',
+    crateNote: '共有URLには選んだ曲のYouTube IDが含まれます。保存リストはこの端末に残り、再生・保存の操作はサービス改善のために計測しています。',
+    crateExit: '共有リストを終了',
+    crateLoaded: '共有された{count}曲を読み込みました',
     favEmpty: 'まだ保存した曲はありません。気に入った曲で ♡ をタップしてください。',
     favToastMsg: '♥ この端末にのみ保存されました。<br>サーバーには送信されません。ブラウザデータを消去すると削除されます。',
     favToastDismiss: '今後表示しない',
@@ -169,6 +197,10 @@ const I18N = {
     toastNetwork: '接続に問題があります。ネットワークを確認してください。',
     toastBackToAll: '全体再生に戻りました。',
     toastYtFail: 'YouTube接続に失敗しました。ネットワークを確認するか、もう一度お試しください。',
+    introRetry: '再試行',
+    introRetryHint: '動画の開始に時間がかかっています。通信を確認するか、再試行してください。',
+    toastCatalogFail: '曲を読み込めませんでした。通信を確認し、STARTを押すと再試行できます。',
+    toastFavoritesSession: '端末に保存できないため、この画面を閉じるまでの一時保存になります。',
     toastWait: 'ありがとうございます！',
     confirmPlayTitle: '追加完了しました！',
     confirmPlayDesc: 'すぐにこの曲を再生しますか？',
@@ -178,21 +210,25 @@ const I18N = {
     tryBroaderFilters: ' フィルターを広げてみてください。',
     aboutH1: '知らなかった曲に、偶然ぶつかる場所。',
     aboutP1: 'アルゴリズムが勧めてくる曲はもう聴き飽きた。サブスクのプレイリストは同じような曲ばっかり。もっと良い曲が世界中にあるはずなのに、なかなか出会えない。',
-    aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。アクセスしたら、誰かが「これヤバい」と思い、選んだ曲がランダムで流れだす。',
+    aboutP2: '<strong>SLAPS</strong>はそんな不満から生まれたんだ。ページを開くと、誰かが「これヤバい」と思って選んだ曲が、すぐランダムに映像で流れだす。STARTは音を出すためのボタン。',
     aboutH2algo: 'NO ALGORITHM. JUST SLAPS.',
-    aboutPalgo: 'レコメンドも、履歴の最適化もしない。あなたの聴いた曲は追跡しない。どう出会うかは、完全にランダム。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
+    aboutPalgo: 'あなた専用のレコメンドも、履歴による最適化もしない。聴いた曲からあなたを分析しない。曲との出会いはランダムで、もっと掘りたい時だけ自分でDIGする。<strong>偶然の出会いこそが、音楽の一番の醍醐味</strong>だから。',
     aboutH2how: '使い方',
     aboutHow: [
-      '開いた瞬間にランダム再生',
+      'ページを開くと、ミュートのままランダム再生が始まる',
+      'STARTを押すと音が出る',
       '左右のボタン／キー／スワイプで曲送り',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg> で国を絞る（US / JP / UK / FR / KR …）',
-      '<svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> で映像を画面いっぱいに拡大（縦横比をフィット）',
+      '国フィルターで曲を絞る（US / JP / UK / FR / KR …）',
+      '画面拡大で映像を画面いっぱいに表示（端が切れる場合あり）',
       '<span class="about-badge">UI</span> でUIを常時表示（MVに集中したい時はOFF）',
-      '気に入ったら <svg class="about-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> で保存（この端末だけに残る）',
-      '好きな曲はYouTubeのURLを貼るだけで誰でも追加OK',
+      '気に入った曲は ♡ 保存（この端末だけに残る）',
+      '保存した曲をログインなしのリンクで共有',
+      'もっと掘りたい時はDIGから関連曲・未登録曲を探す',
+      'YouTube URLを貼って曲を追加。動画と重複を確認後、すぐ公開',
+      '同時接続数のために匿名の端末IDと再生中のYouTube IDを送信。再生・保存などの操作も改善のために計測しますが、シャッフルの個人別最適化には使いません',
     ],
     aboutEnTitle: 'About (English)',
-    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. No recommendations, no history-based optimization — just tracks picked by real people, played at random. Filter by region, save favorites locally, add your own track by pasting a YouTube URL. No rules. If it slaps, it belongs here.',
+    aboutEn: '<strong>SLAPS</strong> is a HIPHOP-only online station. A muted video picked by a real person starts immediately at random; START enables sound. There is no personalized feed or history-based optimization. Use DIG when you want to explore further, or share saved tracks with a link. Paste a YouTube URL to add a track after automatic checks.',
     postedBy: 'posted by',
     anon: '匿名',
     coachFill: '画面拡大',
@@ -221,14 +257,15 @@ const I18N = {
 };
 
 const i18n = (() => {
-  let lang = localStorage.getItem('slaps_lang') || 'ja';
+  let lang = 'ja';
+  try { const saved = localStorage.getItem('slaps_lang'); if (saved === 'ja' || saved === 'en') lang = saved; } catch {}
 
   function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
   function getLang() { return lang; }
 
   function setLang(l) {
     lang = l;
-    localStorage.setItem('slaps_lang', l);
+    try { localStorage.setItem('slaps_lang', l); } catch { /* language still works for this session */ }
     document.documentElement.lang = l;
     applyAll();
   }
@@ -244,6 +281,20 @@ const i18n = (() => {
     if (shareBtn) shareBtn.textContent = t('share');
     const reportBtn = $('#reportBtn');
     if (reportBtn) reportBtn.textContent = t('report');
+    const isJa = getLang() === 'ja';
+    const closeLabel = isJa ? '閉じる' : 'Close';
+    document.querySelectorAll('.modal__close, .about-ov__close').forEach((button) => button.setAttribute('aria-label', closeLabel));
+    $('#digOpen')?.setAttribute('aria-label', isJa ? 'DIG SLAPSを開く' : 'Open DIG SLAPS');
+    $('#dailyOpen')?.setAttribute('aria-label', isJa ? '今日の10曲を開く' : "Open today's tracks");
+    if ($('#dailyLead')) $('#dailyLead').textContent = t('dailyLead');
+    if ($('#dailyShare')) $('#dailyShare').textContent = t('dailyShare');
+    if (typeof window.refreshDaily === 'function') window.refreshDaily();
+    $('#regions')?.setAttribute('aria-label', isJa ? '地域フィルター' : 'Region filter');
+    $('#eras')?.setAttribute('aria-label', isJa ? '年代フィルター' : 'Era filter');
+    $('#order')?.setAttribute('aria-label', isJa ? '再生順' : 'Playback order');
+    $('#prevBtn')?.setAttribute('aria-label', isJa ? '前の曲' : 'Previous track');
+    $('#nextBtn')?.setAttribute('aria-label', isJa ? '次の曲' : 'Next track');
+    $('#playBtn')?.setAttribute('aria-label', isJa ? '再生 / 一時停止' : 'Play / Pause');
 
     // intro (if still in DOM)
     const introSub = $('#introSub');
@@ -311,7 +362,10 @@ const i18n = (() => {
     $('#favModal .modal__h').textContent = t('favTitle');
     $('#favModal .modal__lead').textContent = t('favLead');
     $('#favPlayAll').textContent = t('favPlayAll');
+    $('#crateShare').textContent = t('crateShare');
+    $('#crateNote').textContent = t('crateNote');
     $('#favEmpty').textContent = t('favEmpty');
+    if (typeof window.updateFavCount === 'function') window.updateFavCount();
 
     // fav toast
     $('#favToast .fav-toast__msg').innerHTML = t('favToastMsg');
@@ -339,7 +393,13 @@ const i18n = (() => {
       if (ul) ul.innerHTML = t('aboutHow').map(li => `<li>${li}</li>`).join('');
       // English section
       const enSection = ov.querySelector('.en');
-      if (enSection) enSection.style.display = lang === 'ja' ? '' : 'none';
+      if (enSection) {
+        const enTitle = enSection.querySelector('h2');
+        const enBody = enSection.querySelector('p');
+        if (enTitle) enTitle.textContent = t('aboutEnTitle');
+        if (enBody) enBody.innerHTML = t('aboutEn');
+        enSection.style.display = lang === 'ja' ? '' : 'none';
+      }
     }
 
     // lang toggle: swap is-active between JP and EN

@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+const { retireGeneratedDescription } = require('./utils/description-policy.js');
+const { readRedisList } = require('./utils/kv-list.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -15,7 +17,12 @@ async function kvFetch(command) {
   });
   if (!res.ok) throw new Error(`KV error: ${res.statusText}`);
   const data = await res.json();
+  if (data.error) throw new Error(`KV command failed: ${data.error}`);
   return data.result;
+}
+
+function hasObsoleteVibeLabel(value = '') {
+  return /SLAPSのVIBE|VIBEは(?:コンシャス|レイドバック|バランス|ターント)|(?:コンシャス|レイドバック|バランス|ターント)セレクト|SLAPS vibe scale|(?:conscious|laid-back|balanced|turnt) vibe setting|catalogued by SLAPS as a (?:conscious|laid-back|balanced|turnt)/i.test(value);
 }
 
 export default async function handler(req, res) {
@@ -33,13 +40,24 @@ export default async function handler(req, res) {
     if (kvEnabled) {
       const prefix = process.env.DB_PREFIX || '';
       const [rawList, rawBroken, rawVibes] = await Promise.all([
-        kvFetch(['LRANGE', `${prefix}slaps:songs`, '0', '-1']),
+        readRedisList(kvFetch, `${prefix}slaps:songs`),
         kvFetch(['HGETALL', `${prefix}slaps:broken`]),
         kvFetch(['HGETALL', `${prefix}slaps:vibe_counts`])
       ]);
 
       if (rawList && Array.isArray(rawList)) {
-        dbSongs = rawList.map(item => JSON.parse(item));
+        dbSongs = rawList.flatMap(item => {
+          try {
+            const song = JSON.parse(item);
+            if (!song || typeof song !== 'object' || !/^[A-Za-z0-9_-]{11}$/.test(song.youtube_id) || typeof song.name !== 'string') {
+              throw new Error('Invalid song row');
+            }
+            return [retireGeneratedDescription(song)];
+          } catch {
+            console.error('Ignoring malformed song row');
+            return [];
+          }
+        });
       }
       if (rawBroken && Array.isArray(rawBroken)) {
         for (let i = 0; i < rawBroken.length; i += 2) {
@@ -70,8 +88,21 @@ export default async function handler(req, res) {
       if (dbMap.has(id)) {
         const dbSong = dbMap.get(id);
         const localSong = localMap.get(id);
-        if (localSong && localSong.promo) {
-          dbSong.promo = true;
+        if (localSong) {
+          if (localSong.promo) {
+            dbSong.promo = true;
+          }
+
+          // Keep user-submitted DB metadata authoritative, but let the curated
+          // catalogue replace missing copy and the retired auto-generated vibe labels.
+          dbSong.description = {
+            ja: !dbSong.description?.ja || hasObsoleteVibeLabel(dbSong.description.ja)
+              ? localSong.description?.ja || ''
+              : dbSong.description.ja,
+            en: !dbSong.description?.en || hasObsoleteVibeLabel(dbSong.description.en)
+              ? localSong.description?.en || ''
+              : dbSong.description.en,
+          };
         }
         merged.push(dbSong);
       } else {
@@ -79,10 +110,10 @@ export default async function handler(req, res) {
       }
     }
 
-    // 5票以上の報告がある曲を除外
+    // 50票以上の報告がある曲を除外
     const filtered = merged.filter(song => {
       const votes = brokenVotes[song.youtube_id] || 0;
-      return votes < 5;
+      return votes < 50;
     });
 
     // 各曲に vibe_count をマージ

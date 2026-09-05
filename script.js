@@ -1,8 +1,10 @@
 import { state } from './src/state.js';
 import { db } from './src/db.js';
-import { tryStart, createYTPlayer } from './src/player.js';
-import { setupUIListeners, updateTrackCount } from './src/ui.js';
+import { tryStart, createYTPlayer, runIntro } from './src/player.js';
+import { setupUIListeners, updateTrackCount, updateFavCount, showToast } from './src/ui.js';
 import { initPresence } from './src/presence.js';
+import { initAnalytics } from './src/analytics.js';
+import { initDaily } from './src/ui.js';
 
 // ---- データ読み込み ----
 async function loadData() {
@@ -11,15 +13,30 @@ async function loadData() {
   } catch {
     state.all = [];
   }
+  if (state.crateMode) {
+    const existingIds = new Set(state.all.map((song) => song.youtube_id));
+    state.crateIds = state.crateIds.filter((id) => existingIds.has(id));
+    if (!state.crateIds.length) {
+      state.crateMode = false;
+    } else {
+      showToast(window.i18n.t('crateLoaded').replace('{count}', state.crateIds.length));
+    }
+  }
   updateTrackCount();
+  updateFavCount();
+  initDaily();
+  if (!state.all.length) showToast(window.i18n.t('toastCatalogFail'));
   tryStart();
 }
+window.retrySLAPS = loadData;
 
 // 起動処理
 document.addEventListener('DOMContentLoaded', () => {
   window.__state = state;
   window.i18n.applyAll();
+  initAnalytics();
   setupUIListeners();
+  runIntro();
   loadData();
   initPresence();
   
@@ -37,16 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
       import('./src/ui.js').then((ui) => {
         ui.showToast(window.i18n.t('toastYtFail'));
       });
-      // 強制起動フォールバック（黒画面で固まるのを防ぐ）
-      state.ready = true;
-      tryStart();
+      // Only onReady may mark the actual player ready. A late API callback
+      // can still start muted playback; START can retry without a reload.
+      createYTPlayer();
     }
   }, 10000);
   
   // Service Worker
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
-      .then(() => {})
+      .then((registration) => registration.update())
       .catch(() => {});
   }
 });
