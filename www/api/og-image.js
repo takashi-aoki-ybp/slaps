@@ -1,4 +1,4 @@
-import sharp from 'sharp';
+import { Jimp, JimpMime, HorizontalAlign, VerticalAlign } from 'jimp';
 import path from 'path';
 import fs from 'fs';
 import requestGuards from './utils/request-guards.js';
@@ -85,15 +85,18 @@ export async function handleOgImage(request) {
     // hqdefaultは通常 480x360 ですが、念のため 1200x630 もしくはそれに準じるサイズにリサイズするか、
     // あるいはそのままアスペクト比を維持しつつ重ね合わせます。
     // Facebook推奨OGPサイズ（1200x630）に合わせるため、まず背景画像を1200x630にフィット（クロップ＆リサイズ）させます。
-    const overlay = await sharp(overlayBuffer)
-      .resize(320, 320, { fit: 'fill' })
-      .png()
-      .toBuffer();
-    const buffer = await sharp(thumbnailBuffer)
-      .resize(1200, 630, { fit: 'cover', position: 'centre' })
-      .composite([{ input: overlay, left: 440, top: 155 }])
-      .jpeg({ quality: 85 })
-      .toBuffer();
+    const [background, overlay] = await Promise.all([
+      Jimp.read(thumbnailBuffer),
+      Jimp.read(overlayBuffer),
+    ]);
+    background.cover({
+      w: 1200,
+      h: 630,
+      align: HorizontalAlign.CENTER | VerticalAlign.MIDDLE,
+    });
+    overlay.resize({ w: 320, h: 320 });
+    background.composite(overlay, 440, 155);
+    const buffer = await background.getBuffer(JimpMime.jpeg, { quality: 85 });
 
     // Vercel KV へのキャッシュ書き込み
     try {

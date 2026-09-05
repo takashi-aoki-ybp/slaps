@@ -6,7 +6,7 @@ const vm = require('vm');
 const sourcePath = path.join(process.cwd(), 'api', 'og-image.js');
 const source = fs
   .readFileSync(sourcePath, 'utf8')
-  .replace("import sharp from 'sharp';", "const sharp = require('sharp');")
+  .replace("import { Jimp, JimpMime, HorizontalAlign, VerticalAlign } from 'jimp';", "const { Jimp, JimpMime, HorizontalAlign, VerticalAlign } = require('jimp');")
   .replace("import path from 'path';", "const path = require('path');")
   .replace("import fs from 'fs';", "const fs = require('fs');")
   .replace("import requestGuards from './utils/request-guards.js';", "const requestGuards = require('./utils/request-guards.js');")
@@ -17,18 +17,19 @@ const source = fs
 function loadHandler({ kvResults = [], imageError = null } = {}) {
   const commands = [];
   let kvIndex = 0;
-  let sharpCall = 0;
-  const sharp = () => {
-    sharpCall += 1;
-    if (imageError) throw imageError;
-    const output = sharpCall % 2 === 1 ? Buffer.from('overlay-png') : Buffer.from('generated-jpeg');
-    return {
-      resize() { return this; },
-      composite() { return this; },
-      png() { return this; },
-      jpeg() { return this; },
-      async toBuffer() { return output; },
-    };
+  const makeImage = (output) => ({
+    cover() { return this; },
+    resize() { return this; },
+    composite() { return this; },
+    async getBuffer() { return output; },
+  });
+  const Jimp = {
+    async read(input) {
+      if (imageError) throw imageError;
+      return makeImage(Buffer.from(input).equals(Buffer.from('thumbnail'))
+        ? Buffer.from('generated-jpeg')
+        : Buffer.from('overlay-png'));
+    },
   };
 
   const sandbox = {
@@ -49,7 +50,14 @@ function loadHandler({ kvResults = [], imageError = null } = {}) {
       },
     },
     require(id) {
-      if (id === 'sharp') return sharp;
+      if (id === 'jimp') {
+        return {
+          Jimp,
+          JimpMime: { jpeg: 'image/jpeg' },
+          HorizontalAlign: { CENTER: 1 },
+          VerticalAlign: { MIDDLE: 2 },
+        };
+      }
       if (id === 'path') return path;
       if (id === './utils/request-guards.js') {
         return {
