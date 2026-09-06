@@ -2,7 +2,7 @@ import { state, REGION_LABELS, CT, current, getFilteredPool, playableCount, elig
 import { db } from './db.js';
 import { togglePlay, next, prev, loadCurrent, unmute, createYTPlayer, seekBy, setVolume } from './player.js';
 import { analyticsMode, trackEvent } from './analytics.js';
-import { buildDailyArchive, dailyShareUrl } from './daily.js';
+import { buildDailyArchive, dailyShareUrl, jstDateKey } from './daily.js';
 import { deliverShare } from './sharing.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -826,14 +826,24 @@ let initialDailyRequestHandled = false;
 export function initDaily() {
   dailyArchive = buildDailyArchive(state.all);
   const open = $('#dailyOpen');
-  if (!dailyArchive.length || !open) return;
+  if (!open) return;
+  open.hidden = true;
+  delete open.dataset.dailyDate;
   const requested = initialDailyRequestHandled ? '' : state.dailyDate;
   initialDailyRequestHandled = true;
-  const entry = dailyEntry(requested);
-  state.dailyDate = entry.date;
-  $('#dailyOpenCount').textContent = entry.tracks.length;
-  open.hidden = false;
-  if (requested) openDaily(requested);
+  const requestedEntry = requested ? dailyArchive.find((entry) => entry.date === requested) : null;
+  const todayEntry = dailyArchive.find((entry) => entry.date === jstDateKey());
+  if (todayEntry) {
+    open.dataset.dailyDate = todayEntry.date;
+    $('#dailyOpenCount').textContent = todayEntry.tracks.length;
+    open.hidden = false;
+  }
+  if (requestedEntry) {
+    state.dailyDate = requestedEntry.date;
+    openDaily(requestedEntry.date);
+    return;
+  }
+  state.dailyDate = todayEntry?.date || '';
 }
 window.refreshDaily = () => { if (dailyArchive.length) renderDaily(state.dailyDate); };
 
@@ -908,7 +918,7 @@ export function setupUIListeners() {
   $('#reportBtn').addEventListener('click', openReport);
   $('#reportClose').addEventListener('click', closeReport);
   $('#reportDo').addEventListener('click', doReport);
-  $('#dailyOpen').addEventListener('click', () => openDaily());
+  $('#dailyOpen').addEventListener('click', () => openDaily($('#dailyOpen')?.dataset.dailyDate || state.dailyDate));
   $('#dailyClose').addEventListener('click', closeDaily);
   $('#dailyPlayAll').addEventListener('click', () => playDaily());
   $('#dailyShare').addEventListener('click', shareDaily);

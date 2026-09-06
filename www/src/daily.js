@@ -4,6 +4,11 @@ export function songDate(song) {
   return match ? match[1] : '';
 }
 
+export function jstDateKey(value = new Date()) {
+  const shifted = new Date(value.getTime() + (9 * 60 * 60 * 1000));
+  return shifted.toISOString().slice(0, 10);
+}
+
 export function buildDailyArchive(songs, limit = 10) {
   const groups = new Map();
   for (const song of songs || []) {

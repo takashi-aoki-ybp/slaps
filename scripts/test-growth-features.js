@@ -15,6 +15,8 @@ async function run() {
   const archive = daily.buildDailyArchive(sample);
   assert.deepEqual(archive.map((entry) => entry.date), ['2026-09-03', '2026-09-02']);
   assert.deepEqual(archive[0].tracks.map((song) => song.youtube_id), ['aaaaaaaaaaa']);
+  assert.equal(daily.jstDateKey(new Date('2026-09-06T14:59:59Z')), '2026-09-06');
+  assert.equal(daily.jstDateKey(new Date('2026-09-06T15:00:00Z')), '2026-09-07');
   assert.equal(daily.dailyShareUrl('https://slaps.tokyo', '2026-09-03'), 'https://slaps.tokyo/?daily=2026-09-03');
 
   const analytics = await loadModule('src/analytics.js');

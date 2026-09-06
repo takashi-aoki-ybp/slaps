@@ -153,12 +153,30 @@ test('favorite snapshots use current copy without rewriting storage; invalid sha
 test('DAILY deep link is consumed once, never reopened on LATEST refresh', () => {
   for (const requested of ['', '2026-09-03']) {
     let opened = 0;
+    const open = { hidden: false, dataset: {} };
     const ctx = vm.createContext({ state: { all: [], dailyDate: requested }, buildDailyArchive: () => [{ date: '2026-09-03', tracks: [1] }],
-      $: () => ({}), dailyEntry: () => ({ date: '2026-09-03', tracks: [1] }), openDaily: () => opened++ });
+      $: selector => selector === '#dailyOpen' ? open : {}, jstDateKey: () => '2026-09-04', openDaily: () => opened++ });
     vm.runInContext('let dailyArchive=[];let initialDailyRequestHandled=false;\n' + fn('src/ui.js', 'initDaily'), ctx);
     vm.runInContext('initDaily();initDaily();initDaily()', ctx);
     assert.equal(opened, requested ? 1 : 0);
+    assert.equal(open.hidden, true);
   }
+});
+
+test('TODAY button never relabels the latest historical drop as today', () => {
+  const open = { hidden: false, dataset: {} }, count = { textContent: '' };
+  const ctx = vm.createContext({
+    state: { all: [], dailyDate: '' },
+    buildDailyArchive: () => [{ date: '2026-09-06', tracks: [1, 2, 3] }],
+    jstDateKey: () => '2026-09-07',
+    $: selector => selector === '#dailyOpen' ? open : count,
+    openDaily() { throw Error('historical drop must not open as today'); },
+  });
+  vm.runInContext('let dailyArchive=[];let initialDailyRequestHandled=false;\n' + fn('src/ui.js', 'initDaily'), ctx);
+  vm.runInContext('initDaily()', ctx);
+  assert.equal(open.hidden, true);
+  assert.equal(ctx.state.dailyDate, '');
+  assert.equal(count.textContent, '');
 });
 
 test('catalog fallback tolerates invalid local storage lists', async () => {
