@@ -1,8 +1,10 @@
-const crypto = require('crypto');
-const { Jimp, JimpMime, HorizontalAlign, VerticalAlign } = require('jimp');
-const path = require('path');
-const fs = require('fs');
-const { readRedisList } = require('./utils/kv-list.js');
+import crypto from 'crypto';
+import { Jimp, JimpMime, HorizontalAlign, VerticalAlign } from 'jimp';
+import path from 'path';
+import fs from 'fs';
+import kvList from './utils/kv-list.js';
+
+const { readRedisList } = kvList;
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -83,9 +85,21 @@ function drawText(image, text, x, y, scale, color = 0xffffffff) {
   }
 }
 
-module.exports = async function handler(req, res) {
-  const date = String(req.query.date || '');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return res.status(400).send('Invalid date');
+const imageHeaders = (cacheState) => ({
+  'Content-Type': 'image/jpeg',
+  'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+  'X-Slaps-Cache': cacheState,
+});
+
+const textResponse = (body, status) => new Response(body, {
+  status,
+  headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+});
+
+export async function handleDailyOg(request) {
+  const requestUrl = new URL(request.url);
+  const date = requestUrl.searchParams.get('date') || '';
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return textResponse('Invalid date', 400);
   const prefix = process.env.DB_PREFIX || '';
   const cacheHash = crypto.createHash('sha1').update(date).digest('hex');
   const cacheKey = `${prefix}slaps:daily-og:v1:${cacheHash}`;
@@ -93,10 +107,7 @@ module.exports = async function handler(req, res) {
   try {
     const cached = await kvFetch(['GET', cacheKey]);
     if (cached) {
-      res.setHeader('Content-Type', 'image/jpeg');
-      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-      res.setHeader('X-Slaps-Cache', 'KV_HIT');
-      return res.send(Buffer.from(cached, 'base64'));
+      return new Response(Buffer.from(cached, 'base64'), { headers: imageHeaders('KV_HIT') });
     }
   } catch (error) {
     console.error('DAILY OG cache read failed:', error);
@@ -108,7 +119,7 @@ module.exports = async function handler(req, res) {
       String(song.user_name || '').toUpperCase() === 'SLAPS' &&
       String(song.created_at || song.publish_at || '').startsWith(date)
     ).filter((song, index, all) => all.findIndex((item) => item.youtube_id === song.youtube_id) === index).slice(0, 10);
-    if (!tracks.length) return res.status(404).send('Daily drop not found');
+    if (!tracks.length) return textResponse('Daily drop not found', 404);
 
     const canvas = new Jimp({ width: 1200, height: 630, color: 0x050505ff });
     const tileWidth = 300;
@@ -128,12 +139,11 @@ module.exports = async function handler(req, res) {
     drawText(canvas, `${tracks.length} TRACKS / DAILY DROP`, 70, 445, 3, 0xd8d8d8ff);
     const buffer = await canvas.getBuffer(JimpMime.jpeg, { quality: 88 });
     try { await kvFetch(['SET', cacheKey, buffer.toString('base64'), 'EX', 604800]); } catch (error) { console.error('DAILY OG cache write failed:', error); }
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-    res.setHeader('X-Slaps-Cache', 'KV_MISS');
-    return res.send(buffer);
+    return new Response(buffer, { headers: imageHeaders('KV_MISS') });
   } catch (error) {
     console.error('DAILY OG generation failed:', error);
-    return res.status(500).send('Failed to generate DAILY DROP image');
+    return textResponse('Failed to generate DAILY DROP image', 500);
   }
-};
+}
+
+export default { fetch: handleDailyOg };

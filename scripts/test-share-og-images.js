@@ -46,6 +46,37 @@ function loadCrateHandler() {
   return sandbox.module.exports;
 }
 
+function loadDailyHandler() {
+  const sourcePath = path.join(root, 'api', 'daily-og.js');
+  const source = fs.readFileSync(sourcePath, 'utf8')
+    .replace("import crypto from 'crypto';", "const crypto = require('crypto');")
+    .replace("import { Jimp, JimpMime, HorizontalAlign, VerticalAlign } from 'jimp';", "const { Jimp, JimpMime, HorizontalAlign, VerticalAlign } = require('jimp');")
+    .replace("import path from 'path';", "const path = require('path');")
+    .replace("import fs from 'fs';", "const fs = require('fs');")
+    .replace("import kvList from './utils/kv-list.js';", "const kvList = require('./utils/kv-list.js');")
+    .replace('export async function handleDailyOg', 'async function handleDailyOg')
+    .replace('export default { fetch: handleDailyOg };', '')
+    .concat('\nmodule.exports = handleDailyOg;\n');
+  const sandbox = {
+    module: { exports: {} },
+    exports: {},
+    require(id) {
+      if (id === './utils/kv-list.js') return require(path.join(root, 'api', 'utils', 'kv-list.js'));
+      return require(id);
+    },
+    process: { cwd: () => root, env: {} },
+    Buffer,
+    Headers,
+    Request,
+    Response,
+    URL,
+    fetch: (...args) => global.fetch(...args),
+    console,
+  };
+  vm.runInNewContext(source, sandbox, { filename: sourcePath });
+  return sandbox.module.exports;
+}
+
 async function assertJpegResponse(response, label) {
   assert.equal(response.statusCode, 200, `${label} must return 200`);
   assert.equal(response.headers['content-type'], 'image/jpeg');
@@ -53,6 +84,16 @@ async function assertJpegResponse(response, label) {
   assert.equal(response.headers['x-slaps-cache'], 'KV_MISS');
   assert.ok(Buffer.isBuffer(response.body), `${label} must return a Buffer`);
   const image = await Jimp.read(response.body);
+  assert.equal(image.bitmap.width, 1200);
+  assert.equal(image.bitmap.height, 630);
+}
+
+async function assertFetchJpegResponse(response, label) {
+  assert.equal(response.status, 200, `${label} must return 200`);
+  assert.equal(response.headers.get('content-type'), 'image/jpeg');
+  assert.equal(response.headers.get('cache-control'), 'public, max-age=86400, s-maxage=86400');
+  assert.equal(response.headers.get('x-slaps-cache'), 'KV_MISS');
+  const image = await Jimp.read(Buffer.from(await response.arrayBuffer()));
   assert.equal(image.bitmap.width, 1200);
   assert.equal(image.bitmap.height, 630);
 }
@@ -93,11 +134,17 @@ async function run() {
       ));
     assert.ok(dailyDate, 'catalogue must contain a SLAPS daily-drop date');
 
-    delete require.cache[require.resolve(path.join(root, 'api', 'daily-og.js'))];
-    const dailyHandler = require(path.join(root, 'api', 'daily-og.js'));
-    const dailyResponse = responseRecorder();
-    await dailyHandler({ query: { date: dailyDate }, headers: {} }, dailyResponse);
-    await assertJpegResponse(dailyResponse, 'DAILY OG');
+    const dailyHandler = loadDailyHandler();
+    const invalidResponse = await dailyHandler(new Request('https://slaps.tokyo/api/daily-og?date=invalid'));
+    assert.equal(invalidResponse.status, 400);
+    assert.equal(await invalidResponse.text(), 'Invalid date');
+
+    const dailyResponse = await dailyHandler(new Request(`https://slaps.tokyo/api/daily-og?date=${dailyDate}`));
+    await assertFetchJpegResponse(dailyResponse, 'DAILY OG');
+    const dailySource = fs.readFileSync(path.join(root, 'api', 'daily-og.js'), 'utf8');
+    assert.match(dailySource, /export default \{ fetch: handleDailyOg \}/);
+    assert.match(dailySource, /new URL\(request\.url\)/);
+    assert.doesNotMatch(dailySource, /req\.query/);
   } finally {
     global.fetch = previousFetch;
     if (previousUrl === undefined) delete process.env.KV_REST_API_URL;
