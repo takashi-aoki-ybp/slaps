@@ -38,6 +38,15 @@ Do not claim that all release paths are automatically blocked.
 - Check filters, favorites, DAILY/shared list → SHUFFLE, and LATEST refresh.
   Account for real dialogs explicitly; do not force clicks through overlays.
 - Opening: muted video time advances. START continues that same video.
+- PC: UI is initially pinned but the central play/pause button is hidden.
+  Repeat pause/resume at least three times and inspect the rendered YouTube
+  frame as well as SLAPS `#playBtn` and transient `#tapIndicator`. A hidden
+  SLAPS button alone is not acceptance evidence. Run
+  `node scripts/check-pc-player-controls.cjs` with Chrome and Playwright available
+  (`PLAYWRIGHT_MODULE` can point to the installed module). `SLAPS_CHECK_URL`
+  selects a test target; screenshots and JSON go to `outputs/pc-player-controls`
+  or `SLAPS_CHECK_OUTPUT`. This live check is not part of offline CI. A failure
+  must remain an open defect, not be reported as a completed UI fix.
 - Desktop and mobile: unchanged layout, DIG open/select/scroll/close, no page
   runtime errors. Do not claim native-device coverage from desktop emulation.
 - Keep the browser process muted, intercept synthetic analytics and test
