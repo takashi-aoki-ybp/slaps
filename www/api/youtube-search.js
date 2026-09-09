@@ -33,33 +33,40 @@ function findFirstVideoId(root) {
   return null;
 }
 
-export default async function handler(req, res) {
-  res.setHeader('Cache-Control', 'no-store');
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+const jsonResponse = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), {
+  status,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store',
+    ...headers,
+  },
+});
+
+export async function handleYoutubeSearch(request) {
+  if (request.method !== 'GET') {
+    return jsonResponse({ error: 'Method Not Allowed' }, 405, { Allow: 'GET' });
   }
 
-  const q = typeof req.query.q === 'string' ? req.query.q.trim().slice(0, 120) : '';
+  const q = (new URL(request.url).searchParams.get('q') || '').trim().slice(0, 120);
   if (!q) {
-    return res.status(400).json({ error: 'Query parameter "q" is required' });
+    return jsonResponse({ error: 'Query parameter "q" is required' }, 400);
   }
 
   const apiKey = process.env.YOUTUBE_INNERTUBE_API_KEY;
   if (!apiKey) {
-    return res.status(503).json({ error: 'YouTube search is not configured' });
+    return jsonResponse({ error: 'YouTube search is not configured' }, 503);
   }
 
   try {
     const prefix = process.env.DB_PREFIX || '';
-    const forwarded = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
-    const address = forwarded || String(req.headers['x-real-ip'] || '').trim();
+    const forwarded = (request.headers.get('x-forwarded-for') || '').split(',')[0].trim();
+    const address = forwarded || (request.headers.get('x-real-ip') || '').trim();
     if (address && process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
       const rateKey = `${prefix}slaps:yt_search_rate:${digest(address)}`;
       const attempts = await kvFetch(['INCR', rateKey]);
       if (attempts === 1) await kvFetch(['EXPIRE', rateKey, '60']);
       if (attempts > 30) {
-        return res.status(429).json({ error: 'Too many searches. Please wait a minute.' });
+        return jsonResponse({ error: 'Too many searches. Please wait a minute.' }, 429);
       }
     }
 
@@ -67,8 +74,7 @@ export default async function handler(req, res) {
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
       const cached = await kvFetch(['GET', cacheKey]);
       if (/^[A-Za-z0-9_-]{11}$/.test(cached || '')) {
-        res.setHeader('X-Slaps-Cache', 'KV_HIT');
-        return res.status(200).json({ videoId: cached });
+        return jsonResponse({ videoId: cached }, 200, { 'X-Slaps-Cache': 'KV_HIT' });
       }
     }
 
@@ -101,15 +107,17 @@ export default async function handler(req, res) {
     const data = await response.json();
     const videoId = findFirstVideoId(data);
     if (!videoId) {
-      return res.status(404).json({ error: 'No video found' });
+      return jsonResponse({ error: 'No video found' }, 404);
     }
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
       await kvFetch(['SET', cacheKey, videoId, 'EX', '3600']);
-      res.setHeader('X-Slaps-Cache', 'KV_MISS');
+      return jsonResponse({ videoId }, 200, { 'X-Slaps-Cache': 'KV_MISS' });
     }
-    return res.status(200).json({ videoId });
+    return jsonResponse({ videoId });
   } catch (error) {
     console.error('YouTube search error:', error);
-    return res.status(502).json({ error: 'YouTube search temporarily unavailable' });
+    return jsonResponse({ error: 'YouTube search temporarily unavailable' }, 502);
   }
 }
+
+export default { fetch: handleYoutubeSearch };

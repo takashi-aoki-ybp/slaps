@@ -53,6 +53,10 @@ async function run() {
   assert.match(youtubeSearch, /yt_search_rate/);
   assert.match(youtubeSearch, /attempts > 30/);
   assert.match(youtubeSearch, /yt_search:v1/);
+  assert.match(youtubeSearch, /export default \{ fetch: handleYoutubeSearch \}/,
+    'YouTube search must use the Web Request/Response handler');
+  assert.doesNotMatch(youtubeSearch, /req\.query|res\.status|res\.setHeader/,
+    'YouTube search must not fall back to the legacy Node response adapter');
 
   const middleware = read('middleware.js');
   assert.match(middleware, /matcher:\s*\['\/\(\(\?!api\/\)\.\*\)'\]/,
