@@ -3,6 +3,10 @@ import { loadCurrent } from './player.js';
 
 let presenceInterval = null;
 let currentClientId = null;
+let presenceRequestInFlight = false;
+let hasSentTrackState = false;
+let lastSentVideoId = null;
+const PRESENCE_INTERVAL_MS = 10000;
 
 function hidePresence() {
   const badge = document.getElementById('onlineBadge');
@@ -25,17 +29,34 @@ export function initPresence() {
     try { localStorage.setItem('slaps_client_id', currentClientId); } catch { /* session only */ }
   }
 
-  // 初回実行
-  updatePresence();
+  startPresencePolling();
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') startPresencePolling();
+    else stopPresencePolling();
+  });
+}
 
-  // 10秒ごとにポーリング
-  presenceInterval = setInterval(updatePresence, 10000);
+function startPresencePolling() {
+  if (document.visibilityState !== 'visible' || presenceInterval) return;
+  updatePresence();
+  presenceInterval = setInterval(updatePresence, PRESENCE_INTERVAL_MS);
+}
+
+function stopPresencePolling() {
+  if (!presenceInterval) return;
+  clearInterval(presenceInterval);
+  presenceInterval = null;
 }
 
 // APIへ状態を送信し、他ユーザーの状態を取得
 async function updatePresence() {
+  if (document.visibilityState !== 'visible' || presenceRequestInFlight) return;
   const curSong = current();
   const currentVideoId = curSong ? curSong.youtube_id : null;
+  const hasTrackUpdate = !hasSentTrackState || currentVideoId !== lastSentVideoId;
+  const payload = { clientId: currentClientId, wantsListeningSnapshot: state.started };
+  if (hasTrackUpdate) payload.youtubeId = currentVideoId;
+  presenceRequestInFlight = true;
   
   try {
     const res = await fetch('/api/presence', {
@@ -43,15 +64,17 @@ async function updatePresence() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        clientId: currentClientId,
-        youtubeId: currentVideoId
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
       hidePresence();
       return;
+    }
+
+    if (hasTrackUpdate) {
+      hasSentTrackState = true;
+      lastSentVideoId = currentVideoId;
     }
 
     const data = await res.json();
@@ -76,6 +99,8 @@ async function updatePresence() {
     // サイレントエラー (機能しなくてもメインに影響させない)
     hidePresence();
     console.debug('Presence update failed', err);
+  } finally {
+    presenceRequestInFlight = false;
   }
 }
 

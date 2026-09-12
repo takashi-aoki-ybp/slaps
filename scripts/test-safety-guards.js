@@ -68,6 +68,9 @@ async function run() {
   const presence = read('api/presence.js');
   assert.match(presence, /isAllowedWebOrigin/);
   assert.match(presence, /isCataloguedYoutubeId/);
+  assert.match(presence, /'ZCOUNT', presenceKey/);
+  assert.doesNotMatch(presence, /\['ZCARD', presenceKey/);
+  assert.doesNotMatch(presence, /takeRateLimit\(/);
   assert.doesNotMatch(presence, /Access-Control-Allow-Origin', '\*'/);
 
   const player = read('src/player.js');
@@ -76,8 +79,12 @@ async function run() {
   const ui = read('src/ui.js');
   assert.match(ui, /active\.focus\(\{ preventScroll: true \}\)/);
   assert.match(ui, /!\$\('#digOverlay'\)\.hidden/);
-  assert.match(read('src/presence.js'), /!state\.started/);
-  assert.match(read('src/presence.js'), /Someone is playing:/);
+  const presenceClient = read('src/presence.js');
+  assert.match(presenceClient, /!state\.started/);
+  assert.match(presenceClient, /Someone is playing:/);
+  assert.match(presenceClient, /document\.visibilityState !== 'visible'/);
+  assert.match(presenceClient, /clearInterval\(presenceInterval\)/);
+  assert.match(presenceClient, /if \(hasTrackUpdate\) payload\.youtubeId = currentVideoId/);
   const styles = read('styles.css');
   assert.match(styles, /\.vibe-ticker\s*\{[\s\S]*left: max\(24px, env\(safe-area-inset-left\)\)/);
   assert.match(styles, /@media \(max-width: 768px\)[\s\S]*\.vibe-ticker\s*\{[\s\S]*left: 50%/);
