@@ -120,7 +120,13 @@ async function fetchJson(url) {
 
 async function verifyDailyOg(productionUrl, date) {
   const url = `${productionUrl}/api/daily-og?date=${encodeURIComponent(date)}`;
-  const first = await fetch(url, { headers: { accept: 'image/jpeg' } });
+  // Use distinct CDN keys while keeping the same Redis date key. Otherwise the
+  // second request can be a cached copy of the initial KV_MISS response and
+  // cannot prove that the generated image was persisted in Redis.
+  const probe = `${Date.now()}-${process.pid}`;
+  const firstUrl = `${url}&verify=${encodeURIComponent(`${probe}-first`)}`;
+  const secondUrl = `${url}&verify=${encodeURIComponent(`${probe}-second`)}`;
+  const first = await fetch(firstUrl, { headers: { accept: 'image/jpeg' } });
   if (!first.ok) throw new Error(`daily OG first request returned HTTP ${first.status}`);
   const firstType = first.headers.get('content-type') || '';
   if (!firstType.toLowerCase().startsWith('image/jpeg')) throw new Error(`daily OG content-type is ${firstType}`);
@@ -130,7 +136,7 @@ async function verifyDailyOg(productionUrl, date) {
     throw new Error(`daily OG dimensions are ${image.width}x${image.height}, expected 1200x630`);
   }
 
-  const second = await fetch(url, { headers: { accept: 'image/jpeg' } });
+  const second = await fetch(secondUrl, { headers: { accept: 'image/jpeg' } });
   if (!second.ok) throw new Error(`daily OG second request returned HTTP ${second.status}`);
   await second.arrayBuffer();
   const secondCache = second.headers.get('x-slaps-cache');
