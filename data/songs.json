@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "WvAqy1i2hEA",
+    "name": "Camp Lo - Luchini AKA This Is It (Official HD Video)",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/WvAqy1i2hEA/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:00.000Z"
+  },
+  {
+    "youtube_id": "3WHm6tfvKlk",
+    "name": "Denzel Curry - RICKY",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "Twelve’lenが監督、Zev Deansがスーパーバイジング・ディレクターを務めた作品。", "en": "Directed by Twelve’len, with Zev Deans serving as supervising director." },
+    "thumbnail": "https://img.youtube.com/vi/3WHm6tfvKlk/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:01.000Z"
+  },
+  {
+    "youtube_id": "yRfQGXFRr30",
+    "name": "Joey Bada$$ - \"Christ Conscious\" (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "Basquiatが楽曲をプロデュースし、映像はM-I-Eが監督を担当。", "en": "Basquiat produced the track; M-I-E directed the accompanying visuals." },
+    "thumbnail": "https://img.youtube.com/vi/yRfQGXFRr30/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:02.000Z"
+  },
+  {
+    "youtube_id": "8ZTcta21Dh0",
+    "name": "Elzhi - February (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/8ZTcta21Dh0/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:03.000Z"
+  },
+  {
+    "youtube_id": "sFWL7nM_Dig",
+    "name": "Big K.R.I.T. - Keep The devil Off [Official Video]",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "Alex Nazariが監督・編集を担当し、ダンサーのKida The Greatが出演。", "en": "Alex Nazari directed and edited the film, which features dancer Kida The Great." },
+    "thumbnail": "https://img.youtube.com/vi/sFWL7nM_Dig/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:04.000Z"
+  },
+  {
+    "youtube_id": "c3W3QDSET1I",
+    "name": "Rapsody - Power ft. Kendrick Lamar, Lance Skiiiwalker",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/c3W3QDSET1I/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:05.000Z"
+  },
+  {
+    "youtube_id": "ZEOKLz2uiHA",
+    "name": "NENE - OWARI (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "Koshyが楽曲をプロデュース。映像監督はHideto Hotta、モーショングラフィックスはUna Abe。", "en": "Produced by Koshy, with visuals directed by Hideto Hotta and motion graphics by Una Abe." },
+    "thumbnail": "https://img.youtube.com/vi/ZEOKLz2uiHA/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:06.000Z"
+  },
+  {
+    "youtube_id": "quJvkUlpIVw",
+    "name": "SUSHIBOYS - Countrysider Step 【Official Music Video】",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/quJvkUlpIVw/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:07.000Z"
+  },
+  {
+    "youtube_id": "_3iS3-YFZy8",
+    "name": "Kojoe - Ai Yaiyaiyai (Remix) feat. MFS & JASS (prod by. MoneyJah) [Official Music Video]",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "MFSとJASSが参加したリミックス。MoneyJahがプロデュースし、ODENが映像監督を担当。", "en": "This remix brings in MFS and JASS, with production by MoneyJah and visuals directed by ODEN." },
+    "thumbnail": "https://img.youtube.com/vi/_3iS3-YFZy8/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:08.000Z"
+  },
+  {
+    "youtube_id": "fXgAOhURDpo",
+    "name": "KREVA - 王者の休日",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/fXgAOhURDpo/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-16T00:10:09.000Z"
+  },
+  {
     "youtube_id": "8cEdndsuzSE",
     "name": "XG - GALA (Official Music Video)",
     "region": "jp",
