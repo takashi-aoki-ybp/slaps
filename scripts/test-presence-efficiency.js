@@ -60,8 +60,10 @@ async function run() {
   assert.doesNotMatch(apiSource, /takeRateLimit\(/);
   assert.match(clientSource, /document\.visibilityState !== 'visible'/);
   assert.match(clientSource, /clearInterval\(presenceInterval\)/);
+  assert.match(clientSource, /PRESENCE_INTERVAL_MS = 15000/);
   assert.match(clientSource, /if \(hasTrackUpdate\) payload\.youtubeId = currentVideoId/);
-  assert.match(clientSource, /wantsListeningSnapshot: state\.started/);
+  assert.match(clientSource, /wantsListeningSnapshot: listening/);
+  assert.doesNotMatch(clientSource, /wantsListeningSnapshot: state\.started/);
 
   const directCommands = [];
   const pipelineBatches = [];
@@ -103,15 +105,17 @@ async function run() {
   const clearedIntervals = [];
   const clientRequests = [];
   const badge = { hidden: true, innerHTML: '' };
+  const bodyClasses = new Set();
   const document = {
     visibilityState: 'visible',
+    body: { classList: { contains: value => bodyClasses.has(value) } },
     addEventListener(type, listener) { listeners[type] = listener; },
     getElementById(id) { return id === 'onlineBadge' ? badge : null; },
     querySelector() { return null; },
   };
   const clientContext = vm.createContext({
-    state: { started: false, all: [] },
-    current: () => null,
+    state: { started: true, isPromo: false, all: [{ youtube_id: 'aaaaaaaaaaa' }] },
+    current: () => ({ youtube_id: 'aaaaaaaaaaa' }),
     loadCurrent() {},
     document,
     window: { i18n: { getLang: () => 'ja' } },
@@ -140,16 +144,22 @@ async function run() {
   assert.equal(clientRequests.length, 2);
   assert.equal(Object.prototype.hasOwnProperty.call(clientRequests[1], 'youtubeId'), false);
 
+  bodyClasses.add('is-started');
+  await intervals[0].callback();
+  assert.equal(clientRequests.length, 3);
+  assert.equal(clientRequests[2].youtubeId, 'aaaaaaaaaaa');
+  assert.equal(clientRequests[2].wantsListeningSnapshot, true);
+
   document.visibilityState = 'hidden';
   listeners.visibilitychange();
   assert.deepEqual(clearedIntervals, [1]);
   await intervals[0].callback();
-  assert.equal(clientRequests.length, 2, 'a hidden tab must not call the presence API');
+  assert.equal(clientRequests.length, 3, 'a hidden tab must not call the presence API');
 
   document.visibilityState = 'visible';
   listeners.visibilitychange();
   await new Promise((resolve) => setImmediate(resolve));
-  assert.equal(clientRequests.length, 3, 'a visible tab must resume immediately');
+  assert.equal(clientRequests.length, 4, 'a visible tab must resume immediately');
   assert.equal(intervals.length, 2);
 
   console.log('Presence visibility and Redis command budget tests passed.');

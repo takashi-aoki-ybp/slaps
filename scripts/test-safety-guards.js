@@ -80,7 +80,9 @@ async function run() {
   assert.match(ui, /active\.focus\(\{ preventScroll: true \}\)/);
   assert.match(ui, /!\$\('#digOverlay'\)\.hidden/);
   const presenceClient = read('src/presence.js');
-  assert.match(presenceClient, /!state\.started/);
+  assert.match(presenceClient, /function hasListeningIntent\(\)/);
+  assert.match(presenceClient, /!hasListeningIntent\(\)/);
+  assert.doesNotMatch(presenceClient, /wantsListeningSnapshot: state\.started/);
   assert.match(presenceClient, /Someone is playing:/);
   assert.match(presenceClient, /document\.visibilityState !== 'visible'/);
   assert.match(presenceClient, /clearInterval\(presenceInterval\)/);

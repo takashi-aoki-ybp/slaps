@@ -6,7 +6,11 @@ let currentClientId = null;
 let presenceRequestInFlight = false;
 let hasSentTrackState = false;
 let lastSentVideoId = null;
-const PRESENCE_INTERVAL_MS = 10000;
+const PRESENCE_INTERVAL_MS = 15000;
+
+function hasListeningIntent() {
+  return !!(state.isPromo || document.body?.classList?.contains('is-started'));
+}
 
 function hidePresence() {
   const badge = document.getElementById('onlineBadge');
@@ -52,9 +56,10 @@ function stopPresencePolling() {
 async function updatePresence() {
   if (document.visibilityState !== 'visible' || presenceRequestInFlight) return;
   const curSong = current();
-  const currentVideoId = curSong ? curSong.youtube_id : null;
+  const listening = hasListeningIntent();
+  const currentVideoId = listening && curSong ? curSong.youtube_id : null;
   const hasTrackUpdate = !hasSentTrackState || currentVideoId !== lastSentVideoId;
-  const payload = { clientId: currentClientId, wantsListeningSnapshot: state.started };
+  const payload = { clientId: currentClientId, wantsListeningSnapshot: listening };
   if (hasTrackUpdate) payload.youtubeId = currentVideoId;
   presenceRequestInFlight = true;
   
@@ -109,7 +114,7 @@ let tickerTimeout = null;
 function showVibeTicker(song) {
   const ticker = document.getElementById('vibeTicker');
   if (!ticker) return;
-  if (!state.started) return;
+  if (!hasListeningIntent()) return;
   if (document.querySelector('.modal:not([hidden]), .about-ov:not([hidden])')) return;
 
   const title = String(song?.title || song?.name || '').trim();

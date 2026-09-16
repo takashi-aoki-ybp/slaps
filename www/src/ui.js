@@ -48,16 +48,31 @@ export function resetProgress() { $('#progressBar').style.width = '0%'; }
 
 // ---- トースト通知 ----
 let toastTimer = null;
-export function showToast(msg) {
+export function showToast(msg, { key = '' } = {}) {
   const el = $('#toast');
+  const message = String(msg ?? '');
   el.replaceChildren();
-  String(msg ?? '').split(/<br\s*\/?>/i).forEach((line, index) => {
+  message.split(/<br\s*\/?>/i).forEach((line, index) => {
     if (index) el.append(document.createElement('br'));
     el.append(document.createTextNode(line));
   });
+  el.dataset.toastKey = key;
   el.classList.add('is-show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('is-show'), 3500);
+  toastTimer = setTimeout(() => {
+    el.classList.remove('is-show');
+    delete el.dataset.toastKey;
+  }, 3500);
+}
+
+export function hideToast(key = '') {
+  const el = $('#toast');
+  if (key && el.dataset.toastKey !== key) return false;
+  clearTimeout(toastTimer);
+  toastTimer = null;
+  el.classList.remove('is-show');
+  delete el.dataset.toastKey;
+  return true;
 }
 
 // ---- アイドル時UIを隠す ----
@@ -1024,12 +1039,14 @@ export function setupUIListeners() {
     volumeSlider.value = initVol;
     volumeValue.textContent = `${initVol}%`;
     volumeIcon.textContent = initVol === 0 ? '🔇' : '🔊';
+    volumeIcon.setAttribute('aria-pressed', initVol === 0 ? 'true' : 'false');
 
     volumeSlider.addEventListener('input', () => {
       const vol = parseInt(volumeSlider.value, 10);
       setVolume(vol);
       volumeValue.textContent = `${vol}%`;
       volumeIcon.textContent = vol === 0 ? '🔇' : '🔊';
+      volumeIcon.setAttribute('aria-pressed', vol === 0 ? 'true' : 'false');
     });
 
     volumeIcon.addEventListener('click', () => {
@@ -1039,12 +1056,14 @@ export function setupUIListeners() {
         volumeSlider.value = 0;
         volumeValue.textContent = '0%';
         volumeIcon.textContent = '🔇';
+        volumeIcon.setAttribute('aria-pressed', 'true');
       } else {
         const restoreVol = state.preMuteVolume || 100;
         setVolume(restoreVol);
         volumeSlider.value = restoreVol;
         volumeValue.textContent = `${restoreVol}%`;
         volumeIcon.textContent = '🔊';
+        volumeIcon.setAttribute('aria-pressed', 'false');
       }
     });
   }

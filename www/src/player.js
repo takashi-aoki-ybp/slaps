@@ -4,6 +4,7 @@ import {
   renderMeta,
   updateTrackCount,
   showToast,
+  hideToast,
   wake,
   resetProgress,
   startProgress,
@@ -90,6 +91,7 @@ export function createYTPlayer(retry = false) {
       events: {
         onReady: () => {
           state.ready = true;
+          hideToast('youtube-timeout');
           try { state.player.mute(); } catch (e) {}
           disableCaptions();
           tryStart();
@@ -799,6 +801,7 @@ export function unmute() {
     volumeSlider.value = state.volume;
     volumeValue.textContent = `${state.volume}%`;
     volumeIcon.textContent = state.volume === 0 ? '🔇' : '🔊';
+    volumeIcon.setAttribute('aria-pressed', state.volume === 0 ? 'true' : 'false');
   }
 
   wake();

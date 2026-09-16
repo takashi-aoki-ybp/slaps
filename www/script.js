@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     if (!state.ready) {
       import('./src/ui.js').then((ui) => {
-        ui.showToast(window.i18n.t('toastYtFail'));
+        ui.showToast(window.i18n.t('toastYtFail'), { key: 'youtube-timeout' });
       });
       // Only onReady may mark the actual player ready. A late API callback
       // can still start muted playback; START can retry without a reload.
