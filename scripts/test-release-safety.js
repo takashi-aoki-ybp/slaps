@@ -68,6 +68,12 @@ async function run() {
   assert.doesNotMatch(ogImage, /req\.query|res\.send|res\.setHeader/,
     'OG endpoint must not fall back to the legacy Node response adapter');
 
+  const crateOg = read('api/crate-og.js');
+  assert.match(crateOg, /export default \{ fetch: handleCrateOg \}/,
+    'CRATE OG endpoint must use the Web Request/Response handler');
+  assert.doesNotMatch(crateOg, /req\.query|res\.send|res\.setHeader/,
+    'CRATE OG endpoint must not fall back to the legacy Node response adapter');
+
   const manifest = JSON.parse(read('manifest.json'));
   for (const size of [192, 512]) {
     const icon = manifest.icons.find((item) => item.sizes === `${size}x${size}`);

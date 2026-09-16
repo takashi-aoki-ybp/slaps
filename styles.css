@@ -1589,6 +1589,9 @@ textarea:focus:not(:focus-visible),
 #digOverlay .about-ov__inner {
   max-width: 1240px;
 }
+body.is-dig-open > .player .brand {
+  visibility: hidden;
+}
 .dig-overlay-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(40px, 6vw, 76px) !important;

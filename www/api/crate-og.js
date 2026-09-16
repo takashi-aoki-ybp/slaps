@@ -95,21 +95,38 @@ function drawText(image, text, x, y, scale, color = 0xffffffff) {
   }
 }
 
-export default async function handler(req, res) {
-  const requestedIds = validIds(req.query.crate);
-  if (!requestedIds.length) return res.status(400).send('Missing or invalid crate IDs');
+const imageHeaders = (cacheState) => ({
+  'Content-Type': 'image/jpeg',
+  'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+  'X-Slaps-Cache': cacheState,
+});
+
+const textResponse = (body, status) => new Response(body, {
+  status,
+  headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+});
+
+export async function handleCrateOg(request) {
+  const requestUrl = new URL(request.url);
+  const requestedIds = validIds(requestUrl.searchParams.get('crate'));
+  if (!requestedIds.length) return textResponse('Missing or invalid crate IDs', 400);
   const prefix = process.env.DB_PREFIX || '';
   const ids = await filterCataloguedYoutubeIds(requestedIds, kvFetch, prefix);
-  if (ids.length !== requestedIds.length) return res.status(404).send('Track not found');
+  if (ids.length !== requestedIds.length) return textResponse('Track not found', 404);
   const rate = await takeRateLimit({
-    req,
+    req: {
+      headers: {
+        'x-forwarded-for': request.headers.get('x-forwarded-for') || '',
+        'x-real-ip': request.headers.get('x-real-ip') || '',
+      },
+    },
     kvFetch,
     prefix,
     scope: 'saved_og',
     limit: 30,
     windowSeconds: 60,
   });
-  if (!rate.allowed) return res.status(429).send('Too Many Requests');
+  if (!rate.allowed) return textResponse('Too Many Requests', 429);
 
   const cacheHash = crypto.createHash('sha1').update(ids.join('.')).digest('hex');
   const cacheKey = `${prefix}slaps:saved-og:v2:${cacheHash}`;
@@ -117,10 +134,7 @@ export default async function handler(req, res) {
   try {
     const cached = await kvFetch(['GET', cacheKey]);
     if (cached) {
-      res.setHeader('Content-Type', 'image/jpeg');
-      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-      res.setHeader('X-Slaps-Cache', 'KV_HIT');
-      return res.send(Buffer.from(cached, 'base64'));
+      return new Response(Buffer.from(cached, 'base64'), { headers: imageHeaders('KV_HIT') });
     }
   } catch (error) {
     console.error('CRATE OG cache read failed:', error);
@@ -163,12 +177,11 @@ export default async function handler(req, res) {
       console.error('CRATE OG cache write failed:', error);
     }
 
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
-    res.setHeader('X-Slaps-Cache', 'KV_MISS');
-    return res.send(buffer);
+    return new Response(buffer, { headers: imageHeaders('KV_MISS') });
   } catch (error) {
     console.error('CRATE OG generation failed:', error);
-    return res.status(500).send('Failed to generate CRATE image');
+    return textResponse('Failed to generate CRATE image', 500);
   }
 }
+
+export default { fetch: handleCrateOg };

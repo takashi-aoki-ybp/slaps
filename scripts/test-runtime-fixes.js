@@ -6,6 +6,7 @@ const uiSource = fs.readFileSync('src/ui.js', 'utf8');
 const playerSource = fs.readFileSync('src/player.js', 'utf8');
 const appSource = fs.readFileSync('script.js', 'utf8');
 const html = fs.readFileSync('index.html', 'utf8');
+const styles = fs.readFileSync('styles.css', 'utf8');
 
 const toastStart = uiSource.indexOf('let toastTimer = null;');
 const toastEnd = uiSource.indexOf('// ---- アイドル時UIを隠す ----', toastStart);
@@ -40,5 +41,11 @@ assert.match(appSource, /showToast\(window\.i18n\.t\('toastYtFail'\), \{ key: 'y
 assert.match(playerSource, /onReady:\s*\(\) => \{[\s\S]*?hideToast\('youtube-timeout'\)/);
 assert.match(html, /<button type="button" class="volume-control__icon" id="volumeIcon"[^>]*aria-pressed="false"/);
 assert.match(html, /class="daily-date-nav" role="group" aria-label="Daily archive"/);
+assert.match(uiSource, /overlay\.hidden = false;[\s\S]*?document\.body\.classList\.add\('is-dig-open'\)/,
+  'opening DIG must mark the background brand as hidden');
+assert.match(uiSource, /\$\('#digOverlay'\)\.hidden = true;[\s\S]*?document\.body\.classList\.remove\('is-dig-open'\)/,
+  'closing DIG must restore the background brand');
+assert.match(styles, /body\.is-dig-open > \.player \.brand \{[\s\S]*?visibility: hidden;/,
+  'DIG overlay must hide the underlying brand to prevent a doubled ghost logo');
 
 console.log('Runtime recovery and semantic-control regressions passed.');

@@ -6,30 +6,12 @@ const { Jimp, JimpMime } = require('jimp');
 
 const root = process.cwd();
 
-function responseRecorder() {
-  return {
-    statusCode: 200,
-    headers: {},
-    body: null,
-    status(code) {
-      this.statusCode = code;
-      return this;
-    },
-    setHeader(name, value) {
-      this.headers[name.toLowerCase()] = value;
-    },
-    send(body) {
-      this.body = body;
-      return this;
-    },
-  };
-}
-
 function loadCrateHandler() {
   const sourcePath = path.join(root, 'api', 'crate-og.js');
   const source = fs.readFileSync(sourcePath, 'utf8')
-    .replace('export default async function handler', 'async function handler')
-    .concat('\nmodule.exports = handler;\n');
+    .replace('export async function handleCrateOg', 'async function handleCrateOg')
+    .replace('export default { fetch: handleCrateOg };', '')
+    .concat('\nmodule.exports = handleCrateOg;\n');
   const sandbox = {
     module: { exports: {} },
     exports: {},
@@ -39,6 +21,10 @@ function loadCrateHandler() {
     },
     process: { cwd: () => root, env: {} },
     Buffer,
+    Headers,
+    Request,
+    Response,
+    URL,
     fetch: (...args) => global.fetch(...args),
     console,
   };
@@ -77,17 +63,6 @@ function loadDailyHandler() {
   return sandbox.module.exports;
 }
 
-async function assertJpegResponse(response, label) {
-  assert.equal(response.statusCode, 200, `${label} must return 200`);
-  assert.equal(response.headers['content-type'], 'image/jpeg');
-  assert.equal(response.headers['cache-control'], 'public, max-age=86400, s-maxage=86400');
-  assert.equal(response.headers['x-slaps-cache'], 'KV_MISS');
-  assert.ok(Buffer.isBuffer(response.body), `${label} must return a Buffer`);
-  const image = await Jimp.read(response.body);
-  assert.equal(image.bitmap.width, 1200);
-  assert.equal(image.bitmap.height, 630);
-}
-
 async function assertFetchJpegResponse(response, label) {
   assert.equal(response.status, 200, `${label} must return 200`);
   assert.equal(response.headers.get('content-type'), 'image/jpeg');
@@ -122,9 +97,16 @@ async function run() {
     assert.equal(crateIds.length, 4);
 
     const crateHandler = loadCrateHandler();
-    const crateResponse = responseRecorder();
-    await crateHandler({ query: { crate: crateIds.join('.') }, headers: {} }, crateResponse);
-    await assertJpegResponse(crateResponse, 'CRATE OG');
+    const invalidCrateResponse = await crateHandler(new Request('https://slaps.tokyo/api/crate-og?crate=invalid'));
+    assert.equal(invalidCrateResponse.status, 400);
+    assert.equal(await invalidCrateResponse.text(), 'Missing or invalid crate IDs');
+
+    const crateResponse = await crateHandler(new Request(`https://slaps.tokyo/api/crate-og?crate=${crateIds.join('.')}`));
+    await assertFetchJpegResponse(crateResponse, 'CRATE OG');
+    const crateSource = fs.readFileSync(path.join(root, 'api', 'crate-og.js'), 'utf8');
+    assert.match(crateSource, /export default \{ fetch: handleCrateOg \}/);
+    assert.match(crateSource, /new URL\(request\.url\)/);
+    assert.doesNotMatch(crateSource, /req\.query|res\.send|res\.setHeader/);
 
     const dailyDate = songs
       .map((song) => String(song.created_at || song.publish_at || '').slice(0, 10))

@@ -462,6 +462,7 @@ export async function doSubmit() {
 export function openDig() {
   const overlay = $('#digOverlay');
   overlay.hidden = false;
+  document.body.classList.add('is-dig-open');
   trackEvent('dig_open', { suggestions: state.recommendations.length });
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'true');
@@ -479,6 +480,7 @@ export function openDig() {
 }
 export function closeDig({ restoreFocus = true } = {}) {
   $('#digOverlay').hidden = true;
+  document.body.classList.remove('is-dig-open');
   const trigger = $('#digOpen');
   if (trigger) trigger.setAttribute('aria-expanded', 'false');
   const detail = $('#digOverlayDetail');
