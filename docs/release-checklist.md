@@ -77,3 +77,42 @@ if that local file is unavailable. Do not report this manual gate as automated.
 - After alias changes, verify public assets, actual UI, count, and error logs.
 - Record pass/fail/unverified honestly. Separately list unrelated existing bugs.
 - Update the TBR home and dated result. Do not call an untested fix complete.
+
+## Daily live acceptance — required after each published 10-track release
+
+Run the production UI check in an isolated Chrome process muted with
+`--mute-audio`; this prevents audible playback without weakening the real player
+state checks. Use real clicks only—never `force: true`, DOM state mutation, or
+direct invocation of application handlers:
+
+```sh
+SLAPS_DAILY_DATE=YYYY-MM-DD \
+SLAPS_CHECK_OUTPUT=outputs/daily-automation/YYYY-MM-DD \
+npm run verify:daily:live
+```
+
+The gate must prove all of the following before the daily task is called complete:
+
+- The muted opening video advances before START.
+- START keeps the same YouTube ID and queue item, continues playback, and moves
+  the YouTube player to the unmuted state while the browser process remains muted.
+- LATEST is clicked and selects queue index 0 with the displayed/current video in
+  sync and playing.
+- DIG opens from its real control, returns at least one candidate, and a selected
+  jacket populates the detail panel.
+- TODAY'S 10 contains exactly 10 cards. PLAY ALL 10 is clicked and starts its
+  first video with a 10-item daily queue.
+- Page errors, actionable console warnings/errors, same-origin request failures,
+  and Vercel production error/warning/HTTP 500 logs are zero.
+- The baseline comparison still reports zero removed existing IDs and zero
+  duplicate IDs.
+
+Block analytics hosts and same-origin non-GET requests during the browser check so
+the acceptance itself cannot create analytics noise or write production data.
+Keep the generated JSON and screenshots as evidence; do not treat a build-only or
+DOM-only assertion as proof of the live flow.
+
+YouTube's iframe may conditionally render its own central play/pause overlay in
+headless Chrome. Record that separately and confirm SLAPS `#playBtn` and
+`#tapIndicator` are hidden. It is not evidence of a SLAPS control regression by
+itself, but it must remain open if reproduced in a normal user browser.

@@ -49,6 +49,36 @@ preexisting-record preservation audit, production API/assets, browser and logs.
 Only daily data, this evidence document, version references and synchronized
 Web/PWA/Android generated assets may enter the daily commit.
 Production deployment/push are explicitly authorized by this daily job.
-Standing prohibition: do not click START/PLAY ALL/LATEST to start playback,
-unmute or change volume. Those interactions cannot be marked passed without
-advance permission; automated regression coverage is not live operation proof.
+The owner subsequently authorized real START, PLAY ALL, LATEST and DIG operations
+for this release and future daily acceptance. They are executed in a dedicated
+Chrome process muted at the OS/browser process boundary; analytics and same-origin
+non-GET requests are intercepted so the check cannot pollute metrics or mutate
+production data.
+
+## Live production acceptance
+
+Passed at 2026-09-17 10:29 JST against the published production release.
+Evidence is retained in
+`outputs/daily-automation/2026-09-17/live-interactions.json` and corresponding
+screenshots (not version-controlled).
+
+- Opening: `xrizNyOr548` advanced while muted before START.
+- START: the same `xrizNyOr548` queue item continued playing; the YouTube API
+  changed to unmuted while the test browser process remained muted.
+- LATEST: a real click selected queue index 0, `jPDbyLGjYFk`, and the displayed,
+  queued and playing video IDs matched.
+- DIG: opened by its real control, returned two jackets, and a jacket selection
+  populated the detail panel.
+- TODAY'S 10 / PLAY ALL: all 10 cards rendered; a real PLAY ALL click created a
+  10-item daily queue and started `5ExQQxaiwbU` at index 0.
+- Browser: page errors 0, actionable console errors/warnings 0, same-origin
+  request failures 0.
+- Production data: 1,149 unique IDs, duplicate IDs 0, existing IDs removed 0,
+  daily IDs missing 0.
+- Vercel runtime logs for the production deployment: errors 0, warnings 0,
+  HTTP 500 entries 0 in the checked post-release window.
+
+The headless Chrome capture can show YouTube's iframe-owned central pause overlay.
+The SLAPS-owned `#playBtn` and `#tapIndicator` are hidden, and the condition is the
+previously documented YouTube iframe limitation rather than a new SLAPS control.
+Do not report it as fixed; re-open it only if it appears in a normal user browser.

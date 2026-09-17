@@ -15,6 +15,20 @@ async function run() {
   const packageJson = JSON.parse(read('package.json'));
   assert.equal(packageJson.dependencies.jimp, '1.6.1',
     'image generation must stay on the audited Jimp release');
+  assert.equal(packageJson.scripts['verify:daily:live'], 'node scripts/check-daily-live-acceptance.cjs',
+    'daily release must expose the reusable production live-acceptance gate');
+
+  const dailyLive = read('scripts/check-daily-live-acceptance.cjs');
+  for (const selector of ['#unmute', '[data-order="newest"]', '#digOpen', '#dailyPlayAll']) {
+    assert.ok(dailyLive.includes(`locator('${selector}')`),
+      `daily live acceptance must use a real click for ${selector}`);
+  }
+  assert.match(dailyLive, /beforeStart\.video_id === afterStart\.video_id/,
+    'daily live acceptance must prove START keeps the same video');
+  assert.match(dailyLive, /args:\s*\['--mute-audio'\]/,
+    'daily live acceptance must keep the browser process muted');
+  assert.doesNotMatch(dailyLive, /force:\s*true|\.evaluate\([^)]*=>[^)]*\.click\(/,
+    'daily live acceptance must not force clicks or synthesize them in page code');
 
   const vercel = JSON.parse(read('vercel.json'));
   assert.ok(!vercel.crons || vercel.crons.length === 0, 'retired auto-classify cron must not be scheduled');

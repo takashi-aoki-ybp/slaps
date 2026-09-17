@@ -11,6 +11,7 @@
     "test:kv-list": "node scripts/test-kv-list.js",
     "test:daily-gate": "node scripts/check-daily-completion.js --self-test",
     "verify:daily": "node scripts/check-daily-completion.js",
+    "verify:daily:live": "node scripts/check-daily-live-acceptance.cjs",
     "generate:pwa-icons": "node scripts/generate-pwa-icons.js",
     "test:release-safety": "node scripts/test-release-safety.js",
     "test:security-headers": "node scripts/test-security-headers.js",
