@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "5ExQQxaiwbU",
+    "name": "KOTA The Friend - Chicago Diner {OFFICIAL MUSIC VIDEO}",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/5ExQQxaiwbU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "0MT1AegYI_4",
+    "name": "Lute - Eye to Eye ft. Cozz [Official Video]",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/0MT1AegYI_4/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "Aqo-hyxjCYE",
+    "name": "Marlon Craft - Gang Shit (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Aqo-hyxjCYE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "AXbPrc6l-_s",
+    "name": "Domo Genesis & Graymatter - World Gone Mad (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/AXbPrc6l-_s/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "TTjtJWaNfZg",
+    "name": "Jae Skeese - Brick After Brick (Ground Level) [Official Music Video]",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TTjtJWaNfZg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "B5laMdec9KU",
+    "name": "redveil & JPEGMAFIA - black enuff (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/B5laMdec9KU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-17T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "ad2i1B6YPF8",
+    "name": "PUNPEE - Happy Meal (Official Music Video)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ad2i1B6YPF8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "Viqy0xzu_AU",
+    "name": "BASI / It's all good (Official Music Video)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Viqy0xzu_AU/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-17T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "yrVDuiEJEdY",
+    "name": "OZROSAURUS / The Phoenix (will rise)【Official Music Video】",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/yrVDuiEJEdY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "jPDbyLGjYFk",
+    "name": "田我流【MV】墓場のDigger feat. BigBen",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/jPDbyLGjYFk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-17T00:00:09.000Z"
+  },
+  {
     "youtube_id": "WvAqy1i2hEA",
     "name": "Camp Lo - Luchini AKA This Is It (Official HD Video)",
     "region": "us",
