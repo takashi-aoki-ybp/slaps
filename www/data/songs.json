@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "MHvNapx5PFo",
+    "name": "Danger Mouse & Black Thought - Aquamarine feat. Michael Kiwanuka (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "UNCANNY（George Muncey、Elliott Elder）が監督・編集を担当。",
+      "en": "Directed and edited by UNCANNY, the duo of George Muncey and Elliott Elder."
+    },
+    "thumbnail": "https://img.youtube.com/vi/MHvNapx5PFo/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-18T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "PsIiwHHiT3o",
+    "name": "Mick Jenkins ft. BADBADNOTGOOD - \"Drowning\" (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Nathan R. Smithが監督、Kode Mediaが制作。楽曲はBADBADNOTGOODがプロデュース。",
+      "en": "Directed by Nathan R. Smith and produced by Kode Media; BADBADNOTGOOD produced the track."
+    },
+    "thumbnail": "https://img.youtube.com/vi/PsIiwHHiT3o/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-18T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "W7fpqaX3K9M",
+    "name": "Your Old Droog - \"Help\" feat. Wiki and Edan",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Matt Lubanskyが監督・制作、Jake Waylerが撮影、Ryo Tanzawaが編集を担当。",
+      "en": "Directed and produced by Matt Lubansky, shot by Jake Wayler, and edited by Ryo Tanzawa."
+    },
+    "thumbnail": "https://img.youtube.com/vi/W7fpqaX3K9M/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-18T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "LNR4WHaGQQw",
+    "name": "Saba - Ziplock / Rich Don't Stop (Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Ian Liptonが監督・撮影・編集を兼任し、Cat McCabeがプロデュース。",
+      "en": "Ian Lipton served as director, cinematographer and editor, with Cat McCabe producing."
+    },
+    "thumbnail": "https://img.youtube.com/vi/LNR4WHaGQQw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-18T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "PgpDN-bARwc",
+    "name": "Jurassic 5 - Quality Control",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/PgpDN-bARwc/mqdefault.jpg",
+    "conscious_turnt": 3.5,
+    "created_at": "2026-09-18T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "ySKCpxq1NEs",
+    "name": "Skyzoo - Bed-Stuy is Burning | Official Video",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Hypnotic Brass Ensembleが参加。Rashid Hadeeがプロデュースし、Melanie Clarke-Penellaが監督。",
+      "en": "Featuring Hypnotic Brass Ensemble, produced by Rashid Hadee and directed by Melanie Clarke-Penella."
+    },
+    "thumbnail": "https://img.youtube.com/vi/ySKCpxq1NEs/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-18T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "uLpaiRGld3Q",
+    "name": "SEEDA : 親子星 (Music video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Sho Nagashimaが監督、REALY（RAW Climb）が撮影を担当。",
+      "en": "Directed by Sho Nagashima, with cinematography by REALY of RAW Climb."
+    },
+    "thumbnail": "https://img.youtube.com/vi/uLpaiRGld3Q/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-18T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "GHuoD7t35ro",
+    "name": "NORIKIYO / 夜に口笛 (Full Ver.)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "BACHLOGICがプロデュース。Ghetto Hollywoodが監督し、桜庭宗光が出演。",
+      "en": "Produced by BACHLOGIC, directed by Ghetto Hollywood and starring Munemitsu Sakuraba."
+    },
+    "thumbnail": "https://img.youtube.com/vi/GHuoD7t35ro/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-18T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "2LRSamHMGBI",
+    "name": "Daichi Yamamoto - 上海バンド",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "SHIMI（BUZZER BEATS）が楽曲をプロデュースし、Yuki Horiが監督・撮影を担当。",
+      "en": "Produced by SHIMI of BUZZER BEATS, with Yuki Hori serving as director and cinematographer."
+    },
+    "thumbnail": "https://img.youtube.com/vi/2LRSamHMGBI/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-18T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "42I92ipjBRc",
+    "name": "C.O.S.A. - Mikiura feat. KID FRESINO",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "三木浦で撮影され、Hideto Hottaが監督・編集。楽曲はRascalとBeat Butchaがプロデュース。",
+      "en": "Filmed in Mikiura, directed and edited by Hideto Hotta, with production by Rascal and Beat Butcha."
+    },
+    "thumbnail": "https://img.youtube.com/vi/42I92ipjBRc/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-18T00:00:09.000Z"
+  },
+  {
     "youtube_id": "5ExQQxaiwbU",
     "name": "KOTA The Friend - Chicago Diner {OFFICIAL MUSIC VIDEO}",
     "region": "us",
