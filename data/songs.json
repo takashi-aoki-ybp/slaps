@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "NF3wEImfjJk",
+    "name": "Little Brother - Everything (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Khrysisが楽曲をプロデュースし、Holland Randolph Gallagherが映像を監督。",
+      "en": "Produced by Khrysis, with the video directed by Holland Randolph Gallagher."
+    },
+    "thumbnail": "https://img.youtube.com/vi/NF3wEImfjJk/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-19T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "AeQMS6UnFUU",
+    "name": "Masta Ace & Marco Polo - Get Shot (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Ezru Gonzalezが監督し、Shy The Beat YodaとDJ Linxがスクラッチを担当。",
+      "en": "Directed by Ezru Gonzalez, with scratches by Shy The Beat Yoda and DJ Linx."
+    },
+    "thumbnail": "https://img.youtube.com/vi/AeQMS6UnFUU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-19T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "lhvd4jPboyQ",
+    "name": "Mos Def - Ghetto Rock",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/lhvd4jPboyQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-19T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "HmOd0GKuztE",
+    "name": "Common - Resurrection (Official Video)",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/HmOd0GKuztE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-19T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "b5-XhnhG0MA",
+    "name": "De La Soul - Itzsoweezee (HOT) (Official 4K Music Video)",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/b5-XhnhG0MA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-19T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "QFwTLvj0418",
+    "name": "Noname - Hundred Acres ft. Devin Morrison (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Daren Rabinovitchが監督、Devin Whetstoneが撮影、Mike Tyusが振付を担当。",
+      "en": "Directed by Daren Rabinovitch, with cinematography by Devin Whetstone and choreography by Mike Tyus."
+    },
+    "thumbnail": "https://img.youtube.com/vi/QFwTLvj0418/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-19T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "rhrVrLuWW-Y",
+    "name": "BUPPON - 蓄積タイムラグ",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "市川茂生が撮影・編集を担当。",
+      "en": "Shot and edited by Shigeo Ichikawa."
+    },
+    "thumbnail": "https://img.youtube.com/vi/rhrVrLuWW-Y/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-19T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "BI8xo6psdKg",
+    "name": "Campanella - Indigo (BLACK FILE exclusive MV “NEIGHBORHOOD”)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Ramzaがビートを手がけ、Vince Theodore Atosが監督。",
+      "en": "Beat by Ramza and directed by Vince Theodore Atos."
+    },
+    "thumbnail": "https://img.youtube.com/vi/BI8xo6psdKg/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-19T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "4QPZW0dJi6Q",
+    "name": "ISSUGI & GRADIS NICE - DAY and NITE / Blaze Up (Official Video)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Keisuke Kousakaが監督。",
+      "en": "Directed by Keisuke Kousaka."
+    },
+    "thumbnail": "https://img.youtube.com/vi/4QPZW0dJi6Q/mqdefault.jpg",
+    "conscious_turnt": 3.5,
+    "created_at": "2026-09-19T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "nMWkOEF9RdI",
+    "name": "KID FRESINO - No Sun (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "山田智和が監督・編集、川上智之が撮影、山田葵が振付を担当。",
+      "en": "Directed and edited by Tomokazu Yamada, with cinematography by Tomoyuki Kawakami and choreography by Aoi Yamada."
+    },
+    "thumbnail": "https://img.youtube.com/vi/nMWkOEF9RdI/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-19T00:00:09.000Z"
+  },
+  {
     "youtube_id": "MHvNapx5PFo",
     "name": "Danger Mouse & Black Thought - Aquamarine feat. Michael Kiwanuka (Official Video)",
     "region": "us",
