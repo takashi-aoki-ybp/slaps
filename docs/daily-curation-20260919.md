@@ -53,3 +53,33 @@ Real START, PLAY ALL, LATEST and DIG operations are authorized for daily accepta
 They are executed in a dedicated Chrome process muted at the browser process boundary;
 analytics and same-origin non-GET requests are intercepted so the check cannot pollute
 metrics or mutate production data.
+
+## Live production acceptance
+
+Passed at 2026-09-19 09:12 JST against Production
+`dpl_C8Jhd8uQtmvwGs4YDXzfd9kcBXQy`, aliased to `slaps.tokyo` and
+`www.slaps.tokyo`. Evidence is retained in
+`outputs/daily-automation/2026-09-19/` (not version-controlled).
+
+- Final machine gate: exit 0 / status `pass`; production 1,169 / local 1,164 /
+  daily 10 / baseline delta 10 / community additions 0 / removals 0. Daily OG
+  is JPEG 1200x630 with repeated `KV_HIT`.
+- Opening: `oZPiskvDlTo` advanced from 1.82s to 3.63s while muted before START.
+- START: the same `oZPiskvDlTo` queue item continued playing; the YouTube API
+  changed to unmuted while the Chrome process remained muted.
+- LATEST: a real click selected index 0, `nMWkOEF9RdI`; displayed, queued and
+  playing IDs matched.
+- DIG: opened by its real control, returned 16 jackets, and a real jacket click
+  populated the detail panel.
+- TODAY'S 10 / PLAY ALL: `10 NEW TODAY` and all ten ordered cards rendered; a
+  real PLAY ALL click created a ten-item daily queue and played `NF3wEImfjJk`
+  at index 0 with advancing time.
+- Browser: page errors 0, actionable console errors/warnings 0, same-origin
+  request failures 0. YouTube/DoubleClick CORS noise was isolated as third-party
+  and non-actionable.
+- SLAPS controls: `#playBtn` and `#tapIndicator` were both not visible during
+  daily playback. The central pause icon visible in the headless screenshot is
+  owned by the YouTube iframe and is recorded separately from SLAPS controls.
+- Production assets: public `index.html`, `service-worker.js`, and
+  `data/songs.json` byte-match local. Vercel deployment-filtered errors,
+  warnings and HTTP 500 entries are all 0.
