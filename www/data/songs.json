@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "NQFRmDgBwcg",
+    "name": "De La Soul - Oodles of O's (Official Music Video)",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "J Anders Urmacherが監督、thenyfrequencyがプロデュース。",
+      "en": "Directed by J Anders Urmacher and produced by thenyfrequency."
+    },
+    "thumbnail": "https://img.youtube.com/vi/NQFRmDgBwcg/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-20T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "-DF64y0LLbc",
+    "name": "Masta Ace Incorporated - Sittin' On Chrome",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Vincent E. Totoが監督。",
+      "en": "Directed by Vincent E. Toto."
+    },
+    "thumbnail": "https://img.youtube.com/vi/-DF64y0LLbc/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-09-20T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "t_Z8X_bgEpw",
+    "name": "Mos Def - History ft. Talib Kweli",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/t_Z8X_bgEpw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-20T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "anRkutaPS9w",
+    "name": "Earl Sweatshirt - WHOA",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Wolf Haleyが監督、Luis Ponchが撮影、Tara Razaviがプロデュース。",
+      "en": "Directed by Wolf Haley, filmed by Luis Ponch and produced by Tara Razavi."
+    },
+    "thumbnail": "https://img.youtube.com/vi/anRkutaPS9w/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-20T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "EVlGLtCnN-Y",
+    "name": "JID, Kenny Mason - Dance Now (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/EVlGLtCnN-Y/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-09-20T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "_c1UQHvoN5Q",
+    "name": "MAVI - 31 Days (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Wyethが監督・編集、Ben Coffeyが撮影を担当。",
+      "en": "Directed and edited by Wyeth, with cinematography by Ben Coffey."
+    },
+    "thumbnail": "https://img.youtube.com/vi/_c1UQHvoN5Q/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-20T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "v7uc7PvcW2E",
+    "name": "STUTS - Renaissance Beat / Pushin' (Performed with MPC1000) 【Official Music Video】",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "宮尾昇陽が監督。",
+      "en": "Directed by Shoyo Miyao."
+    },
+    "thumbnail": "https://img.youtube.com/vi/v7uc7PvcW2E/mqdefault.jpg",
+    "conscious_turnt": 3.5,
+    "created_at": "2026-09-20T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "IA5XLGkaCAo",
+    "name": "BUPPON - i'll [prod by kojoe]",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "山本育央が監督、澤田至宏が撮影、Kojoeがビート・ミックスを担当。",
+      "en": "Directed by Ikuo Yamamoto, with cinematography by Itaru Sawada and beat and mix by Kojoe."
+    },
+    "thumbnail": "https://img.youtube.com/vi/IA5XLGkaCAo/mqdefault.jpg",
+    "conscious_turnt": 2.5,
+    "created_at": "2026-09-20T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "DEbao23Aa_E",
+    "name": "BIM - Anchovy feat. どんぐりず (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "山田健人が監督、保刈寛之が撮影を担当。",
+      "en": "Directed by Kento Yamada, with cinematography by Michito Hokari."
+    },
+    "thumbnail": "https://img.youtube.com/vi/DEbao23Aa_E/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-20T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "yQiIjjV7gUU",
+    "name": "KID FRESINO - runnin shot feat. Tiji Jojo (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Spikey Johnが監督、佐井浩介が撮影、KID FRESINOがプロデュース。",
+      "en": "Directed by Spikey John, with cinematography by Kousuke Sai and production by KID FRESINO."
+    },
+    "thumbnail": "https://img.youtube.com/vi/yQiIjjV7gUU/mqdefault.jpg",
+    "conscious_turnt": 4.5,
+    "created_at": "2026-09-20T00:00:09.000Z"
+  },
+  {
     "youtube_id": "NF3wEImfjJk",
     "name": "Little Brother - Everything (Official Video)",
     "region": "us",
