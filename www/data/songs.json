@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "npcGql9Ir6Y",
+    "name": "Aesop Rock - Rings (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Rob Shawが監督・編集を担当し、Bent Image Labが制作。Rodrigo Melgarejoが撮影を担当した。",
+      "en": "Directed and edited by Rob Shaw, produced by Bent Image Lab, with cinematography by Rodrigo Melgarejo."
+    },
+    "thumbnail": "https://img.youtube.com/vi/npcGql9Ir6Y/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "OO18F4aKGzQ",
+    "name": "Brother Ali - Uncle Sam Goddamn (Official Video)",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/OO18F4aKGzQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "nBNPPEUWE1U",
+    "name": "Jean Grae & Quelle Chris - ZERO | Official Music Video",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Quelle Chrisが監督とアニメーションを担当し、カメラ、Photoshop、After Effectsを使って制作した。",
+      "en": "Directed and animated by Quelle Chris using a camera, Photoshop, and After Effects."
+    },
+    "thumbnail": "https://img.youtube.com/vi/nBNPPEUWE1U/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "khiwsdYyx7Y",
+    "name": "Rapsody - Asteroids",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Patrick Lincolnが監督・編集を担当し、Mike Stipeがプロデュースした。",
+      "en": "Directed and edited by Patrick Lincoln, and produced by Mike Stipe."
+    },
+    "thumbnail": "https://img.youtube.com/vi/khiwsdYyx7Y/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "dR3m-jybx74",
+    "name": "Marlon Craft - Analog Man (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Marlon Craftがコンセプトと監督、Nathan Smithが監督・撮影、Jacob Carlsonが監督・編集・カラー・VFXを担当した。",
+      "en": "Concept and direction by Marlon Craft; directed and shot by Nathan Smith, with direction, editing, color, and VFX by Jacob Carlson."
+    },
+    "thumbnail": "https://img.youtube.com/vi/dR3m-jybx74/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "dLtOosdX-Xs",
+    "name": "Saba and No ID - Crash ft. Raphael Saadiq and Kelly Rowland",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Andrpwが監督・撮影・編集を担当し、Rosalinda Ruizがプロダクション管理とセットデザインを担当した。",
+      "en": "Directed, shot, and edited by Andrpw, with production management and set design by Rosalinda Ruiz."
+    },
+    "thumbnail": "https://img.youtube.com/vi/dLtOosdX-Xs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "zNz5YQgfcAU",
+    "name": "JJJ - PLACE TO GO (Prod. by JJJ) [Official Music Video]",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zNz5YQgfcAU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "wY-VD0kkRqM",
+    "name": "\"Girl if you\"  5lack",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Yosuke Takadaが監督を担当した。",
+      "en": "Directed by Yosuke Takada."
+    },
+    "thumbnail": "https://img.youtube.com/vi/wY-VD0kkRqM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "1OxhZnxxJQM",
+    "name": "田我流 - Wave feat. C.O.S.A. (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "スタジオ石のMr麿が監督を担当した。",
+      "en": "Directed by Mr麿 of Studio Ishi."
+    },
+    "thumbnail": "https://img.youtube.com/vi/1OxhZnxxJQM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "_4zK0os-ifk",
+    "name": "Skaai - Confidence (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Ryota Ishizawaが監督、Nao Saitoが撮影、Toshifumi Mizoeが照明、Yuma Izukaがカラーを担当した。",
+      "en": "Directed by Ryota Ishizawa, with cinematography by Nao Saito, lighting by Toshifumi Mizoe, and color by Yuma Izuka."
+    },
+    "thumbnail": "https://img.youtube.com/vi/_4zK0os-ifk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-22T00:00:09.000Z"
+  },
+  {
     "youtube_id": "O5TUqdxqHS0",
     "name": "The Roots - Proceed (Official Music Video)",
     "region": "us",
