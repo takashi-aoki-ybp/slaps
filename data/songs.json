@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "NF63pXAp5mw",
+    "name": "billy woods & Kenny Segal - Babylon by Bus feat. ShrapKnel (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Henry NelsonとTim Blake Nelsonが監督し、Will CurryとHenry Nelsonが撮影、Henry Nelsonが編集を担当した。",
+      "en": "Directed by Henry Nelson and Tim Blake Nelson, with cinematography by Will Curry and Henry Nelson, and editing by Henry Nelson."
+    },
+    "thumbnail": "https://img.youtube.com/vi/NF63pXAp5mw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-23T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "2xRW9JY5dZ0",
+    "name": "Quelle Chris - Alive Ain't Always Living (prod. Chris Keys) (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Dominik GallevaとClemens Nielが監督を担当した。",
+      "en": "Directed by Dominik Galleva and Clemens Niel."
+    },
+    "thumbnail": "https://img.youtube.com/vi/2xRW9JY5dZ0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-23T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "BnSVqxYSPPY",
+    "name": "Open Mike Eagle - “95 Radios” (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Carla Daudenが脚本・監督を担当し、Santiago Calogeroが撮影を担当した。",
+      "en": "Written and directed by Carla Dauden, with cinematography by Santiago Calogero."
+    },
+    "thumbnail": "https://img.youtube.com/vi/BnSVqxYSPPY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-23T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "OCG8YJ55kT0",
+    "name": "Homeboy Sandman - Life Support",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Pace Riversが監督し、Nicole McBrideとMary Godleyがアートディレクションを担当した。",
+      "en": "Directed by Pace Rivers, with art direction by Nicole McBride and Mary Godley."
+    },
+    "thumbnail": "https://img.youtube.com/vi/OCG8YJ55kT0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-23T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "ul_SvctiuXY",
+    "name": "Atmosphere - Southsiders (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Andrew Melbyが監督し、Jake Gardnerが撮影、Victor Rukavinaが編集を担当した。",
+      "en": "Directed by Andrew Melby, with cinematography by Jake Gardner and editing by Victor Rukavina."
+    },
+    "thumbnail": "https://img.youtube.com/vi/ul_SvctiuXY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-23T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "5TPuEd-EJAc",
+    "name": "Fashawn – Ecology / The Score ft. Planet Asia (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Punit Dhesiが監督を担当した。",
+      "en": "Directed by Punit Dhesi."
+    },
+    "thumbnail": "https://img.youtube.com/vi/5TPuEd-EJAc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-23T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "9ipjTLbohFk",
+    "name": "GAGLE - Y字路 (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Yudai Maruyamaが監督・編集を担当し、fmlikがカラー、Takahiro Yasudaがタイトルデザインを担当した。",
+      "en": "Directed and edited by Yudai Maruyama, with color by fmlik and title design by Takahiro Yasuda."
+    },
+    "thumbnail": "https://img.youtube.com/vi/9ipjTLbohFk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-23T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "06yIzV8HToM",
+    "name": "EVISBEATS【PV】いい時間",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Tomoscoがアフリカ旅行中に撮影した映像を使用して制作された。",
+      "en": "Created with footage Tomosco filmed while traveling in Africa."
+    },
+    "thumbnail": "https://img.youtube.com/vi/06yIzV8HToM/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-23T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "uqUhY8x6fxM",
+    "name": "THA BLUE HERB \"COLD CHILLIN'\"【OFFICIAL MV】",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "MarioWorksが映像監督を担当した。",
+      "en": "Video directed by MarioWorks."
+    },
+    "thumbnail": "https://img.youtube.com/vi/uqUhY8x6fxM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-23T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "_Vct0sg_cz4",
+    "name": "瞬間speechless",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_Vct0sg_cz4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-23T00:00:09.000Z"
+  },
+  {
     "youtube_id": "npcGql9Ir6Y",
     "name": "Aesop Rock - Rings (Official Video)",
     "region": "us",
