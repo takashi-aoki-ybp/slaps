@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "4fzOCCDHJkE",
+    "name": "Joell Ortiz - Before Hip-Hop (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Joell Ortizがボーカル、Hesamiがプロデュース、Devon Johnsonが監督を担当した。",
+      "en": "Vocals by Joell Ortiz, produced by Hesami, and directed by Devon Johnson."
+    },
+    "thumbnail": "https://img.youtube.com/vi/4fzOCCDHJkE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-24T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "KX-ECeV9rF0",
+    "name": "Oddisee \"Different Now\" feat. Toine (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Oddiseeがプロデュースし、Zach Schambergが監督を担当した。",
+      "en": "Produced by Oddisee and directed by Zach Schamberg."
+    },
+    "thumbnail": "https://img.youtube.com/vi/KX-ECeV9rF0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-24T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "fEK4FttsCTM",
+    "name": "Evidence - You (prod. DJ Premier) [Official Video]",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Todd Angkasuwanが監督・撮影監督・編集・プロデュースを担当した。",
+      "en": "Directed, shot, edited, and produced by Todd Angkasuwan."
+    },
+    "thumbnail": "https://img.youtube.com/vi/fEK4FttsCTM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-24T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "VB5coQcelAk",
+    "name": "The Roots - Don't Say Nuthin' (Official Music Video)",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/VB5coQcelAk/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-24T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "UiZQ4rbhQzE",
+    "name": "Navy Blue - Orchards",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Maxi Hachemが監督・編集を担当し、Peter Houが撮影を担当した。",
+      "en": "Directed and edited by Maxi Hachem, with cinematography by Peter Hou."
+    },
+    "thumbnail": "https://img.youtube.com/vi/UiZQ4rbhQzE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-24T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "k3OTpuNep_o",
+    "name": "Freddie Gibbs & The Alchemist - “A Thousand Mountains” (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Nick Walkerが監督し、Freddie GibbsとThe Alchemistが出演、Harley Astorgaが撮影監督を担当した。",
+      "en": "Directed by Nick Walker, starring Freddie Gibbs and The Alchemist, with Harley Astorga as director of photography."
+    },
+    "thumbnail": "https://img.youtube.com/vi/k3OTpuNep_o/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-24T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "BLcXsgyrnOY",
+    "name": "環ROY Tamaki Roy - ゆめのあと",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "音楽は環ROY、Taquwami、OBKR。映像は古屋蔵人、高木考一、中島唱太が担当した。",
+      "en": "Music by Tamaki Roy, Taquwami, and OBKR; film by Kurando Furuya, Koichi Takagi, and Shota Nakajima."
+    },
+    "thumbnail": "https://img.youtube.com/vi/BLcXsgyrnOY/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-24T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "VPGfSft1mYQ",
+    "name": "OMSB - HULK",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "OMSBがプロデュースし、GIVVNが監督を担当した。",
+      "en": "Produced by OMSB and directed by GIVVN."
+    },
+    "thumbnail": "https://img.youtube.com/vi/VPGfSft1mYQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-24T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "FP-HIFVLieA",
+    "name": "ISSUGI - from Scratch / prod DJ SCRATCH NICE (Official Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "DJ SCRATCH NICEがプロデュースし、ROLLSWYZEが監督、keisuke.kousakaがアニメーションを担当した。",
+      "en": "Produced by DJ SCRATCH NICE, directed by ROLLSWYZE, with animation by keisuke.kousaka."
+    },
+    "thumbnail": "https://img.youtube.com/vi/FP-HIFVLieA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-24T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "us964RNag0U",
+    "name": "Campanella - Think Free feat. 中納良恵 (Prod by Mocky)【Official Music Video】",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "スタジオ石（MMM）が監督し、Campanella、中納良恵、Ramza、shobbieconz、藤原草太朗が出演した。",
+      "en": "Directed by Studio Ishi (MMM), featuring Campanella, Yoshie Nakano, Ramza, shobbieconz, and Sotaro Fujiwara."
+    },
+    "thumbnail": "https://img.youtube.com/vi/us964RNag0U/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-24T00:00:09.000Z"
+  },
+  {
     "youtube_id": "NF63pXAp5mw",
     "name": "billy woods & Kenny Segal - Babylon by Bus feat. ShrapKnel (Official Video)",
     "region": "us",
