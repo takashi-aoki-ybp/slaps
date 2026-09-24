@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { isBoilerplate } = require('../api/utils/description-policy.js');
+const { isBoilerplate, isCreditOnlyDescription } = require('../api/utils/description-policy.js');
 
 const songsPath = path.join(__dirname, '..', 'data', 'songs.json');
 const songs = JSON.parse(fs.readFileSync(songsPath, 'utf8'));
@@ -16,6 +16,9 @@ function addError(index, message) {
 
 for (const [index, song] of songs.entries()) {
   const id = song.youtube_id;
+  if (song.user_name === 'SLAPS' && isCreditOnlyDescription(song.description)) {
+    addError(index, `credit-only editorial description: ${id}`);
+  }
   for (const lang of ['ja', 'en']) {
     if (isBoilerplate(song.description?.[lang], lang)) {
       addError(index, `retired boilerplate in ${lang} description: ${id}`);

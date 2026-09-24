@@ -41,6 +41,11 @@ remains blank because the first-party description contains no production credit.
 No generic video prose, title/region/era restatement, subjective VIBE assertion or
 unverified interpretation was added.
 
+Correction later on 2026-09-24: the owner rejected production-credit lists as
+editorial copy. These nine descriptions, plus the same pattern from recent daily
+releases, were retired to blank JP/EN fields. See
+`docs/description-cleanup-20260924.md`.
+
 ## Acceptance boundary
 
 Daily baseline: production 1,209; daily SLAPS 0; local 1,204; clean tracked tree.

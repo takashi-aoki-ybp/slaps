@@ -5,7 +5,8 @@ const vm = require('node:vm');
 const { createRequire } = require('node:module');
 const { spawnSync } = require('node:child_process');
 const { retired } = require('../data/retired-descriptions.json');
-const { isBoilerplate, retireGeneratedDescription } = require('../api/utils/description-policy.js');
+const { retired: retiredCreditOnly } = require('../data/retired-credit-descriptions.json');
+const { isBoilerplate, isCreditOnlyDescription, retireGeneratedDescription } = require('../api/utils/description-policy.js');
 const songs = require('../data/songs.json');
 const byId = new Map(songs.map(s => [s.youtube_id, s]));
 
@@ -31,6 +32,30 @@ async function run() {
   assert(isBoilerplate('YouTubeで公開中の「A new title」。日本の2020年代ヒップホップとして収録。', 'ja'));
   assert(isBoilerplate('“New title” on YouTube. Hip-hop from Japan, released in the 2020s.', 'en'));
 
+  assert.equal(Object.keys(retiredCreditOnly).length, 61);
+  for (const [creditId, description] of Object.entries(retiredCreditOnly)) {
+    assert.deepEqual(byId.get(creditId).description, { ja: '', en: '' }, creditId);
+    assert(isCreditOnlyDescription(description), creditId);
+    assert.deepEqual(retireGeneratedDescription({
+      youtube_id: creditId,
+      user_name: 'SLAPS',
+      description,
+    }).description, { ja: '', en: '' }, creditId);
+    assert.deepEqual(retireGeneratedDescription({
+      youtube_id: creditId,
+      user_name: 'SLAPS',
+      description: { ja: '本人の言葉', en: 'A genuine later edit.' },
+    }).description, { ja: '本人の言葉', en: 'A genuine later edit.' }, creditId);
+  }
+  assert(isCreditOnlyDescription({
+    ja: 'Maxi Hachemが監督・編集を担当し、Peter Houが撮影を担当した。',
+    en: 'Directed and edited by Maxi Hachem, with cinematography by Peter Hou.',
+  }));
+  assert(!isCreditOnlyDescription({
+    ja: 'ZORNがBACHLOGICプロデュースのもと、力強くも温かい言葉を紡ぐ情緒あふれる楽曲。',
+    en: 'A powerful and heartfelt track by ZORN produced by BACHLOGIC, delivering deeply emotional and introspective lyrics.',
+  }));
+
   const catalogBefore = fs.readFileSync('data/songs.json', 'utf8');
   const disabled = spawnSync(process.execPath, ['scripts/fill-empty-descriptions.js'], { encoding: 'utf8' });
   assert.equal(disabled.status, 1); assert.match(disabled.stderr, /disabled/);
@@ -39,9 +64,11 @@ async function run() {
   // Exercise the real API merge: exact retired DB copy removed, user edit kept,
   // non-retired community record kept, no Redis writes or external requests.
   const secondId = Object.keys(retired).find(key => key !== id);
+  const creditId = 'FP-HIFVLieA';
   const dbRows = [
     { ...byId.get(id), description: retired[id] },
     { ...byId.get(secondId), description: { ja: 'ユーザー自身のコメント', en: 'My own comment.' } },
+    { ...byId.get(creditId), description: retiredCreditOnly[creditId] },
     { youtube_id: 'newUser1234', name: 'Community track', description: { ja: 'いい曲', en: 'Love it.' } },
   ];
   let result;
@@ -60,10 +87,11 @@ async function run() {
   vm.runInContext(source, context); await vm.runInContext('handler(req,res)', context);
   const live = new Map(JSON.parse(JSON.stringify(result)).map(s => [s.youtube_id,s]));
   assert.deepEqual(live.get(id).description, { ja: '', en: '' });
+  assert.deepEqual(live.get(creditId).description, { ja: '', en: '' });
   assert.equal(live.get(secondId).description.ja, 'ユーザー自身のコメント');
   assert.equal(live.get('newUser1234').description.ja, 'いい曲');
   assert.equal(live.size, songs.length + 1);
   assert.deepEqual(requests, ['LRANGE','HGETALL','HGETALL']);
-  console.log('Description policy tests passed: 308 retired pairs, user edits preserved, real API merge, generator disabled.');
+  console.log('Description policy tests passed: 308 generated pairs and 61 credit-only pairs retired; user edits preserved; real API merge; generator disabled.');
 }
 run().catch(error => { console.error(error); process.exitCode=1; });

@@ -1,5 +1,34 @@
 const { retired, generic } = require('../../data/retired-descriptions.json');
-const retiredTexts = new Set(Object.values(retired).flatMap(pair => [pair.ja, pair.en]));
+const { retired: retiredCreditOnly } = require('../../data/retired-credit-descriptions.json');
+const retiredTexts = new Set([
+  ...Object.values(retired).flatMap(pair => [pair.ja, pair.en]),
+  ...Object.values(retiredCreditOnly).flatMap(pair => [pair.ja, pair.en]),
+]);
+
+// Production credits are useful source evidence, but a list of names and roles is
+// not useful editorial copy. This intentionally recognizes the compact bilingual
+// credit summaries previously produced by the daily curation job. It does not
+// inspect community copy generically; runtime retirement remains exact ID + text.
+function isCreditOnlyDescription(description) {
+  const ja = typeof description?.ja === 'string' ? description.ja.trim() : '';
+  const en = typeof description?.en === 'string' ? description.en.trim() : '';
+  if (!ja || !en) return false;
+
+  if (/^(?:Vocals by|Music by|Beat by|Created with footage|Filmed in|Directed by|Video directed by|Written and directed by|Directed and|Directed,|Shot and edited by|Ian Lipton served as|Concept and direction by)/i.test(en)) {
+    return true;
+  }
+  if (/^Produced by\b/i.test(en) && (en.match(/[.!?](?:\s|$)/g) || []).length <= 1) {
+    return true;
+  }
+  if (/^Featuring\b/i.test(en) && /\b(?:produced|directed)\b/i.test(en)) {
+    return true;
+  }
+  if (/^This remix brings in\b/i.test(en) && /\b(?:production by|directed by)\b/i.test(en)) {
+    return true;
+  }
+  const namedCredit = /^(?:[A-Z][A-Za-z0-9'’.-]*(?:\s+(?:&\s+)?[A-Z][A-Za-z0-9'’.-]*){0,5})\s+(?:directed|produced|served as (?:director|cinematographer|editor))\b/;
+  return namedCredit.test(en) && /\b(?:directed|edited|dancer|visuals|cinematograph)\b/i.test(en);
+}
 
 function isBoilerplate(value, lang) {
   if (typeof value !== 'string') return false;
@@ -18,7 +47,7 @@ function isBoilerplate(value, lang) {
 // Only erase the precise retired text for the precise catalogued ID.
 // Later genuine edits in either language remain authoritative.
 function retireGeneratedDescription(song) {
-  const old = retired[song.youtube_id];
+  const old = retired[song.youtube_id] || retiredCreditOnly[song.youtube_id];
   if (!old || !song.description || typeof song.description !== 'object') return song;
   const description = { ...song.description };
   for (const lang of ['ja', 'en']) {
@@ -27,4 +56,4 @@ function retireGeneratedDescription(song) {
   return { ...song, description };
 }
 
-module.exports = { isBoilerplate, retireGeneratedDescription };
+module.exports = { isBoilerplate, isCreditOnlyDescription, retireGeneratedDescription };
