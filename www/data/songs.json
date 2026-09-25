@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "uuZEdzyg_EU",
+    "name": "Marlowe (L'Orange & Solemn Brigham) - The Basement | Official Video",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/uuZEdzyg_EU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-25T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "E6YjQHUbz38",
+    "name": "Evidence - Lost In Time (Park Jams) [Official Video]",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/E6YjQHUbz38/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "zHGf6tmnLYE",
+    "name": "Little Simz - Woman feat. Cleo Sol (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zHGf6tmnLYE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "GazJC5cAcIw",
+    "name": "Loyle Carner - Ain't Nothing Changed (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/GazJC5cAcIw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "-F54LoInUkc",
+    "name": "Roc Marciano - Emeralds (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/-F54LoInUkc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-25T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "LwenL0H4624",
+    "name": "MAVI - Doves [Dir. LONEWOLF] (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/LwenL0H4624/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "Xp1juGfSw7M",
+    "name": "GAGLE - 千代 -SENDAI- (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Xp1juGfSw7M/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "qfcZjL5RmD0",
+    "name": "THA BLUE HERB - この夜だけは【OFFICIAL MV】",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/qfcZjL5RmD0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "Tps9GKEwM0o",
+    "name": "OZROSAURUS - Legend",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Tps9GKEwM0o/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-25T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "q-K49B3noWI",
+    "name": "KID FRESINO - rose (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/q-K49B3noWI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-25T00:00:09.000Z"
+  },
+  {
     "youtube_id": "4fzOCCDHJkE",
     "name": "Joell Ortiz - Before Hip-Hop (Official Music Video)",
     "region": "us",
