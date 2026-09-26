@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { isBoilerplate, isCreditOnlyDescription } = require('../api/utils/description-policy.js');
+const { isRejectedSong } = require('../api/utils/rejected-song-policy.js');
 
 const songsPath = path.join(__dirname, '..', 'data', 'songs.json');
 const songs = JSON.parse(fs.readFileSync(songsPath, 'utf8'));
@@ -16,6 +17,9 @@ function addError(index, message) {
 
 for (const [index, song] of songs.entries()) {
   const id = song.youtube_id;
+  if (isRejectedSong(id)) {
+    addError(index, `rejected song returned to catalogue: ${id}`);
+  }
   if (song.user_name === 'SLAPS' && isCreditOnlyDescription(song.description)) {
     addError(index, `credit-only editorial description: ${id}`);
   }

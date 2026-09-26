@@ -54,8 +54,14 @@ async function run() {
   assert.equal(isTooShortTrack(null), false);
   assert.ok(!JSON.parse(read('data/songs.json')).some(song => song.youtube_id === 'cvxAVkrXNvQ'),
     'known 16-second same side teaser must not return to the catalog');
+  assert.ok(!JSON.parse(read('data/songs.json')).some(song => song.youtube_id === 'b6-JNeXxN3s'),
+    'rejected non-HIPHOP track must not return to the catalog');
+
+  const rejectedPolicy = read('api/utils/rejected-song-policy.js');
+  assert.match(rejectedPolicy, /rejected-songs\.json/);
 
   const submit = read('api/submit.js');
+  assert.match(submit, /isRejectedSong/);
   assert.match(submit, /eraFromPublishDate/);
   assert.match(submit, /findTitleDuplicate/);
   assert.match(submit, /moderation_status: 'live'/);

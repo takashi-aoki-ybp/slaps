@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 const { retireGeneratedDescription } = require('./utils/description-policy.js');
+const { isRejectedSong } = require('./utils/rejected-song-policy.js');
 const { readRedisList } = require('./utils/kv-list.js');
 
 async function kvFetch(command) {
@@ -112,6 +113,7 @@ export default async function handler(req, res) {
 
     // 50票以上の報告がある曲を除外
     const filtered = merged.filter(song => {
+      if (isRejectedSong(song.youtube_id)) return false;
       const votes = brokenVotes[song.youtube_id] || 0;
       return votes < 50;
     });
@@ -126,7 +128,8 @@ export default async function handler(req, res) {
     console.error('Failed to load songs:', error);
     try {
       const jsonPath = path.join(process.cwd(), 'data', 'songs.json');
-      const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      const localSongs = JSON.parse(fs.readFileSync(jsonPath, 'utf8'))
+        .filter(song => !isRejectedSong(song.youtube_id));
       res.status(200).json(localSongs);
     } catch (e) {
       res.status(500).json({ error: 'Internal Server Error' });

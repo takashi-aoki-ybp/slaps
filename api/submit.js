@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
 const { readRedisList } = require('./utils/kv-list.js');
+const { isRejectedSong } = require('./utils/rejected-song-policy.js');
 
 async function kvFetch(command) {
   const url = process.env.KV_REST_API_URL;
@@ -98,6 +99,9 @@ export default async function handler(req, res) {
   // 厳格なバリデーション
   if (!youtube_id || !/^[A-Za-z0-9_-]{11}$/.test(youtube_id)) {
     return res.status(400).json({ error: 'Invalid YouTube ID' });
+  }
+  if (isRejectedSong(youtube_id)) {
+    return res.status(400).json({ error: 'This track is outside the SLAPS catalogue scope.' });
   }
   if (conscious_turnt != null &&
       (typeof conscious_turnt !== 'number' || !Number.isFinite(conscious_turnt) || conscious_turnt < 0 || conscious_turnt > 5)) {
