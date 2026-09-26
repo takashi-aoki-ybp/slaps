@@ -14,6 +14,8 @@ const ASSETS = [
   './src/daily.js?v=3.84',
   './src/presence.js?v=3.84',
   './src/tv-navigation.js?v=3.84',
+  './src/this-part.js?v=3.84',
+  './src/this-part-link.js?v=3.84',
   './manifest.json',
   './data/songs.json',
   './assets/logo.png',

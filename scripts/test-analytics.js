@@ -102,15 +102,19 @@ async function run() {
     { event: 'slaps_save', 'gtm.uniqueEventId': 10, action: 'add', youtube_id: 'aaaaaaaaaaa', secret: 'excluded' },
     { event: 'slaps_save', 'gtm.uniqueEventId': 11, action: 'remove', youtube_id: 'bbbbbbbbbbb' },
     { event: 'slaps_daily_open', 'gtm.uniqueEventId': 12, date: '2026-09-03' },
+    { event: 'slaps_this_part_share', 'gtm.uniqueEventId': 13, youtube_id: 'ccccccccccc', seconds: 74, share_outcome: 'copied' },
   ];
   const read = (event, id) => JSON.parse(JSON.stringify(vm.runInNewContext('(' + getter + ')()', { window: { dataLayer: layer }, event, id })));
   assert.deepEqual(read('slaps_save', 10), { action: 'add', youtube_id: 'aaaaaaaaaaa' });
   assert.deepEqual(read('slaps_save', 11), { action: 'remove', youtube_id: 'bbbbbbbbbbb' });
   assert.deepEqual(read('slaps_daily_open', 12), { date: '2026-09-03' });
+  assert.deepEqual(read('slaps_this_part_share', 13), { youtube_id: 'ccccccccccc', share_outcome: 'copied', seconds: 74 });
   assert.deepEqual(read('slaps_save', undefined), {});
   assert.deepEqual(read('slaps_save', 12), {});
   const host = new RegExp(config.trigger[0].filter[0].parameter[1].value);
   assert(host.test('slaps.tokyo')); assert(!host.test('localhost')); assert(!host.test('slaps.tokyo.evil.test'));
+  const productEvents = new RegExp(config.trigger[0].customEventFilter[0].parameter[1].value);
+  for (const event of ['slaps_this_part_open', 'slaps_this_part_share', 'slaps_this_part_open_link']) assert(productEvents.test(event));
   console.log('Analytics regression tests passed: event identity, JST retention, confirmed playback, share outcomes.');
 }
 run().catch(error => { console.error(error); process.exit(1); });

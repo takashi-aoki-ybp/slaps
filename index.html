@@ -182,6 +182,12 @@
       <span class="dig-sticker__count" id="digCount"></span>
     </button>
 
+    <button type="button" class="this-part-sticker chrome" id="thisPartOpen" aria-label="この瞬間を共有" aria-controls="thisPartOverlay" aria-expanded="false" hidden>
+      <span class="this-part-sticker__this">THIS</span>
+      <span class="this-part-sticker__part">PART</span>
+      <span class="this-part-sticker__time" id="thisPartStickerTime">00:00</span>
+    </button>
+
     <!-- 下部：曲情報＋アクション -->
     <div class="dock chrome">
       <section class="meta" id="meta" aria-live="polite">
@@ -230,6 +236,51 @@
       -->
     </div>
   </main>
+
+  <!-- ===== THIS PART：現在位置を共有 ===== -->
+  <div class="this-part-overlay" id="thisPartOverlay" role="dialog" aria-modal="true" aria-labelledby="thisPartTitle" hidden>
+    <section class="this-part-panel">
+      <button type="button" class="this-part-panel__close" id="thisPartClose" aria-label="閉じる">×</button>
+
+      <div class="this-part-panel__identity">
+        <p class="this-part-panel__eyebrow" id="thisPartEyebrow">NOW MARKING</p>
+        <h2 class="this-part-panel__title" id="thisPartTitle">THIS PART</h2>
+        <p class="this-part-panel__lead" id="thisPartLead">この瞬間を残す。</p>
+        <p class="this-part-panel__track" id="thisPartTrack"></p>
+      </div>
+
+      <div class="this-part-panel__timing">
+        <strong class="this-part-panel__time" id="thisPartTime">00:00</strong>
+        <div class="this-part-scrub">
+          <button type="button" class="this-part-scrub__step" id="thisPartMinus" aria-label="5秒戻す">−5s</button>
+          <label class="this-part-scrub__rail">
+            <span class="sr-only">共有する再生位置</span>
+            <input type="range" id="thisPartRange" min="0" max="3600" step="1" value="0">
+            <span class="this-part-scrub__marker" aria-hidden="true"></span>
+          </label>
+          <button type="button" class="this-part-scrub__step" id="thisPartPlus" aria-label="5秒進める">+5s</button>
+        </div>
+        <span class="this-part-panel__marker-time" id="thisPartMarkerTime">00:00</span>
+        <p class="this-part-panel__helper" id="thisPartHelper">リンクを開くと、この位置から再生。</p>
+      </div>
+
+      <div class="this-part-panel__share">
+        <label class="this-part-note" for="thisPartNote">
+          <span id="thisPartNoteLabel">ひとこと（任意）</span>
+          <input type="text" id="thisPartNote" maxlength="80" placeholder="ここからの入り。">
+        </label>
+        <div class="this-part-panel__actions">
+          <button type="button" class="this-part-action this-part-action--secondary" id="thisPartCancel">CANCEL</button>
+          <button type="button" class="this-part-action this-part-action--primary" id="thisPartShare">SHARE THIS PART</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <button type="button" class="this-part-arrival" id="thisPartArrival" aria-label="THIS PARTを開く" hidden>
+    <span>THIS PART</span>
+    <strong id="thisPartArrivalTime">00:00</strong>
+  </button>
 
   <!-- 推薦曲検索中の透過オーバーレイ -->
   <div class="recommend-overlay" id="recommendOverlay" hidden>

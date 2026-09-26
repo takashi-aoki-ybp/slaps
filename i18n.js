@@ -268,6 +268,7 @@ const i18n = (() => {
     try { localStorage.setItem('slaps_lang', l); } catch { /* language still works for this session */ }
     document.documentElement.lang = l;
     applyAll();
+    window.dispatchEvent(new CustomEvent('slaps:languagechange', { detail: { lang: l } }));
   }
 
   function applyAll() {

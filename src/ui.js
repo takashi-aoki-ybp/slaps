@@ -120,21 +120,7 @@ const clearCrateMode = clearSpecialMode;
 // ---- Vibeネオンカラー更新 ----
 export function updateVibeColor(p, element = balanceRange) {
   if (!element) return;
-  let color;
-  if (p < 2.5) {
-    const ratio = p / 2.5;
-    const r = Math.round(107 + (255 - 107) * ratio);
-    const g = Math.round(170 + (255 - 170) * ratio);
-    const b = 255;
-    color = `rgb(${r}, ${g}, ${b})`;
-  } else {
-    const ratio = (p - 2.5) / 2.5;
-    const r = 255;
-    const g = Math.round(255 - (255 - 107) * ratio);
-    const b = Math.round(255 - (255 - 74) * ratio);
-    color = `rgb(${r}, ${g}, ${b})`;
-  }
-  element.style.setProperty('--vibe-color', color);
+  element.style.setProperty('--vibe-color', 'var(--accent)');
 }
 
 export function updateBalanceLabel(p) {
