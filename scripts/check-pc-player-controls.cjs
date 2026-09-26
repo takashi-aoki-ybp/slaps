@@ -7,6 +7,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
 const target = process.env.SLAPS_CHECK_URL || 'https://slaps.tokyo/?v=I55oZGIewkg';
 const output = path.resolve(process.env.SLAPS_CHECK_OUTPUT || 'outputs/pc-player-controls');
+const startOnly = process.env.SLAPS_CHECK_START_ONLY === '1';
 const centralControls = '.player-control-play-pause-icon,.ytp-bezel,.ytp-large-play-button,.ytmCuedOverlayPlayButton';
 
 (async () => {
@@ -51,8 +52,10 @@ const centralControls = '.player-control-play-pause-icon,.ytp-bezel,.ytp-large-p
       await page.screenshot({ path: path.join(output, label + '.png') });
       if (own || tap || youtube.length) evidence.failures.push(result);
     }
-    for (let cycle = 0; cycle < 3; cycle++) {
+    const cycles = startOnly ? 1 : 3;
+    for (let cycle = 0; cycle < cycles; cycle++) {
       await check(`cycle-${cycle}-playing`, 1);
+      if (startOnly) break;
       await page.mouse.click(720, 450);
       await check(`cycle-${cycle}-paused`, 2);
       await page.mouse.click(720, 450);

@@ -8,6 +8,13 @@ const appSource = fs.readFileSync('script.js', 'utf8');
 const html = fs.readFileSync('index.html', 'utf8');
 const styles = fs.readFileSync('styles.css', 'utf8');
 
+assert.match(playerSource, /const wasPlaying = state\.player\.getPlayerState\?\.\(\) === YT\.PlayerState\.PLAYING;/,
+  'START must detect the already-playing muted background');
+assert.match(playerSource, /if \(!wasPlaying\) state\.player\.playVideo\(\);/,
+  'START must not resend playVideo while the opening video is already playing');
+assert.match(playerSource, /const minimumOpeningMs = skipRequested \? 3200 : 4200;/,
+  'Opening must outlast YouTube\'s transient central control before revealing START');
+
 const toastStart = uiSource.indexOf('let toastTimer = null;');
 const toastEnd = uiSource.indexOf('// ---- アイドル時UIを隠す ----', toastStart);
 const toastSource = uiSource.slice(toastStart, toastEnd).replace(/^export /gm, '');

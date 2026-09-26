@@ -308,7 +308,11 @@ export function runIntro() {
       intro.classList.remove('is-out');
       // Keep START covering the center while the opening becomes opaque again.
     }
-    if (ready && (skipRequested || now - startedAt >= 2600)) {
+    // YouTube may render its own central play/pause overlay for the first few
+    // seconds even with controls=0. Keep the opening above the player until
+    // that transient overlay has had time to clear, then reveal START.
+    const minimumOpeningMs = skipRequested ? 3200 : 4200;
+    if (ready && now - startedAt >= minimumOpeningMs) {
       if (retryBtn) retryBtn.hidden = true;
       if (introSub && introSub.textContent !== originalSub) introSub.textContent = originalSub;
       if (!copyFinished && copyTimer === null) {
@@ -776,10 +780,14 @@ export function unmute() {
     return;
   }
   state.muted = false;
-  if (state.player) { 
-    state.player.unMute(); 
-    state.player.setVolume(state.volume); // ハードコード 100 から state.volume へ変更
-    state.player.playVideo(); 
+  if (state.player) {
+    // The opening already plays the same video muted. Re-sending playVideo()
+    // while it is playing makes YouTube render its own central pause overlay,
+    // even with controls=0. Only use playVideo() as a recovery path.
+    const wasPlaying = state.player.getPlayerState?.() === YT.PlayerState.PLAYING;
+    state.player.unMute();
+    state.player.setVolume(state.volume);
+    if (!wasPlaying) state.player.playVideo();
   }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
