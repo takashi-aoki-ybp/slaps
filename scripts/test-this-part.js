@@ -20,6 +20,9 @@ async function run() {
   for (const id of ['thisPartOpen', 'thisPartOverlay', 'thisPartRange', 'thisPartShare', 'thisPartArrival', 'thisPartJump', 'thisPartJumpTime']) {
     assert.match(html, new RegExp(`id=["']${id}["']`), `${id} must remain in the page contract`);
   }
+  assert.match(html, /シェアに添えるひとこと（任意）/);
+  assert.match(html, /placeholder="ここが好き。"/);
+  assert.doesNotMatch(html, /ここからの入り。/);
 
   const css = fs.readFileSync('styles.css', 'utf8');
   assert.match(css, /--accent:\s*#e0f850/i, 'DIG fluorescent yellow must be the shared accent');
@@ -36,8 +39,8 @@ async function run() {
     'shared landing must confirm advancing playback before it clears');
 
   const serviceWorker = fs.readFileSync('service-worker.js', 'utf8');
-  assert.match(serviceWorker, /this-part\.js\?v=3\.85/);
-  assert.match(serviceWorker, /this-part-link\.js\?v=3\.85/);
+  assert.match(serviceWorker, /this-part\.js\?v=3\.86/);
+  assert.match(serviceWorker, /this-part-link\.js\?v=3\.86/);
   console.log('THIS PART contract tests passed: URL, timestamp, markup, palette, offline assets.');
 }
 
