@@ -1,4 +1,5 @@
 import { createHash } from 'crypto';
+const { isRejectedSong } = require('./utils/rejected-song-policy.js');
 
 const CLIENT_VERSION = process.env.YOUTUBE_INNERTUBE_CLIENT_VERSION || '2.20260826.01.00';
 
@@ -24,7 +25,8 @@ function digest(value) {
 function findFirstVideoId(root) {
   if (!root || typeof root !== 'object') return null;
   if (root.videoRenderer && /^[A-Za-z0-9_-]{11}$/.test(root.videoRenderer.videoId || '')) {
-    return root.videoRenderer.videoId;
+    const candidate = root.videoRenderer.videoId;
+    if (!isRejectedSong(candidate)) return candidate;
   }
   for (const child of Object.values(root)) {
     const match = findFirstVideoId(child);
@@ -73,7 +75,7 @@ export async function handleYoutubeSearch(request) {
     const cacheKey = `${prefix}slaps:yt_search:v1:${digest(q.toLowerCase())}`;
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
       const cached = await kvFetch(['GET', cacheKey]);
-      if (/^[A-Za-z0-9_-]{11}$/.test(cached || '')) {
+      if (/^[A-Za-z0-9_-]{11}$/.test(cached || '') && !isRejectedSong(cached)) {
         return jsonResponse({ videoId: cached }, 200, { 'X-Slaps-Cache': 'KV_HIT' });
       }
     }
