@@ -58,7 +58,7 @@
   <link rel="preconnect" href="https://img.youtube.com">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=3.84">
+  <link rel="stylesheet" href="./styles.css?v=3.85">
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -281,6 +281,14 @@
     <span>THIS PART</span>
     <strong id="thisPartArrivalTime">00:00</strong>
   </button>
+
+  <div class="this-part-jump" id="thisPartJump" role="status" aria-live="polite" aria-atomic="true" hidden>
+    <div class="this-part-jump__ticket">
+      <span class="this-part-jump__label" id="thisPartJumpLabel">JUMPING TO</span>
+      <strong class="this-part-jump__time" id="thisPartJumpTime">00:00</strong>
+      <span class="this-part-jump__help" id="thisPartJumpHelp">指定位置を読み込み中</span>
+    </div>
+  </div>
 
   <!-- 推薦曲検索中の透過オーバーレイ -->
   <div class="recommend-overlay" id="recommendOverlay" hidden>
@@ -540,9 +548,9 @@
   <button type="button" class="vibe-ticker" id="vibeTicker" hidden></button>
 
   <!-- Scripts: 多言語設定→本体→YT API の順 -->
-  <script src="./src/tv-navigation.js?v=3.84"></script>
-  <script src="./i18n.js?v=3.84"></script>
-  <script type="module" src="./script.js?v=3.84"></script>
+  <script src="./src/tv-navigation.js?v=3.85"></script>
+  <script src="./i18n.js?v=3.85"></script>
+  <script type="module" src="./script.js?v=3.85"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
 
 </body>

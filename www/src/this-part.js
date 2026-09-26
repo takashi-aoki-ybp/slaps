@@ -8,6 +8,18 @@ let initialPart = null;
 let initialPartApplied = false;
 let returnFocus = null;
 let arrivalTimer = null;
+let jumpRevealTimer = null;
+let jumpFallbackTimer = null;
+let jumpPollTimer = null;
+let jumpHideTimer = null;
+let jumpShownAt = 0;
+let initialPartReady = false;
+
+const JUMP_REVEAL_DELAY_MS = 2200;
+const JUMP_FALLBACK_HIDE_MS = 5600;
+const JUMP_MIN_VISIBLE_MS = 650;
+const JUMP_READY_HOLD_MS = 450;
+const JUMP_POLL_LIMIT_MS = 30000;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -24,6 +36,8 @@ function copy() {
     noteLabel: 'ひとこと（任意）',
     notePlaceholder: 'ここからの入り。',
     helper: 'リンクを開くと、この位置から再生。',
+    jumpLabel: 'JUMPING TO',
+    jumpHelp: '指定位置を読み込み中',
     cancel: 'CANCEL',
     share: 'SHARE THIS PART',
     shared: 'LINK COPIED',
@@ -34,6 +48,8 @@ function copy() {
     noteLabel: 'Note (optional)',
     notePlaceholder: 'This part right here.',
     helper: 'The link opens at this exact moment.',
+    jumpLabel: 'JUMPING TO',
+    jumpHelp: 'Loading the marked moment',
     cancel: 'CANCEL',
     share: 'SHARE THIS PART',
     shared: 'LINK COPIED',
@@ -48,6 +64,8 @@ function updateCopy() {
   if ($('#thisPartNoteLabel')) $('#thisPartNoteLabel').textContent = words.noteLabel;
   if ($('#thisPartNote')) $('#thisPartNote').placeholder = words.notePlaceholder;
   if ($('#thisPartHelper')) $('#thisPartHelper').textContent = words.helper;
+  if ($('#thisPartJumpLabel')) $('#thisPartJumpLabel').textContent = words.jumpLabel;
+  if ($('#thisPartJumpHelp')) $('#thisPartJumpHelp').textContent = words.jumpHelp;
   if ($('#thisPartCancel')) $('#thisPartCancel').textContent = words.cancel;
   if ($('#thisPartShare')) $('#thisPartShare').textContent = words.share;
 }
@@ -91,7 +109,7 @@ function syncStickerTime() {
 
 function showArrival() {
   const arrival = $('#thisPartArrival');
-  if (!arrival || !initialPartApplied) return;
+  if (!arrival || !initialPartApplied || !initialPartReady) return;
   clearTimeout(arrivalTimer);
   $('#thisPartArrivalTime').textContent = formatPartTime(capturedTime);
   arrival.hidden = false;
@@ -100,6 +118,99 @@ function showArrival() {
     arrival.classList.remove('is-show');
     setTimeout(() => { arrival.hidden = true; }, 240);
   }, 4200);
+}
+
+function hideSharedPartJump() {
+  clearTimeout(jumpRevealTimer);
+  clearTimeout(jumpFallbackTimer);
+  clearTimeout(jumpHideTimer);
+  jumpRevealTimer = null;
+  jumpFallbackTimer = null;
+  jumpHideTimer = null;
+  const jump = $('#thisPartJump');
+  if (!jump || jump.hidden) {
+    document.body.classList.remove('is-this-part-jumping');
+    return;
+  }
+  const remaining = Math.max(0, JUMP_MIN_VISIBLE_MS - (performance.now() - jumpShownAt));
+  jumpHideTimer = setTimeout(() => {
+    jump.classList.add('is-out');
+    setTimeout(() => {
+      jump.hidden = true;
+      jump.classList.remove('is-show', 'is-out');
+      document.body.classList.remove('is-this-part-jumping');
+    }, 320);
+  }, remaining);
+}
+
+function completeSharedPartLanding() {
+  if (initialPartReady) return;
+  initialPartReady = true;
+  clearTimeout(jumpPollTimer);
+  jumpPollTimer = null;
+  hideSharedPartJump();
+  setTimeout(() => {
+    if (document.body.classList.contains('is-started')) showArrival();
+  }, JUMP_READY_HOLD_MS);
+}
+
+function beginSharedPartLanding(targetSeconds) {
+  const jump = $('#thisPartJump');
+  if (!jump || !state.player) return;
+  initialPartReady = false;
+  clearTimeout(jumpRevealTimer);
+  clearTimeout(jumpFallbackTimer);
+  clearTimeout(jumpPollTimer);
+  clearTimeout(jumpHideTimer);
+  jump.hidden = true;
+  jump.classList.remove('is-show', 'is-out');
+  $('#thisPartJumpTime').textContent = formatPartTime(targetSeconds);
+  updateCopy();
+
+  const startedAt = performance.now();
+  let lastTime = null;
+  let advancingSince = null;
+
+  jumpRevealTimer = setTimeout(() => {
+    if (initialPartReady) return;
+    jump.hidden = false;
+    document.body.classList.add('is-this-part-jumping');
+    jumpShownAt = performance.now();
+    requestAnimationFrame(() => jump.classList.add('is-show'));
+  }, JUMP_REVEAL_DELAY_MS);
+
+  // Never block the existing START recovery path if YouTube is slow or unavailable.
+  jumpFallbackTimer = setTimeout(hideSharedPartJump, JUMP_FALLBACK_HIDE_MS);
+
+  const check = () => {
+    if (initialPartReady) return;
+    let time = null;
+    let playing = false;
+    try {
+      time = Number(state.player?.getCurrentTime?.());
+      playing = state.player?.getPlayerState?.() === (window.YT?.PlayerState?.PLAYING ?? 1);
+    } catch { /* Keep polling until the bounded limit. */ }
+    const now = performance.now();
+    const atTarget = Number.isFinite(time) && time >= Math.max(0, targetSeconds - 0.75);
+    if (playing && atTarget && lastTime !== null && time > lastTime) {
+      if (advancingSince === null) advancingSince = now;
+    } else if (!playing || !atTarget || (lastTime !== null && time <= lastTime)) {
+      advancingSince = null;
+    }
+    lastTime = time;
+    if (advancingSince !== null && now - advancingSince >= JUMP_READY_HOLD_MS) {
+      completeSharedPartLanding();
+      return;
+    }
+    if (now - startedAt >= JUMP_POLL_LIMIT_MS) {
+      clearTimeout(jumpPollTimer);
+      jumpPollTimer = null;
+      hideSharedPartJump();
+      return;
+    }
+    jumpPollTimer = setTimeout(check, 150);
+  };
+  jumpPollTimer = setTimeout(check, 100);
 }
 
 export function syncThisPartAvailability() {
@@ -175,6 +286,7 @@ export function applySharedPartOnce() {
   const activeId = state.player.getVideoData?.().video_id || current()?.youtube_id;
   if (activeId !== initialPart.youtubeId || current()?.youtube_id !== initialPart.youtubeId) return false;
   try {
+    beginSharedPartLanding(initialPart.seconds);
     state.player.seekTo(initialPart.seconds, true);
     initialPartApplied = true;
     capturedTime = initialPart.seconds;

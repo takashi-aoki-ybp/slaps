@@ -17,10 +17,11 @@ function loadPlaywright() {
 const { chromium } = loadPlaywright();
 const target = process.env.SLAPS_CHECK_URL || 'http://127.0.0.1:4192/?v=BnSVqxYSPPY&t=74';
 const expectedId = new URL(target).searchParams.get('v');
+const expectedSeconds = Number(new URL(target).searchParams.get('t')) || 0;
 const output = path.resolve(process.env.SLAPS_CHECK_OUTPUT || 'outputs/this-part-preview');
 
 function actionableConsole(text) {
-  return !/ERR_BLOCKED_BY_CLIENT|Failed to load resource|doubleclick\.net|googleads|gen_204|favicon|Service Worker registration blocked by Playwright|API load failed, falling back to local JSON/i.test(text);
+  return !/ERR_BLOCKED_BY_CLIENT|Failed to load resource|doubleclick\.net|googleads|gen_204|favicon|Service Worker registration blocked by Playwright|API load failed, falling back to local JSON|target origin provided \('https:\/\/www\.youtube\.com'\) does not match the recipient window's origin/i.test(text);
 }
 
 (async () => {
@@ -61,15 +62,23 @@ function actionableConsole(text) {
     await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForFunction(() => window.__state?.player?.getCurrentTime?.() > 1, null, { timeout: 30000 });
     await page.locator('#unmute').waitFor({ state: 'visible', timeout: 30000 });
+    const youtubeFrame = page.frames().find((frame) => /^https:\/\/www\.youtube(?:-nocookie)?\.com\/embed\//.test(frame.url()));
+    assert.ok(youtubeFrame, 'real YouTube iframe must load');
     const opening = await page.evaluate(() => ({
       id: window.__state.player.getVideoData().video_id,
       muted: window.__state.player.isMuted(),
       time: window.__state.player.getCurrentTime(),
       start: !document.querySelector('#unmute').hidden,
+      jumpVisible: document.querySelector('#thisPartJump')?.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || false,
     }));
     assert.equal(opening.id, expectedId);
     assert.equal(opening.muted, true);
     assert.equal(opening.start, true);
+    assert.ok(opening.time >= Math.max(0, expectedSeconds - 0.75), `opening must reach shared timestamp ${expectedSeconds}`);
+    assert.equal(opening.jumpVisible, false, 'SLAPS jump cover must clear only after the shared timestamp is ready');
+    const youtubeSpinner = await youtubeFrame.evaluate(() => [...document.querySelectorAll('.ytp-spinner,.ytp-spinner-container')]
+      .some((element) => element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })));
+    assert.equal(youtubeSpinner, false, 'YouTube loading spinner must not be exposed when START becomes available');
 
     await page.locator('#unmute').click();
     await page.waitForFunction(id => document.body.classList.contains('is-started')
@@ -133,9 +142,9 @@ function actionableConsole(text) {
     assert.equal([...params.keys()].sort().join(','), 't,v');
     assert.ok(shared.includes('この入り。'));
     evidence.shared_url = sharedUrl;
-    evidence.status = 'passed';
     assert.deepEqual(evidence.page_errors, []);
     assert.deepEqual(evidence.console, []);
+    evidence.status = 'passed';
   } catch (error) {
     evidence.error = error.stack || error.message;
     throw error;

@@ -17,7 +17,7 @@ async function run() {
   assert.equal(buildPartUrl('https://preview.example.com/path', 'abcdefghijk', 74), 'https://preview.example.com/?v=abcdefghijk&t=74');
 
   const html = fs.readFileSync('index.html', 'utf8');
-  for (const id of ['thisPartOpen', 'thisPartOverlay', 'thisPartRange', 'thisPartShare', 'thisPartArrival']) {
+  for (const id of ['thisPartOpen', 'thisPartOverlay', 'thisPartRange', 'thisPartShare', 'thisPartArrival', 'thisPartJump', 'thisPartJumpTime']) {
     assert.match(html, new RegExp(`id=["']${id}["']`), `${id} must remain in the page contract`);
   }
 
@@ -27,9 +27,17 @@ async function run() {
     assert.doesNotMatch(css, legacy, `legacy colored accent remains: ${legacy}`);
   }
 
+  const thisPart = fs.readFileSync('src/this-part.js', 'utf8');
+  assert.match(thisPart, /beginSharedPartLanding\(initialPart\.seconds\);[\s\S]*seekTo\(initialPart\.seconds, true\)/,
+    'shared landing must cover the YouTube seek before it starts');
+  assert.match(thisPart, /time >= Math\.max\(0, targetSeconds - 0\.75\)/,
+    'shared landing must confirm the requested timestamp');
+  assert.match(thisPart, /now - advancingSince >= JUMP_READY_HOLD_MS/,
+    'shared landing must confirm advancing playback before it clears');
+
   const serviceWorker = fs.readFileSync('service-worker.js', 'utf8');
-  assert.match(serviceWorker, /this-part\.js\?v=3\.84/);
-  assert.match(serviceWorker, /this-part-link\.js\?v=3\.84/);
+  assert.match(serviceWorker, /this-part\.js\?v=3\.85/);
+  assert.match(serviceWorker, /this-part-link\.js\?v=3\.85/);
   console.log('THIS PART contract tests passed: URL, timestamp, markup, palette, offline assets.');
 }
 
