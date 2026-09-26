@@ -19,6 +19,7 @@ const target = process.env.SLAPS_CHECK_URL || 'http://127.0.0.1:4192/?v=BnSVqxYS
 const expectedId = new URL(target).searchParams.get('v');
 const expectedSeconds = Number(new URL(target).searchParams.get('t')) || 0;
 const output = path.resolve(process.env.SLAPS_CHECK_OUTPUT || 'outputs/this-part-preview');
+const seekHoldMs = Math.max(0, Number(process.env.SLAPS_SEEK_HOLD_MS) || 0);
 
 function actionableConsole(text) {
   return !/ERR_BLOCKED_BY_CLIENT|Failed to load resource|doubleclick\.net|googleads|gen_204|favicon|Service Worker registration blocked by Playwright|API load failed, falling back to local JSON|target origin provided \('https:\/\/www\.youtube\.com'\) does not match the recipient window's origin/i.test(text);
@@ -44,6 +45,29 @@ function actionableConsole(text) {
         value: { writeText: async (value) => { window.__thisPartSharedText = value; } },
       });
     });
+    if (seekHoldMs) {
+      await context.addInitScript(({ holdMs, targetSeconds }) => {
+        const patchTimer = setInterval(() => {
+          const player = window.__state?.player;
+          if (!player || player.__slapsSlowSeek || typeof player.getCurrentTime !== 'function') return;
+          const readTime = player.getCurrentTime.bind(player);
+          let holdUntil = 0;
+          Object.defineProperty(player, 'getCurrentTime', {
+            configurable: true,
+            value() {
+              const value = Number(readTime());
+              if (!holdUntil && Number.isFinite(value) && value >= Math.max(0, targetSeconds - 0.75)) {
+                holdUntil = performance.now() + holdMs;
+              }
+              if (holdUntil && performance.now() < holdUntil) return Math.max(0, targetSeconds - 2);
+              return value;
+            },
+          });
+          player.__slapsSlowSeek = true;
+          clearInterval(patchTimer);
+        }, 0);
+      }, { holdMs: seekHoldMs, targetSeconds: expectedSeconds });
+    }
     const origin = new URL(target).origin;
     await context.route('**/*', async (route) => {
       const request = route.request();
@@ -60,6 +84,19 @@ function actionableConsole(text) {
     page.on('pageerror', (error) => evidence.page_errors.push(error.message));
 
     await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    const jumpSeen = await Promise.race([
+      page.waitForFunction(() => document.querySelector('#thisPartJump')?.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }), null, { timeout: 7000 })
+        .then(() => true)
+        .catch(() => false),
+      page.waitForTimeout(7200).then(() => false),
+    ]);
+    evidence.jump_seen = jumpSeen;
+    evidence.simulated_seek_hold_ms = seekHoldMs;
+    if (jumpSeen) {
+      await page.waitForTimeout(420);
+      await page.screenshot({ path: path.join(output, 'shared-timestamp-loading.png') });
+    }
+    if (seekHoldMs) assert.equal(jumpSeen, true, 'slow shared seek must reveal the branded loading cover');
     await page.waitForFunction(() => window.__state?.player?.getCurrentTime?.() > 1, null, { timeout: 30000 });
     await page.locator('#unmute').waitFor({ state: 'visible', timeout: 30000 });
     const youtubeFrame = page.frames().find((frame) => /^https:\/\/www\.youtube(?:-nocookie)?\.com\/embed\//.test(frame.url()));
