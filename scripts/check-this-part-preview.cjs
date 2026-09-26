@@ -97,7 +97,11 @@ function actionableConsole(text) {
       await page.screenshot({ path: path.join(output, 'shared-timestamp-loading.png') });
     }
     if (seekHoldMs) assert.equal(jumpSeen, true, 'slow shared seek must reveal the branded loading cover');
-    await page.waitForFunction(() => window.__state?.player?.getCurrentTime?.() > 1, null, { timeout: 30000 });
+    await page.waitForFunction((seconds) => {
+      const time = Number(window.__state?.player?.getCurrentTime?.());
+      return Number.isFinite(time) && time >= Math.max(1, seconds - 0.75);
+    }, expectedSeconds, { timeout: 30000 });
+    await page.locator('#thisPartJump').waitFor({ state: 'hidden', timeout: 10000 });
     await page.locator('#unmute').waitFor({ state: 'visible', timeout: 30000 });
     const youtubeFrame = page.frames().find((frame) => /^https:\/\/www\.youtube(?:-nocookie)?\.com\/embed\//.test(frame.url()));
     assert.ok(youtubeFrame, 'real YouTube iframe must load');
@@ -121,6 +125,12 @@ function actionableConsole(text) {
     await page.waitForFunction(id => document.body.classList.contains('is-started')
       && window.__state.player.getVideoData().video_id === id
       && window.__state.player.getPlayerState() === 1, opening.id, { timeout: 30000 });
+    evidence.desktop_controls = await page.evaluate(() => ({
+      pinned: window.__state.pinned,
+      own_play_visible: document.querySelector('#playBtn')?.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || false,
+    }));
+    assert.equal(evidence.desktop_controls.pinned, true, 'desktop UI must remain pinned');
+    assert.equal(evidence.desktop_controls.own_play_visible, false, 'desktop central SLAPS play button must stay hidden');
     await page.locator('#thisPartOpen').waitFor({ state: 'visible', timeout: 15000 });
     await page.waitForTimeout(1800);
     await page.screenshot({ path: path.join(output, 'desktop-station.png') });
@@ -179,6 +189,33 @@ function actionableConsole(text) {
     assert.equal([...params.keys()].sort().join(','), 't,v');
     assert.ok(shared.includes('この入り。'));
     evidence.shared_url = sharedUrl;
+
+    await page.keyboard.press('Escape');
+    await page.locator('#thisPartOverlay').waitFor({ state: 'hidden' });
+    await page.locator('[data-order="newest"]').click();
+    await page.waitForFunction(() => window.__state.order === 'newest' && window.__state.queue.length > 1);
+    evidence.latest = await page.evaluate(() => ({
+      pressed: document.querySelector('[data-order="newest"]')?.getAttribute('aria-pressed'),
+      first: window.__state.queue[0]?.created_at || window.__state.queue[0]?.publish_at || '',
+      second: window.__state.queue[1]?.created_at || window.__state.queue[1]?.publish_at || '',
+    }));
+    assert.equal(evidence.latest.pressed, 'true');
+    assert.ok(Date.parse(evidence.latest.first) >= Date.parse(evidence.latest.second), 'LATEST must remain newest-first');
+
+    await page.locator('#digOpen').waitFor({ state: 'visible', timeout: 20000 });
+    await page.locator('#digOpen').click();
+    await page.locator('#digOverlay').waitFor({ state: 'visible' });
+    evidence.dig = await page.evaluate(() => ({
+      count: document.querySelectorAll('#digOverlayList .dig-record').length,
+      detail: !document.querySelector('#digOverlayDetail')?.hidden,
+      body_locked: document.body.classList.contains('is-dig-open'),
+    }));
+    assert.ok(evidence.dig.count > 0 && evidence.dig.count <= 16, 'DIG must show a bounded recommendation crate');
+    assert.equal(evidence.dig.detail, true);
+    assert.equal(evidence.dig.body_locked, true);
+    await page.keyboard.press('Escape');
+    await page.locator('#digOverlay').waitFor({ state: 'hidden' });
+
     assert.deepEqual(evidence.page_errors, []);
     assert.deepEqual(evidence.console, []);
     evidence.status = 'passed';
