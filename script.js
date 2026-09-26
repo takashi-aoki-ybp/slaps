@@ -5,6 +5,7 @@ import { setupUIListeners, updateTrackCount, updateFavCount, showToast } from '.
 import { initPresence } from './src/presence.js';
 import { initAnalytics } from './src/analytics.js';
 import { initDaily } from './src/ui.js';
+import { setupThisPart } from './src/this-part.js';
 
 // ---- データ読み込み ----
 async function loadData() {
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.i18n.applyAll();
   initAnalytics();
   setupUIListeners();
+  setupThisPart();
   runIntro();
   loadData();
   initPresence();

@@ -292,6 +292,21 @@
                   {
                     "type": "TEMPLATE",
                     "key": "name",
+                    "value": "seconds"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{SLAPS - Param - seconds}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
                     "value": "cohort_date"
                   },
                   {
@@ -332,7 +347,7 @@
               {
                 "type": "TEMPLATE",
                 "key": "arg1",
-                "value": "^(slaps_app_view|slaps_start|slaps_track_3_reached|slaps_listen_5_minutes|slaps_next|slaps_previous|slaps_filter_region|slaps_filter_era|slaps_order|slaps_dig_open|slaps_save|slaps_share_crate|slaps_share_track|slaps_submit_success|slaps_daily_open|slaps_daily_play|slaps_daily_share|slaps_return_d1|slaps_return_d7)$"
+                "value": "^(slaps_app_view|slaps_start|slaps_track_3_reached|slaps_listen_5_minutes|slaps_next|slaps_previous|slaps_filter_region|slaps_filter_era|slaps_order|slaps_dig_open|slaps_save|slaps_share_crate|slaps_share_track|slaps_submit_success|slaps_daily_open|slaps_daily_play|slaps_daily_share|slaps_this_part_open|slaps_this_part_share|slaps_this_part_open_link|slaps_return_d1|slaps_return_d7)$"
               }
             ]
           }
@@ -367,7 +382,7 @@
           {
             "type": "TEMPLATE",
             "key": "javascript",
-            "value": "function() {\n  var currentEvent = {{Event}};\n  var currentId = {{SLAPS - GTM event ID}};\n  if (currentId == null) return {};\n  var allowed = [\"youtube_id\",\"mode\",\"tracks_loaded\",\"region\",\"era\",\"order\",\"suggestions\",\"action\",\"count\",\"date\",\"start_index\",\"days_since_first_visit\",\"measurement_version\",\"share_outcome\",\"cohort_date\"];\n  var layer = window.dataLayer || [];\n  for (var i = layer.length - 1; i >= 0; i--) {\n    var entry = layer[i];\n    if (entry && entry.event === currentEvent && entry[\"gtm.uniqueEventId\"] === currentId) {\n      var result = {};\n      for (var j = 0; j < allowed.length; j++) {\n        var key = allowed[j];\n        var value = entry[key];\n        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {\n          result[key] = value;\n        }\n      }\n      if ({{Debug Mode}}) result.debug_mode = true;\n      return result;\n    }\n  }\n  return {};\n}"
+            "value": "function() {\n  var currentEvent = {{Event}};\n  var currentId = {{SLAPS - GTM event ID}};\n  if (currentId == null) return {};\n  var allowed = [\"youtube_id\",\"mode\",\"tracks_loaded\",\"region\",\"era\",\"order\",\"suggestions\",\"action\",\"count\",\"date\",\"start_index\",\"days_since_first_visit\",\"measurement_version\",\"share_outcome\",\"seconds\",\"cohort_date\"];\n  var layer = window.dataLayer || [];\n  for (var i = layer.length - 1; i >= 0; i--) {\n    var entry = layer[i];\n    if (entry && entry.event === currentEvent && entry[\"gtm.uniqueEventId\"] === currentId) {\n      var result = {};\n      for (var j = 0; j < allowed.length; j++) {\n        var key = allowed[j];\n        var value = entry[key];\n        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {\n          result[key] = value;\n        }\n      }\n      if ({{Debug Mode}}) result.debug_mode = true;\n      return result;\n    }\n  }\n  return {};\n}"
           }
         ]
       },
@@ -616,6 +631,20 @@
             "type": "TEMPLATE",
             "key": "javascript",
             "value": "function() { return {{SLAPS - Current event parameters}}.cohort_date; }"
+          }
+        ]
+      },
+      {
+        "accountId": "6359281260",
+        "containerId": "254624335",
+        "variableId": "204",
+        "name": "SLAPS - Param - seconds",
+        "type": "jsm",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "javascript",
+            "value": "function() { return {{SLAPS - Current event parameters}}.seconds; }"
           }
         ]
       }

@@ -17,6 +17,7 @@ import {
   renderRecommendations
 } from './ui.js';
 import { analyticsMode, notePlaybackState, noteStarted, noteTrackLoaded, trackEvent } from './analytics.js';
+import { applySharedPartOnce, syncThisPartAvailability } from './this-part.js';
 
 let consecutiveErrors = 0;
 let introStarted = false;
@@ -45,6 +46,7 @@ function disableCaptions() {
 
 function startPromoPlayback() {
   document.body.classList.add('is-started');
+  window.dispatchEvent(new Event('slaps:started'));
   const unmuteBtn = document.querySelector('#unmute');
   if (unmuteBtn) unmuteBtn.hidden = true;
   state.muted = true;
@@ -125,6 +127,7 @@ export function onPlayerStateChange(e) {
     consecutiveErrors = 0;
     notePlaybackState(true);
     disableCaptions();
+    applySharedPartOnce();
     startProgress();
     if (state.isPromo) {
       startPromoTimer();
@@ -398,6 +401,7 @@ export function loadCurrent() {
     state.player.setVolume(state.volume);
   }
   renderMeta(song);
+  syncThisPartAvailability();
   resetProgress();
 
   // コメントの取得
@@ -791,6 +795,7 @@ export function unmute() {
   }
   document.querySelector('#unmute').hidden = true;
   document.body.classList.add('is-started');
+  window.dispatchEvent(new Event('slaps:started'));
   noteStarted(current(), analyticsMode(state), () => {
     const id = state.player?.getVideoData?.().video_id;
     return {
