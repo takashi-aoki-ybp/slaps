@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "e6y22UeQN-w",
+    "name": "Black Thought - Conception feat. Reek Ruffin (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/e6y22UeQN-w/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "_YiHjUXQpLM",
+    "name": "CZARFACE & MF DOOM - Bomb Thrown (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_YiHjUXQpLM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-28T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "loUQuSy57Is",
+    "name": "Marlon Craft - State Of The Union (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/loUQuSy57Is/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-28T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "E2GV7ErWNPo",
+    "name": "Blu - The Return (Official Music Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/E2GV7ErWNPo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "d_AkmzDeiZc",
+    "name": "MURS - The Science",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "ヒップホップの起源と歩みを、歴史の授業のようにたどる。",
+      "en": "It traces hip-hop's origins and development like a history lesson."
+    },
+    "thumbnail": "https://img.youtube.com/vi/d_AkmzDeiZc/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "V2vtiFZ7nrs",
+    "name": "Elzhi - Memory Lane (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "1990年代半ばのデトロイトにあったHip-Hop Shopへ遡り、Elzhiが初めてマイクを握った場面と当時のコミュニティを振り返る。",
+      "en": "It looks back on Detroit's mid-1990s Hip-Hop Shop, where Elzhi first took the mic and joined the city's rap community."
+    },
+    "thumbnail": "https://img.youtube.com/vi/V2vtiFZ7nrs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "pexRQEDQZeE",
+    "name": "ISSUGI - Game Changer (Live at WWW X)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/pexRQEDQZeE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "7s3DL2wCMEk",
+    "name": "NORIKIYO - 俺達の唄 feat. MACCHO",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "傷や迷いを抱えながらも、自分の人生に意味を作り、前へ進むことを語る。",
+      "en": "It reflects on living with hurt and doubt while making your own meaning and moving forward."
+    },
+    "thumbnail": "https://img.youtube.com/vi/7s3DL2wCMEk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "DwK72VMckFI",
+    "name": "KOJOE - BoSS RuN DeM feat. AKANE & Awich (Official Video)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/DwK72VMckFI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-28T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "7HF7JrfdprA",
+    "name": "C.O.S.A. - Cool Kids",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/7HF7JrfdprA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-28T00:00:09.000Z"
+  },
+  {
     "youtube_id": "HMWaNkuNSfc",
     "name": "Lootpack (Madlib, Wildchild & DJ Romes) - Crate Diggin' [Official Music Video]",
     "region": "us",
