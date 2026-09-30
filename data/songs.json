@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "q9jCsOCfUUg",
+    "name": "De La Soul - Eye Know (Official Music Video) [HD] ft. Otis Redding",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/q9jCsOCfUUg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-30T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "kUw9Ej5VLnM",
+    "name": "Jurassic 5 - Work It Out ft. Dave Matthews Band",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/kUw9Ej5VLnM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-30T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "Qy55uD9BK0o",
+    "name": "Mos Def - Sex, Love & Money (Official Music Video)",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Qy55uD9BK0o/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-30T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "Wn7RE8zycJQ",
+    "name": "Aesop Rock - Shrunk (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Wn7RE8zycJQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-30T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "dKHsGh-y8d8",
+    "name": "Brother Ali - Mourning in America (Official Video)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "タイトル曲として、戦争地域から米国内の都市まで続く「死と殺人の文化」と、暴力を受ける側と行う側で基準が変わる社会の矛盾を批評している。",
+      "en": "The title track critiques a culture of death and murder—from war zones to U.S. cities—and the double standard applied to violence suffered versus violence committed."
+    },
+    "thumbnail": "https://img.youtube.com/vi/dKHsGh-y8d8/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-09-30T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "Sff7Kc77QAY",
+    "name": "Run The Jewels - Ooh LA LA feat. Greg Nice & DJ Premier (Official Music Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "階級闘争と貨幣による区分が消え、人間性・共感・コミュニティが勝った一日を空想する映像として構想された。",
+      "en": "The video imagines a day after class struggle and monetary divisions disappear, with humanity, empathy, and community prevailing."
+    },
+    "thumbnail": "https://img.youtube.com/vi/Sff7Kc77QAY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-30T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "qU0fYAJfhF0",
+    "name": "Shing02 - 殴雨 (Nagusame) Official MV",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/qU0fYAJfhF0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-30T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "Z_4Ibq_-OOs",
+    "name": "SEEDA - みたび不定職者 feat. Jinmenusagi, ID (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Z_4Ibq_-OOs/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-09-30T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "Mok0Idr-RKQ",
+    "name": "STUTS - One feat. tofubeats (Official Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Mok0Idr-RKQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-30T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "pqBf0NRc0UA",
+    "name": "田我流 - Idea (Music Video)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "「CHILL OUT MUSIC」と壁画プロジェクト「MURAL ONE LINE」のコラボレーションのために書き下ろされ、参加アーティストの作品から着想したアンサーソング。",
+      "en": "Written for the collaboration between CHILL OUT MUSIC and mural project MURAL ONE LINE, the song responds to works by the participating artists."
+    },
+    "thumbnail": "https://img.youtube.com/vi/pqBf0NRc0UA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-09-30T00:00:09.000Z"
+  },
+  {
     "youtube_id": "8KgtGs1ny0k",
     "name": "Gang Starr - Skills",
     "region": "us",
