@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "i6Fqd0WOBjw",
+    "name": "Dilated Peoples - Good As Gone",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/i6Fqd0WOBjw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-02T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "6OmPlvmep8c",
+    "name": "L'Orange & Jeremiah Jae - Ignore The Man To Your Right feat. Homeboy Sandman",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/6OmPlvmep8c/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-02T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "Nfd2b5CajNc",
+    "name": "Elzhi - Blue Widow",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/Nfd2b5CajNc/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-02T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "XHxl7y2BkJ8",
+    "name": "Locksmith - Nobody",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/XHxl7y2BkJ8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-02T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "QzK-fn9NaCE",
+    "name": "Jean Grae - Kill Screen",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/QzK-fn9NaCE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-02T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "tylwPZvkQPw",
+    "name": "Rapsody - Pay Up",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/tylwPZvkQPw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-02T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "D7bPV2rnamQ",
+    "name": "KID FRESINO - Retarded",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/D7bPV2rnamQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-02T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "LghgRcuVFVA",
+    "name": "BIM - Yearn",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/LghgRcuVFVA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-02T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "kHDibKjaIUk",
+    "name": "JJJ - Cyberpunk feat. Benjazzy",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/kHDibKjaIUk/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-02T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "87IJJnTxfbg",
+    "name": "環ROY - ワンダフル",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/87IJJnTxfbg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-02T00:00:09.000Z"
+  },
+  {
     "youtube_id": "8QGLnq9VYxA",
     "name": "Digable Planets - 9th Wonder (Blackitolism)",
     "region": "us",
