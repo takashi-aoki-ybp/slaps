@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "wrH9uksfXH0",
+    "name": "Naughty By Nature - Feel Me Flow",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/wrH9uksfXH0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-04T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "6mnKNr2Tiq8",
+    "name": "Common - The Corner feat. The Last Poets",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/6mnKNr2Tiq8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-04T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "TX_5UZHzuJk",
+    "name": "Oddisee - Back of My Mind feat. Paolo Escobar",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "収録作『Tangible Dream』は、従来の成功像を解体し、持続可能なラップ生活の可能性を照らすことをテーマにしている。", "en": "Its parent project, Tangible Dream, examines traditional ideas of success and the possibility of a sustainable life in rap."},
+    "thumbnail": "https://img.youtube.com/vi/TX_5UZHzuJk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-04T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "VNmhl4Ko5Qk",
+    "name": "Blu & Exile - True & Livin'",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/VNmhl4Ko5Qk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-04T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "tvY31eN3gtE",
+    "name": "Little Simz - Point And Kill feat. Obongjayar",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/tvY31eN3gtE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-04T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "JSXtRResO6E",
+    "name": "Mick Jenkins & greenSLLIME - STFU",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/JSXtRResO6E/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-04T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "RWNgeVPo-UI",
+    "name": "KREVA - Expert",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "停滞や自己否定を越え、自分で道を選び前進することを促す歌詞。", "en": "The lyrics urge listeners to move beyond stagnation and self-denial, choose their own path, and keep going."},
+    "thumbnail": "https://img.youtube.com/vi/RWNgeVPo-UI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-04T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "Lu11htSxoZg",
+    "name": "Daichi Yamamoto, grooveman Spot & Kzyboost - Wanna Ride",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/Lu11htSxoZg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-04T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "hQuYLyfwKK0",
+    "name": "Campanella - TYRON Freestyle",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/hQuYLyfwKK0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-04T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "GNOP-cPhRbU",
+    "name": "GAGLE - Rokuro Obi",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/GNOP-cPhRbU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-04T00:00:09.000Z"
+  },
+  {
     "youtube_id": "2-kV6TRs8PU",
     "name": "Lyrics Born - Callin' Out",
     "region": "us",
