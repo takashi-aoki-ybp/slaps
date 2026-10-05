@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "XIJ06e9GnMY",
+    "name": "Masta Ace & Marco Polo - Breukelen \"Brooklyn\" feat. Smif-N-Wessun",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/XIJ06e9GnMY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "XJHtCG5wqYs",
+    "name": "Hieroglyphics - Soweto feat. Goapele",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/XJHtCG5wqYs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-05T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "Mgucs7NzfeU",
+    "name": "Dilated Peoples - No Retreat",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/Mgucs7NzfeU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-05T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "vntLKOd9saI",
+    "name": "Mos Def - Umi Says",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/vntLKOd9saI/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-05T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "L_tyknmZhFs",
+    "name": "Rapsody - Hard To Choose",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/L_tyknmZhFs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-05T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "ZiADuDjueJc",
+    "name": "J.I.D - Off Deez feat. J. Cole",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/ZiADuDjueJc/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-05T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "kNprUvyCh-Q",
+    "name": "ZORN - In The Neighborhood",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/kNprUvyCh-Q/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-05T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "uOaPZARbTHg",
+    "name": "AKLO - RED PILL",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "偽りのシステムを捨て、自分で選び、前へ進み続ける決意を「赤い薬」に重ねた歌詞。", "en": "The lyrics use the red pill as a metaphor for rejecting a false system, choosing for yourself, and continuing forward."},
+    "thumbnail": "https://img.youtube.com/vi/uOaPZARbTHg/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-05T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "hjhUccb78RQ",
+    "name": "SALU - RAP GAME",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "SALUが自身のHIPHOPとの出会いを自伝的にたどり、ラップへの感謝と次の世代へつなぐ決意を語る。", "en": "SALU traces his own introduction to hip-hop, expressing gratitude for rap and a resolve to carry it forward to the next generation."},
+    "thumbnail": "https://img.youtube.com/vi/hjhUccb78RQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-05T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "18tBVROadrU",
+    "name": "Skaai - FLOOR IS MINE feat. BIM",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/18tBVROadrU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-05T00:00:09.000Z"
+  },
+  {
     "youtube_id": "wrH9uksfXH0",
     "name": "Naughty By Nature - Feel Me Flow",
     "region": "us",
