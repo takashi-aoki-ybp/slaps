@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "8cRDx9-ODUc",
+    "name": "Evidence - Jim Dean",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/8cRDx9-ODUc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-06T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "AckhnLpwceM",
+    "name": "Atmosphere - Sunshine",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/AckhnLpwceM/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-06T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "lQyypr9cp8I",
+    "name": "Brother Ali - Never Learn",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/lQyypr9cp8I/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-06T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "ygVz6Gft8ys",
+    "name": "Masta Ace & Marco Polo - Jordan Theory",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/ygVz6Gft8ys/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-06T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "V8JBl9nTV04",
+    "name": "Oddisee - World On Fire",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "戦争や分断、世代間の緊張を見つめながら、燃え上がる世界の中で生き延びることと共感を手放さないことを歌う。", "en": "Oddisee reflects on war, division, and generational tension while urging survival and empathy in a world on fire."},
+    "thumbnail": "https://img.youtube.com/vi/V8JBl9nTV04/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-06T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "3oTauhBaZ64",
+    "name": "Rapsody - God Gotta Afro feat. Karabo Ya Morena",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/3oTauhBaZ64/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-06T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "zVmYWuLC4Ek",
+    "name": "PUNPEE - Wonder Wall feat. 5lack",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/zVmYWuLC4Ek/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-06T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "3XkB2JVgfeE",
+    "name": "STUTS - Voyage feat. JJJ, BIM",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "JJJとBIMが、生まれた時代の息苦しさや焦り、音楽を選び続ける理由を、それぞれの視点から旅になぞらえて語る。", "en": "JJJ and BIM frame life as a voyage, tracing the pressure of their era, personal doubt, and why they keep choosing music."},
+    "thumbnail": "https://img.youtube.com/vi/3XkB2JVgfeE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-06T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "O80XzpboRtY",
+    "name": "JJJ - flame",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/O80XzpboRtY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-06T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "DDqqW0amAlg",
+    "name": "EVISBEATS - 夢の続き feat. 田我流",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/DDqqW0amAlg/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-06T00:00:09.000Z"
+  },
+  {
     "youtube_id": "XIJ06e9GnMY",
     "name": "Masta Ace & Marco Polo - Breukelen \"Brooklyn\" feat. Smif-N-Wessun",
     "region": "us",
