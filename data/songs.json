@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "wnbnzfMkDF8",
+    "name": "El Michels Affair & Black Thought - Glorious Game",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/wnbnzfMkDF8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "6mCzUXlXB6Q",
+    "name": "Marlowe (L'Orange & Solemn Brigham) - Lost Arts",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/6mCzUXlXB6Q/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-10T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "c1IeTUMHpC8",
+    "name": "Elzhi & Georgia Anne Muldrow - Nefertiti",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "黒人女性を称える曲として公式に紹介されている。",
+      "en": "The official release describes the song as a celebration of Black women."
+    },
+    "thumbnail": "https://img.youtube.com/vi/c1IeTUMHpC8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "jCY2w8tiFJM",
+    "name": "Homeboy Sandman - Go Hard",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/jCY2w8tiFJM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-10T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "qPGJafOUrXc",
+    "name": "Quelle Chris - The Sky Is Blue Because The Sunset Is Red feat. MoRuf & Pink Siifu",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/qPGJafOUrXc/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "_yJ5dRA_L4M",
+    "name": "Apollo Brown & Skyzoo - A Couple Dollars feat. Joell Ortiz",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_yJ5dRA_L4M/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-10T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "VO3graKTg7U",
+    "name": "NORIKIYO - 山手線",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/VO3graKTg7U/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "5W0bLR9hEAo",
+    "name": "唾奇 - Inaho feat. にしな",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/5W0bLR9hEAo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "t2gE-OTOaEY",
+    "name": "JJJ - STRAND feat. KEIJU",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/t2gE-OTOaEY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "i3zlHNqH840",
+    "name": "Daichi Yamamoto - maybe",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/i3zlHNqH840/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-10T00:00:09.000Z"
+  },
+  {
     "youtube_id": "Vm4KmreJAdY",
     "name": "MURS - Enjoy feat. Nate Curry",
     "region": "us",
