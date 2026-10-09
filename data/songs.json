@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "Vm4KmreJAdY",
+    "name": "MURS - Enjoy feat. Nate Curry",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "過去の恋愛や失敗を振り返りながら、長く続く愛を平穏と成長、感謝をもたらすものとして描く。",
+      "en": "Murs reflects on past relationships and mistakes, framing lasting love as a source of peace, growth, and gratitude."
+    },
+    "thumbnail": "https://img.youtube.com/vi/Vm4KmreJAdY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "7T_KKiQiolk",
+    "name": "Aesop Rock - Kirby",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/7T_KKiQiolk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "l-59SGc_h80",
+    "name": "Sean Price - King Kong feat. Rock",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/l-59SGc_h80/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-09T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "csb_wX0DfCk",
+    "name": "billy woods - Keloid",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/csb_wX0DfCk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "QC6ai3OudJk",
+    "name": "Rapsody - The Man",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/QC6ai3OudJk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "JMKNADxrwKM",
+    "name": "Evidence - Bad Publicity feat. Krondon",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/JMKNADxrwKM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-09T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "9r0BxmCBeSU",
+    "name": "GAGLE - 浮浪妙技 feat. Jambo Lacquer, チプルソ",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/9r0BxmCBeSU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-09T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "dRR4TFyaJlQ",
+    "name": "THA BLUE HERB - スーパーヒーロー",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/dRR4TFyaJlQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "rLWumhExhog",
+    "name": "環ROY - はらり",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/rLWumhExhog/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "HIZzYz1xk18",
+    "name": "STUTS × SIKK-O × 鈴木真海子 - Summer Situation",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/HIZzYz1xk18/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-09T00:00:09.000Z"
+  },
+  {
     "youtube_id": "kLtzdQIDoGU",
     "name": "Oddisee - Brea",
     "region": "us",
