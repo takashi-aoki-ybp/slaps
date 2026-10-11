@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "sGtDIBbLXXY",
+    "name": "Joell Ortiz - Housing Authority feat. KXNG Crooked",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "公式説明では、フックを置かずJoell OrtizとKXNG Crookedのラップを前面に出した曲として紹介されている。",
+      "en": "The official description presents the track as a hook-free showcase for Joell Ortiz and KXNG Crooked's rapping."
+    },
+    "thumbnail": "https://img.youtube.com/vi/sGtDIBbLXXY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-11T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "2Bk9JJmrqG0",
+    "name": "Apollo Brown & Stalley - No Monsters",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Stalleyは公式説明で、貧困の中でハスラーや殺人者、薬物依存者を身近に見て育つと、架空の怪物は怖くなくなるという発想を語っている。",
+      "en": "In the official description, Stalley says that growing up in poverty around hustlers, killers, and drug users makes imaginary monsters seem unfrightening."
+    },
+    "thumbnail": "https://img.youtube.com/vi/2Bk9JJmrqG0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "CnkSW_J5Fww",
+    "name": "Atmosphere - Okay",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/CnkSW_J5Fww/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "bnKdnDS9KtM",
+    "name": "Blueprint - Radio-Inactive",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/bnKdnDS9KtM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "1U9qnbtssSw",
+    "name": "R.A.P. Ferreira & Fumitake Tamura - bending corners",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1U9qnbtssSw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "1JHbUuWzVNE",
+    "name": "P.O.S - Purexed",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1JHbUuWzVNE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-11T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "zu9_-7ZHpAo",
+    "name": "BUPPON - 白状",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zu9_-7ZHpAo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "1q16JmAPv18",
+    "name": "BES & ISSUGI - 明日への鍵",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1q16JmAPv18/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "ZIoCDNsczn0",
+    "name": "Jinmenusagi - Sushi",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ZIoCDNsczn0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-11T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "Au1pEVOr7PA",
+    "name": "SPARTA - Balloon",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Au1pEVOr7PA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-11T00:00:09.000Z"
+  },
+  {
     "youtube_id": "wnbnzfMkDF8",
     "name": "El Michels Affair & Black Thought - Glorious Game",
     "region": "us",
