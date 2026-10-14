@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "NJLfCBBcZAo",
+    "name": "Vince Staples - Blue Suede",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/NJLfCBBcZAo/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-14T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "WxlpIQtmzPc",
+    "name": "Masta Ace & Marco Polo - Masta Polo",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/WxlpIQtmzPc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-14T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "pfblnrUjysI",
+    "name": "Styles P feat. Pharoahe Monch - The Life",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/pfblnrUjysI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-14T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "M6Mj6wPgQso",
+    "name": "Common - Drivin' Me Wild feat. Lily Allen",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/M6Mj6wPgQso/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-14T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "XVP-Uw0pzGc",
+    "name": "Brother Ali - Good Lord",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "公式説明でBrother Aliは、音楽と精神性がどのように結びつくかを扱った曲だと述べている。",
+      "en": "In the official description, Brother Ali says the song explores how spirituality works alongside music."
+    },
+    "thumbnail": "https://img.youtube.com/vi/XVP-Uw0pzGc/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-14T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "xKQIZREDmf4",
+    "name": "Earl Sweatshirt - Tabula Rasa feat. Armand Hammer",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/xKQIZREDmf4/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-14T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "tmRA_Il_R2A",
+    "name": "RHYMESTER - マイクの細道",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/tmRA_Il_R2A/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-14T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "o-i11qZickI",
+    "name": "MonyHorse - 上 feat. ¥ellow Bucks",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/o-i11qZickI/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-14T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "TS_Da_J6HT0",
+    "name": "AKLO - McLaren",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TS_Da_J6HT0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-14T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "8zzbiHyKUj8",
+    "name": "スチャダラパー & STUTS - Pointless 5 feat. PUNPEE",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/8zzbiHyKUj8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-14T00:00:09.000Z"
+  },
+  {
     "youtube_id": "LjQqONuVJbQ",
     "name": "Lupe Fiasco - Dumb It Down",
     "region": "us",
