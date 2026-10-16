@@ -39,8 +39,8 @@ async function run() {
     'shared landing must confirm advancing playback before it clears');
 
   const serviceWorker = fs.readFileSync('service-worker.js', 'utf8');
-  assert.match(serviceWorker, /this-part\.js\?v=4\.05/);
-  assert.match(serviceWorker, /this-part-link\.js\?v=4\.05/);
+  assert.match(serviceWorker, /this-part\.js\?v=4\.06/);
+  assert.match(serviceWorker, /this-part-link\.js\?v=4\.06/);
   console.log('THIS PART contract tests passed: URL, timestamp, markup, palette, offline assets.');
 }
 
