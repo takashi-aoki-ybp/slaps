@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "_9PD_ispnd8",
+    "name": "Elzhi - Deep",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_9PD_ispnd8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-17T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "8Z9HvjbAYtA",
+    "name": "The Roots - Star",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/8Z9HvjbAYtA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-17T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "wWimQf3I2SY",
+    "name": "Jean Grae - underneathu",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/wWimQf3I2SY/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-17T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "0SDlb_TU9-o",
+    "name": "Oddisee - After Thoughts",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "公式説明では、心に浮かぶ記憶を万華鏡のようにたどり、哀愁を帯びたインストゥルメンタルが日々の断片を夢のように回想する曲だと紹介されている。",
+      "en": "The official description presents the track as a kaleidoscopic journey through memory, with a haunting, wistful instrumental recalling fragments of everyday life in dreamlike fashion."
+    },
+    "thumbnail": "https://img.youtube.com/vi/0SDlb_TU9-o/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-17T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "_WnXMMOkubA",
+    "name": "Freddie Gibbs - Gang Signs feat. ScHoolboy Q",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_WnXMMOkubA/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-17T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "vs1hU6AwkN0",
+    "name": "Blu & Exile - So(ul) Amazin' (Steel Blazin')",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/vs1hU6AwkN0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-17T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "uFJPZI0dNHA",
+    "name": "Campanella - Birds",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/uFJPZI0dNHA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-17T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "ipMiiD-yqFY",
+    "name": "OMSB - Nowhere",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ipMiiD-yqFY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-17T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "28hxNon6WNQ",
+    "name": "PUNPEE - Free Roamin' (Self-regi Dystopia)",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/28hxNon6WNQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-17T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "zaVpYgZV91E",
+    "name": "ralph - Assassin",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zaVpYgZV91E/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-17T00:00:09.000Z"
+  },
+  {
     "youtube_id": "GCLl1ISqYwc",
     "name": "Dilated Peoples - Third Degree feat. Defari",
     "region": "us",
