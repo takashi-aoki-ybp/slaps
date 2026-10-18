@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "vgKL0eJXm88",
+    "name": "Mick Jenkins - Smoke Break-Dance feat. JID",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/vgKL0eJXm88/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-18T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "GSOFGFagOsY",
+    "name": "Little Simz - I Love You, I Hate You",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/GSOFGFagOsY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-18T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "5eyEiGjeuWE",
+    "name": "Marlon Craft - The Happy",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/5eyEiGjeuWE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-18T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "4-iGU13I8ns",
+    "name": "Che Noir - Shadow Puppet feat. Brady Watt & Abiodun Oyewole",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/4-iGU13I8ns/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-18T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "-4f4uOZJXXs",
+    "name": "Open Mike Eagle - Self Medication Chant",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/-4f4uOZJXXs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-18T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "tj4pk9_jPPk",
+    "name": "Rapsody - Back In My Bag",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/tj4pk9_jPPk/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-18T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "Onp0tqcZfW0",
+    "name": "STUTS - Furious feat. Campanella & KID FRESINO",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Onp0tqcZfW0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-18T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "AQ2T5VVQfp0",
+    "name": "KID FRESINO - that place is burning feat. ハナレグミ",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/AQ2T5VVQfp0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-18T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "9wDDIRhsaFs",
+    "name": "BES - Make so happy feat. BIM",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/9wDDIRhsaFs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-18T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "2wOoY-XVhCA",
+    "name": "Campanella - The Habit",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/2wOoY-XVhCA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-18T00:00:09.000Z"
+  },
+  {
     "youtube_id": "_9PD_ispnd8",
     "name": "Elzhi - Deep",
     "region": "us",
