@@ -18,6 +18,7 @@ function loadPlaywright() {
 
 const { chromium } = loadPlaywright();
 const target = process.env.SLAPS_CHECK_URL || 'https://slaps.tokyo/';
+const checkTimeIso = process.env.SLAPS_CHECK_TIME_ISO || '';
 const dailyDate = process.env.SLAPS_DAILY_DATE || new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit',
 }).format(new Date());
@@ -48,6 +49,12 @@ function actionableConsole(message) {
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, serviceWorkers: 'allow' });
     const page = await context.newPage();
+    if (checkTimeIso) {
+      const checkTime = new Date(checkTimeIso);
+      assert.ok(Number.isFinite(checkTime.getTime()), 'SLAPS_CHECK_TIME_ISO must be a valid ISO timestamp');
+      await page.clock.install({ time: checkTime });
+      evidence.browser_time_iso = checkTime.toISOString();
+    }
     const origin = new URL(target).origin;
 
     page.on('console', (message) => {
