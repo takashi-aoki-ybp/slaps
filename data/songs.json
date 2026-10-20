@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "CFbDzfPKw0E",
+    "name": "MURS - The D.O.C.",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CFbDzfPKw0E/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-20T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "7xZcXEbU_Uw",
+    "name": "Homeboy Sandman - The Miracle",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/7xZcXEbU_Uw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-20T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "USL5CoLdSXM",
+    "name": "Skyzoo - Esoteric",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/USL5CoLdSXM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-20T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "Re9wDJeJ1Qo",
+    "name": "Lute - Still Slummin'",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Re9wDJeJ1Qo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-20T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "zpH0Rxcl4JY",
+    "name": "EARTHGANG - All Eyes On Me",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/zpH0Rxcl4JY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-20T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "mEZOsgDQFpE",
+    "name": "Blu & Exile - Ease Your Mind feat. Andy Allo",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/mEZOsgDQFpE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-20T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "q-e8PqWbCIU",
+    "name": "BIM - One Love feat. kZm",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/q-e8PqWbCIU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-20T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "mwfgMm2RGNk",
+    "name": "DJ RYOW - all green feat. 唾奇",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/mwfgMm2RGNk/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-20T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "opPdxEgQmkY",
+    "name": "ISSUGI & DJ SCRATCH NICE - On the Train feat. 仙人掌",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/opPdxEgQmkY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-20T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "CQgPmYw2ugs",
+    "name": "KEIJU - Bound For Glory",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CQgPmYw2ugs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-20T00:00:09.000Z"
+  },
+  {
     "youtube_id": "jxUQ07NXB4c",
     "name": "Brother Ali - Take Me Home",
     "region": "us",
