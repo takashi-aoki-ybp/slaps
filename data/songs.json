@@ -1,5 +1,118 @@
 [
   {
+    "youtube_id": "R6987o-h3JI",
+    "name": "Evidence - To Be Continued...",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/R6987o-h3JI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-21T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "yrq1pVgGkMs",
+    "name": "Danger Mouse & Black Thought - No Gold Teeth",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/yrq1pVgGkMs/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-21T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "MIQeGWw4_Kk",
+    "name": "MAVI - Triple Nickel feat. MIKE",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/MIQeGWw4_Kk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-21T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "boQTfioZhbk",
+    "name": "Armand Hammer - Doves feat. Benjamin Booker",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/boQTfioZhbk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-21T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "wxY0FXMyNJk",
+    "name": "KOTA The Friend - SEDONA",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/wxY0FXMyNJk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-21T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "rxTBeiCwzCo",
+    "name": "Sa-Roc - Goddess Gang",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "女性ラッパーに求められる外見や品行の規範を退け、外見ではなくリリックの技量で評価されるべきだと打ち出した楽曲。公式説明では2018年のスクワッド・アンセムとして紹介されている。",
+      "en": "Sa-Roc rejects appearance-based and respectability standards imposed on women rappers, demanding to be judged on lyrical skill. The official description frames it as a 2018 squad anthem."
+    },
+    "thumbnail": "https://img.youtube.com/vi/rxTBeiCwzCo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-21T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "aO1szDG7S2s",
+    "name": "Campanella - Mi Yama",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/aO1szDG7S2s/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-21T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "T114TJL6gao",
+    "name": "GAGLE - FLOW",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/T114TJL6gao/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-21T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "GLrSRxx4pC4",
+    "name": "RITTO - NINGEN State of Mind pt-II",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/GLrSRxx4pC4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-21T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "uCK2yTbhtug",
+    "name": "田我流 & KM - 3rd TIME",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/uCK2yTbhtug/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-21T00:00:09.000Z"
+  },
+  {
     "youtube_id": "CFbDzfPKw0E",
     "name": "MURS - The D.O.C.",
     "region": "us",
