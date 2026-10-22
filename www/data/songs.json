@@ -1,5 +1,118 @@
 [
   {
+    "youtube_id": "zu6APmk9X7Y",
+    "name": "Quelle Chris & Chris Keys - Sudden Death",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/zu6APmk9X7Y/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-22T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "CqsNX3K_6P8",
+    "name": "billy woods - Western Education Is Forbidden feat. Fielded",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CqsNX3K_6P8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-22T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "87Z2Kds4KPo",
+    "name": "Roc Marciano & The Alchemist - Quantum Leap",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/87Z2Kds4KPo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-22T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "PBzuQUdQHeg",
+    "name": "Saba - Stop That",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "他人から反応される前に自己批判や不安で自信を失い、自分を小さくしてしまうことに気づき、その癖を正そうとする曲。",
+      "en": "Saba describes noticing how self-judgment and insecurity made him shrink before anyone else responded, and frames the song as an effort to correct that habit."
+    },
+    "thumbnail": "https://img.youtube.com/vi/PBzuQUdQHeg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-22T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "wrxxfrzJY6k",
+    "name": "Earl Sweatshirt - Off Top",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/wrxxfrzJY6k/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-22T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "tODoC8poz7Y",
+    "name": "Open Mike Eagle & Paul White - Dang Is Invincible",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/tODoC8poz7Y/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-22T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "vyzEfYVB3A4",
+    "name": "BudaMunk - Five Elements feat. MONJU & OYG",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/vyzEfYVB3A4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-22T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "PR0oeNdCeLQ",
+    "name": "VaVa x ROLAND JONES - 凍京",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/PR0oeNdCeLQ/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-22T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "eWetBwa4vVI",
+    "name": "Jinmenusagi - NEET",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/eWetBwa4vVI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-22T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "bGpseYkPza8",
+    "name": "環ROY - YES",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/bGpseYkPza8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-22T00:00:09.000Z"
+  },
+  {
     "youtube_id": "R6987o-h3JI",
     "name": "Evidence - To Be Continued...",
     "region": "us",
