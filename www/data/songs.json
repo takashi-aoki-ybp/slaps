@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "9fzt4Mt8DmU",
+    "name": "Smif-N-Wessun - Wrekonize",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/9fzt4Mt8DmU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-23T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "JnHSgaBtpIs",
+    "name": "De La Soul - Keepin' the Faith",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/JnHSgaBtpIs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-23T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "DXNMVRsIeB4",
+    "name": "WESTSIDE BOOGIE - Self Destruction",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/DXNMVRsIeB4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-23T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "AC7AIoBwh30",
+    "name": "Smino - Ole Ass Kendrick",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/AC7AIoBwh30/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-23T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "ju3i3xJPsVU",
+    "name": "EARTHGANG - American Horror Story",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ju3i3xJPsVU/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-23T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "N-bZRSEwIIs",
+    "name": "Dave East - Thru the Mud",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/N-bZRSEwIIs/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-23T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "qnIs6B1Viik",
+    "name": "Ryohu - All in One",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/qnIs6B1Viik/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-23T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "uCToQKuVPYg",
+    "name": "SKRYU - 超 Super Star",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/uCToQKuVPYg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-23T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "AWI38ASVOTs",
+    "name": "NENE - ICON",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/AWI38ASVOTs/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-23T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "x5RsWRm7n9k",
+    "name": "田島ハルコ - KING DIVA feat. ゆっきゅん",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/x5RsWRm7n9k/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-23T00:00:09.000Z"
+  },
+  {
     "youtube_id": "zu6APmk9X7Y",
     "name": "Quelle Chris & Chris Keys - Sudden Death",
     "region": "us",
