@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "ZpI9BQwOvoo",
+    "name": "Souls of Mischief - Never No More",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ZpI9BQwOvoo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-24T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "lnCeZY6nxjQ",
+    "name": "The Pharcyde - Ya Mama",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/lnCeZY6nxjQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-24T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "4Bxkp3hpGdU",
+    "name": "Oddisee - Belong To The World",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Oddiseeはこの曲について、どこにも自分の居場所がないと感じていた状態から、誰もがより大きな世界の一部だと理解するまでの変化を描いたと説明している。",
+      "en": "Oddisee describes the song as a transition from feeling that he fit nowhere to understanding that everyone belongs to a larger world."
+    },
+    "thumbnail": "https://img.youtube.com/vi/4Bxkp3hpGdU/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-10-24T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "C9E20vOGisQ",
+    "name": "Elzhi & Oh No - Bishop",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "公式説明では、1992年の映画『Juice』を、2Pacが演じたBishopの視点から再構成した物語として紹介されている。",
+      "en": "The official description presents the track as a retelling of the 1992 film Juice from the perspective of Bishop, the character played by 2Pac."
+    },
+    "thumbnail": "https://img.youtube.com/vi/C9E20vOGisQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-24T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "ts7i7lTxkn8",
+    "name": "redveil - diving board",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ts7i7lTxkn8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-24T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "Rpy8iYIa6Lg",
+    "name": "Rapsody & Madlib - Daddy's Girl",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Rpy8iYIa6Lg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-24T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "fun5a6X9GlE",
+    "name": "OMSB - 黒帯 (Black Belt Remix)",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/fun5a6X9GlE/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-24T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "FQ_ryBw_0PQ",
+    "name": "ZORN - Don't Look Back",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/FQ_ryBw_0PQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-24T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "5vN320vrkP4",
+    "name": "Bonbero - Me vs. Me",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/5vN320vrkP4/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-24T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "awvEXRBp9_I",
+    "name": "OZworld - 龍 〜RAW〜",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/awvEXRBp9_I/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-24T00:00:09.000Z"
+  },
+  {
     "youtube_id": "9fzt4Mt8DmU",
     "name": "Smif-N-Wessun - Wrekonize",
     "region": "us",
