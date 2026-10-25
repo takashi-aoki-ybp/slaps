@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "r3UlNcwb2cA",
+    "name": "Heltah Skeltah - Therapy",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/r3UlNcwb2cA/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-25T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "7XOAStfv-v0",
+    "name": "Lupe Fiasco - Daydreamin' feat. Jill Scott",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/7XOAStfv-v0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-25T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "VG_iDZbSZ3I",
+    "name": "Pharoahe Monch - Clap (One Day)",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "公式説明では、10分の短編として、警察の捜索が悲劇的な結末へ進む過程を描いている。",
+      "en": "The official description presents the piece as a ten-minute short film following a police raid that goes tragically wrong."
+    },
+    "thumbnail": "https://img.youtube.com/vi/VG_iDZbSZ3I/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-25T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "5xLEGmijvMg",
+    "name": "Mick Jenkins - Martyrs",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/5xLEGmijvMg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-25T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "C-com9M91-4",
+    "name": "Denzel Curry - Zatoichi feat. slowthai",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/C-com9M91-4/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-25T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "QtZT7hcMltg",
+    "name": "Aesop Rock - Klutz",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Aesop Rockは、曲構成がつかめない感覚に任せ、ヒット向けのフックを置かずに言葉を長く連ねた曲だと説明している。",
+      "en": "Aesop Rock describes the track as a rambling moment where song structure eluded him, without a conventional hook."
+    },
+    "thumbnail": "https://img.youtube.com/vi/QtZT7hcMltg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-25T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "yGsIG3XtY2g",
+    "name": "SOUL SCREAM - 蜂と蝶",
+    "region": "jp",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/yGsIG3XtY2g/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-25T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "6pgm6OdUyAM",
+    "name": "KICK THE CAN CREW - イツナロウバ",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/6pgm6OdUyAM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-25T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "miS8i4juCUI",
+    "name": "OMSB - ActNBaby feat. jjj",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/miS8i4juCUI/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-25T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "K2PYq1GHTs0",
+    "name": "Daichi Yamamoto × シャドウビート - Still",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/K2PYq1GHTs0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-25T00:00:09.000Z"
+  },
+  {
     "youtube_id": "ZpI9BQwOvoo",
     "name": "Souls of Mischief - Never No More",
     "region": "us",
