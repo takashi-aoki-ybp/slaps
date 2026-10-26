@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "acT_PSAZ7BQ",
+    "name": "The Coup - The Guillotine",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/acT_PSAZ7BQ/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-26T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "p5UjkBJ9zjo",
+    "name": "Big K.R.I.T. - Funky Game",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/p5UjkBJ9zjo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-26T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "Y3nA3OgqWaw",
+    "name": "Camp Lo - Coolie High",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Y3nA3OgqWaw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-26T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "gz3YzkyDZOI",
+    "name": "MURS - The Hulk",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/gz3YzkyDZOI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-26T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "xhDb8LoScpI",
+    "name": "Pete Rock & C.L. Smooth - Straighten It Out",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/xhDb8LoScpI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-26T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "5tKF6cONUS8",
+    "name": "Slum Village - Yes Yes",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/5tKF6cONUS8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-26T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "vLpvQ39Qe60",
+    "name": "NITRO MICROPHONE UNDERGROUND - Eclipse",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/vLpvQ39Qe60/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-26T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "vtXtUc4KQ-s",
+    "name": "キングギドラ - F.F.B.",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/vtXtUc4KQ-s/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-26T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "9sqgzV6hNFw",
+    "name": "BUDDHA BRAND - Kushokan",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/9sqgzV6hNFw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-26T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "BWUY8bma418",
+    "name": "SALU - BRIGHT TIMES feat. Kohjiya",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/BWUY8bma418/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-26T00:00:09.000Z"
+  },
+  {
     "youtube_id": "r3UlNcwb2cA",
     "name": "Heltah Skeltah - Therapy",
     "region": "us",
