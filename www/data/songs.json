@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "gfMURCgM3GY",
+    "name": "Poor Righteous Teachers - Rock Dis Funky Joint",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/gfMURCgM3GY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-27T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "iN14IHQ-LbM",
+    "name": "J-Live - The Authentic",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/iN14IHQ-LbM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-27T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "RSyc_6ESNmk",
+    "name": "Binary Star - Saturn Rings Sad Turn Around feat. DMT",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/RSyc_6ESNmk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-27T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "3s-w-zSbTu8",
+    "name": "Big K.R.I.T. - Mt. Olympus",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/3s-w-zSbTu8/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-27T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "0oa9TvYeNy8",
+    "name": "MURS - Mi Corazon",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/0oa9TvYeNy8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-27T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "TxmiWmHz4gw",
+    "name": "Del the Funky Homosapien - Highway (People I Know)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TxmiWmHz4gw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-27T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "33KtlnY6pRw",
+    "name": "NITRO MICROPHONE UNDERGROUND - Day One",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/33KtlnY6pRw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-27T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "mJ1nh6gNz8M",
+    "name": "キングギドラ - ジェネレーションネクスト",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/mJ1nh6gNz8M/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-10-27T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "16sJd3pDcw8",
+    "name": "valknee - DAMEDAME feat. 鎮座DOPENESS",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/16sJd3pDcw8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-27T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "xNd7WA0yWRQ",
+    "name": "AKLO - LOSER",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/xNd7WA0yWRQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-27T00:00:09.000Z"
+  },
+  {
     "youtube_id": "acT_PSAZ7BQ",
     "name": "The Coup - The Guillotine",
     "region": "us",
