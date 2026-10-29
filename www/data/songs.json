@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "zVStRssuW9c",
+    "name": "Masta Ace Incorporated - The I.N.C. Ride",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zVStRssuW9c/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "b04Elfud97I",
+    "name": "R.A. The Rugged Man - Media Midgets",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "R.A. The Rugged Manは公式説明で、テレビ、ラジオ、政治的プロパガンダによる思考の画一化を批判し、特に若者へ自分で考えることを促す曲だと語っている。",
+      "en": "In the official description, R.A. The Rugged Man frames the track as a critique of programming by television, radio and political propaganda, urging young people to think for themselves."
+    },
+    "thumbnail": "https://img.youtube.com/vi/b04Elfud97I/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "4hsfvmEz9PI",
+    "name": "CZARFACE - Hazmat Rap",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/4hsfvmEz9PI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "L3dtIyt6U1E",
+    "name": "Gift of Gab - Freedom Form Flowing feat. R.A. The Rugged Man and A-F-R-O",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/L3dtIyt6U1E/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "VFt1xMPnkVg",
+    "name": "Atmosphere - Camera Thief",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/VFt1xMPnkVg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-29T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "NVZULcYAUMQ",
+    "name": "Sa-Roc - Amazing Grace",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/NVZULcYAUMQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "8vJfKvrGe6k",
+    "name": "RHYMESTER - My Runway feat. Rei",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/8vJfKvrGe6k/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "LgUpvCj39wE",
+    "name": "KREVA - 居場所",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/LgUpvCj39wE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-29T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "JFDuJIFpMpw",
+    "name": "ZORN - Stay Gold",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/JFDuJIFpMpw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-29T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "t-0HqwJdaUw",
+    "name": "SEEDA - Pake",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/t-0HqwJdaUw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-29T00:00:09.000Z"
+  },
+  {
     "youtube_id": "MTGipiE6BfM",
     "name": "Camp Lo - Bright Lights",
     "region": "us",
