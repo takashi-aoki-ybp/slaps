@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "BUbWozgMf4M",
+    "name": "Brother Ali - Breakin' Dawn (Official Video)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/BUbWozgMf4M/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "agLO3Fp8BGs",
+    "name": "Evidence - Rain Every Season (feat. The Alchemist)",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/agLO3Fp8BGs/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "MLiomB4ck0s",
+    "name": "Skyzoo - JanSport Strings",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/MLiomB4ck0s/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-30T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "K6I4Eir4IEw",
+    "name": "Talib Kweli - Traveling Light feat. Anderson .Paak",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/K6I4Eir4IEw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "s07gWh37Xcc",
+    "name": "Little Simz - Young",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/s07gWh37Xcc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "Ypoev2iLCEE",
+    "name": "Apollo Brown & Joell Ortiz - Grace Of God",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Ypoev2iLCEE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "wRH7O1uHbUM",
+    "name": "C.O.S.A. - Motown Man",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/wRH7O1uHbUM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "l-gi2XmuzbU",
+    "name": "ISSUGI - 366247 Remix ft JJJ",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/l-gi2XmuzbU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "4i8U3ihFPTM",
+    "name": "田我流 - Cola",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/4i8U3ihFPTM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-30T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "ANzNC1FEEyY",
+    "name": "SPARTA - Life feat. OMSB",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ANzNC1FEEyY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-30T00:00:09.000Z"
+  },
+  {
     "youtube_id": "zVStRssuW9c",
     "name": "Masta Ace Incorporated - The I.N.C. Ride",
     "region": "us",
