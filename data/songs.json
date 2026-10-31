@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "eu1g18U1_6s",
+    "name": "De La Soul - Ego Trippin' (Part Two) feat. Shortie No Mass",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/eu1g18U1_6s/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-31T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "_I1IX2cqjQ4",
+    "name": "The Roots - Clones",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_I1IX2cqjQ4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-31T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "9jQMgWCvn_A",
+    "name": "Common - Soul by the Pound",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/9jQMgWCvn_A/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-31T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "IAHgyLOudXI",
+    "name": "Lupe Fiasco - Paris, Tokyo",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/IAHgyLOudXI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-31T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "6kNlv4HjMG8",
+    "name": "Quelle Chris & Chris Keys - Horizon",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/6kNlv4HjMG8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-31T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "DSTANWAy4ro",
+    "name": "Mick Jenkins - Brown Recluse",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/DSTANWAy4ro/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-31T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "wFKvOPQyVL0",
+    "name": "KICK THE CAN CREW - 千％",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/wFKvOPQyVL0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-31T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "hvI6TjKI07Y",
+    "name": "NORIKIYO - Cut Da Bullshit",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/hvI6TjKI07Y/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-10-31T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "j3oPs2CJ_6I",
+    "name": "BASI - 月ひとつ feat. 空音",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/j3oPs2CJ_6I/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-31T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "OisVvirJwUU",
+    "name": "Campanella & GuruConnect - Bell",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/OisVvirJwUU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-10-31T00:00:09.000Z"
+  },
+  {
     "youtube_id": "BUbWozgMf4M",
     "name": "Brother Ali - Breakin' Dawn (Official Video)",
     "region": "us",
