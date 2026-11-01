@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "xbJxcFyaCpI",
+    "name": "KRS-One - Step Into A World (Rapture's Delight)",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/xbJxcFyaCpI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-01T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "RVcesMcLHSA",
+    "name": "Souls Of Mischief - That's When Ya Lost feat. Pep Love",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/RVcesMcLHSA/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-01T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "npSFbmmKImo",
+    "name": "CunninLynguists - K.K.K.Y.",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/npSFbmmKImo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-01T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "Y-_aDdaRWXQ",
+    "name": "Saba - Mrs. Whoever",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Sabaは本作の公開について、完璧さを追い続けるのではなく、自分の考えをリアルタイムに手放して共有するための行為だと説明している。",
+      "en": "Saba described releasing the track as a way to let go of perfectionism and share his thoughts in real time."
+    },
+    "thumbnail": "https://img.youtube.com/vi/Y-_aDdaRWXQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-01T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "p5POCJJsSZk",
+    "name": "Open Mike Eagle - ok but im the phone screen",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/p5POCJJsSZk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-01T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "oadwKU5aknA",
+    "name": "Blu & Exile - CRUMBS feat. Rome Streetz & ICECOLDBISHOP",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Blu、Rome Streetz、ICECOLDBISHOPの世代をまたぐヴァースを通じ、権力構造が周縁化されたコミュニティにわずかな資源や譲歩で満足するよう求める現実を批判する。",
+      "en": "Through verses from Blu, Rome Streetz, and ICECOLDBISHOP, the track critiques power structures that expect marginalized communities to settle for minimal resources and concessions."
+    },
+    "thumbnail": "https://img.youtube.com/vi/oadwKU5aknA/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-01T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "iC6srZcs8qc",
+    "name": "RHYMESTER - Still Changing",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/iC6srZcs8qc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-01T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "rEE5-dyq3gs",
+    "name": "BIM - Veranda",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/rEE5-dyq3gs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-01T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "1QHNpUbcH3o",
+    "name": "ralph - Sightseeing",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/1QHNpUbcH3o/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-01T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "C7zb5eQbleg",
+    "name": "5lack - 時はたち",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/C7zb5eQbleg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-01T00:00:09.000Z"
+  },
+  {
     "youtube_id": "eu1g18U1_6s",
     "name": "De La Soul - Ego Trippin' (Part Two) feat. Shortie No Mass",
     "region": "us",
