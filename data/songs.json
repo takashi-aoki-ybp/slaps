@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "pios2RY2G_Q",
+    "name": "The Coup - Fat Cats, Bigga Fish",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/pios2RY2G_Q/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-02T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "h8XvP3LmefM",
+    "name": "People Under The Stairs - 1 Up Til Sun Up",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/h8XvP3LmefM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-02T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "z-kiZX8yYCg",
+    "name": "Lute - Authentic",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/z-kiZX8yYCg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-02T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "nywGwSHb0nk",
+    "name": "Tierra Whack - TWO NIGHT",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/nywGwSHb0nk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-02T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "6HMDUHYHHEw",
+    "name": "McKinley Dixon - Tyler, Forever",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/6HMDUHYHHEw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-02T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "br2IbQW1BRo",
+    "name": "Aesop Rock x Blockhead - Coyote Summer feat. Hanni El Khatib",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/br2IbQW1BRo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-02T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "JXVu-Wt1TQA",
+    "name": "RIP SLYME - JOINT",
+    "region": "jp",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/JXVu-Wt1TQA/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-02T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "f7YBsuf5XwY",
+    "name": "KICK THE CAN CREW - Boots",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/f7YBsuf5XwY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-02T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "zhnDylfpWPk",
+    "name": "KEIJU - Oiwai",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zhnDylfpWPk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-02T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "WbnR4_-A0BU",
+    "name": "kZm - Who's Got Game?",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/WbnR4_-A0BU/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-02T00:00:09.000Z"
+  },
+  {
     "youtube_id": "xbJxcFyaCpI",
     "name": "KRS-One - Step Into A World (Rapture's Delight)",
     "region": "us",
