@@ -102,7 +102,7 @@ export async function handleDailyOg(request) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return textResponse('Invalid date', 400);
   const prefix = process.env.DB_PREFIX || '';
   const cacheHash = crypto.createHash('sha1').update(date).digest('hex');
-  const cacheKey = `${prefix}slaps:daily-og:v1:${cacheHash}`;
+  const cacheKey = `${prefix}slaps:daily-og:v2:${cacheHash}`;
 
   try {
     const cached = await kvFetch(['GET', cacheKey]);
@@ -118,7 +118,7 @@ export async function handleDailyOg(request) {
     const tracks = songs.filter((song) =>
       String(song.user_name || '').toUpperCase() === 'SLAPS' &&
       String(song.created_at || song.publish_at || '').startsWith(date)
-    ).filter((song, index, all) => all.findIndex((item) => item.youtube_id === song.youtube_id) === index).slice(0, 10);
+    ).filter((song, index, all) => all.findIndex((item) => item.youtube_id === song.youtube_id) === index).slice(0, 30);
     if (!tracks.length) return textResponse('Daily drop not found', 404);
 
     const canvas = new Jimp({ width: 1200, height: 630, color: 0x050505ff });
@@ -134,7 +134,7 @@ export async function handleDailyOg(request) {
       align: HorizontalAlign.LEFT | VerticalAlign.MIDDLE,
     });
     canvas.composite(logo, 62, 54);
-    drawText(canvas, "TODAY'S 10", 68, 230, 10);
+    drawText(canvas, `TODAY'S ${tracks.length}`, 68, 230, 10);
     drawText(canvas, date.replaceAll('-', '.'), 70, 345, 5, 0xe0ff3cff);
     drawText(canvas, `${tracks.length} TRACKS / DAILY DROP`, 70, 445, 3, 0xd8d8d8ff);
     const buffer = await canvas.getBuffer(JimpMime.jpeg, { quality: 88 });

@@ -9,7 +9,7 @@ export function jstDateKey(value = new Date()) {
   return shifted.toISOString().slice(0, 10);
 }
 
-export function buildDailyArchive(songs, limit = 10) {
+export function buildDailyArchive(songs, limit = 30) {
   const groups = new Map();
   for (const song of songs || []) {
     if (String(song?.user_name || '').toUpperCase() !== 'SLAPS') continue;

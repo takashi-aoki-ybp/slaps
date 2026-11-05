@@ -761,6 +761,7 @@ function dailyEntry(date) {
 function renderDaily(date) {
   const entry = dailyEntry(date);
   if (!entry) return;
+  const count = entry.tracks.length;
   dailyIndex = Math.max(0, dailyArchive.findIndex((item) => item.date === entry.date));
   state.dailyDate = entry.date;
   $('#dailyDate').textContent = entry.date.replaceAll('-', '.');
@@ -773,8 +774,11 @@ function renderDaily(date) {
       <span class="daily-card__number">${String(index + 1).padStart(2, '0')}</span>
       <strong class="daily-card__title">${escapeHtml(song.name)}</strong>
     </button>`).join('');
-  $('#dailyPlayAll').textContent = window.i18n.t('dailyPlayAll').replace('{count}', entry.tracks.length);
-  $('#dailyCount').textContent = `${entry.tracks.length} CUTS`;
+  $('#dailyTitle').textContent = `TODAY'S ${count}`;
+  $('#dailyLead').textContent = window.i18n.t('dailyLead').replace('{count}', count);
+  $('#dailyPlayAll').textContent = window.i18n.t('dailyPlayAll').replace('{count}', count);
+  $('#dailyShare').textContent = window.i18n.t('dailyShare').replace('{count}', count);
+  $('#dailyCount').textContent = `${count} CUTS`;
 }
 
 export function openDaily(date = state.dailyDate) {
@@ -839,6 +843,7 @@ export function initDaily() {
   if (todayEntry) {
     open.dataset.dailyDate = todayEntry.date;
     $('#dailyOpenCount').textContent = todayEntry.tracks.length;
+    open.setAttribute('aria-label', window.i18n.t('dailyOpenLabel').replace('{count}', todayEntry.tracks.length));
     open.hidden = false;
   }
   if (requestedEntry) {

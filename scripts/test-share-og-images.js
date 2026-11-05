@@ -126,6 +126,8 @@ async function run() {
     const dailySource = fs.readFileSync(path.join(root, 'api', 'daily-og.js'), 'utf8');
     assert.match(dailySource, /export default \{ fetch: handleDailyOg \}/);
     assert.match(dailySource, /new URL\(request\.url\)/);
+    assert.match(dailySource, /slice\(0, 30\)/);
+    assert.match(dailySource, /TODAY'S \$\{tracks\.length\}/);
     assert.doesNotMatch(dailySource, /req\.query/);
   } finally {
     global.fetch = previousFetch;
