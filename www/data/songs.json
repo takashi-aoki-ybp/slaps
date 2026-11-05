@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "B_gO6Hn9NPg",
+    "name": "Living Legends - LLXL",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/B_gO6Hn9NPg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "_IVaqGhG854",
+    "name": "Apathy - Check To Check",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『Honkey Kong』から最初に公開されたシングル。",
+      "en": "The first single released from the album Honkey Kong."
+    },
+    "thumbnail": "https://img.youtube.com/vi/_IVaqGhG854/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "8Q1I9pN8a-M",
+    "name": "Sa-Roc - r(E)volution",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/8Q1I9pN8a-M/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "Ey0y903Logo",
+    "name": "Atmosphere - Graffiti",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "アルバム『Mi Vida Local』収録曲。",
+      "en": "Featured on Atmosphere's album Mi Vida Local."
+    },
+    "thumbnail": "https://img.youtube.com/vi/Ey0y903Logo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-05T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "Cj5pqfxbUBY",
+    "name": "Evidence - Seeing Double",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Cj5pqfxbUBY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "DmKY9mg6Fl8",
+    "name": "CZARFACE - BIZARRO",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "ブリトーとポッドキャストを題材に、デヴィッド・リンチ作品に着想を得た熱夢として構成された映像。",
+      "en": "A burrito-fueled fever dream inspired by David Lynch and framed around listening to the Your Mom's House podcast."
+    },
+    "thumbnail": "https://img.youtube.com/vi/DmKY9mg6Fl8/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-05T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "uhXCzP5pbOk",
+    "name": "DABO, ANARCHY & KREVA - I REP",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/uhXCzP5pbOk/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-05T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "SCJhdIq4_dE",
+    "name": "WILYWNKA - Excuse Me",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/SCJhdIq4_dE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "F_AKLl-ax_0",
+    "name": "JUMADIBA - Meditate",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/F_AKLl-ax_0/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "btwL2vjwm9s",
+    "name": "KID FRESINO - USD feat. NENE",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/btwL2vjwm9s/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-05T00:00:09.000Z"
+  },
+  {
     "youtube_id": "tuHEP2rINSg",
     "name": "Marlon Craft - (Not) Everybody",
     "region": "us",
