@@ -22,6 +22,9 @@ const checkTimeIso = process.env.SLAPS_CHECK_TIME_ISO || '';
 const dailyDate = process.env.SLAPS_DAILY_DATE || new Intl.DateTimeFormat('en-CA', {
   timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit',
 }).format(new Date());
+const expectedDailyCount = Number.parseInt(process.env.SLAPS_DAILY_EXPECTED || '10', 10);
+assert.ok(Number.isInteger(expectedDailyCount) && expectedDailyCount > 0,
+  'SLAPS_DAILY_EXPECTED must be a positive integer');
 const output = path.resolve(process.env.SLAPS_CHECK_OUTPUT || `outputs/daily-automation/${dailyDate}`);
 const evidencePath = path.join(output, 'live-interactions.json');
 const screenshot = (page, name) => page.screenshot({ path: path.join(output, `live-${name}.png`) });
@@ -37,6 +40,7 @@ function actionableConsole(message) {
     status: 'failed',
     target,
     daily_date: dailyDate,
+    expected_daily_count: expectedDailyCount,
     checked_at: new Date().toISOString(),
     process_muted: true,
     writes_intercepted: true,
@@ -199,14 +203,15 @@ function actionableConsole(message) {
       play_all_label: document.querySelector('#dailyPlayAll')?.textContent?.trim(),
     }));
     assert.equal(dailyBefore.date, dailyDate.replaceAll('-', '.'));
-    assert.equal(dailyBefore.count, 10);
+    assert.equal(dailyBefore.count, expectedDailyCount);
     assert.ok(dailyBefore.first_id);
     await page.locator('#dailyPlayAll').click();
-    await page.waitForFunction((expectedId) => window.__state?.dailyMode === true
-      && window.__state?.queue?.length === 10
+    await page.waitForFunction(({ expectedId, expectedCount }) => window.__state?.dailyMode === true
+      && window.__state?.queue?.length === expectedCount
       && window.__state?.index === 0
       && window.__state?.player?.getVideoData?.()?.video_id === expectedId
-      && window.__state.player.getPlayerState() === 1, dailyBefore.first_id, { timeout: 30000 });
+      && window.__state.player.getPlayerState() === 1,
+    { expectedId: dailyBefore.first_id, expectedCount: expectedDailyCount }, { timeout: 30000 });
     const dailyTimeBefore = await page.evaluate(() => window.__state.player.getCurrentTime());
     await page.waitForTimeout(1800);
     const playAll = await page.evaluate(() => ({
@@ -225,7 +230,7 @@ function actionableConsole(message) {
     }));
     assert.equal(playAll.daily_mode, true);
     assert.equal(playAll.daily_date, dailyDate);
-    assert.equal(playAll.queue_length, 10);
+    assert.equal(playAll.queue_length, expectedDailyCount);
     assert.equal(playAll.index, 0);
     assert.equal(playAll.current_id, dailyBefore.first_id);
     assert.equal(playAll.video_id, dailyBefore.first_id);
@@ -245,7 +250,7 @@ function actionableConsole(message) {
       start_unmuted_player_state: true,
       latest_live_ui_click: true,
       dig_open_select: true,
-      play_all_10: true,
+      play_all_expected_count: true,
       page_errors_zero: evidence.page_errors.length === 0,
       actionable_console_zero: evidence.actionable_console.length === 0,
       same_origin_request_failures_zero: evidence.same_origin_request_failures.length === 0,

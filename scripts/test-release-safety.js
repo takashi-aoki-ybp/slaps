@@ -27,6 +27,8 @@ async function run() {
     'daily live acceptance must prove START keeps the same video');
   assert.match(dailyLive, /args:\s*\['--mute-audio'\]/,
     'daily live acceptance must keep the browser process muted');
+  assert.match(dailyLive, /SLAPS_DAILY_EXPECTED/,
+    'daily live acceptance must support the morning, noon, and evening cumulative targets');
   assert.doesNotMatch(dailyLive, /force:\s*true|\.evaluate\([^)]*=>[^)]*\.click\(/,
     'daily live acceptance must not force clicks or synthesize them in page code');
 
