@@ -110,6 +110,116 @@
     "created_at": "2026-11-06T00:00:09.000Z"
   },
   {
+    "youtube_id": "ZvIRDHgJ6k8",
+    "name": "MURS & Tabi Bonney - Hip Hop & Love",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/ZvIRDHgJ6k8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:10.000Z"
+  },
+  {
+    "youtube_id": "CgUze4VdW-M",
+    "name": "Black Milk - Laugh Now Cry Later",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CgUze4VdW-M/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:11.000Z"
+  },
+  {
+    "youtube_id": "kLIoldHh53Q",
+    "name": "Gang Starr - Take It Personal",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/kLIoldHh53Q/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-06T00:00:12.000Z"
+  },
+  {
+    "youtube_id": "ojC0mg2hJCc",
+    "name": "The Roots - The Seed (2.0) feat. Cody ChesnuTT",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/ojC0mg2hJCc/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-06T00:00:13.000Z"
+  },
+  {
+    "youtube_id": "U0WACI8OJSI",
+    "name": "Brother Ali - The Collapse",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/U0WACI8OJSI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:14.000Z"
+  },
+  {
+    "youtube_id": "E7lnEUje4DU",
+    "name": "Apollo Brown & Skyzoo - No Discounts",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/E7lnEUje4DU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:15.000Z"
+  },
+  {
+    "youtube_id": "DmlVUda8OTI",
+    "name": "kZm - U Are My Paradise",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/DmlVUda8OTI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:16.000Z"
+  },
+  {
+    "youtube_id": "GYf6WkilzWc",
+    "name": "STUTS - ひとつのいのち feat. BIM",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/GYf6WkilzWc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:17.000Z"
+  },
+  {
+    "youtube_id": "PwwiOsDv4lw",
+    "name": "Kaneee - Stray Doggs",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/PwwiOsDv4lw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:18.000Z"
+  },
+  {
+    "youtube_id": "bCkzRSxr0jU",
+    "name": "Bonbero - Back Seat feat. Kee Rooz",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/bCkzRSxr0jU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:19.000Z"
+  },
+  {
     "youtube_id": "B_gO6Hn9NPg",
     "name": "Living Legends - LLXL",
     "region": "us",

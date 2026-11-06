@@ -1,4 +1,4 @@
-const CACHE_NAME = 'slaps-v4.29';
+const CACHE_NAME = 'slaps-v4.30';
 const ASSETS = [
   './',
   './index.html',
