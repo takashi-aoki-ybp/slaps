@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "rs0K-KDH09s",
+    "name": "Cordae - Super",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/rs0K-KDH09s/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "2msMRPdMdWc",
+    "name": "Joey Bada$$ - The Ruler's Back",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/2msMRPdMdWc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "Quam6DgVXys",
+    "name": "Denzel Curry & Kenneth Blume - DIFFERENCE feat. Yebba",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Quam6DgVXys/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-06T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "U6TLj6OdKEs",
+    "name": "Freddie Gibbs & The Alchemist - Babies & Fools feat. Conway The Machine",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/U6TLj6OdKEs/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "E6Ljg3Xn7CI",
+    "name": "Navy Blue - Sir Render",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/E6Ljg3Xn7CI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "6srUoLcXVKY",
+    "name": "Joey Bada$$ - STILL feat. Ab-Soul & Rapsody",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/6srUoLcXVKY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "hYd-hJ3Khyk",
+    "name": "SEEDA - ROPPONGINI feat. KAMIYADA+ & JIN DOGG",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/hYd-hJ3Khyk/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-06T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "xnVsfKSKP7A",
+    "name": "OZworld - Gear 5 feat. ACE COOL & Ralph",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/xnVsfKSKP7A/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-06T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "o2zTyioaKMA",
+    "name": "CHICO CARLITO - 23時30分",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/o2zTyioaKMA/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "eGDsnT9P_Oc",
+    "name": "Watson - Fake Love feat. DADA",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/eGDsnT9P_Oc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-06T00:00:09.000Z"
+  },
+  {
     "youtube_id": "B_gO6Hn9NPg",
     "name": "Living Legends - LLXL",
     "region": "us",
