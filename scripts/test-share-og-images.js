@@ -32,7 +32,7 @@ function loadCrateHandler() {
   return sandbox.module.exports;
 }
 
-function loadDailyHandler() {
+function loadDailyHandler(env = {}) {
   const sourcePath = path.join(root, 'api', 'daily-og.js');
   const source = fs.readFileSync(sourcePath, 'utf8')
     .replace("import crypto from 'crypto';", "const crypto = require('crypto');")
@@ -50,7 +50,7 @@ function loadDailyHandler() {
       if (id === './utils/kv-list.js') return require(path.join(root, 'api', 'utils', 'kv-list.js'));
       return require(id);
     },
-    process: { cwd: () => root, env: {} },
+    process: { cwd: () => root, env },
     Buffer,
     Headers,
     Request,
@@ -123,11 +123,44 @@ async function run() {
 
     const dailyResponse = await dailyHandler(new Request(`https://slaps.tokyo/api/daily-og?date=${dailyDate}`));
     await assertFetchJpegResponse(dailyResponse, 'DAILY OG');
+
+    const cache = new Map();
+    let extraSongs = [];
+    global.fetch = async (url, options = {}) => {
+      if (String(url) === 'https://kv.example.test') {
+        const command = JSON.parse(options.body);
+        if (command[0] === 'LRANGE') {
+          return new Response(JSON.stringify({ result: extraSongs.slice(Number(command[2]), Number(command[3]) + 1) }), { status: 200, headers: { 'content-type': 'application/json' } });
+        }
+        if (command[0] === 'GET') {
+          return new Response(JSON.stringify({ result: cache.get(command[1]) || null }), { status: 200, headers: { 'content-type': 'application/json' } });
+        }
+        if (command[0] === 'SET') {
+          cache.set(command[1], command[2]);
+          return new Response(JSON.stringify({ result: 'OK' }), { status: 200, headers: { 'content-type': 'application/json' } });
+        }
+        throw new Error(`Unexpected KV command: ${command[0]}`);
+      }
+      assert.match(String(url), /^https:\/\/img\.youtube\.com\/vi\/[A-Za-z0-9_-]{11}\/hqdefault\.jpg$/);
+      return { ok: true, status: 200, async arrayBuffer() { return thumbnail; } };
+    };
+    const cachedDailyHandler = loadDailyHandler({ KV_REST_API_URL: 'https://kv.example.test', KV_REST_API_TOKEN: 'test-token' });
+    const cacheUrl = `https://slaps.tokyo/api/daily-og?date=${dailyDate}`;
+    const initialMiss = await cachedDailyHandler(new Request(cacheUrl));
+    assert.equal(initialMiss.headers.get('x-slaps-cache'), 'KV_MISS');
+    const initialHit = await cachedDailyHandler(new Request(cacheUrl));
+    assert.equal(initialHit.headers.get('x-slaps-cache'), 'KV_HIT');
+    extraSongs = [JSON.stringify({ youtube_id: 'cacheprobe1', name: 'Cache Probe', user_name: 'SLAPS', created_at: `${dailyDate}T23:59:59.000Z` })];
+    const changedMiss = await cachedDailyHandler(new Request(cacheUrl));
+    assert.equal(changedMiss.headers.get('x-slaps-cache'), 'KV_MISS', 'daily cache must invalidate when same-day track IDs change');
+    const changedHit = await cachedDailyHandler(new Request(cacheUrl));
+    assert.equal(changedHit.headers.get('x-slaps-cache'), 'KV_HIT');
     const dailySource = fs.readFileSync(path.join(root, 'api', 'daily-og.js'), 'utf8');
     assert.match(dailySource, /export default \{ fetch: handleDailyOg \}/);
     assert.match(dailySource, /new URL\(request\.url\)/);
     assert.match(dailySource, /slice\(0, 30\)/);
     assert.match(dailySource, /TODAY'S \$\{tracks\.length\}/);
+    assert.match(dailySource, /tracks\.map\(\(song\) => song\.youtube_id\)/);
     assert.doesNotMatch(dailySource, /req\.query/);
   } finally {
     global.fetch = previousFetch;

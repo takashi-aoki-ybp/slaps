@@ -101,17 +101,6 @@ export async function handleDailyOg(request) {
   const date = requestUrl.searchParams.get('date') || '';
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return textResponse('Invalid date', 400);
   const prefix = process.env.DB_PREFIX || '';
-  const cacheHash = crypto.createHash('sha1').update(date).digest('hex');
-  const cacheKey = `${prefix}slaps:daily-og:v2:${cacheHash}`;
-
-  try {
-    const cached = await kvFetch(['GET', cacheKey]);
-    if (cached) {
-      return new Response(Buffer.from(cached, 'base64'), { headers: imageHeaders('KV_HIT') });
-    }
-  } catch (error) {
-    console.error('DAILY OG cache read failed:', error);
-  }
 
   try {
     const songs = await loadSongs();
@@ -120,6 +109,19 @@ export async function handleDailyOg(request) {
       String(song.created_at || song.publish_at || '').startsWith(date)
     ).filter((song, index, all) => all.findIndex((item) => item.youtube_id === song.youtube_id) === index).slice(0, 30);
     if (!tracks.length) return textResponse('Daily drop not found', 404);
+    const cacheHash = crypto.createHash('sha1')
+      .update(`${date}\0${tracks.map((song) => song.youtube_id).join(',')}`)
+      .digest('hex');
+    const cacheKey = `${prefix}slaps:daily-og:v3:${cacheHash}`;
+
+    try {
+      const cached = await kvFetch(['GET', cacheKey]);
+      if (cached) {
+        return new Response(Buffer.from(cached, 'base64'), { headers: imageHeaders('KV_HIT') });
+      }
+    } catch (error) {
+      console.error('DAILY OG cache read failed:', error);
+    }
 
     const canvas = new Jimp({ width: 1200, height: 630, color: 0x050505ff });
     const tileWidth = 300;
