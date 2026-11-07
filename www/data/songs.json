@@ -280,6 +280,117 @@
     "created_at": "2026-11-07T00:00:19.000Z"
   },
   {
+    "youtube_id": "Rmp6zIr5y4U",
+    "name": "Lupe Fiasco - The Show Goes On",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Rmp6zIr5y4U/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:20.000Z"
+  },
+  {
+    "youtube_id": "xH5-xtlvvKg",
+    "name": "Conway the Machine - Se7enteen5ive",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/xH5-xtlvvKg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:21.000Z"
+  },
+  {
+    "youtube_id": "HFrwm6oRYJg",
+    "name": "Pusha T - Diet Coke",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/HFrwm6oRYJg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:22.000Z"
+  },
+  {
+    "youtube_id": "OOrCfiF7wyg",
+    "name": "Evidence - Better You",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/OOrCfiF7wyg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:23.000Z"
+  },
+  {
+    "youtube_id": "Mkz3oQvJyIg",
+    "name": "Open Mike Eagle & Kenny Segal - Out to Lunch",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Mkz3oQvJyIg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:24.000Z"
+  },
+  {
+    "youtube_id": "10RM92UFt_A",
+    "name": "Danger Mouse & Black Thought - Because feat. Joey Bada$$, Russ & Dylan Cartlidge",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/10RM92UFt_A/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:25.000Z"
+  },
+  {
+    "youtube_id": "MNdp_xlxsFI",
+    "name": "ZORN - War and The Girl",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/MNdp_xlxsFI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:26.000Z"
+  },
+  {
+    "youtube_id": "vFzN9UDPOZE",
+    "name": "Jinmenusagi - Kanja Ninja",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/vFzN9UDPOZE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:27.000Z"
+  },
+  {
+    "youtube_id": "iN941qdW_EA",
+    "name": "NENE - BANANA BOAT feat. Elle Teresa",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/iN941qdW_EA/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-07T00:00:28.000Z"
+  },
+  {
+    "youtube_id": "29fjkt0r5Wk",
+    "name": "ralph - concrete camo feat. VERRY SMoL",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/29fjkt0r5Wk/mqdefault.jpg",
+    "conscious_turnt": 5,
+    "created_at": "2026-11-07T00:00:29.000Z"
+  },
+
+  {
     "youtube_id": "rs0K-KDH09s",
     "name": "Cordae - Super",
     "region": "us",
