@@ -1,5 +1,145 @@
 [
   {
+    "youtube_id": "zCfVZ60DkjU",
+    "name": "Homeboy Sandman - The Only Constant",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/zCfVZ60DkjU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "wqSET1O87O4",
+    "name": "McKinley Dixon - Sun, I Rise feat. Angélica Garcia",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/wqSET1O87O4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "J2f6PEgsdH8",
+    "name": "Che Noir - New Beginning feat. Son Little",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/J2f6PEgsdH8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "ScDgJJi5Guc",
+    "name": "JID - Kody Blu 31",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ScDgJJi5Guc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "jJ2rn4cCq14",
+    "name": "Mick Jenkins - Negro League",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/jJ2rn4cCq14/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "Kh8Q2iytzns",
+    "name": "Little Simz - Venom (A COLORS SHOW)",
+    "region": "uk",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/Kh8Q2iytzns/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "_JfaeIfL_fI",
+    "name": "MFS - Mind",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_JfaeIfL_fI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "ecuxf5xXVSI",
+    "name": "JUBEE - Spotlight feat. BIM",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/ecuxf5xXVSI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-07T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "_K9bnOJEJ6g",
+    "name": "Yo-Sea - Nana feat. Daichi Yamamoto",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/_K9bnOJEJ6g/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "TN-hPfdy-0o",
+    "name": "NORIKIYO - 春風 feat. OMSB",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "",
+      "en": ""
+    },
+    "thumbnail": "https://img.youtube.com/vi/TN-hPfdy-0o/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-07T00:00:09.000Z"
+  },
+  {
     "youtube_id": "rs0K-KDH09s",
     "name": "Cordae - Super",
     "region": "us",
