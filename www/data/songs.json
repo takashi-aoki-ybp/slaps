@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "un3NkWnHl9Q",
+    "name": "Busta Rhymes - Gimme Some More",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/un3NkWnHl9Q/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T03:00:00.000Z"
+  },
+  {
+    "youtube_id": "AfuCLp8VEng",
+    "name": "Run the Jewels - Run the Jewels",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/AfuCLp8VEng/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T03:00:01.000Z"
+  },
+  {
+    "youtube_id": "NabmJWtYK5c",
+    "name": "Freddie Gibbs - Big Boss Rabbit",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/NabmJWtYK5c/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T03:00:02.000Z"
+  },
+  {
+    "youtube_id": "v0E0eQ_hH7k",
+    "name": "Vince Staples - Are You With That?",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/v0E0eQ_hH7k/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T03:00:03.000Z"
+  },
+  {
+    "youtube_id": "0WGPP_3BPPQ",
+    "name": "Joey Bada$$ - Let It Breathe",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/0WGPP_3BPPQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T03:00:04.000Z"
+  },
+  {
+    "youtube_id": "Or9S_nKrlUY",
+    "name": "Nas - Sitting With My Thoughts",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Or9S_nKrlUY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T03:00:05.000Z"
+  },
+  {
+    "youtube_id": "hinc13SDsZM",
+    "name": "MIYACHI, AKLO & kZm - KILL IT EYDEY",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/hinc13SDsZM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T03:00:06.000Z"
+  },
+  {
+    "youtube_id": "QqDx9WP2UAc",
+    "name": "kZm - 27CLUB feat. LEX",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/QqDx9WP2UAc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T03:00:07.000Z"
+  },
+  {
+    "youtube_id": "SIVsp8yFEZA",
+    "name": "AUDIO RADICAL - ROCK PHENOMENON feat. S-kaine & MILES WORD",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/SIVsp8yFEZA/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T03:00:08.000Z"
+  },
+  {
+    "youtube_id": "Yh6r7g15GzI",
+    "name": "MIYACHI - MESSIN feat. Jay Park",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Yh6r7g15GzI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T03:00:09.000Z"
+  },
+  {
     "youtube_id": "GB5m_Zu4igY",
     "name": "The Roots - Break You Off feat. Musiq",
     "region": "us",
