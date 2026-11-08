@@ -1,5 +1,118 @@
 [
   {
+    "youtube_id": "pCx5Std7mCo",
+    "name": "Public Enemy - Harder Than You Think",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Public Enemyの20周年記念アルバム『How You Sell Soul to a Soulless People Who Sold Their Soul???』からの最初のシングルとして発表された。",
+      "en": "Released as the first single from Public Enemy's 20th-anniversary album How You Sell Soul to a Soulless People Who Sold Their Soul???."
+    },
+    "thumbnail": "https://img.youtube.com/vi/pCx5Std7mCo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T10:00:00.000Z"
+  },
+  {
+    "youtube_id": "kAKxjTRV6ms",
+    "name": "Nas - Hip Hop Is Dead feat. will.i.am",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/kAKxjTRV6ms/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T10:00:01.000Z"
+  },
+  {
+    "youtube_id": "CjhopcvKtjI",
+    "name": "Atmosphere - Trying",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CjhopcvKtjI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T10:00:02.000Z"
+  },
+  {
+    "youtube_id": "06qWAClqh9I",
+    "name": "Brother Ali - Writer's Block",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/06qWAClqh9I/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T10:00:03.000Z"
+  },
+  {
+    "youtube_id": "ylpG7zCR4ao",
+    "name": "Vince Staples - Cotton",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/ylpG7zCR4ao/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T10:00:04.000Z"
+  },
+  {
+    "youtube_id": "2yYJPCmrxaM",
+    "name": "Masta Ace - Story of Me feat. Pearl Gates & Denez Prigent",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/2yYJPCmrxaM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T10:00:05.000Z"
+  },
+  {
+    "youtube_id": "sZUhujqwaDY",
+    "name": "Gottz & MUD - Cook Good",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/sZUhujqwaDY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T10:00:06.000Z"
+  },
+  {
+    "youtube_id": "eIEapwNWBr0",
+    "name": "MonyHorse - City",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/eIEapwNWBr0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-08T10:00:07.000Z"
+  },
+  {
+    "youtube_id": "gskkYhJ6ezw",
+    "name": "kZm - ROKUDENASHI feat. Awich",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/gskkYhJ6ezw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T10:00:08.000Z"
+  },
+  {
+    "youtube_id": "tTtTY8a-lnk",
+    "name": "DJ CHARI, kZm & JP THE WAVY - SMASH HIT",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/tTtTY8a-lnk/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-08T10:00:09.000Z"
+  },
+  {
     "youtube_id": "un3NkWnHl9Q",
     "name": "Busta Rhymes - Gimme Some More",
     "region": "us",
