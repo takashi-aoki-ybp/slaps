@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "Fp2-4gN6xmk",
+    "name": "Homeboy Sandman - Parking Spot",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Fp2-4gN6xmk/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:00.000Z"
+  },
+  {
+    "youtube_id": "Ctuw5-sCFNU",
+    "name": "Marlon Craft - The Neighborhood",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Ctuw5-sCFNU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:01.000Z"
+  },
+  {
+    "youtube_id": "oFHXNuDezbQ",
+    "name": "Che Noir - Grandma's Cookies",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/oFHXNuDezbQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:02.000Z"
+  },
+  {
+    "youtube_id": "r8-YsU0Xn9o",
+    "name": "Freddie Gibbs & The Alchemist - 1995",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/r8-YsU0Xn9o/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:03.000Z"
+  },
+  {
+    "youtube_id": "SHoU489tLWY",
+    "name": "Denzel Curry - GOT ME GEEKED",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/SHoU489tLWY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T04:00:04.000Z"
+  },
+  {
+    "youtube_id": "TFcUyzpgkyw",
+    "name": "Brother Ali - Shine On feat. Nikki Jean",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/TFcUyzpgkyw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:05.000Z"
+  },
+  {
+    "youtube_id": "lRL-41-iLMU",
+    "name": "SALU - COURTNEY",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/lRL-41-iLMU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T04:00:06.000Z"
+  },
+  {
+    "youtube_id": "_ynDj1owczE",
+    "name": "Jin Dogg - Kamikaze",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/_ynDj1owczE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:07.000Z"
+  },
+  {
+    "youtube_id": "4kSc1IwtVXA",
+    "name": "MFS - New World",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/4kSc1IwtVXA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T04:00:08.000Z"
+  },
+  {
+    "youtube_id": "wLW6AjdBmVg",
+    "name": "MIYACHI x YVNG PATRA - WAY UP",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/wLW6AjdBmVg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T04:00:09.000Z"
+  },
+  {
     "youtube_id": "aj1Q7jDgrc4",
     "name": "KRS-One - A Friend",
     "region": "us",
