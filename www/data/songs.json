@@ -1,5 +1,118 @@
 [
   {
+    "youtube_id": "aj1Q7jDgrc4",
+    "name": "KRS-One - A Friend",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/aj1Q7jDgrc4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "QRfTS8bd05o",
+    "name": "Common - I Want You feat. will.i.am",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/QRfTS8bd05o/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "4hkelaIKuW4",
+    "name": "Skyzoo - Luxury feat. Westside Gunn",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/4hkelaIKuW4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "WZzTOfpnqC8",
+    "name": "Oddisee & Heno. - MIMS",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "OddiseeとHeno.はいずれもメリーランド州タコマパーク出身で、この曲を共同アルバム『From Takoma With Love』の最初のシングルとして発表した。",
+      "en": "Oddisee and Heno., both from Takoma Park, Maryland, released this as the first single from their collaborative album From Takoma With Love."
+    },
+    "thumbnail": "https://img.youtube.com/vi/WZzTOfpnqC8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "VmpgOhdMA2g",
+    "name": "Cordae - Chronicles feat. H.E.R. & Lil Durk",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/VmpgOhdMA2g/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "0iYAbL9qKB8",
+    "name": "Little Simz - Low Tides",
+    "region": "uk",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/0iYAbL9qKB8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "24k-rWZu9DY",
+    "name": "GADORO - 自遊空間",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/24k-rWZu9DY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "KsHbx5kylFQ",
+    "name": "SPARTA - Nobody feat. BIM",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/KsHbx5kylFQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-09T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "KNxMPzhO7fk",
+    "name": "Tohji - Amelie",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/KNxMPzhO7fk/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-11-09T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "txaaXI6H2SU",
+    "name": "LEX - 力をくれ feat. ¥ellow Bucks",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/txaaXI6H2SU/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-09T00:00:09.000Z"
+  },
+  {
     "youtube_id": "pCx5Std7mCo",
     "name": "Public Enemy - Harder Than You Think",
     "region": "us",
