@@ -1,5 +1,118 @@
 [
   {
+    "youtube_id": "QRd-3PU_zt8",
+    "name": "Masta Ace & Marco Polo - P.P.E.",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/QRd-3PU_zt8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T04:00:00.000Z"
+  },
+  {
+    "youtube_id": "wZv0_aBA-ks",
+    "name": "Rapsody - Sassy",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/wZv0_aBA-ks/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T04:00:01.000Z"
+  },
+  {
+    "youtube_id": "nNNMQFzC_DE",
+    "name": "Lute - Like Wine",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/nNNMQFzC_DE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T04:00:02.000Z"
+  },
+  {
+    "youtube_id": "DZQL3EsZztw",
+    "name": "Common - When We Move feat. Black Thought & Seun Kuti",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "歌詞は祖先、奴隷制からの解放、Black Powerをつなぎ、黒人文化の動きが世界を変えてきたという反復句で展開する。",
+      "en": "The lyrics connect ancestry, emancipation from slavery, and Black Power around a recurring refrain about Black cultural movement changing the world."
+    },
+    "thumbnail": "https://img.youtube.com/vi/DZQL3EsZztw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T04:00:03.000Z"
+  },
+  {
+    "youtube_id": "0nYtMlfSfeI",
+    "name": "Open Mike Eagle - Single Ghosts",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/0nYtMlfSfeI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T04:00:04.000Z"
+  },
+  {
+    "youtube_id": "7gL-DJZSB-c",
+    "name": "Evidence - Stay Alive feat. Blu",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/7gL-DJZSB-c/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T04:00:05.000Z"
+  },
+  {
+    "youtube_id": "-Moy_P-NCaQ",
+    "name": "Kuro - High feat. Campanella",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/-Moy_P-NCaQ/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T04:00:06.000Z"
+  },
+  {
+    "youtube_id": "oX_6Ff_Arek",
+    "name": "Skaai & Bonbero - SCENE!",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/oX_6Ff_Arek/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T04:00:07.000Z"
+  },
+  {
+    "youtube_id": "Nxi0UvMavqQ",
+    "name": "Jinmenusagi - ICEY",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Nxi0UvMavqQ/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T04:00:08.000Z"
+  },
+  {
+    "youtube_id": "GpFEFfwxBJo",
+    "name": "Watson - Intro “Soul Quake”",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/GpFEFfwxBJo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T04:00:09.000Z"
+  },
+  {
     "youtube_id": "2s85LjuatSg",
     "name": "Gang Starr - Royalty feat. K-Ci & JoJo",
     "region": "us",
