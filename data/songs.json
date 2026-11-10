@@ -1,5 +1,124 @@
 [
   {
+    "youtube_id": "2s85LjuatSg",
+    "name": "Gang Starr - Royalty feat. K-Ci & JoJo",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/2s85LjuatSg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "2uLjj81rPXI",
+    "name": "Blu & Exile - Maybe One Day feat. Black Spade",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "この曲はアルバム『Give Me My Flowers While I Can Still Smell Them』収録曲で、限定10インチ盤でも発売された。",
+      "en": "The song appears on Give Me My Flowers While I Can Still Smell Them and was also issued as a limited 10-inch release."
+    },
+    "thumbnail": "https://img.youtube.com/vi/2uLjj81rPXI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "FpnJfVx27jo",
+    "name": "Saba - Come My Way feat. Krayzie Bone",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "Sabaは、シカゴ西部の日常的な貧困を背景に、休む余裕のない仕事と生存、喪失を抱えながら翌日も前へ進む感覚を書いたと説明している。",
+      "en": "Saba describes the song as portraying everyday poverty on Chicago's West Side: work and survival without time to rest, carrying grief while getting up and moving forward the next day."
+    },
+    "thumbnail": "https://img.youtube.com/vi/FpnJfVx27jo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "Gom1yZrp2bk",
+    "name": "Navy Blue - Reflections",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {
+      "ja": "COLORSはこの曲を、過去の自分と変わりつつある現在の自分の間をたどる内省的な曲と説明し、アルバム『Sir Render』からのシングルとして紹介している。",
+      "en": "COLORS describes the song as tracing the space between who Navy Blue was and who he is becoming, and identifies it as a single from Sir Render."
+    },
+    "thumbnail": "https://img.youtube.com/vi/Gom1yZrp2bk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "eUUuI--jAlM",
+    "name": "Dreamville - Under The Sun feat. J. Cole, Lute & DaBaby",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/eUUuI--jAlM/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "48rotnpDJiA",
+    "name": "EARTHGANG - U Gotta feat. Pharrell",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/48rotnpDJiA/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "YvKitSgBnhE",
+    "name": "PUNPEE, VaVa & OMSB - Wheels feat. Sara Yoshida",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/YvKitSgBnhE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "QUsC-myBZHs",
+    "name": "hokuto - Shooting Star feat. CHICO CARLITO & R-Shitei",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/QUsC-myBZHs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "yo00Wcayu0A",
+    "name": "MIYACHI & CHICO CARLITO - CHOTTO CHIGAU",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/yo00Wcayu0A/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "B37-FyEdCeI",
+    "name": "JJJ, BLASÉ & Bonbero - YW",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/B37-FyEdCeI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T00:00:09.000Z"
+  },
+  {
     "youtube_id": "04JfAt0Oa-Y",
     "name": "Aesop Rock - Jumping Coffin",
     "region": "us",
