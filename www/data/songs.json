@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "CV6uPmd6qDo",
+    "name": "Roc Marciano & DJ Premier - Armani Section",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CV6uPmd6qDo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T10:00:00.000Z"
+  },
+  {
+    "youtube_id": "BhT19qt5rSk",
+    "name": "MAVI - Typewriter feat. Kenny Mason",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/BhT19qt5rSk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T10:00:01.000Z"
+  },
+  {
+    "youtube_id": "Xkf3XoVezL0",
+    "name": "Boldy James & The Alchemist - Flight Risk",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Xkf3XoVezL0/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T10:00:02.000Z"
+  },
+  {
+    "youtube_id": "eZxEOfwlhJc",
+    "name": "Westside Gunn - ZILLA",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/eZxEOfwlhJc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T10:00:03.000Z"
+  },
+  {
+    "youtube_id": "LSIOcCcEVaE",
+    "name": "Tyler, The Creator - SORRY NOT SORRY",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/LSIOcCcEVaE/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T10:00:04.000Z"
+  },
+  {
+    "youtube_id": "buincVFp-yM",
+    "name": "Nas - Michael & Quincy",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/buincVFp-yM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T10:00:05.000Z"
+  },
+  {
+    "youtube_id": "60J1XL6uNSY",
+    "name": "NEI - ENN",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/60J1XL6uNSY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T10:00:06.000Z"
+  },
+  {
+    "youtube_id": "_7QnaTocFOk",
+    "name": "STUTS & ZOT on the WAVE - Shall We feat. Yo-Sea & LEX",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/_7QnaTocFOk/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-10T10:00:07.000Z"
+  },
+  {
+    "youtube_id": "JDmPSFq8Itc",
+    "name": "Litty - BOUNCE feat. C.O.S.A.",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/JDmPSFq8Itc/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T10:00:08.000Z"
+  },
+  {
+    "youtube_id": "ixtllLU6YfI",
+    "name": "AK-69 - If I Die feat. ZORN",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/ixtllLU6YfI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-10T10:00:09.000Z"
+  },
+  {
     "youtube_id": "QRd-3PU_zt8",
     "name": "Masta Ace & Marco Polo - P.P.E.",
     "region": "us",
