@@ -110,6 +110,116 @@
     "created_at": "2026-11-11T00:00:09.000Z"
   },
   {
+    "youtube_id": "hIq4UTgqDAc",
+    "name": "Mobb Deep - Survival of the Fittest",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/hIq4UTgqDAc/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-11T04:00:00.000Z"
+  },
+  {
+    "youtube_id": "-JfEJq56IwI",
+    "name": "OutKast - So Fresh, So Clean",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/-JfEJq56IwI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-11T04:00:01.000Z"
+  },
+  {
+    "youtube_id": "64EwEc96Y24",
+    "name": "Lupe Fiasco - I Gotcha",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/64EwEc96Y24/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-11T04:00:02.000Z"
+  },
+  {
+    "youtube_id": "NPI_6MX74j4",
+    "name": "Pusha T - Untouchable",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/NPI_6MX74j4/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T04:00:03.000Z"
+  },
+  {
+    "youtube_id": "tZ5Mu2gs-M8",
+    "name": "Earl Sweatshirt - Grief",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/tZ5Mu2gs-M8/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-11-11T04:00:04.000Z"
+  },
+  {
+    "youtube_id": "d6VuYsNpYg8",
+    "name": "Clipse - When the Last Time",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/d6VuYsNpYg8/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T04:00:05.000Z"
+  },
+  {
+    "youtube_id": "DMqSeBU8INE",
+    "name": "Kaneee - TRUST",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/DMqSeBU8INE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-11T04:00:06.000Z"
+  },
+  {
+    "youtube_id": "EozdG9G4EVo",
+    "name": "Tohji - Jungle人",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/EozdG9G4EVo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T04:00:07.000Z"
+  },
+  {
+    "youtube_id": "0EcjmbZYE1Q",
+    "name": "GADORO - 少ない仲間",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/0EcjmbZYE1Q/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-11-11T04:00:08.000Z"
+  },
+  {
+    "youtube_id": "h1LOXU_hBNo",
+    "name": "JP THE WAVY & JIGG - What's Poppin feat. LANA",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/h1LOXU_hBNo/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T04:00:09.000Z"
+  },
+  {
     "youtube_id": "CV6uPmd6qDo",
     "name": "Roc Marciano & DJ Premier - Armani Section",
     "region": "us",
