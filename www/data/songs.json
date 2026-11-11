@@ -220,6 +220,116 @@
     "created_at": "2026-11-11T04:00:09.000Z"
   },
   {
+    "youtube_id": "us3pCHd8PLs",
+    "name": "Aesop Rock - Long Legged Larry",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/us3pCHd8PLs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-11T10:00:00.000Z"
+  },
+  {
+    "youtube_id": "cKELqz8EFz8",
+    "name": "Slum Village - Climax",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/cKELqz8EFz8/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-11-11T10:00:01.000Z"
+  },
+  {
+    "youtube_id": "52ToK1R1kzI",
+    "name": "Joey Bada$$ - DARK AURA",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/52ToK1R1kzI/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T10:00:02.000Z"
+  },
+  {
+    "youtube_id": "lIM1hejXzhw",
+    "name": "Dreamville - Down Bad feat. JID, Bas, J. Cole, EARTHGANG & Young Nudy",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/lIM1hejXzhw/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T10:00:03.000Z"
+  },
+  {
+    "youtube_id": "8kW8-S1Ic-E",
+    "name": "Talib Kweli - Turnt Up",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/8kW8-S1Ic-E/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T10:00:04.000Z"
+  },
+  {
+    "youtube_id": "-s5wPO-QcVw",
+    "name": "Atmosphere - Your Glass House",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/-s5wPO-QcVw/mqdefault.jpg",
+    "conscious_turnt": 1,
+    "created_at": "2026-11-11T10:00:05.000Z"
+  },
+  {
+    "youtube_id": "axU2E6NTcHg",
+    "name": "Ryohu - Back in Town",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/axU2E6NTcHg/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-11T10:00:06.000Z"
+  },
+  {
+    "youtube_id": "NRm5LRq4HWY",
+    "name": "kZm - DOSHABURI feat. JUMADIBA",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/NRm5LRq4HWY/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T10:00:07.000Z"
+  },
+  {
+    "youtube_id": "ojDcSL2BWQ8",
+    "name": "Skaai × KM - iPX feat. 柴田聡子",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/ojDcSL2BWQ8/mqdefault.jpg",
+    "conscious_turnt": 2,
+    "created_at": "2026-11-11T10:00:08.000Z"
+  },
+  {
+    "youtube_id": "CRQ5RmzWasg",
+    "name": "KM - DANCELIXIR feat. Lil' Leise But Gold, Daichi Yamamoto & Skaai",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/CRQ5RmzWasg/mqdefault.jpg",
+    "conscious_turnt": 4,
+    "created_at": "2026-11-11T10:00:09.000Z"
+  },
+  {
     "youtube_id": "CV6uPmd6qDo",
     "name": "Roc Marciano & DJ Premier - Armani Section",
     "region": "us",
