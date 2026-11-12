@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "o1XnysKB--k",
+    "name": "Murs - Yesterday & Today",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/o1XnysKB--k/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:00.000Z"
+  },
+  {
+    "youtube_id": "1rqxh7u9SPY",
+    "name": "Skyzoo - Sky Is Like",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/1rqxh7u9SPY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:01.000Z"
+  },
+  {
+    "youtube_id": "TQsOiRUhuko",
+    "name": "Homeboy Sandman & Edan - The Gut",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/TQsOiRUhuko/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:02.000Z"
+  },
+  {
+    "youtube_id": "LyVZxSfAie8",
+    "name": "Black Milk - Relate (Want 2 Know) feat. MAHD",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/LyVZxSfAie8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:03.000Z"
+  },
+  {
+    "youtube_id": "pwHoCipuh0c",
+    "name": "Marlon Craft - THE FEELS",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/pwHoCipuh0c/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:04.000Z"
+  },
+  {
+    "youtube_id": "6mjEcKhnF58",
+    "name": "Sa-Roc - Eye of the Phoenix",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/6mjEcKhnF58/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:05.000Z"
+  },
+  {
+    "youtube_id": "ngPrYcEoIeE",
+    "name": "KOTA - Honest feat. CHICO CARLITO",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/ngPrYcEoIeE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:06.000Z"
+  },
+  {
+    "youtube_id": "wYJRCPWAIrU",
+    "name": "ISSUGI & GRADIS NICE - XL Remix feat. KID FRESINO",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/wYJRCPWAIrU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:07.000Z"
+  },
+  {
+    "youtube_id": "f58A-DTNgs4",
+    "name": "STUTS, Julia Wu & Phum Viphurit - Night Drive",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/f58A-DTNgs4/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:08.000Z"
+  },
+  {
+    "youtube_id": "wtSX4bZP9sU",
+    "name": "MUD - No Mercy feat. BLAISE & Gottz",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/wtSX4bZP9sU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T00:00:09.000Z"
+  },
+  {
     "youtube_id": "P800UWoE9xs",
     "name": "A Tribe Called Quest - Award Tour feat. Trugoy The Dove",
     "region": "us",
