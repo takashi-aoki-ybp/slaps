@@ -1,5 +1,115 @@
 [
   {
+    "youtube_id": "fwDr-1hc8Cc",
+    "name": "Apollo Brown & Ras Kass - Deliver Us From Evil",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/fwDr-1hc8Cc/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:00.000Z"
+  },
+  {
+    "youtube_id": "AbTCjpc0MRY",
+    "name": "Brother Ali - Pen To Paper feat. Amir Sulaiman",
+    "region": "us",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/AbTCjpc0MRY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:01.000Z"
+  },
+  {
+    "youtube_id": "mk8XAYHzSsU",
+    "name": "R.A. The Rugged Man - All Systems Go",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/mk8XAYHzSsU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:02.000Z"
+  },
+  {
+    "youtube_id": "7unsY_WpyMU",
+    "name": "Tobe Nwigwe - BIG CAP feat. FAT NWIGWE",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/7unsY_WpyMU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:03.000Z"
+  },
+  {
+    "youtube_id": "bt4AqeEZfVs",
+    "name": "KOTA the Friend - ANYWAY",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/bt4AqeEZfVs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:04.000Z"
+  },
+  {
+    "youtube_id": "Rozqinqo31M",
+    "name": "Open Mike Eagle - relentless hands and feet",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/Rozqinqo31M/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:05.000Z"
+  },
+  {
+    "youtube_id": "sVnwGYpMGPU",
+    "name": "Candee - Put It On The Floor feat. Vingo",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/sVnwGYpMGPU/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:06.000Z"
+  },
+  {
+    "youtube_id": "JGxLlhwH6SM",
+    "name": "Watson - Money Money feat. Jin Dogg & ANARCHY",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/JGxLlhwH6SM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:07.000Z"
+  },
+  {
+    "youtube_id": "cwDlIXYumW8",
+    "name": "MFS - BINBO",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/cwDlIXYumW8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:08.000Z"
+  },
+  {
+    "youtube_id": "8JumYy3SUFI",
+    "name": "MIKADO - Money Longer feat. Kohjiya",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": {"ja": "", "en": ""},
+    "thumbnail": "https://img.youtube.com/vi/8JumYy3SUFI/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-12T04:00:09.000Z"
+  },
+  {
     "youtube_id": "o1XnysKB--k",
     "name": "Murs - Yesterday & Today",
     "region": "us",
