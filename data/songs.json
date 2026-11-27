@@ -30129,5 +30129,115 @@
     "thumbnail": "https://img.youtube.com/vi/ew3OuevQNDM/mqdefault.jpg",
     "conscious_turnt": 3,
     "created_at": "2026-11-27T04:06:49.000Z"
+  },
+  {
+    "youtube_id": "hSTzr2V4KMw",
+    "name": "MC Lyte - Poor Georgie",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "Totoの「Georgy Porgy」、Michael Jacksonの「I Wanna Be Where You Are」、The Supremesの「My World Is Empty Without You」をサンプリングしている。", "en": "The track samples Toto’s “Georgy Porgy,” Michael Jackson’s “I Wanna Be Where You Are,” and the Supremes’ “My World Is Empty Without You.”" },
+    "thumbnail": "https://img.youtube.com/vi/hSTzr2V4KMw/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:24.000Z"
+  },
+  {
+    "youtube_id": "XC2CHVw6twM",
+    "name": "M.O.P. - Cold As Ice",
+    "region": "us",
+    "era": "00s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/XC2CHVw6twM/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:25.000Z"
+  },
+  {
+    "youtube_id": "Cx0xzO73Amo",
+    "name": "Soul For Real - Candy Rain",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Cx0xzO73Amo/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:26.000Z"
+  },
+  {
+    "youtube_id": "nLGnEJvtwHE",
+    "name": "Nicole Wray - Make It Hot feat. Missy Elliott & Mocha",
+    "region": "us",
+    "era": "90s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/nLGnEJvtwHE/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:27.000Z"
+  },
+  {
+    "youtube_id": "Ds3AIJfa_Y8",
+    "name": "Benny the Butcher - 77 Club",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/Ds3AIJfa_Y8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:28.000Z"
+  },
+  {
+    "youtube_id": "MYOEZ8N2wJ8",
+    "name": "Saba - a FEW songs feat. Love Mansuy, Ogi & Smino",
+    "region": "us",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/MYOEZ8N2wJ8/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:29.000Z"
+  },
+  {
+    "youtube_id": "X4DnDmnwJoY",
+    "name": "Nulbarich - ain't on the map yet",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/X4DnDmnwJoY/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:30.000Z"
+  },
+  {
+    "youtube_id": "CizcVR5-I6U",
+    "name": "田我流 - Ride On Time",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/CizcVR5-I6U/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:31.000Z"
+  },
+  {
+    "youtube_id": "wZ_y9285KCA",
+    "name": "AK-69 - THE RED MAGIC BEYOND",
+    "region": "jp",
+    "era": "10s",
+    "user_name": "SLAPS",
+    "description": { "ja": "名古屋ダイヤモンドドルフィンズの公式メインテーマに起用された。AK-69の「THE RED MAGIC」の続編にあたる。", "en": "The Nagoya Diamond Dolphins used this song as their official main theme. It follows AK-69’s earlier track “THE RED MAGIC.”" },
+    "thumbnail": "https://img.youtube.com/vi/wZ_y9285KCA/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:32.000Z"
+  },
+  {
+    "youtube_id": "FR4LO2CoRZs",
+    "name": "KID FRESINO - AOS",
+    "region": "jp",
+    "era": "20s",
+    "user_name": "SLAPS",
+    "description": { "ja": "", "en": "" },
+    "thumbnail": "https://img.youtube.com/vi/FR4LO2CoRZs/mqdefault.jpg",
+    "conscious_turnt": 3,
+    "created_at": "2026-11-27T10:04:33.000Z"
   }
 ]
